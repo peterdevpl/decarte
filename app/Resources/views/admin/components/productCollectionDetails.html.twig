@@ -1,0 +1,47 @@
+{% extends 'admin/components/productCollection.html.twig' %}
+
+{% block collection_details %}
+    {% for series in productCollection.getProductSeries() %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    {% if not series.isVisible() %}<del>{% endif %}
+                    {{ series.getName() }}
+                    {% if not series.isVisible() %}</del> <small>(niewidoczne na stronie)</small>{% endif %}
+                </h4>
+            </div>
+            <div class="panel-body">
+                <p>
+                    {% set editLink = path('admin_edit_product_series', {'seriesId': series.getId()}) %}
+                    {% spaceless %}
+                        {% if series.getImageName() %}
+                            <a href="{{ editLink }}">
+                                <img src="{{ asset(image_series_url~'/'~series.getImageName()) }}" width="96">
+                            </a>
+                        {% endif %}
+                    {% endspaceless %}
+                    <a href="{{ editLink }}" class="btn btn-default" role="button">Edytuj serię</a>
+                    <a href="{{ path('admin_add_product', {'seriesId': series.getId()}) }}" class="btn btn-default" role="button">Dodaj nowy produkt</a>
+                    <button type="button" class="btn btn-default">Przesuń wyżej</button>
+                    <button type="button" class="btn btn-default">Przesuń niżej</button>
+                    <button type="button" class="btn btn-danger">Usuń</button>
+                </p>
+
+                {% spaceless %}
+                    {% for product in series.getProducts() %}
+                        <a href="{{ path('admin_edit_product', {'productId': product.getId()}) }}">
+                            {% if product.getCoverImage() %}
+                                <img
+                                    src="{{ asset(image_product_small_url~'/'~product.getCoverImage().getSmallName()) }}"
+                                    width="{{ image_product_small_width }}"
+                                    height="{{ image_product_small_height }}">
+                            {% else %}
+                                {{ product.getName() }} - brak zdjęcia
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

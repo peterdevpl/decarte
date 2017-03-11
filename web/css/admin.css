@@ -1,0 +1,13 @@
+body {
+    padding-top: 70px;
+}
+
+.product-collection img {
+    border: solid #ddd 1px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+del {
+    color: #808080;
+}

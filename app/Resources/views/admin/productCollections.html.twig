@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('admin_index') }}">Strona główna</a></li>
+    <li><a href="{{ path('admin_index') }}#products">Produkty</a></li>
+    <li class="active">{{ productType.getName() }}</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <p><a href="{{ path('admin_add_product_collection', {'typeId': productType.getId()}) }}" class="btn btn-default" role="button">Dodaj nową kolekcję</a></p>
+    </div>
+    
+    {% for productCollection in productCollections %}
+        {% include 'admin/components/productCollection.html.twig' %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ productCollection.getName()~' - ' }}{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('admin_index') }}">Strona główna</a></li>
+    <li><a href="{{ path('admin_index') }}#products">Produkty</a></li>
+    <li><a href="{{ path('admin_product_collections', {'type': productCollection.getProductType().getId()}) }}">{{ productCollection.getProductType().getName() }}</a></li>
+    <li class="active">{{ productCollection.getName() }}</li>
+{% endblock %}
+
+{% block body %}
+    {% include 'admin/components/productCollectionDetails.html.twig' %}
+{% endblock %}

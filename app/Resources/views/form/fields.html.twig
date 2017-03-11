@@ -1,0 +1,10 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{# Widgets #}
+
+{% block image_file_widget %}
+    {% spaceless %}
+        {% if url %}<p><img src="{{ asset(url) }}"></p>{% endif %}
+        {{ block('form_widget_compound') }}
+    {% endspaceless %}
+{% endblock image_file_widget %}

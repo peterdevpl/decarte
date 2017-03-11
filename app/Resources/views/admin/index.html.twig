@@ -1,0 +1,33 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Produkty</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    {% for type in productTypes %}
+                        <li><a href="{{ path('admin_product_collections', {'type': type.getId()}) }}">{{ type.getName() }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Strony</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    {% for page in pages %}
+                        <li><a href="{{ path('admin_editpage', {'page': page.getId()}) }}">{{ page.getTitle() }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
