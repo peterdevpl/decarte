@@ -20,4 +20,9 @@ class ProductTypeRepository extends EntityRepository
         
         return $query->getResult();
     }
+
+    protected function getSortGroupField()
+    {
+        return null;
+    }
 }

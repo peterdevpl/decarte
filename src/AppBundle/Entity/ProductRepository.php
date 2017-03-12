@@ -15,4 +15,9 @@ class ProductRepository extends EntityRepository
         $query->setMaxResults($number);
         return $query->getResult();
     }
+
+    protected function getSortGroupField()
+    {
+        return 'productSeries';
+    }
 }

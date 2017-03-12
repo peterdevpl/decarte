@@ -5,6 +5,19 @@ use Doctrine\Common\Collections\Criteria;
 
 trait SortableRepositoryTrait
 {
+    /**
+     * Returns name of the field which is used to group entities.
+     * Entities will be sorted within this group.
+     * For example, products are grouped into series, series are grouped into collections etc.
+     *
+     * If you specify a name "fooType", you'll need a getFooType() method in your entity class.
+     *
+     * If your entity does not belong to any group, return null.
+     *
+     * @return string|null
+     */
+    abstract protected function getSortGroupField();
+
     public function moveUp(int $id)
     {
         $this->move($id, 'lt', Criteria::DESC);
@@ -18,13 +31,7 @@ trait SortableRepositoryTrait
     protected function move(int $id, string $operator, string $sortOrder)
     {
         $currentObject = $this->find($id);
-
-        $swapCriteria = Criteria::create()
-            ->where(Criteria::expr()->$operator('sort', $currentObject->getSort()))
-            ->orderBy(['sort' => $sortOrder])
-            ->setFirstResult(0)
-            ->setMaxResults(1);
-        $swapObject = $this->matching($swapCriteria)->first();
+        $swapObject = $this->findSwapObject($currentObject, $operator, $sortOrder);
 
         if ($swapObject) {
             $swapSort = $swapObject->getSort();
@@ -38,5 +45,25 @@ trait SortableRepositoryTrait
             $em->flush();
             $em->commit();
         }
+    }
+
+    protected function findSwapObject($currentObject, string $operator, string $sortOrder)
+    {
+        $swapCriteria = Criteria::create()
+            ->where(Criteria::expr()->$operator('sort', $currentObject->getSort()));
+
+        $groupField = $this->getSortGroupField();
+        if ($groupField) {
+            $method = 'get' . ucfirst($groupField);
+            $group = $currentObject->$method();
+            $swapCriteria->andWhere(Criteria::expr()->eq($groupField, $group));
+        }
+
+        $swapCriteria
+            ->orderBy(['sort' => $sortOrder])
+            ->setFirstResult(0)
+            ->setMaxResults(1);
+
+        return $this->matching($swapCriteria)->first();
     }
 }
