@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Product
 {
     use SortableTrait;
+    use VisibilityTrait;
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
@@ -31,9 +32,6 @@ class Product
      * @ORM\JoinColumn(name="product_series_id", referencedColumnName="id")
      */
     protected $productSeries = null;
-    
-    /** @ORM\Column(type="boolean", name="is_visible") */
-    protected $isVisible = false;
     
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
@@ -109,17 +107,6 @@ class Product
     public function setProductSeries(ProductSeries $series)
     {
         $this->productSeries = $series;
-        return $this;
-    }
-    
-    public function isVisible(): bool
-    {
-        return $this->isVisible;
-    }
-    
-    public function setIsVisible(bool $flag)
-    {
-        $this->isVisible = $flag;
         return $this;
     }
     

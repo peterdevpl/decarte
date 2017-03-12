@@ -10,18 +10,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ProductType
 {
     use SortableTrait;
+    use VisibilityTrait;
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id;
     
     /** @ORM\Column(type="string") */
     protected $name;
-    
-    /** @ORM\Column(type="boolean", name="is_visible") */
-    protected $isVisible;
-    
-    /** @ORM\Column(type="integer") */
-    protected $sort;
     
     /**
      * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType")

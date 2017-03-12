@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ProductCollection
 {
     use SortableTrait;
+    use VisibilityTrait;
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
@@ -26,9 +27,6 @@ class ProductCollection
     
     /** @ORM\Column(type="text") */
     protected $description = '';
-    
-    /** @ORM\Column(type="boolean", name="is_visible") */
-    protected $isVisible = false;
     
     /** @ORM\Column(type="string", name="image_name", nullable=true) */
     protected $imageName = '';
@@ -115,17 +113,6 @@ class ProductCollection
         return $this;
     }
 
-    public function isVisible(): bool
-    {
-        return $this->isVisible;
-    }
-    
-    public function setIsVisible(bool $flag)
-    {
-        $this->isVisible = $flag;
-        return $this;
-    }
-    
     public function getImageName()
     {
         return $this->imageName;
