@@ -15,7 +15,7 @@ class ProductSeriesForm extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['images', 'default_image']);
+        $resolver->setRequired(['images', 'default_image', 'deletion_queue']);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)

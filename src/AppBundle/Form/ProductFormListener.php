@@ -47,6 +47,10 @@ class ProductFormListener implements EventSubscriberInterface
                         $imageOptions['quality']
                     );
 
+                    if (!empty($imageForm[$imageName . 'Name'])) {
+                        $this->scheduleForDeletion($imageOptions['directory'] . DIRECTORY_SEPARATOR . $imageForm[$imageName . 'Name']);
+                    }
+
                     $newImage[$imageName . 'Name'] = $file->getFilename();
                 }
 
@@ -55,6 +59,11 @@ class ProductFormListener implements EventSubscriberInterface
         }
 
         $event->setData($data);
+    }
+
+    protected function scheduleForDeletion(string $path)
+    {
+        $this->options['deletion_queue']->enqueue($path);
     }
 
     public function onSubmit(FormEvent $event)

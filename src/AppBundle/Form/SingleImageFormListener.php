@@ -39,9 +39,18 @@ abstract class SingleImageFormListener implements EventSubscriberInterface
                     $imageOptions['quality']
                 );
 
+                if (!empty($data['imageName'][$imageName . 'Name'])) {
+                    $this->scheduleForDeletion($imageOptions['directory'] . DIRECTORY_SEPARATOR . $data['imageName'][$imageName . 'Name']);
+                }
+
                 $data['imageName'][$imageName . 'Name'] = $file->getFilename();
             }
            $event->setData($data);
         }
+    }
+
+    protected function scheduleForDeletion(string $path)
+    {
+        $this->options['deletion_queue']->enqueue($path);
     }
 }
