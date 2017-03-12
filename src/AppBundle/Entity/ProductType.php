@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ProductType
 {
+    use SortableTrait;
+
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id;
     
@@ -21,7 +23,10 @@ class ProductType
     /** @ORM\Column(type="integer") */
     protected $sort;
     
-    /** @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType") */
+    /**
+     * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType")
+     * @ORM\OrderBy({"sort" = "ASC"})
+     */
     protected $productCollections = null;
     
     public function __construct()

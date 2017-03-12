@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityRepository;
 
 class ProductTypeRepository extends EntityRepository
 {
+    use SortableRepositoryTrait;
+
     public function getProductTypes($onlyVisible = true)
     {
         $queryBuilder = $this->createQueryBuilder('pt');

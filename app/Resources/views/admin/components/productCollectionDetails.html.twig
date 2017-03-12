@@ -22,8 +22,25 @@
                     {% endspaceless %}
                     <a href="{{ editLink }}" class="btn btn-default" role="button">Edytuj serię</a>
                     <a href="{{ path('admin_add_product', {'seriesId': series.getId()}) }}" class="btn btn-default" role="button">Dodaj nowy produkt</a>
-                    <button type="button" class="btn btn-default">Przesuń wyżej</button>
-                    <button type="button" class="btn btn-default">Przesuń niżej</button>
+
+                    {% if not loop.first %}
+                        <a
+                            class="btn btn-success"
+                            role="button"
+                            href="{{ path('admin_move', {'class': 'ProductSeries', 'id': series.getId(), 'direction': 'up'}) }}">
+                            Przesuń wyżej
+                        </a>
+                    {% endif %}
+
+                    {% if not loop.last %}
+                        <a
+                            class="btn btn-success"
+                            role="button"
+                            href="{{ path('admin_move', {'class': 'ProductSeries', 'id': series.getId(), 'direction': 'down'}) }}">
+                            Przesuń niżej
+                        </a>
+                    {% endif %}
+
                     <button type="button" class="btn btn-danger">Usuń</button>
                 </p>
 

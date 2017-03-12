@@ -10,8 +10,10 @@
     <div class="row">
         <p><a href="{{ path('admin_add_product_collection', {'typeId': productType.getId()}) }}" class="btn btn-default" role="button">Dodaj nową kolekcję</a></p>
     </div>
-    
+
     {% for productCollection in productCollections %}
+        {% set move_up = not loop.first %}
+        {% set move_down = not loop.last %}
         {% include 'admin/components/productCollection.html.twig' %}
     {% endfor %}
 {% endblock %}

@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Product
 {
+    use SortableTrait;
+
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
     
@@ -35,9 +37,6 @@ class Product
     
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
-    
-    /** @ORM\Column(type="integer") */
-    protected $sort = 0;
     
     /** @ORM\Column(type="integer", name="last_changed_at") */
     protected $lastChangedAt = 0;

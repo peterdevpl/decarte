@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ProductCollection
 {
+    use SortableTrait;
+
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
     
@@ -28,9 +30,6 @@ class ProductCollection
     /** @ORM\Column(type="boolean", name="is_visible") */
     protected $isVisible = false;
     
-    /** @ORM\Column(type="integer") */
-    protected $sort = 0;
-
     /** @ORM\Column(type="string", name="image_name", nullable=true) */
     protected $imageName = '';
 
@@ -40,7 +39,10 @@ class ProductCollection
      */
     protected $productType = null;
     
-    /** @ORM\OneToMany(targetEntity="ProductSeries", mappedBy="productCollection") */
+    /**
+     * @ORM\OneToMany(targetEntity="ProductSeries", mappedBy="productCollection")
+     * @ORM\OrderBy({"sort" = "ASC"})
+     */
     protected $productSeries = null;
    
     public function __construct()

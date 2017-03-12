@@ -5,11 +5,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ProductSeriesRepository")
  * @ORM\Table(name="decarte_product_series")
  */
 class ProductSeries
 {
+    use SortableTrait;
+
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
     
@@ -22,9 +24,6 @@ class ProductSeries
     /** @ORM\Column(type="boolean", name="is_visible") */
     protected $isVisible = false;
     
-    /** @ORM\Column(type="integer") */
-    protected $sort = 0;
-    
     /**
      * @ORM\Column(type="string", name="image_name", nullable=true)
      */
@@ -33,7 +32,10 @@ class ProductSeries
     /** @ORM\Column(type="integer", name="last_changed_at") */
     protected $lastChangedAt = 0;
     
-    /** @ORM\OneToMany(targetEntity="Product", mappedBy="productSeries") */
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="productSeries")
+     * @ORM\OrderBy({"sort" = "ASC"})
+     */
     protected $products = null;
 
     /**

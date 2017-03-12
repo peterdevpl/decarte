@@ -21,8 +21,25 @@
 
                 <a class="btn btn-default" role="button" href="{{ path('admin_edit_product_collection', {'collectionId': productCollection.getId()}) }}">Edytuj kolekcję</a>
                 <a class="btn btn-default" role="button" href="{{ path('admin_add_product_series', {'collectionId': productCollection.getId()}) }}">Dodaj nową serię</a>
-                <button type="button" class="btn btn-default">Przesuń wyżej</button>
-                <button type="button" class="btn btn-default">Przesuń niżej</button>
+
+                {% if move_up is defined and move_up %}
+                    <a
+                        class="btn btn-success"
+                        role="button"
+                        href="{{ path('admin_move', {'class': 'ProductCollection', 'id': productCollection.getId(), 'direction': 'up'}) }}">
+                        Przesuń wyżej
+                    </a>
+                {% endif %}
+
+                {% if move_down is defined and move_down %}
+                    <a
+                        class="btn btn-success"
+                        role="button"
+                        href="{{ path('admin_move', {'class': 'ProductCollection', 'id': productCollection.getId(), 'direction': 'down'}) }}">
+                        Przesuń niżej
+                    </a>
+                {% endif %}
+
                 <button type="button" class="btn btn-danger">Usuń</button>
             </p>
             

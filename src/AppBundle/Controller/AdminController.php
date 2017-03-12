@@ -3,6 +3,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\ProductCollection;
 use AppBundle\Entity\ProductSeries;
@@ -130,6 +131,25 @@ class AdminController extends Controller
             'productCollection' => $productCollection,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/move/{class}/{id}/{direction}", name="admin_move", requirements={"class": "Product|ProductSeries|ProductCollection", "id": "\d+", "direction": "up|down"})
+     * @param Request $request
+     * @param string $class Entity class
+     * @param int $id Entity ID
+     * @param string $direction "up" or "down"
+     * @return RedirectResponse
+     */
+    public function moveAction(Request $request, $class, $id, $direction)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $object = $em->getRepository('AppBundle:' . $class);
+        $method = 'move' . ucfirst($direction);
+        $object->$method($id);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
     
     /**
