@@ -66,4 +66,31 @@ trait SortableRepositoryTrait
 
         return $this->matching($swapCriteria)->first();
     }
+
+    /**
+     * Fetches next sorting number for an entity.
+     * @param $object
+     * @return int
+     */
+    public function fetchSortNumber($object)
+    {
+        $group = null;
+        $groupField = $this->getSortGroupField();
+        if ($groupField) {
+            $method = 'get' . ucfirst($groupField);
+            $group = $object->$method();
+        }
+
+        /** @var \Doctrine\ORM\QueryBuilder */
+        $queryBuilder = $this->createQueryBuilder('obj');
+        $queryBuilder
+            ->add('select', $queryBuilder->expr()->sum($queryBuilder->expr()->max('obj.sort'), '1'));
+
+        if ($group) {
+            $queryBuilder->where("obj.{$groupField} = :group")->setParameter(':group', $group);
+        }
+
+        $query = $queryBuilder->getQuery();
+        return (int) $query->getResult()[0][1];
+    }
 }

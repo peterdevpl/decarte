@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="ProductTypeRepository") @ORM\Table(name="decarte_product_types")
+ * @ORM\EntityListeners({"SortListener"})
  */
 class ProductType
 {
