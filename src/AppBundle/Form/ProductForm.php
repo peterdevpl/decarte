@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,7 +32,7 @@ class ProductForm extends AbstractType
                 'label' => 'Seria',
             ])
             ->add('name', TextType::class, ['label' => 'Symbol'])
-            ->add('price', NumberType::class, ['label' => 'Cena'])
+            ->add('price', MoneyType::class, ['label' => 'Cena', 'currency' => 'PLN'])
             ->add('isVisible', CheckboxType::class, ['label' => 'Produkt widoczny na stronie', 'required' => false])
             ->add('hasDemo', CheckboxType::class, ['label' => 'Produkt dostępny w serwisie próbkowym', 'required' => false])
             ->add('descriptionSEO', TextareaType::class, ['label' => 'Ogólny opis, u góry strony', 'required' => false])
