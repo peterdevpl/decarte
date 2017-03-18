@@ -83,9 +83,9 @@ class Product
         return $this->description;
     }
     
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = $description ?? '';
         return $this;
     }
     
@@ -94,9 +94,9 @@ class Product
         return $this->descriptionSEO;
     }
     
-    public function setDescriptionSEO(string $description)
+    public function setDescriptionSEO($description)
     {
-        $this->descriptionSEO = $description;
+        $this->descriptionSEO = $description ?? '';
         return $this;
     }
     
