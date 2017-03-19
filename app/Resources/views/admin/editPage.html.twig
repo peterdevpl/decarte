@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('admin_index') }}">Strona główna</a></li>
+    <li><a href="{{ path('admin_index') }}#pages">Strony</a></li>
+    <li class="active">{% if page.getId() %}{{ page.getTitle() }}{% else %}Nowa strona{% endif %}</li>
+{% endblock %}
+
+{% block body %}
+    <h1>{% if page.getId() %}Edycja strony{% else %}Nowa strona{% endif %}</h1>
+
+    {% form_theme form 'form/fields.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

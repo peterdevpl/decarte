@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\ProductCollection;
 use AppBundle\Entity\ProductSeries;
 use AppBundle\Entity\Product;
+use AppBundle\Form\PageForm;
 use AppBundle\Form\ProductCollectionForm;
 use AppBundle\Form\ProductSeriesForm;
 use AppBundle\Form\ProductForm;
@@ -294,11 +295,33 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/page/{page}", name="admin_editpage", requirements={"page": "\d+"})
+     * @Route("/admin/page/{pageId}", name="admin_editpage", requirements={"pageId": "\d+"})
      */
-    public function editPageAction($pageId)
+    public function editPageAction(Request $request, $pageId)
     {
-        /* todo */
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('AppBundle:Page')->find($pageId);
+        if (!$page) {
+            throw $this->createNotFoundException('Nie znaleziono strony');
+        }
+
+        $form = $this->createForm(PageForm::class, $page);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $page = $form->getData();
+
+            $em->persist($page);
+            $em->flush();
+
+            $this->addFlash('notice', 'Strona została zapisana');
+
+            return $this->redirectToRoute('admin_editpage', ['pageId' => $page->getId()]);
+        }
+
+        return $this->render('admin/editPage.html.twig', [
+            'page' => $page,
+            'form' => $form->createView(),
+        ]);
     }
 
     protected function getImagesDeletionQueue()

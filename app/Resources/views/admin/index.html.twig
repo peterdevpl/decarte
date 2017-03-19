@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <ul>
                     {% for page in pages %}
-                        <li><a href="{{ path('admin_editpage', {'page': page.getId()}) }}">{{ page.getTitle() }}</a></li>
+                        <li><a href="{{ path('admin_editpage', {'pageId': page.getId()}) }}">{{ page.getTitle() }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
