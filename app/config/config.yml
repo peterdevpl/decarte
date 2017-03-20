@@ -17,7 +17,7 @@ parameters:
     image.series.url: "zaproszenia/serie"
     image.series.directory: "%kernel.root_dir%/../web/%image.series.url%"
     image.series.width: 482
-    image.series.height: 241
+    image.series.height: 321
     image.series.quality: 90
 
     image.product.big.url: "zaproszenia/produkty/duze"
@@ -29,10 +29,8 @@ parameters:
     image.product.small.url: "zaproszenia/produkty/male"
     image.product.small.directory: "%kernel.root_dir%/../web/%image.product.small.url%"
     image.product.small.width: 230
-    image.product.small.height: 172
+    image.product.small.height: 153
     image.product.small.quality: 85
-
-    product.images.count: 2
 
 framework:
     #esi:             ~
