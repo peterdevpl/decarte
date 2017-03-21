@@ -9,25 +9,25 @@ parameters:
     locale: pl
 
     image.collection.url: "zaproszenia/kolekcje"
-    image.collection.directory: "%kernel.root_dir%/../web/%image.collection.url%"
+    image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
     image.collection.width: 176
     image.collection.height: 117
     image.collection.quality: 85
 
     image.series.url: "zaproszenia/serie"
-    image.series.directory: "%kernel.root_dir%/../web/%image.series.url%"
+    image.series.directory: "%kernel.root_dir%/../public_html/%image.series.url%"
     image.series.width: 482
     image.series.height: 321
     image.series.quality: 90
 
     image.product.big.url: "zaproszenia/produkty/duze"
-    image.product.big.directory: "%kernel.root_dir%/../web/%image.product.big.url%"
+    image.product.big.directory: "%kernel.root_dir%/../public_html/%image.product.big.url%"
     image.product.big.width: 720
     image.product.big.height: 480
     image.product.big.quality: 90
 
     image.product.small.url: "zaproszenia/produkty/male"
-    image.product.small.directory: "%kernel.root_dir%/../web/%image.product.small.url%"
+    image.product.small.directory: "%kernel.root_dir%/../public_html/%image.product.small.url%"
     image.product.small.width: 230
     image.product.small.height: 153
     image.product.small.quality: 85
