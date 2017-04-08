@@ -9,9 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="default")
      */
     public function indexAction()
     {
+        return $this->render('default/index.html.twig');
     }
 }

@@ -21,6 +21,6 @@ security:
             security: false
 
         main:
-            pattern: ^/
+            pattern: ^/admin
             http_basic: ~
             provider: decarte_db_provider

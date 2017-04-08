@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block contents_class %}with_menu{% endblock %}
+
+{% block body %}
+    <nav id="left_menu">
+        <ul>
+        </ul>
+    </nav>
+
+    {% block contents %}{% endblock %}
+{% endblock %}

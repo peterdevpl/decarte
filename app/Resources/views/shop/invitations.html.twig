@@ -1,0 +1,26 @@
+{% extends 'baseSidebar.html.twig' %}
+
+{% block contents %}
+    <hr>
+
+    <p>Przedstawiamy kolekcje autorskich <strong>zaproszeń ślubnych</strong>. Wykonane z najlepszej jakości materiałów,
+        proste i eleganckie, tradycyjne i nowoczesne, sprostają wymaganiom nawet najbardziej wymagających Par.</p>
+
+    <p>Jeśli znaleźliście zaproszenia ślubne, które Wam się podobają, a chcielibyście np. zmienić kolor papieru bądź
+        dodatku (wstążeczki), nic prostszego - napiszcie do nas, jakie zmiany miałyby być wprowadzone, a nasz konsultant
+        udzieli wszelkich sugestii w kwestii ewentualnego zamówienia. Zarówno zaproszenia jak i zawiadomienia na ślub,
+        wykonywane są dla każdego Klienta indywidualnie, co umożliwia staranne dopasowanie produktu zarówno pod kątem
+        formy jak i treści. Zapraszamy do zapoznania się z ofertą.</p>
+
+    <ul id="collections">
+        {% for productCollection in productCollections %}
+            <li>
+                <a href="{{ path('shop_view_collection', {'slugName': productCollection.getSlugName()}) }}">
+                    <span class="header">{{ productCollection.getName() }}</span><br>
+                    <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) }}" width="176" height="117" alt="*"><br>
+                    <span class="description">{{ productCollection.getShortDescription() }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
