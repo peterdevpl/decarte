@@ -9,14 +9,22 @@ use Symfony\Component\HttpFoundation\Request;
 class ShopController extends Controller
 {
     /**
-     * @Route("/sklep/zaproszenia-slubne", name="shop_list_collections")
+     * @Route("/sklep/{type}", name="shop_list_collections", requirements={"type": "[0-9a-z\-]+"})
+     * @param string $type
      */
-    public function listCollectionsAction()
+    public function listCollectionsAction($type)
     {
         $em = $this->getDoctrine()->getManager();
-        $productCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections(1, false);
+        $productType = $em->getRepository('AppBundle:ProductType')->findBySlugName($type);
+        if (!$productType) {
+            throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
+        }
 
-        return $this->render('shop/invitations.html.twig', [
+        $productType = $productType[0];
+        $productCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
+
+        return $this->render('shop/listCollections.html.twig', [
+            'productType' => $productType,
             'productCollections' => $productCollections,
         ]);
     }
@@ -43,7 +51,7 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/sklep/zaproszenia-slubne/{slugName}/{id}", name="shop_view_product", requirements={"slugName": "[a-z0-9\-]+"})
+     * @Route("/sklep/zaproszenia-slubne/{slugName}/{id}", name="shop_view_product", requirements={"slugName": "[a-z0-9\-]+", "id": "\d+"})
      * @param string $slugName Used only for SEO.
      * @param int $id
      */

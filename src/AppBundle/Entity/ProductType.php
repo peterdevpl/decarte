@@ -18,6 +18,12 @@ class ProductType
     
     /** @ORM\Column(type="string") */
     protected $name;
+
+    /** @ORM\Column(type="string", name="slug_name") */
+    protected $slugName;
+
+    /** @ORM\Column(type="string") */
+    protected $description;
     
     /**
      * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType")
@@ -43,6 +49,22 @@ class ProductType
     public function setName(string $name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getSlugName(): string
+    {
+        return $this->slugName;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
         return $this;
     }
     
