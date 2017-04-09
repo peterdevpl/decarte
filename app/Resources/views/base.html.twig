@@ -40,14 +40,27 @@
 
             <div id="bottom_menu_bar"><div id="bottom_menu_bar_1"></div><div id="bottom_menu_bar_2"></div></div>
 
-            <div id="logo_heart"><img src="/img/decarte_logo.png" width="272" height="110" alt="decARTe"></div>
+            <div id="logo_heart"><img src="{{ asset('img/decarte_logo.png') }}" width="272" height="110" alt="decARTe"></div>
 
             <nav id="top_menu">
-                <ul><li id="menu_home"><a href="/"><span>Home</span></a></li><li id="menu_orders"><a href="/zamowienia.php"><span>Zamówienia</span></a></li><li id="menu_contact"><a href="/kontakt.php"><span>Kontakt</span></a></li></ul>
+                {% spaceless %}
+                    <ul>
+                        <li id="menu_home"><a href="{{ path('default') }}"><span>Home</span></a></li>
+                        <li id="menu_orders"><a href="{{ path('static_page', {'slugName': 'zamowienia'}) }}"><span>Zamówienia</span></a></li>
+                        <li id="menu_contact"><a href="{{ path('static_page', {'slugName': 'kontakt'}) }}"><span>Kontakt</span></a></li>
+                    </ul>
+                {% endspaceless %}
             </nav>
 
             <nav id="bottom_menu">
-                <ul><li id="menu_terms"><a href="/regulamin.php"><span>Regulamin</span></a></li><li id="menu_texts"><a href="/teksty/"><span>Teksty zaproszeń</span></a></li><li id="menu_about"><a href="/onas.php"><span>O nas</span></a></li><li id="menu_faq"><a href="/pytania.php"><span>Pytania i odpowiedzi</span></a></li></ul>
+                {% spaceless %}
+                    <ul>
+                        <li id="menu_terms"><a href="{{ path('static_page', {'slugName': 'regulamin'}) }}"><span>Regulamin</span></a></li>
+                        <li id="menu_texts"><a href="/teksty/"><span>Teksty zaproszeń</span></a></li>
+                        <li id="menu_about"><a href="{{ path('static_page', {'slugName': 'o-nas'}) }}"><span>O nas</span></a></li>
+                        <li id="menu_faq"><a href="{{ path('static_page', {'slugName': 'pytania-i-odpowiedzi'}) }}"><span>Pytania i odpowiedzi</span></a></li>
+                    </ul>
+                {% endspaceless %}
             </nav>
         </div>
 

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ShopController extends Controller
 {
     /**
-     * @Route("/zaproszenia-slubne", name="shop_list_collections")
+     * @Route("/sklep/zaproszenia-slubne", name="shop_list_collections")
      */
     public function listCollectionsAction()
     {
@@ -22,7 +22,7 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/zaproszenia-slubne/{slugName}", name="shop_view_collection", requirements={"slugName": "[a-z0-9\-]+"})
+     * @Route("/sklep/zaproszenia-slubne/{slugName}", name="shop_view_collection", requirements={"slugName": "[a-z0-9\-]+"})
      */
     public function viewCollectionAction($slugName)
     {
@@ -43,7 +43,7 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/zaproszenia-slubne/{slugName}/{id}", name="shop_view_product", requirements={"slugName": "[a-z0-9\-]+"})
+     * @Route("/sklep/zaproszenia-slubne/{slugName}/{id}", name="shop_view_product", requirements={"slugName": "[a-z0-9\-]+"})
      * @param string $slugName Used only for SEO.
      * @param int $id
      */

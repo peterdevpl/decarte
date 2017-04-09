@@ -1,0 +1,7 @@
+{% extends 'baseSidebar.html.twig' %}
+
+{% block contents %}
+    <h1>{{ page.getTitle() }}</h1>
+
+    {{ page.getContents() }}
+{% endblock %}
