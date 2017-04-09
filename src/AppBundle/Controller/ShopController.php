@@ -69,4 +69,12 @@ class ShopController extends Controller
     {
 
     }
+
+    /**
+     * @Route("/zamow-probki", name="shop_order_samples")
+     */
+    public function orderSamplesAction()
+    {
+
+    }
 }

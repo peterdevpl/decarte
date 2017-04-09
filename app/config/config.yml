@@ -79,6 +79,8 @@ twig:
         image_product_small_width: "%image.product.small.width%"
         image_product_small_height: "%image.product.small.height%"
 
+        menu: "@menu"
+
 # Doctrine Configuration
 doctrine:
     dbal:

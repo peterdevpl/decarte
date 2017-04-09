@@ -3,5 +3,5 @@
 {% block contents %}
     <h1>{{ page.getTitle() }}</h1>
 
-    {{ page.getContents() }}
+    {{ page.getContents()|raw }}
 {% endblock %}

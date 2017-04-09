@@ -5,6 +5,13 @@
 {% block body %}
     <nav id="left_menu">
         <ul>
+            {% for entry in menu.getEntries() %}
+                <li>
+                    <a href="{{ path(entry.getRouteName(), entry.getRouteParams()) }}">
+                        {{ entry.getTitle() }}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
     </nav>
 
