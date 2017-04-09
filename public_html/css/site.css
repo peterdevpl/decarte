@@ -384,8 +384,25 @@ article.full_description {
 	padding: 0.5em 0;
 }
 
+form table th, form table td {
+	vertical-align: top;
+}
+
+form table th {
+	font-weight: normal;
+	text-align: right;
+}
+
+form table th label:after {
+	content: ':';
+}
+
+textarea {
+	font-family: "Lato", sans-serif;
+}
+
 /*
- * Style dla smartfonów
+ * Style dla smartfonï¿½w
  */
 
 @media (max-device-width: 1000px) {
@@ -491,7 +508,7 @@ article.full_description {
 }
 
 /*
- * Style dla zwyk³ych komputerów
+ * Style dla zwykï¿½ych komputerï¿½w
  */
 
 @media (min-device-width: 1001px) {

@@ -1,0 +1,14 @@
+{% extends 'baseSidebar.html.twig' %}
+
+{% block title %}Serwis próbkowy - decARTe{% endblock %}
+
+{% block contents %}
+    <h1 style="text-align: center; font-size: 18px; text-transform: uppercase">Serwis próbkowy</h1>
+
+    <h2 style="text-align: center; font-size: 14px">Koszt: 10 PLN (2 dowolne zaproszenia z losowym nadrukiem; wysyłka w cenie próbnika)</h2>
+
+    {% form_theme form 'form/table.html.twig' %}
+    {{ form(form) }}
+
+    <p>Numer konta do wpłaty otrzymają Państwo w mailu.</p>
+{% endblock %}

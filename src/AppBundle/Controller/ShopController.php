@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\OrderSamplesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,8 +82,16 @@ class ShopController extends Controller
     /**
      * @Route("/zamow-probki", name="shop_order_samples")
      */
-    public function orderSamplesAction()
+    public function orderSamplesAction(Request $request)
     {
+        $form = $this->createForm(OrderSamplesType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
+        }
+
+        return $this->render('shop/orderSamples.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
