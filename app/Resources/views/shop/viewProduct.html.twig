@@ -28,7 +28,7 @@
         <a href="{{ path('shop_order', {'id': product.getId()}) }}" rel="nofollow">Zamów</a>
     </div>
 
-    <article class="full_description">{{ product.getDescription() }}</article>
+    <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
 {% endblock %}
 
 {% block stylesheets %}

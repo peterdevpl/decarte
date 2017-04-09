@@ -18,7 +18,7 @@
                 <a href="{{ path('shop_view_collection', {'slugName': productCollection.getSlugName()}) }}">
                     <span class="header">{{ productCollection.getName() }}</span><br>
                     <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) }}" width="176" height="117" alt="*"><br>
-                    <span class="description">{{ productCollection.getShortDescription() }}</span>
+                    <span class="description">{{ productCollection.getShortDescription()|raw|nl2br }}</span>
                 </a>
             </li>
         {% endfor %}

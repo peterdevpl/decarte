@@ -21,7 +21,7 @@
         {% endspaceless %}
     </ul>
 
-    {{ productCollection.getDescription() }}
+    {{ productCollection.getDescription()|raw }}
 
     {% for series in productCollection.getProductSeries() %}
         <div class="series">
