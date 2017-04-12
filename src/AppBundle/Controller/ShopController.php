@@ -31,9 +31,11 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/sklep/zaproszenia-slubne/{slugName}", name="shop_view_collection", requirements={"slugName": "[a-z0-9\-]+"})
+     * @Route("/sklep/{type}/{slugName}", name="shop_view_collection", requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"})
+     * @param string $type Only for SEO.
+     * @param string $slugName
      */
-    public function viewCollectionAction($slugName)
+    public function viewCollectionAction($type, $slugName)
     {
         $em = $this->getDoctrine()->getManager();
         $productCollection = $em->getRepository('AppBundle:ProductCollection')->findBySlugName($slugName);
@@ -52,11 +54,12 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/sklep/zaproszenia-slubne/{slugName}/{id}", name="shop_view_product", requirements={"slugName": "[a-z0-9\-]+", "id": "\d+"})
+     * @Route("/sklep/{type}/{slugName}/{id}", name="shop_view_product", requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+", "id": "\d+"})
+     * @param string $type Used only for SEO.
      * @param string $slugName Used only for SEO.
      * @param int $id
      */
-    public function viewProduct($slugName, $id)
+    public function viewProduct($type, $slugName, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('AppBundle:Product')->find($id);

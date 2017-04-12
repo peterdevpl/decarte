@@ -203,7 +203,7 @@ h1.product_name {
 
 .series li {
 	display: inline-block;
-	margin: 10px 20px 10px 0;
+	margin: 10px 18px 10px 0;
 	vertical-align: top;
 }
 
@@ -216,7 +216,6 @@ h1.product_name {
 
 .series .product_name {
 	display: inline-block;
-	margin-left: 10px;
 	vertical-align: top;
 }
 
@@ -230,12 +229,12 @@ h1.product_name {
 	display: inline-block;
 	font-size: 13px;
 	font-weight: bold;
-	left: 15px;
+	left: 5px;
 	padding: 1px 15px;
 	position: relative;
 	text-decoration: none;
 	text-transform: uppercase;
-	top: -4px;
+	top: -3px;
 	vertical-align: top;
 }
 

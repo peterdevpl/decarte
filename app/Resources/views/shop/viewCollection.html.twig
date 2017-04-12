@@ -1,6 +1,8 @@
 {% extends 'baseSidebar.html.twig' %}
 
 {% block contents %}
+    {% set productType = productCollection.getProductType() %}
+
     <h1 class="page_header">Kolekcje zaproszeń:</h1>
 
     <ul id="short_collections">
@@ -13,7 +15,7 @@
                         {% set linkClass = "" %}
                     {% endif %}
 
-                    <a href="{{ path('shop_view_collection', {'slugName': collection.getSlugName()}) }}" class="{{ linkClass }}">
+                    <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': collection.getSlugName()}) }}" class="{{ linkClass }}">
                         {{ collection.getName() }}
                     </a>
                 </li>
@@ -31,15 +33,15 @@
             <ul>
                 {% for product in series.getProducts() %}
                     <li>
-                        <a href="{{ path('shop_view_product', {'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
+                        <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
                             <img
                                 src="{{ asset(image_product_small_url~'/'~product.getCoverImage().getSmallName()) }}"
                                 width="{{ image_product_small_width }}"
                                 height="{{ image_product_small_height }}"
                                 alt="Zdjęcie">
                         </a><br>
-                        <span class="product_name">model {{ product.getName() }} &ndash; {{ product.getPrice() }} zł</span>
-                        <a class="order_button" rel="nofollow" href="{{ path('shop_order', {'id': product.getId()}) }}">Zamów</a>
+                        <span class="product_name">model {{ product.getName() }} &ndash; {{ product.getPrice()|number_format(2, ',', ' ') }} zł</span>
+                        <a class="order_button" rel="nofollow" href="{{ path('shop_order', {'id': product.getId()}) }}">Do koszyka</a>
                     </li>
                 {% endfor %}
             </ul>
