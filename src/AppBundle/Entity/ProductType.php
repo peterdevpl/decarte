@@ -19,6 +19,9 @@ class ProductType
     /** @ORM\Column(type="string") */
     protected $name;
 
+    /** @ORM\Column(type="integer", name="minimum_quantity") */
+    protected $minimumQuantity = 1;
+
     /** @ORM\Column(type="string", name="slug_name") */
     protected $slugName;
 
@@ -71,6 +74,17 @@ class ProductType
     public function getProductCollections()
     {
         return $this->productCollections;
+    }
+
+    public function getMinimumQuantity(): int
+    {
+        return $this->minimumQuantity;
+    }
+
+    public function setMinimumQuantity(int $value)
+    {
+        $this->minimumQuantity = $value;
+        return $this;
     }
     
     public function __toString()
