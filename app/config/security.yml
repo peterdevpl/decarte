@@ -20,7 +20,10 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            pattern: ^/admin
+        default:
+            anonymous: ~
             http_basic: ~
             provider: decarte_db_provider
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_USER }
