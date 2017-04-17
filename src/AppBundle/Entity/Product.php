@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="ProductRepository") @ORM\Table(name="decarte_products")
+ * @ORM\Entity(repositoryClass="\AppBundle\Repository\ProductRepository") @ORM\Table(name="decarte_products")
  * @ORM\EntityListeners({"SortListener"})
  */
 class Product

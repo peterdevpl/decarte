@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="PageRepository") @ORM\Table(name="decarte_pages")
+ * @ORM\Entity(repositoryClass="\AppBundle\Repository\PageRepository") @ORM\Table(name="decarte_pages")
  */
 class Page
 {
