@@ -115,3 +115,7 @@ swiftmailer:
 cocur_slugify:
     lowercase: true
     rulesets: [ "polish" ]
+
+# Sentry error reporting
+sentry:
+    dsn: "%sentry_dsn%"
