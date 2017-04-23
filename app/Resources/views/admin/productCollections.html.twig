@@ -8,7 +8,10 @@
 
 {% block body %}
     <div class="row">
-        <p><a href="{{ path('admin_add_product_collection', {'typeId': productType.getId()}) }}" class="btn btn-default" role="button">Dodaj nową kolekcję</a></p>
+        <p>
+            <a href="{{ path('admin_add_product_collection', {'typeId': productType.getId()}) }}" class="btn btn-default" role="button">Dodaj nową kolekcję</a>
+            <a href="{{ path('admin_edit_product_type', {'typeId': productType.getId()}) }}" class="btn btn-success" role="button">Edytuj typ "{{ productType.getName() }}"</a>
+        </p>
     </div>
 
     {% for productCollection in productCollections %}

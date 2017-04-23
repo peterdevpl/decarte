@@ -14,19 +14,22 @@ class ProductType
     use VisibilityTrait;
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
-    protected $id;
+    protected $id = 0;
     
     /** @ORM\Column(type="string") */
-    protected $name;
+    protected $name = '';
 
     /** @ORM\Column(type="integer", name="minimum_quantity") */
     protected $minimumQuantity = 1;
 
     /** @ORM\Column(type="string", name="slug_name") */
-    protected $slugName;
+    protected $slugName = '';
 
     /** @ORM\Column(type="string") */
-    protected $description;
+    protected $description = '';
+
+    /** @ORM\Column(type="boolean", name="has_front_page") */
+    protected $hasFrontPage = false;
     
     /**
      * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType")
@@ -60,6 +63,12 @@ class ProductType
         return $this->slugName;
     }
 
+    public function setSlugName(string $name)
+    {
+        $this->slugName = $name;
+        return $this;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
@@ -86,7 +95,18 @@ class ProductType
         $this->minimumQuantity = $value;
         return $this;
     }
-    
+
+    public function hasFrontPage()
+    {
+        return $this->hasFrontPage;
+    }
+
+    public function setHasFrontPage(bool $flag)
+    {
+        $this->hasFrontPage = $flag;
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->getName();

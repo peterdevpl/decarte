@@ -7,10 +7,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\ProductCollection;
 use AppBundle\Entity\ProductSeries;
+use AppBundle\Entity\ProductType;
 use AppBundle\Entity\Product;
 use AppBundle\Form\PageForm;
 use AppBundle\Form\ProductCollectionForm;
 use AppBundle\Form\ProductSeriesForm;
+use AppBundle\Form\ProductTypeForm;
 use AppBundle\Form\ProductForm;
 
 class AdminController extends Controller
@@ -31,7 +33,60 @@ class AdminController extends Controller
             'pages' => $pages,
         ]);
     }
-    
+
+    /**
+     * @Route("/admin/addProductType", name="admin_add_product_type")
+     * @param Request $request
+     */
+    public function addProductTypeAction(Request $request)
+    {
+        $productType = new ProductType();
+        $productType->setIsVisible(true);
+
+        return $this->editProductType($request, $productType, 'Typ produktu został dodany');
+    }
+
+    /**
+     * @Route("/admin/editProductType/{typeId}", name="admin_edit_product_type", requirements={"typeId": "\d+"})
+     * @param Request $request
+     * @param int $typeId
+     */
+    public function editProductTypeAction(Request $request, $typeId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productType = $em->getRepository('AppBundle:ProductType')->find($typeId);
+        if (!$productType) {
+            throw $this->createNotFoundException('Nie znaleziono typu produktów');
+        }
+
+        return $this->editProductType($request, $productType, 'Typ produktu został zapisany');
+    }
+
+    protected function editProductType(Request $request, ProductType $productType, string $successMessage)
+    {
+        $form = $this->createForm(ProductTypeForm::class, $productType, [
+            'slugify' => $this->get('slugify'),
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $productType = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($productType);
+            $em->flush();
+
+            $this->addFlash('notice', $successMessage);
+
+            return $this->redirectToRoute('admin_edit_product_type', ['typeId' => $productType->getId()]);
+        }
+
+        return $this->render('admin/editProductType.html.twig', [
+            'productType' => $productType,
+            'form' => $form->createView(),
+        ]);
+    }
+
     /**
      * @Route("/admin/productCollections/{type}", name="admin_product_collections", requirements={"type": "\d+"})
      */

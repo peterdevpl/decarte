@@ -12,6 +12,9 @@
                         <li><a href="{{ path('admin_product_collections', {'type': type.getId()}) }}">{{ type.getName() }}</a></li>
                     {% endfor %}
                 </ul>
+                <p>
+                    <a href="{{ path('admin_add_product_type') }}" class="btn btn-success" role="button">Dodaj nowy typ produktu</a>
+                </p>
             </div>
         </div>
     </div>

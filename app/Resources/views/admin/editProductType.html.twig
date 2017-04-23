@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('admin_index') }}">Strona główna</a></li>
+    <li><a href="{{ path('admin_index') }}#products">Produkty</a></li>
+    <li class="active">{% if productType.getId() %}{{ productType.getName() }}{% else %}Nowy typ produktu{% endif %}</li>
+{% endblock %}
+
+{% block body %}
+    <h1>{% if productType.getId() %}Edycja typu produktu{% else %}Nowy typ produktu{% endif %}</h1>
+
+    {% form_theme form 'form/fields.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
