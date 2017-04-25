@@ -25,7 +25,7 @@
 
     {{ productCollection.getDescription()|raw }}
 
-    {% for series in productCollection.getProductSeries() %}
+    {% for series in allSeries %}
         <div class="series">
             <img class="series_photo" src="{{ asset(image_series_url~'/'~series.getImageName()) }}" alt="" width="{{ image_series_width }}">
             <p class="description">{{ series.getDescription() }}</p>

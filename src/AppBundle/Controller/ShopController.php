@@ -44,10 +44,12 @@ class ShopController extends Controller
 
         $productType = $productCollection->getProductType();
         $allCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
+        $allSeries = $em->getRepository('AppBundle:ProductSeries')->getFromCollection($productCollection);
 
         return $this->render('shop/viewCollection.html.twig', [
             'productCollection' => $productCollection,
             'allCollections' => $allCollections,
+            'allSeries' => $allSeries,
         ]);
     }
 
