@@ -63,14 +63,17 @@ class ShopController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('AppBundle:Product')->find($id);
-        if (!$product) {
+        if (!$product ||
+            !$product->isVisible() ||
+            !$product->getProductSeries()->isVisible() ||
+            !$product->getProductSeries()->getProductCollection()->isVisible() ||
+            !$product->getProductSeries()->getProductCollection()->getProductType()->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
         return $this->render('shop/viewProduct.html.twig', [
             'product' => $product,
         ]);
-
     }
 
     /**
