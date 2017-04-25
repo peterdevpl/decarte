@@ -21,7 +21,6 @@ class ShopController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
 
-        $productType = $productType[0];
         $productCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
 
         return $this->render('shop/listCollections.html.twig', [
@@ -32,17 +31,16 @@ class ShopController extends Controller
 
     /**
      * @Route("/sklep/{type}/{slugName}", name="shop_view_collection", requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"})
-     * @param string $type Only for SEO.
+     * @param string $type
      * @param string $slugName
      */
     public function viewCollectionAction($type, $slugName)
     {
         $em = $this->getDoctrine()->getManager();
-        $productCollection = $em->getRepository('AppBundle:ProductCollection')->findBySlugName($slugName);
+        $productCollection = $em->getRepository('AppBundle:ProductCollection')->findBySlugName($type, $slugName);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
         }
-        $productCollection = $productCollection[0];
 
         $productType = $productCollection->getProductType();
         $allCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
