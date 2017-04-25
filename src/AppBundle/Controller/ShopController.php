@@ -22,6 +22,16 @@ class ShopController extends Controller
         }
 
         $productCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
+        if (!$productCollections) {
+            throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
+        }
+
+        if (!$productType->hasFrontPage()) {
+            return $this->redirectToRoute('shop_view_collection', [
+                'type' => $productType->getSlugName(),
+                'slugName' => $productCollections[0]->getSlugName(),
+            ]);
+        }
 
         return $this->render('shop/listCollections.html.twig', [
             'productType' => $productType,
