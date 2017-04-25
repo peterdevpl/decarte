@@ -1,19 +1,21 @@
 {% extends 'baseSidebar.html.twig' %}
 
-{% block contents %}
-    {% set productCollection = product.getProductSeries().getProductCollection() %}
-    {% set productType = productCollection.getProductType() %}
+{% set productCollection = product.getProductSeries().getProductCollection() %}
+{% set productType = productCollection.getProductType() %}
 
+{% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}
+
+{% block contents %}
     <nav>
         <a href="{{ path('default') }}">Strona główna</a> &raquo;
         <a href="{{ path('shop_list_collections', {'type': productType.getSlugName()}) }}">{{ productType.getName() }}</a> &raquo;
         <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">{{ productCollection.getName }}</a> &raquo;
-        Model zaproszenia: {{ product.getName() }}
+        Model: {{ product.getName() }}
     </nav>
 
     <hr>
 
-    <h1 class="product_name">{{ productCollection.getName() }} - Model zaproszenia: {{ product.getName() }}</h1>
+    <h1 class="product_name">{{ productCollection.getName() }} - Model: {{ product.getName() }}</h1>
 
     <p class="short_description">{{ product.getDescriptionSEO() }}</p>
 

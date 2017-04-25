@@ -1,10 +1,10 @@
 {% extends 'baseSidebar.html.twig' %}
 
+{% set productType = productCollection.getProductType() %}
+
+{% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}
+
 {% block contents %}
-    {% set productType = productCollection.getProductType() %}
-
-    <h1 class="page_header">Kolekcje zaproszeń:</h1>
-
     <ul id="short_collections">
         {% spaceless %}
             {% for collection in allCollections %}
