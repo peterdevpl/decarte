@@ -41,7 +41,7 @@ class Product
     protected $lastChangedAt = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", fetch="EAGER", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"})
      * @ORM\OrderBy({"sort" = "ASC"})
      */
     protected $images = null;
@@ -146,5 +146,10 @@ class Product
     public function getCoverImage()
     {
         return $this->images->first();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

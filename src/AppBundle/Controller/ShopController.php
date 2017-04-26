@@ -2,16 +2,21 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
+use AppBundle\Entity\SamplesOrder;
+use AppBundle\Entity\SamplesOrderItem;
 use AppBundle\Form\OrderSamplesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShopController extends Controller
 {
     /**
      * @Route("/sklep/{type}", name="shop_list_collections", requirements={"type": "[0-9a-z\-]+"})
      * @param string $type
+     * @return Response
      */
     public function listCollectionsAction($type)
     {
@@ -43,6 +48,7 @@ class ShopController extends Controller
      * @Route("/sklep/{type}/{slugName}", name="shop_view_collection", requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"})
      * @param string $type
      * @param string $slugName
+     * @return Response
      */
     public function viewCollectionAction($type, $slugName)
     {
@@ -68,6 +74,7 @@ class ShopController extends Controller
      * @param string $type Used only for SEO.
      * @param string $slugName Used only for SEO.
      * @param int $id
+     * @return Response
      */
     public function viewProduct($type, $slugName, $id)
     {
@@ -97,10 +104,27 @@ class ShopController extends Controller
 
     /**
      * @Route("/zamow-probki", name="shop_order_samples")
+     * @param Request $request
+     * @return Response
      */
     public function orderSamplesAction(Request $request)
     {
-        $form = $this->createForm(OrderSamplesType::class);
+        $em = $this->getDoctrine()->getManager();
+        $dummyProduct = $em->getRepository('AppBundle:Product')->find('10');
+
+//        $dummyProduct = new Product();
+        $item =  new SamplesOrderItem();
+        $item->setProduct($dummyProduct);
+        $order = new SamplesOrder();
+        $order->addItem($item)->addItem($item);
+
+        $em = $this->getDoctrine()->getManager();
+        $productType = $em->getRepository('AppBundle:ProductType')->find(1);
+        $products = $em->getRepository('AppBundle:Product')->findDemos($productType);
+
+        $form = $this->createForm(OrderSamplesType::class, $order, [
+            'products' => $products,
+        ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
