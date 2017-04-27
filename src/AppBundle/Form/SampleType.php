@@ -24,6 +24,7 @@ class SampleType extends AbstractType
                 'class' => 'AppBundle:Product',
                 'choices' => $options['products'],
                 'label' => 'model nr',
+                'placeholder' => '--',
             ]);
     }
 }

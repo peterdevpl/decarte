@@ -76,7 +76,7 @@ class ShopController extends Controller
      * @param int $id
      * @return Response
      */
-    public function viewProduct($type, $slugName, $id)
+    public function viewProductAction($type, $slugName, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('AppBundle:Product')->find($id);
@@ -109,14 +109,11 @@ class ShopController extends Controller
      */
     public function orderSamplesAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dummyProduct = $em->getRepository('AppBundle:Product')->find('10');
-
-//        $dummyProduct = new Product();
-        $item =  new SamplesOrderItem();
-        $item->setProduct($dummyProduct);
+        $item = new SamplesOrderItem();
         $order = new SamplesOrder();
-        $order->addItem($item)->addItem($item);
+        for ($n = 0; $n < $this->getParameter('samples_count'); $n++) {
+            $order->addItem($item);
+        }
 
         $em = $this->getDoctrine()->getManager();
         $productType = $em->getRepository('AppBundle:ProductType')->find(1);

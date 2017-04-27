@@ -32,6 +32,8 @@ parameters:
     image.product.small.height: 153
     image.product.small.quality: 85
 
+    samples_count: 2
+
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
@@ -78,6 +80,8 @@ twig:
         image_product_small_url: "%image.product.small.url%"
         image_product_small_width: "%image.product.small.width%"
         image_product_small_height: "%image.product.small.height%"
+
+        samples_count: "%samples_count%"
 
         menu: "@menu"
 
