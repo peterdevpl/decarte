@@ -1,0 +1,20 @@
+{% for item in order.getItems() %}
+    <p>
+        <img
+            src="{{ absolute_url(asset(image_product_small_url~'/'~item.getProduct().getCoverImage().getSmallName())) }}"
+            width="{{ image_product_small_width }}"
+            height="{{ image_product_small_height }}"
+            border="1"><br>
+        Próbka nr {{ loop.index }}:
+        {{ item.getProduct().getProductSeries().getProductCollection().getName() }}
+        {{ item.getProduct().getName() }}
+    </p>
+{% endfor %}
+
+<p>Uwagi: {{ order.getNotes()|nl2br }}</p>
+
+<p>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a><br>
+Nazwisko: {{ order.getName() }}<br>
+Adres: {{ order.getAddress() }}<br>
+Kod pocztowy: {{ order.getPostalCode() }}<br>
+Miasto: {{ order.getCity() }}</p>
