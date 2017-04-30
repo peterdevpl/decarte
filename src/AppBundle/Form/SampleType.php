@@ -25,6 +25,7 @@ class SampleType extends AbstractType
                 'choices' => $options['products'],
                 'label' => 'model nr',
                 'placeholder' => '--',
+                'required' => false,
             ]);
     }
 }

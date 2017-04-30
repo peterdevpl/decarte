@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\SamplesOrder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,7 +33,7 @@ class OrderSamplesType extends AbstractType
                 ],
             ])
             ->add('notes', TextareaType::class, ['label' => 'Uwagi', 'required' => false, 'attr' => ['cols' => 40, 'rows' => 4]])
-            ->add('email', TextType::class, ['label' => 'E-mail', 'attr' => ['size' => 50]])
+            ->add('email', EmailType::class, ['label' => 'E-mail', 'attr' => ['size' => 50]])
             ->add('name', TextType::class, ['label' => 'Imię i nazwisko', 'attr' => ['size' => 50]])
             ->add('address', TextType::class, ['label' => 'Adres', 'attr' => ['size' => 50]])
             ->add('postal_code', TextType::class, ['label' => 'Kod pocztowy', 'attr' => ['size' => 6]])
