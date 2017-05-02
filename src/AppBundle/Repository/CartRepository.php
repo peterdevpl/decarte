@@ -47,7 +47,7 @@ class CartRepository
 
             foreach ($cartArray['items'] as $itemArray) {
                 $product = $this->productRepository->find($itemArray['productId']);
-                $item = new CartItem($product, $itemArray['quantity']);
+                $item = new CartItem($product, $itemArray['quantity'], $itemArray['minimumQuantity']);
                 $item->setUnitPrice($itemArray['unitPrice']);
                 $cart->addItem($item);
             }

@@ -18,7 +18,7 @@ class CartItemTest extends TestCase
             ->setId(1)
             ->setPrice(20);
 
-        $this->item = new CartItem($product, 10);
+        $this->item = new CartItem($product, 10, 5);
     }
 
     public function testSimpleProduct()
@@ -26,12 +26,13 @@ class CartItemTest extends TestCase
         $this->assertEquals(1, $this->item->getProduct()->getId());
         $this->assertEquals(1, $this->item->getId());
         $this->assertEquals(10, $this->item->getQuantity());
+        $this->assertEquals(5, $this->item->getMinimumQuantity());
     }
 
     public function testWrongQuantity()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->item->setQuantity(-1);
+        $this->item->setQuantity(4);
     }
 
     public function testTotalPrice()
@@ -57,7 +58,7 @@ class CartItemTest extends TestCase
     public function testJson()
     {
         $json = json_encode($this->item);
-        $expected = '{"productId":1,"quantity":10,"unitPrice":20}';
+        $expected = '{"productId":1,"quantity":10,"minimumQuantity":5,"unitPrice":20}';
         $this->assertEquals($expected, $json);
     }
 }

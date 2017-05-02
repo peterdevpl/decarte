@@ -17,12 +17,18 @@ class CartItem implements \JsonSerializable
     /**
      * @var int
      */
+    protected $minimumQuantity = 1;
+
+    /**
+     * @var int
+     */
     protected $unitPrice = 0;
 
-    public function __construct(Product $product, int $quantity)
+    public function __construct(Product $product, int $quantity, int $minimumQuantity = 1)
     {
         $this->product = $product;
         $this->unitPrice = $product->getPrice();
+        $this->setMinimumQuantity($minimumQuantity);
         $this->setQuantity($quantity);
     }
 
@@ -38,11 +44,22 @@ class CartItem implements \JsonSerializable
 
     public function setQuantity(int $quantity)
     {
-        if ($quantity < 0) {
+        if ($quantity < $this->getMinimumQuantity()) {
             throw new \InvalidArgumentException(sprintf('%d is wrong quantity', $quantity));
         }
 
         $this->quantity = $quantity;
+        return $this;
+    }
+
+    public function getMinimumQuantity(): int
+    {
+        return $this->minimumQuantity;
+    }
+
+    public function setMinimumQuantity(int $quantity)
+    {
+        $this->minimumQuantity = $quantity;
         return $this;
     }
 
@@ -76,6 +93,7 @@ class CartItem implements \JsonSerializable
         return [
             'productId' => $this->product->getId(),
             'quantity' => $this->quantity,
+            'minimumQuantity' => $this->minimumQuantity,
             'unitPrice' => $this->unitPrice,
         ];
     }
