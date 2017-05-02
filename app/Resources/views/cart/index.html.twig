@@ -1,0 +1,22 @@
+{% extends 'baseSidebar.html.twig' %}
+
+{% block contents %}
+    <h1>Koszyk</h1>
+
+    <ul>
+        {% for item in cart.getItems() %}
+            <li>
+                <img
+                    src="{{ asset(image_product_small_url~'/'~item.getProduct().getCoverImage().getSmallName()) }}"
+                    width="{{ image_product_small_width }}"
+                    height="{{ image_product_small_height }}">
+                {{ item.getProduct().getProductSeries().getProductCollection().getName() }} -
+                {{ item.getProduct().getName() }} |
+                {{ item.getUnitPrice() }} zł / {{ item.getTotalPrice() }}
+                ({{ item.getQuantity() }} szt.)
+            </li>
+        {% else %}
+            <li>Brak produktów w koszyku.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -18,6 +18,7 @@ class Menu
             new MenuEntry('shop_list_collections', 'Poduszki pod obrączki', ['type' => 'poduszki-pod-obraczki']),
             new MenuEntry('shop_list_collections', 'Gadżety weselne', ['type' => 'gadzety-weselne']),
             new MenuEntry('shop_list_collections', 'Dekoracje samochodowe', ['type' => 'dekoracje-samochodowe']),
+            new MenuEntry('cart_index', 'Koszyk'),
         ];
     }
 }

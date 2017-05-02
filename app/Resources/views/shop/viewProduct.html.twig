@@ -27,9 +27,10 @@
         {% endfor %}
     </div>
 
-    <div id="order_button">
-        <a href="{{ path('shop_order', {'id': product.getId()}) }}" rel="nofollow">Zamów</a>
-    </div>
+    <form method="post" action="{{ path('cart_add_item') }}" class="add_to_cart">
+        <input type="hidden" name="product_id" value="{{ product.getId() }}">
+        <input type="submit" value="Do koszyka">
+    </form>
 
     <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
 {% endblock %}
