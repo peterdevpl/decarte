@@ -16,13 +16,11 @@ class CartTest extends TestCase
     {
         $product1 = new Product();
         $product1->setId(1)->setPrice(20);
-        $item1 = new CartItem($product1);
-        $item1->setQuantity(1);
+        $item1 = new CartItem($product1, 1);
 
         $product2 = new Product();
         $product2->setId(2)->setPrice(30);
-        $item2 = new CartItem($product2);
-        $item2->setQuantity(2);
+        $item2 = new CartItem($product2, 2);
 
         $this->cart = new Cart(1234);
         $this->cart
@@ -57,5 +55,12 @@ class CartTest extends TestCase
     public function testTotalPrice()
     {
         $this->assertEquals(80, $this->cart->getTotalPrice());
+    }
+
+    public function testJson()
+    {
+        $json = json_encode($this->cart);
+        $expected = '{"id":1234,"items":[{"productId":1,"quantity":1,"unitPrice":20},{"productId":2,"quantity":2,"unitPrice":30}]}';
+        $this->assertEquals($expected, $json);
     }
 }

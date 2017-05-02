@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-class CartItem
+class CartItem implements \JsonSerializable
 {
     /**
      * @var Product
@@ -19,10 +19,11 @@ class CartItem
      */
     protected $unitPrice = 0;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, int $quantity)
     {
         $this->product = $product;
         $this->unitPrice = $product->getPrice();
+        $this->setQuantity($quantity);
     }
 
     public function getId()
@@ -68,5 +69,14 @@ class CartItem
     public function getTotalPrice(): int
     {
         return $this->quantity * $this->unitPrice;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'productId' => $this->product->getId(),
+            'quantity' => $this->quantity,
+            'unitPrice' => $this->unitPrice,
+        ];
     }
 }

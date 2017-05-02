@@ -18,8 +18,7 @@ class CartItemTest extends TestCase
             ->setId(1)
             ->setPrice(20);
 
-        $this->item = new CartItem($product);
-        $this->item->setQuantity(10);
+        $this->item = new CartItem($product, 10);
     }
 
     public function testSimpleProduct()
@@ -53,5 +52,12 @@ class CartItemTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->item->setUnitPrice(-1);
+    }
+
+    public function testJson()
+    {
+        $json = json_encode($this->item);
+        $expected = '{"productId":1,"quantity":10,"unitPrice":20}';
+        $this->assertEquals($expected, $json);
     }
 }

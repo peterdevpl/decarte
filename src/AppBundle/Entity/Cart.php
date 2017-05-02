@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-class Cart
+class Cart implements \JsonSerializable
 {
     protected $id;
 
@@ -79,5 +79,10 @@ class Cart
         }
 
         return $sum;
+    }
+
+    public function jsonSerialize()
+    {
+        return ['id' => $this->id, 'items' => $this->items];
     }
 }
