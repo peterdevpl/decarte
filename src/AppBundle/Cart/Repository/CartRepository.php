@@ -1,9 +1,10 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Cart\Repository;
 
-use AppBundle\Entity\Cart;
-use AppBundle\Entity\CartItem;
+use AppBundle\Cart\Entity\Cart;
+use AppBundle\Cart\Entity\CartItem;
+use AppBundle\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartRepository
