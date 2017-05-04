@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Cart\Entity;
+namespace CartBundle\Entity;
 
 class Cart implements \JsonSerializable
 {

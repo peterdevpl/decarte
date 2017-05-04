@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Cart\Entity;
+namespace CartBundle\Entity;
 
 use AppBundle\Entity\Product;
 

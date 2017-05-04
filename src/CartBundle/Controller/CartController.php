@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace CartBundle\Controller;
 
-use AppBundle\Cart\Entity\CartItem;
-use AppBundle\Cart\Repository\CartRepository;
+use CartBundle\Entity\CartItem;
+use CartBundle\Repository\CartRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
