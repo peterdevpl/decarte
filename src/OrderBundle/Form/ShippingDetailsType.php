@@ -2,7 +2,7 @@
 
 namespace OrderBundle\Order\Form;
 
-use AppBundle\Customer\Form\CustomerType;
+use CustomerBundle\Form\CustomerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

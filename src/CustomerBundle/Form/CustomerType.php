@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Customer\Form;
+namespace CustomerBundle\Form;
 
-use AppBundle\Customer\Entity\Customer;
+use CustomerBundle\Entity\Customer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Customer\Entity;
+namespace CustomerBundle\Entity;
 
 class Customer
 {
