@@ -5,3 +5,7 @@ app:
 cart:
     resource: "@CartBundle/Controller/"
     type:     annotation
+
+order:
+    resource: "@OrderBundle/Controller/"
+    type:     annotation
