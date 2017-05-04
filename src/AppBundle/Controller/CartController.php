@@ -36,7 +36,9 @@ class CartController extends Controller
      */
     public function addItemAction(Request $request)
     {
-        $productId = $request->get('product_id');
+        $productId = (int) $request->get('product_id');
+        $quantity = (int) $request->get('quantity');
+
         $em = $this->getDoctrine()->getManager();
         $productRepository = $em->getRepository('AppBundle:Product');
         $product = $productRepository->find($productId);
@@ -49,8 +51,21 @@ class CartController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
+        $minimumQuantity = $product->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
         $repository = new CartRepository(new Session(), $productRepository);
-        $repository->getCart()->addItem(new CartItem($product, 1));
+
+        try {
+            $repository->getCart()->addItem(new CartItem($product, $quantity, $minimumQuantity));
+        } catch (\InvalidArgumentException $e) {
+            $this->addFlash('error', 'Minimalna liczba sztuk to ' . $minimumQuantity);
+
+            return $this->redirectToRoute('shop_view_product', [
+                'type' => $product->getProductSeries()->getProductCollection()->getProductType()->getSlugName(),
+                'slugName' => $product->getProductSeries()->getProductCollection()->getSlugName(),
+                'id' => $product->getId(),
+            ]);
+        }
+
         $repository->persist();
 
         return $this->redirectToRoute('cart_index');

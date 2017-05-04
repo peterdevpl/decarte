@@ -41,11 +41,6 @@
                                 alt="Zdjęcie">
                         </a><br>
                         <span class="product_name">model {{ product.getName() }} &ndash; {{ product.getPrice()|number_format(2, ',', ' ') }} zł</span>
-
-                        <form method="post" action="{{ path('cart_add_item') }}" class="add_to_cart">
-                            <input type="hidden" name="product_id" value="{{ product.getId() }}">
-                            <input type="submit" value="Do koszyka">
-                        </form>
                     </li>
                 {% endfor %}
             </ul>

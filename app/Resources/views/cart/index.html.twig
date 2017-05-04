@@ -1,22 +1,49 @@
 {% extends 'baseSidebar.html.twig' %}
 
+{% block title %}Koszyk - decARTe{% endblock %}
+
 {% block contents %}
     <h1>Koszyk</h1>
 
-    <ul>
+    <ul id="cart_items">
         {% for item in cart.getItems() %}
+            {% set collection = item.getProduct().getProductSeries().getProductCollection() %}
+            {% set type = collection.getProductType() %}
+            {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
             <li>
-                <img
+                <a href="{{ url }}"><img
                     src="{{ asset(image_product_small_url~'/'~item.getProduct().getCoverImage().getSmallName()) }}"
                     width="{{ image_product_small_width }}"
-                    height="{{ image_product_small_height }}">
-                {{ item.getProduct().getProductSeries().getProductCollection().getName() }} -
-                {{ item.getProduct().getName() }} |
-                {{ item.getUnitPrice() }} zł / {{ item.getTotalPrice() }}
-                ({{ item.getQuantity() }} szt.)
+                    height="{{ image_product_small_height }}"></a>
+
+                <div class="cart_item_description">
+                    <h2><a href="{{ url }}">{{ collection.getName() }} - {{ item.getProduct().getName() }}</a></h2>
+
+                    <div class="cart_item_quantity">
+                        <label for="quantity_{{ item.getProduct().getId() }}">Liczba sztuk:</label>
+                        <input type="number" class="quantity" id="quantity_{{ item.getProduct().getId() }}" min="{{ type.getMinimumQuantity() }}" value="{{ item.getQuantity() }}">
+                        {% if type.getMinimumQuantity() > 1 %}
+                            <small>(minimum {{ type.getMinimumQuantity() }})</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="cart_item_price">{{ item.getTotalPrice()|number_format(2, ',', ' ') }} zł</div>
+                </div>
             </li>
         {% else %}
             <li>Brak produktów w koszyku.</li>
         {% endfor %}
     </ul>
+
+    {% if cart.getTotalPrice() %}
+        <div class="cart_total_price">
+            Razem <strong>{{ cart.getTotalPrice()|number_format(2, ',', ' ') }}</strong> zł<br>
+            <small>plus koszty przesyłki &ndash; w następnym kroku</small>
+        </div>
+
+        <div class="cart_submit">
+            <input type="submit" value="Zapisz zmiany">
+            <input type="submit" value="Złóż zamówienie">
+        </div>
+    {% endif %}
 {% endblock %}
