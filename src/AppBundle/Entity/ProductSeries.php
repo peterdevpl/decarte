@@ -85,9 +85,9 @@ class ProductSeries
         return $this->description;
     }
     
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = (string) $description;
         return $this;
     }
     

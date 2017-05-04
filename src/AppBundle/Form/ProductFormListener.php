@@ -31,6 +31,9 @@ class ProductFormListener implements EventSubscriberInterface
     public function onPreSubmit(FormEvent $event)
     {
         $data = $event->getData();
+        if (empty($data['images'])) {
+            return;
+        }
 
         foreach ($data['images'] as $sort => $imageForm) {
             if ($imageForm['image'] instanceof UploadedFile) {

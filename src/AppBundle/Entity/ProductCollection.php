@@ -97,9 +97,9 @@ class ProductCollection
         return $this->description;
     }
     
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = (string) $description;
         return $this;
     }
 
@@ -108,9 +108,9 @@ class ProductCollection
         return $this->shortDescription;
     }
     
-    public function setShortDescription(string $description)
+    public function setShortDescription($description)
     {
-        $this->shortDescription = $description;
+        $this->shortDescription = (string) $description;
         return $this;
     }
 
