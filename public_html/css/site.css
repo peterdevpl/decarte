@@ -320,6 +320,26 @@ article.full_description {
 	font-size: 50%;
 }
 
+.cart_submit {
+	padding-top: 20px;
+	text-align: right;
+}
+
+.cart_submit input {
+	border-style: none;
+	color: #FFFFFF;
+	font-size: 20px;
+	padding: 8px 16px;
+}
+
+.cart_submit input[name="save"] {
+	background: #A3A3A3;
+}
+
+.cart_submit input[name="save_and_order"] {
+	background: #DF89B0;
+}
+
 #teksty_menu {
     list-style-type: none;
     margin: 1em 0 0 0;

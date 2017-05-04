@@ -24,9 +24,15 @@ class CartController extends Controller
         $repository = new CartRepository(new Session(), $productRepository);
         $cart = $repository->getCart();
 
-        return $this->render('cart/index.html.twig', [
-            'cart' => $cart,
-        ]);
+        if (count($cart->getItems())) {
+            $view = 'cart/index.html.twig';
+            $parameters = ['cart' => $cart];
+        } else {
+            $view = 'cart/empty.html.twig';
+            $parameters = [];
+        }
+
+        return $this->render($view, $parameters);
     }
 
     /**
@@ -52,10 +58,10 @@ class CartController extends Controller
         }
 
         $minimumQuantity = $product->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
-        $repository = new CartRepository(new Session(), $productRepository);
+        $cartRepository = new CartRepository(new Session(), $productRepository);
 
         try {
-            $repository->getCart()->addItem(new CartItem($product, $quantity, $minimumQuantity));
+            $cartRepository->getCart()->addItem(new CartItem($product, $quantity, $minimumQuantity));
         } catch (\InvalidArgumentException $e) {
             $this->addFlash('error', 'Minimalna liczba sztuk to ' . $minimumQuantity);
 
@@ -66,8 +72,40 @@ class CartController extends Controller
             ]);
         }
 
-        $repository->persist();
+        $cartRepository->persist();
 
         return $this->redirectToRoute('cart_index');
+    }
+
+    /**
+     * @Route("/koszyk/zapisz", name="cart_save")
+     * @param Request $request
+     * @return Response
+     */
+    public function saveAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productRepository = $em->getRepository('AppBundle:Product');
+        $cartRepository = new CartRepository(new Session(), $productRepository);
+
+        $cart = $cartRepository->getCart();
+
+        $quantities = $request->get('quantity');
+        foreach ($quantities as $productId => $quantity) {
+            $item = $cart->getItem((int) $productId);
+            if ($item) {
+                $item->setQuantity((int) $quantity);
+            }
+        }
+
+        $cartRepository->persist();
+
+        if (!empty($request->get('save'))) {
+            $route = 'cart_index';
+        } else {
+            $route = 'order_details';
+        }
+
+        return $this->redirectToRoute($route);
     }
 }
