@@ -103,7 +103,7 @@ class CartController extends Controller
         if (!empty($request->get('save'))) {
             $route = 'cart_index';
         } else {
-            $route = 'order_details';
+            $route = 'put_order';
         }
 
         return $this->redirectToRoute($route);
