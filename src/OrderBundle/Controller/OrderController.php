@@ -2,6 +2,8 @@
 
 namespace OrderBundle\Controller;
 
+use OrderBundle\Entity\Order;
+use OrderBundle\Form\ShippingDetailsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +26,17 @@ class OrderController extends Controller
      */
     public function shippingDetails(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $deliveryTypes = $em->getRepository('OrderBundle:DeliveryType')->getDeliveryTypes();
 
+        $order = new Order();
+
+        $form = $this->createForm(ShippingDetailsType::class, $order, [
+            'delivery_types' => $deliveryTypes,
+        ]);
+
+        return $this->render('order/shipping_details.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

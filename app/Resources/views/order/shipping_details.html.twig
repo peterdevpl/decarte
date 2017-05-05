@@ -1,0 +1,27 @@
+{% extends 'baseSidebar.html.twig' %}
+
+{% block title %}Dane do wysyłki - decARTe{% endblock %}
+
+{% block contents %}
+    {% form_theme form 'form/table.html.twig' %}
+    {{ form_start(form) }}
+
+    <h2>Dane zamawiającego</h2>
+
+    {{ form_widget(form.customer) }}
+
+    <h2>Sposób dostawy</h2>
+
+    {{ form_widget(form.deliveryType) }}
+
+    <h2>Uwagi lub pytania</h2>
+
+    {{ form_widget(form.notes) }}
+
+    {{ form_end(form) }}
+
+    <p>Po złożeniu zamówienia, w ciągu godziny otrzymają Państwo maila ze szczegółami dotyczącymi realizacji zamówienia
+        oraz rozbudowanym formularzem, w którym będzie można sprecyzować szczegóły zlecenia.</p>
+
+    <p>W razie wątpliwości zachęcamy również do kontaktu telefonicznego: <strong>793-697-390, 600-151-804</strong>.</p>
+{% endblock %}

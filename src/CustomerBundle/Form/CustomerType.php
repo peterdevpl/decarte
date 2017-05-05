@@ -18,7 +18,7 @@ class CustomerType extends AbstractType
             ->add('street', TextType::class, ['label' => 'Adres (ulica lub miejscowość, numer)'])
             ->add('postalCode', TextType::class, [
                 'label' => 'Kod pocztowy',
-                'attributes' => [
+                'attr' => [
                     'size' => 6,
                 ],
             ])
