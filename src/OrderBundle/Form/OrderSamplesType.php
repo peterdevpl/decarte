@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Form;
+namespace OrderBundle\Form;
 
-use AppBundle\Entity\SamplesOrder;
+use OrderBundle\Entity\SamplesOrder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

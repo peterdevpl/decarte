@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Form;
+namespace OrderBundle\Form;
 
-use AppBundle\Entity\SamplesOrderItem;
+use OrderBundle\Entity\SamplesOrderItem;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

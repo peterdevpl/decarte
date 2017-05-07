@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace OrderBundle\Entity;
 
 use ProductBundle\Entity\Product;
 

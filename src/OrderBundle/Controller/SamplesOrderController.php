@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace OrderBundle\Controller;
 
-use AppBundle\Entity\SamplesOrder;
-use AppBundle\Entity\SamplesOrderItem;
-use AppBundle\Form\OrderSamplesType;
+use OrderBundle\Entity\SamplesOrder;
+use OrderBundle\Entity\SamplesOrderItem;
+use OrderBundle\Form\OrderSamplesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
