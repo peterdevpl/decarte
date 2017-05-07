@@ -2,9 +2,9 @@
 
 namespace CartBundle\Repository;
 
-use AppBundle\Repository\ProductRepository;
 use CartBundle\Entity\Cart;
 use CartBundle\Entity\CartItem;
+use ProductBundle\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartRepository

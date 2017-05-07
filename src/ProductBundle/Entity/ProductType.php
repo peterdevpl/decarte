@@ -1,12 +1,16 @@
 <?php
-namespace AppBundle\Entity;
 
+namespace ProductBundle\Entity;
+
+use AppBundle\Entity\SortableTrait;
+use AppBundle\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="\AppBundle\Repository\ProductTypeRepository") @ORM\Table(name="decarte_product_types")
- * @ORM\EntityListeners({"SortListener"})
+ * @ORM\Entity(repositoryClass="\ProductBundle\Repository\ProductTypeRepository")
+ * @ORM\EntityListeners({"\AppBundle\Entity\SortListener"})
+ * @ORM\Table(name="decarte_product_types")
  */
 class ProductType
 {

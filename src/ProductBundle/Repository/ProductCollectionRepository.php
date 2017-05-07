@@ -1,6 +1,8 @@
 <?php
-namespace AppBundle\Repository;
 
+namespace ProductBundle\Repository;
+
+use AppBundle\Repository\SortableRepositoryTrait;
 use Doctrine\ORM\EntityRepository;
 
 class ProductCollectionRepository extends EntityRepository

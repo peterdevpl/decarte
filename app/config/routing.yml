@@ -9,3 +9,7 @@ cart:
 order:
     resource: "@OrderBundle/Controller/"
     type:     annotation
+
+product:
+    resource: "@ProductBundle/Controller/"
+    type:     annotation

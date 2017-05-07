@@ -1,8 +1,9 @@
 <?php
-namespace AppBundle\Form;
 
-use AppBundle\Entity\Product;
-use AppBundle\Form\Type\ProductImageFileType;
+namespace ProductBundle\Form;
+
+use ProductBundle\Entity\Product;
+use ProductBundle\Form\Event\ProductFormListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -27,7 +28,7 @@ class ProductForm extends AbstractType
     {
         $builder
             ->add('productSeries', EntityType::class, [
-                'class' => 'AppBundle:ProductSeries',
+                'class' => 'ProductBundle:ProductSeries',
                 'choices' => $builder->getData()->getProductSeries()->getProductCollection()->getProductSeries(),
                 'label' => 'Seria',
             ])

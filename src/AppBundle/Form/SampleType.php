@@ -21,7 +21,7 @@ class SampleType extends AbstractType
     {
         $builder
             ->add('product', EntityType::class, [
-                'class' => 'AppBundle:Product',
+                'class' => 'ProductBundle:Product',
                 'choices' => $options['products'],
                 'label' => 'model nr',
                 'placeholder' => '--',

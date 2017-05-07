@@ -1,17 +1,25 @@
 <?php
-namespace AppBundle\Form;
 
+namespace ProductBundle\Form\Event;
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 
-class ProductCollectionFormListener extends SingleImageFormListener
+class ProductTypeFormListener implements EventSubscriberInterface
 {
+    protected $options;
+
+    public function __construct(array $options)
+    {
+        $this->options = $options;
+    }
+
     public static function getSubscribedEvents()
     {
         return [
             FormEvents::PRE_SUBMIT => [
                 ['slugify', 5],
-                ['upload', 10],
             ],
         ];
     }

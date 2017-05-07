@@ -2,7 +2,7 @@
 
 namespace CartBundle\Entity;
 
-use AppBundle\Entity\Product;
+use ProductBundle\Entity\Product;
 
 class CartItem implements \JsonSerializable
 {

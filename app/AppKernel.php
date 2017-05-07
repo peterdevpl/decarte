@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new CartBundle\CartBundle(),
             new CustomerBundle\CustomerBundle(),
             new OrderBundle\OrderBundle(),
+            new ProductBundle\ProductBundle(),
             new Sentry\SentryBundle\SentryBundle(),
         ];
 

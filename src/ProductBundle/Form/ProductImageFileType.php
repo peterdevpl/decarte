@@ -1,7 +1,9 @@
 <?php
-namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\ProductImage;
+namespace ProductBundle\Form;
+
+use AppBundle\Form\Type\ImageFileType;
+use ProductBundle\Entity\ProductImage;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

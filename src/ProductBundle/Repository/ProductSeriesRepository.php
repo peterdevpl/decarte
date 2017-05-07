@@ -1,8 +1,10 @@
 <?php
-namespace AppBundle\Repository;
 
-use AppBundle\Entity\ProductCollection;
+namespace ProductBundle\Repository;
+
+use AppBundle\Repository\SortableRepositoryTrait;
 use Doctrine\ORM\EntityRepository;
+use ProductBundle\Entity\ProductCollection;
 
 class ProductSeriesRepository extends EntityRepository
 {

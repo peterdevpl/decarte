@@ -19,7 +19,7 @@ class CartController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $productRepository = $em->getRepository('AppBundle:Product');
+        $productRepository = $em->getRepository('ProductBundle:Product');
 
         $repository = new CartRepository(new Session(), $productRepository);
         $cart = $repository->getCart();
@@ -46,7 +46,7 @@ class CartController extends Controller
         $quantity = (int) $request->get('quantity');
 
         $em = $this->getDoctrine()->getManager();
-        $productRepository = $em->getRepository('AppBundle:Product');
+        $productRepository = $em->getRepository('ProductBundle:Product');
         $product = $productRepository->find($productId);
 
         if (!$product ||
@@ -85,7 +85,7 @@ class CartController extends Controller
     public function saveAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $productRepository = $em->getRepository('AppBundle:Product');
+        $productRepository = $em->getRepository('ProductBundle:Product');
         $cartRepository = new CartRepository(new Session(), $productRepository);
 
         $cart = $cartRepository->getCart();

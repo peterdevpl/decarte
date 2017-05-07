@@ -1,7 +1,9 @@
 <?php
-namespace AppBundle\Form;
+
+namespace ProductBundle\Form;
 
 use AppBundle\Form\Type\StringImageFileType;
+use ProductBundle\Form\Event\ProductCollectionFormListener;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +25,7 @@ class ProductCollectionForm extends AbstractType
     {
         $builder
             ->add('productType', EntityType::class, [
-                'class' => 'AppBundle:ProductType',
+                'class' => 'ProductBundle:ProductType',
                 'label' => 'Typ',
             ])
             ->add('name', TextType::class, ['label' => 'Nazwa'])

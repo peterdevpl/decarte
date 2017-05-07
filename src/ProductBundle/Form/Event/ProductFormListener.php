@@ -1,5 +1,6 @@
 <?php
-namespace AppBundle\Form;
+
+namespace ProductBundle\Form\Event;
 
 use AppBundle\Upload\Thumbnail;
 use Symfony\Component\Form\FormEvents;
@@ -71,7 +72,7 @@ class ProductFormListener implements EventSubscriberInterface
 
     public function onSubmit(FormEvent $event)
     {
-        /** @var \AppBundle\Entity\Product $data */
+        /** @var \ProductBundle\Entity\Product $data */
         $data = $event->getData();
 
         foreach ($data->getImages() as $image) {

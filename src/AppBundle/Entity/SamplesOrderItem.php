@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use ProductBundle\Entity\Product;
+
 class SamplesOrderItem
 {
     protected $product;

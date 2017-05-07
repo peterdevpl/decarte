@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace ProductBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,12 +16,12 @@ class ProductsController extends Controller
     public function listCollectionsAction($type)
     {
         $em = $this->getDoctrine()->getManager();
-        $productType = $em->getRepository('AppBundle:ProductType')->findBySlugName($type);
+        $productType = $em->getRepository('ProductBundle:ProductType')->findBySlugName($type);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
 
-        $productCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
+        $productCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($productType->getId());
         if (!$productCollections) {
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
@@ -48,14 +48,14 @@ class ProductsController extends Controller
     public function viewCollectionAction($type, $slugName)
     {
         $em = $this->getDoctrine()->getManager();
-        $productCollection = $em->getRepository('AppBundle:ProductCollection')->findBySlugName($type, $slugName);
+        $productCollection = $em->getRepository('ProductBundle:ProductCollection')->findBySlugName($type, $slugName);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
         }
 
         $productType = $productCollection->getProductType();
-        $allCollections = $em->getRepository('AppBundle:ProductCollection')->getProductCollections($productType->getId());
-        $allSeries = $em->getRepository('AppBundle:ProductSeries')->getFromCollection($productCollection);
+        $allCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($productType->getId());
+        $allSeries = $em->getRepository('ProductBundle:ProductSeries')->getFromCollection($productCollection);
 
         return $this->render('shop/viewCollection.html.twig', [
             'productCollection' => $productCollection,
@@ -74,7 +74,7 @@ class ProductsController extends Controller
     public function viewProductAction($type, $slugName, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AppBundle:Product')->find($id);
+        $product = $em->getRepository('ProductBundle:Product')->find($id);
         if (!$product ||
             !$product->isVisible() ||
             !$product->getProductSeries()->isVisible() ||

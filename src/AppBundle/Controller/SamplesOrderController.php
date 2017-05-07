@@ -25,8 +25,8 @@ class SamplesOrderController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $productType = $em->getRepository('AppBundle:ProductType')->find(1);
-        $products = $em->getRepository('AppBundle:Product')->findDemos($productType);
+        $productType = $em->getRepository('ProductBundle:ProductType')->find(1);
+        $products = $em->getRepository('ProductBundle:Product')->findDemos($productType);
 
         $form = $this->createForm(OrderSamplesType::class, $order, [
             'products' => $products,
