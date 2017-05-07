@@ -1,8 +1,8 @@
 <?php
 
-use AppBundle\Entity\CartItem;
-use AppBundle\Entity\Product;
+use CartBundle\Entity\CartItem;
 use PHPUnit\Framework\TestCase;
+use ProductBundle\Entity\Product;
 
 class CartItemTest extends TestCase
 {

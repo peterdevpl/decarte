@@ -1,9 +1,9 @@
 <?php
 
-use AppBundle\Entity\Cart;
-use AppBundle\Entity\CartItem;
-use AppBundle\Entity\Product;
+use CartBundle\Entity\Cart;
+use CartBundle\Entity\CartItem;
 use PHPUnit\Framework\TestCase;
+use ProductBundle\Entity\Product;
 
 class CartTest extends TestCase
 {
