@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
             new AppBundle\AppBundle(),
             new CartBundle\CartBundle(),
-            new CustomerBundle\CustomerBundle(),
             new OrderBundle\OrderBundle(),
             new ProductBundle\ProductBundle(),
             new Sentry\SentryBundle\SentryBundle(),

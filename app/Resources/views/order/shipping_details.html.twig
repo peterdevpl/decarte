@@ -8,7 +8,12 @@
 
     <h2>Dane zamawiającego</h2>
 
-    {{ form_widget(form.customer) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.street) }}
+    {{ form_row(form.postalCode) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.phone) }}
 
     <h2>Sposób dostawy</h2>
 

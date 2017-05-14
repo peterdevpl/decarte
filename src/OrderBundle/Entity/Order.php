@@ -17,7 +17,35 @@ class Order
      */
     protected $id = 0;
 
-    protected $customer;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $email = '';
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $name = '';
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $street = '';
+
+    /**
+     * @ORM\Column(type="string", name="postal_code")
+     */
+    protected $postalCode = '';
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $city = '';
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $phone = '';
 
     /**
      * @ORM\ManyToOne(targetEntity="DeliveryType", inversedBy="orders")
@@ -83,6 +111,72 @@ class Order
     public function setNotes($notes)
     {
         $this->notes = (string) $notes;
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email)
+    {
+        $this->email = mb_strtolower(trim($email), 'UTF-8');
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = trim($name);
+        return $this->name;
+    }
+
+    public function getStreet(): string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(string $street)
+    {
+        $this->street = trim($street);
+        return $this;
+    }
+
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $code)
+    {
+        $this->postalCode = $code;
+        return $this;
+    }
+
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone)
+    {
+        $this->phone = $phone;
         return $this;
     }
 }
