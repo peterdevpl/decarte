@@ -459,16 +459,16 @@ article.full_description {
 	padding: 0.5em 0;
 }
 
-form table th, form table td {
-	vertical-align: top;
+.form-group {
+	display: table-row;
 }
 
-form table th {
-	font-weight: normal;
-	text-align: right;
+.form-group label {
+	display: table-cell;
+	padding: 0.5em 0.5em 0.5em 0;
 }
 
-form table th label:after {
+.form-group label:after {
 	content: ':';
 }
 

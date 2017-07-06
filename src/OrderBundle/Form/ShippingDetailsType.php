@@ -17,21 +17,22 @@ class ShippingDetailsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class, ['label' => 'Imię i nazwisko'])
-            ->add('street', TextType::class, ['label' => 'Adres (ulica lub miejscowość, numer)'])
+            ->add('name',TextType::class, ['label' => 'Imię i nazwisko', 'attr' => ['size' => 60]])
+            ->add('street', TextType::class, ['label' => 'Adres (ulica lub miejscowość, numer)', 'attr' => ['size' => 60]])
             ->add('postalCode', TextType::class, [
                 'label' => 'Kod pocztowy',
                 'attr' => [
                     'size' => 6,
                 ],
             ])
-            ->add('city', TextType::class, ['label' => 'Miasto'])
-            ->add('email', EmailType::class, ['label' => 'E-mail'])
-            ->add('phone', TextType::class, ['label' => 'Numer telefonu'])
+            ->add('city', TextType::class, ['label' => 'Miasto', 'attr' => ['size' => 60]])
+            ->add('email', EmailType::class, ['label' => 'E-mail', 'attr' => ['size' => 60]])
+            ->add('phone', TextType::class, ['label' => 'Numer telefonu', 'attr' => ['size' => 60]])
             ->add('notes', TextareaType::class, [
                 'label' => 'Uwagi lub pytania',
                 'attr' => [
                     'rows' => 3,
+                    'cols' => 80,
                 ],
             ])
             ->add('deliveryType', EntityType::class, [
