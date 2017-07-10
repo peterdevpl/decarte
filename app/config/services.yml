@@ -6,3 +6,6 @@ parameters:
 services:
     menu:
         class: AppBundle\Menu\Menu
+    temporary_order_repository:
+        class: OrderBundle\Repository\SessionOrderRepository
+        arguments: ['@session']

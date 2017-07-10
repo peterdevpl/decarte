@@ -1,0 +1,42 @@
+{% extends 'baseSidebar.html.twig' %}
+
+{% block title %}Potwierdzenie zamówienia - decARTe{% endblock %}
+
+{% block contents %}
+    <h2>Dane zamawiającego</h2>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Imię i nazwisko:</th>
+                <td>{{ order.getName() }}</td>
+            </tr>
+            <tr>
+                <th>Adres:</th>
+                <td>{{ order.getStreet() }}</td>
+            </tr>
+            <tr>
+                <th>Kod pocztowy:</th>
+                <td>{{ order.getPostalCode() }}</td>
+            </tr>
+            <tr>
+                <th>Miasto:</th>
+                <td>{{ order.getCity() }}</td>
+            </tr>
+            <tr>
+                <th>E-mail:</th>
+                <td>{{ order.getEmail() }}</td>
+            </tr>
+            <tr>
+                <th>Numer telefonu:</th>
+                <td>{{ order.getPhone() }}</td>
+            </tr>
+            <tr>
+                <th>Uwagi:</th>
+                <td>{{ order.getNotes()|nl2br }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Kraj prowadzenia działalności: Polska</p>
+{% endblock %}

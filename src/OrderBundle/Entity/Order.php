@@ -2,83 +2,77 @@
 
 namespace OrderBundle\Entity;
 
-use CustomerBundle\Entity\Customer;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="\OrderBundle\Repository\OrderRepository")
  * @ORM\Table(name="decarte_orders")
  */
-class Order
+class Order implements \JsonSerializable
 {
     /**
      * @ORM\Id @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected $id = 0;
+    private $id = 0;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $email = '';
+    private $email = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $name = '';
+    private $name = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $street = '';
+    private $street = '';
 
     /**
      * @ORM\Column(type="string", name="postal_code")
      */
-    protected $postalCode = '';
+    private $postalCode = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $city = '';
+    private $city = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $phone = '';
+    private $phone = '';
 
     /**
      * @ORM\ManyToOne(targetEntity="DeliveryType", inversedBy="orders")
      * @ORM\JoinColumn(name="delivery_type_id", referencedColumnName="id")
+     * @var DeliveryType
      */
-    protected $deliveryType;
+    private $deliveryType;
 
     /** @ORM\Column(type="integer") */
-    protected $price = 0;
+    private $price = 0;
 
     /** @ORM\Column(type="string") */
-    protected $notes = '';
+    private $notes = '';
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order")
+     */
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function setId(int $id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(Customer $customer)
-    {
-        $this->customer = $customer;
-        return $this;
     }
 
     public function getDeliveryType()
@@ -133,7 +127,7 @@ class Order
     public function setName(string $name)
     {
         $this->name = trim($name);
-        return $this->name;
+        return $this;
     }
 
     public function getStreet(): string
@@ -178,5 +172,21 @@ class Order
     {
         $this->phone = $phone;
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'city' => $this->getCity(),
+            'deliveryTypeId' => $this->getDeliveryType()->getId(),
+            'email' => $this->getEmail(),
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'notes' => $this->getNotes(),
+            'phone' => $this->getPhone(),
+            'postalCode' => $this->getPostalCode(),
+            'price' => $this->getPrice(),
+            'street' => $this->getStreet(),
+        ];
     }
 }
