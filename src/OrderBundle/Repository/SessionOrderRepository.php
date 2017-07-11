@@ -2,6 +2,7 @@
 
 namespace OrderBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
 use OrderBundle\Entity\Order;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -10,10 +11,14 @@ class SessionOrderRepository
     /** @var SessionInterface */
     private $session;
 
+    /** @var EntityRepository */
+    private $deliveryTypeRepository;
+
     private $order;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, EntityRepository $deliveryTypeRepository)
     {
+        $this->deliveryTypeRepository = $deliveryTypeRepository;
         $this->session = $session;
     }
 
@@ -37,6 +42,9 @@ class SessionOrderRepository
         $order = new Order();
 
         if ($orderArray) {
+            $deliveryType = $this->deliveryTypeRepository->find($orderArray['deliveryTypeId']);
+            $deliveryType->setPrice($orderArray['deliveryPrice']);
+
             $order
                 ->setCity($orderArray['city'])
                 ->setEmail($orderArray['email'])
@@ -44,7 +52,8 @@ class SessionOrderRepository
                 ->setStreet($orderArray['street'])
                 ->setPostalCode($orderArray['postalCode'])
                 ->setPhone($orderArray['phone'])
-                ->setNotes($orderArray['notes']);
+                ->setNotes($orderArray['notes'])
+                ->setDeliveryType($deliveryType);
         }
 
         return $order;

@@ -41,7 +41,7 @@ class OrderController extends Controller
             $order = $form->getData();
             $repository->persist($order);
 
-            return $this->redirectToRoute('order_confirmation');
+            return $this->redirectToRoute('order_summary', [], 303);
         }
 
         return $this->render('order/shipping_details.html.twig', [
@@ -50,16 +50,34 @@ class OrderController extends Controller
     }
 
     /**
+     * @Route("/podsumowanie-zamowienia", name="order_summary")
+     * @return Response
+     */
+    public function summaryAction()
+    {
+        $repository = $this->get('temporary_order_repository');
+        $order = $repository->getOrder();
+
+        return $this->render('order/summary.html.twig', [
+            'order' => $order,
+        ]);
+    }
+
+    /**
+     * @Route("/zapisz-zamowienie", name="order_save")
+     * @return Response
+     */
+    public function saveAction()
+    {
+        return $this->redirectToRoute('order_confirmation', [], 303);
+    }
+
+    /**
      * @Route("/potwierdzenie-zamowienia", name="order_confirmation")
      * @return Response
      */
     public function confirmationAction()
     {
-        $repository = $this->get('temporary_order_repository');
-        $order = $repository->getOrder();
-
-        return $this->render('order/confirmation.html.twig', [
-            'order' => $order,
-        ]);
+        return $this->render('order/confirmation.html.twig');
     }
 }

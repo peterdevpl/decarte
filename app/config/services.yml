@@ -6,6 +6,13 @@ parameters:
 services:
     menu:
         class: AppBundle\Menu\Menu
+
+    delivery_type_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - OrderBundle\Entity\DeliveryType
+
     temporary_order_repository:
         class: OrderBundle\Repository\SessionOrderRepository
-        arguments: ['@session']
+        arguments: ['@session', '@delivery_type_repository']

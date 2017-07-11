@@ -179,6 +179,7 @@ class Order implements \JsonSerializable
         return [
             'city' => $this->getCity(),
             'deliveryTypeId' => $this->getDeliveryType()->getId(),
+            'deliveryPrice' => $this->getDeliveryType()->getPrice(),
             'email' => $this->getEmail(),
             'id' => $this->getId(),
             'name' => $this->getName(),
