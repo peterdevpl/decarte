@@ -44,7 +44,7 @@ class OrderController extends Controller
             return $this->redirectToRoute('order_summary', [], 303);
         }
 
-        return $this->render('order/shipping_details.html.twig', [
+        return $this->render('order/shippingDetails.html.twig', [
             'form' => $form->createView(),
         ]);
     }
