@@ -30,6 +30,7 @@ class ShippingDetailsType extends AbstractType
             ->add('phone', TextType::class, ['label' => 'Numer telefonu', 'attr' => ['size' => 60]])
             ->add('notes', TextareaType::class, [
                 'label' => 'Uwagi lub pytania',
+                'required' => false,
                 'attr' => [
                     'rows' => 3,
                     'cols' => 80,
