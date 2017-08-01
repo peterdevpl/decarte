@@ -13,14 +13,16 @@ class OrderItem
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Order")
+     * @ORM\ManyToOne(targetEntity="Order", inversedBy="items")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      * @var Order
      */
     private $order;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="\ProductBundle\Entity\Product", inversedBy="orderItems")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * @var Product
      */
     private $product;

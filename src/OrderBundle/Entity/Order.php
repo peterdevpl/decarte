@@ -61,6 +61,12 @@ class Order implements \JsonSerializable
     private $notes = '';
 
     /**
+     * @ORM\Column(type="datetime", name="created_at")
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
      * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order")
      */
     private $items;
@@ -95,6 +101,13 @@ class Order implements \JsonSerializable
     {
         $this->price = $price;
         return $this;
+    }
+
+    public function getTotalPrice(): int
+    {
+        return
+            $this->getPrice() +
+            ($this->getDeliveryType() ? $this->getDeliveryType()->getPrice() : 0);
     }
 
     public function getNotes(): string
@@ -172,6 +185,11 @@ class Order implements \JsonSerializable
     {
         $this->phone = $phone;
         return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
     public function jsonSerialize()

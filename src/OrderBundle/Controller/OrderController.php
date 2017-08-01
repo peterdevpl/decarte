@@ -14,6 +14,7 @@ class OrderController extends Controller
     /**
      * @Route("/zloz-zamowienie", name="put_order")
      * @return Response
+     * @todo Cart items should be transfered to the temporary order, so the Order can calculate its total price
      */
     public function putOrderAction()
     {
@@ -55,11 +56,15 @@ class OrderController extends Controller
      */
     public function summaryAction()
     {
-        $repository = $this->get('temporary_order_repository');
-        $order = $repository->getOrder();
+        $orderRepository = $this->get('temporary_order_repository');
+        $order = $orderRepository->getOrder();
+
+        $cartRepository = $this->get('cart_repository');
+        $cart = $cartRepository->getCart();
 
         return $this->render('order/summary.html.twig', [
             'order' => $order,
+            'cart' => $cart,
         ]);
     }
 

@@ -41,6 +41,31 @@
 
         <h2>Zawartość zamówienia</h2>
 
+        <table>
+            <thead>
+                <tr>
+                    <th>L.p.</th>
+                    <th>Nazwa produktu</th>
+                    <th>Liczba szt.</th>
+                    <th>Razem</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in cart.getItems() %}
+                {% set collection = item.getProduct().getProductSeries().getProductCollection() %}
+                {% set type = collection.getProductType() %}
+                {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
+
+                <tr>
+                    <td>{{ loop.index }}.</td>
+                    <td><a href="{{ url }}">{{ collection.getName() }} - {{ item.getProduct().getName() }}</a></td>
+                    <td>{{ item.getQuantity() }}</td>
+                    <td>{{ item.getTotalPrice()|number_format(2, ',', ' ') }} zł</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
         {% if order.getNotes() %}
             <p>Uwagi: {{ order.getNotes()|nl2br }}</p>
         {% endif %}
@@ -48,6 +73,8 @@
         <h2>Sposób dostawy</h2>
 
         <p>{{ order.getDeliveryType() }}</p>
+
+        <div id="order_total_price">DO ZAPŁATY: {{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
 
         <div class="cart_submit">
             <input type="submit" name="edit_order" value="Wróć do edycji danych">
