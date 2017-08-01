@@ -13,6 +13,16 @@ services:
         arguments:
             - OrderBundle\Entity\DeliveryType
 
+    product_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - ProductBundle\Entity\Product
+
+    cart_repository:
+        class: CartBundle\Repository\CartRepository
+        arguments: ['@session', '@product_repository']
+
     temporary_order_repository:
         class: OrderBundle\Repository\SessionOrderRepository
         arguments: ['@session', '@delivery_type_repository']

@@ -4,7 +4,7 @@ namespace CartBundle\Repository;
 
 use CartBundle\Entity\Cart;
 use CartBundle\Entity\CartItem;
-use ProductBundle\Repository\ProductRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartRepository
@@ -12,13 +12,13 @@ class CartRepository
     /** @var SessionInterface */
     protected $session;
 
-    /** @var ProductRepository */
+    /** @var EntityRepository */
     protected $productRepository;
 
     /** @var Cart */
     protected $cart;
 
-    public function __construct(SessionInterface $session, ProductRepository $productRepository)
+    public function __construct(SessionInterface $session, EntityRepository $productRepository)
     {
         $this->productRepository = $productRepository;
         $this->session = $session;

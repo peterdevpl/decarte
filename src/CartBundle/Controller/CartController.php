@@ -18,10 +18,7 @@ class CartController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $productRepository = $em->getRepository('ProductBundle:Product');
-
-        $repository = new CartRepository(new Session(), $productRepository);
+        $repository = $this->get('cart_repository');
         $cart = $repository->getCart();
 
         if (count($cart->getItems())) {
@@ -58,7 +55,7 @@ class CartController extends Controller
         }
 
         $minimumQuantity = $product->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
-        $cartRepository = new CartRepository(new Session(), $productRepository);
+        $cartRepository = $this->get('cart_repository');
 
         try {
             $cartRepository->getCart()->addItem(new CartItem($product, $quantity, $minimumQuantity));
@@ -84,10 +81,7 @@ class CartController extends Controller
      */
     public function saveAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $productRepository = $em->getRepository('ProductBundle:Product');
-        $cartRepository = new CartRepository(new Session(), $productRepository);
-
+        $cartRepository = $this->get('cart_repository');
         $cart = $cartRepository->getCart();
 
         $quantities = $request->get('quantity');
