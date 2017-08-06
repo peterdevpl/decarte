@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for item in cart.getItems() %}
+            {% for item in order.getItems() %}
                 {% set collection = item.getProduct().getProductSeries().getProductCollection() %}
                 {% set type = collection.getProductType() %}
                 {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
@@ -60,7 +60,7 @@
                     <td>{{ loop.index }}.</td>
                     <td><a href="{{ url }}">{{ collection.getName() }} - {{ item.getProduct().getName() }}</a></td>
                     <td>{{ item.getQuantity() }}</td>
-                    <td>{{ item.getTotalPrice()|number_format(2, ',', ' ') }} zł</td>
+                    <td>{{ (item.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</td>
                 </tr>
             {% endfor %}
             </tbody>

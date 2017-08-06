@@ -25,4 +25,4 @@ services:
 
     temporary_order_repository:
         class: OrderBundle\Repository\SessionOrderRepository
-        arguments: ['@session', '@delivery_type_repository']
+        arguments: ['@session', '@product_repository', '@delivery_type_repository']

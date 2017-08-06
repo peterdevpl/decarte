@@ -9,7 +9,7 @@ use ProductBundle\Entity\Product;
  * @ORM\Entity()
  * @ORM\Table(name="decarte_orders_items")
  */
-class OrderItem
+class OrderItem implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -75,5 +75,19 @@ class OrderItem
     {
         $this->unitPrice = $price;
         return $this;
+    }
+
+    public function getTotalPrice(): int
+    {
+        return $this->quantity * $this->unitPrice;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'productId' => $this->product->getId(),
+            'quantity' => $this->quantity,
+            'unitPrice' => $this->unitPrice,
+        ];
     }
 }

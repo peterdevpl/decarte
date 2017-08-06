@@ -12,13 +12,20 @@ class SessionOrderRepository
     private $session;
 
     /** @var EntityRepository */
+    private $productRepository;
+
+    /** @var EntityRepository */
     private $deliveryTypeRepository;
 
     private $order;
 
-    public function __construct(SessionInterface $session, EntityRepository $deliveryTypeRepository)
+    public function __construct(
+        SessionInterface $session,
+        EntityRepository $productRepository,
+        EntityRepository $deliveryTypeRepository)
     {
         $this->deliveryTypeRepository = $deliveryTypeRepository;
+        $this->productRepository = $productRepository;
         $this->session = $session;
     }
 
@@ -42,9 +49,6 @@ class SessionOrderRepository
         $order = new Order();
 
         if ($orderArray) {
-            $deliveryType = $this->deliveryTypeRepository->find($orderArray['deliveryTypeId']);
-            $deliveryType->setPrice($orderArray['deliveryPrice']);
-
             $order
                 ->setCity($orderArray['city'])
                 ->setEmail($orderArray['email'])
@@ -53,7 +57,18 @@ class SessionOrderRepository
                 ->setPostalCode($orderArray['postalCode'])
                 ->setPhone($orderArray['phone'])
                 ->setNotes($orderArray['notes'])
-                ->setDeliveryType($deliveryType);
+                ->setTotalPrice($orderArray['price']);
+
+            foreach ($orderArray['items'] as $itemArray) {
+                $product = $this->productRepository->find($itemArray['productId']);
+                $order->addItem($product, $itemArray['quantity'], $itemArray['unitPrice']);
+            }
+
+            if ($orderArray['deliveryTypeId']) {
+                $deliveryType = $this->deliveryTypeRepository->find($orderArray['deliveryTypeId']);
+                $deliveryType->setPrice($orderArray['deliveryPrice']);
+                $order->setDeliveryType($deliveryType);
+            }
         }
 
         return $order;

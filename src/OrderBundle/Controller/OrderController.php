@@ -14,10 +14,21 @@ class OrderController extends Controller
     /**
      * @Route("/zloz-zamowienie", name="put_order")
      * @return Response
-     * @todo Cart items should be transfered to the temporary order, so the Order can calculate its total price
      */
     public function putOrderAction()
     {
+        $cartRepository = $this->get('cart_repository');
+        $orderRepository = $this->get('temporary_order_repository');
+
+        $cart = $cartRepository->getCart();
+        $order = $orderRepository->getOrder();
+
+        $order->clearItems();
+        foreach ($cart->getItems() as $cartItem) {
+            $order->addItem($cartItem->getProduct(), $cartItem->getQuantity(), $cartItem->getUnitPrice());
+        }
+        $orderRepository->persist($order);
+
         return $this->redirectToRoute('order_shipping_details');
     }
 
@@ -56,15 +67,8 @@ class OrderController extends Controller
      */
     public function summaryAction()
     {
-        $orderRepository = $this->get('temporary_order_repository');
-        $order = $orderRepository->getOrder();
-
-        $cartRepository = $this->get('cart_repository');
-        $cart = $cartRepository->getCart();
-
         return $this->render('order/summary.html.twig', [
-            'order' => $order,
-            'cart' => $cart,
+            'order' => $this->get('temporary_order_repository')->getOrder(),
         ]);
     }
 
