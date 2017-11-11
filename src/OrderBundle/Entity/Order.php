@@ -217,6 +217,32 @@ class Order implements \JsonSerializable
         return $this;
     }
 
+    public function removeProduct(Product $product)
+    {
+        foreach ($this->items as $item) {
+            if ($item->getProduct() === $product) {
+                $this->items->removeElement($item);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return OrderItem
+     */
+    public function getItem(int $id): OrderItem
+    {
+        foreach ($this->items as $item) {
+            if ($item->getProduct()->getId() === $id) {
+                return $item;
+            }
+        }
+
+        return new OrderItem();
+    }
+
     public function clearItems()
     {
         $this->items->clear();
