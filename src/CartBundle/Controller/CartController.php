@@ -2,7 +2,7 @@
 
 namespace CartBundle\Controller;
 
-use CartBundle\Entity\CartItem;
+use OrderBundle\Exception\QuantityTooSmallException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +16,12 @@ class CartController extends Controller
      */
     public function indexAction()
     {
-        $repository = $this->get('cart_repository');
-        $cart = $repository->getCart();
+        $repository = $this->get('temporary_order_repository');
+        $order = $repository->getOrder();
 
-        if (count($cart->getItems())) {
+        if (count($order->getItems())) {
             $view = 'cart/index.html.twig';
-            $parameters = ['cart' => $cart];
+            $parameters = ['order' => $order];
         } else {
             $view = 'cart/empty.html.twig';
             $parameters = [];
@@ -52,13 +52,14 @@ class CartController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
-        $minimumQuantity = $product->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
-        $cartRepository = $this->get('cart_repository');
+        $orderRepository = $this->get('temporary_order_repository');
+        $order = $orderRepository->getOrder();
 
         try {
-            $cartRepository->getCart()->addItem(new CartItem($product, $quantity, $minimumQuantity));
-        } catch (\InvalidArgumentException $e) {
-            $this->addFlash('error', 'Minimalna liczba sztuk to ' . $minimumQuantity);
+            $order->addItem($product, $quantity, $product->getPrice());
+        } catch (QuantityTooSmallException $e) {
+            $this->addFlash('error', 'Minimalna liczba sztuk to ' .
+                $e->getProduct()->getMinimumQuantity());
 
             return $this->redirectToRoute('shop_view_product', [
                 'type' => $product->getProductSeries()->getProductCollection()->getProductType()->getSlugName(),
@@ -67,7 +68,7 @@ class CartController extends Controller
             ]);
         }
 
-        $cartRepository->persist();
+        $orderRepository->persist($order);
 
         return $this->redirectToRoute('cart_index');
     }
@@ -79,23 +80,30 @@ class CartController extends Controller
      */
     public function saveAction(Request $request)
     {
-        $cartRepository = $this->get('cart_repository');
-        $cart = $cartRepository->getCart();
+        $orderRepository = $this->get('temporary_order_repository');
+        $order = $orderRepository->getOrder();
 
         $quantities = $request->get('quantity');
         foreach ($quantities as $productId => $quantity) {
-            $item = $cart->getItem((int) $productId);
+            $item = $order->getItem((int) $productId);
             if ($item) {
-                $item->setQuantity((int) $quantity);
+                try {
+                    $item->setQuantity((int)$quantity);
+                } catch (QuantityTooSmallException $e) {
+                    $this->addFlash('error', sprintf('Minimalna liczba sztuk produktu %s to %i',
+                        $e->getProduct()->getName(),
+                        $e->getProduct()->getMinimumQuantity()
+                    ));
+                }
             }
         }
 
-        $cartRepository->persist();
+        $orderRepository->persist($order);
 
         if (!empty($request->get('save'))) {
             $route = 'cart_index';
         } else {
-            $route = 'put_order';
+            $route = 'order_shipping_details';
         }
 
         return $this->redirectToRoute($route);

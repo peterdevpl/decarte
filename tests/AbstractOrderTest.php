@@ -6,6 +6,9 @@ use OrderBundle\Entity\DeliveryType;
 use OrderBundle\Entity\Order;
 use PHPUnit\Framework\TestCase;
 use ProductBundle\Entity\Product;
+use ProductBundle\Entity\ProductCollection;
+use ProductBundle\Entity\ProductSeries;
+use ProductBundle\Entity\ProductType;
 
 abstract class AbstractOrderTest extends TestCase
 {
@@ -24,10 +27,10 @@ abstract class AbstractOrderTest extends TestCase
         $this->products = [];
 
         $this->products[0] = new Product();
-        $this->products[0]->setId(1)->setPrice(20);
+        $this->products[0]->setId(1)->setPrice(20)->setProductSeries($this->buildProductSeries(1));
 
         $this->products[1] = new Product();
-        $this->products[1]->setId(2)->setPrice(30);
+        $this->products[1]->setId(2)->setPrice(30)->setProductSeries($this->buildProductSeries(2));
 
         $this->order = new Order();
         $this->order
@@ -56,5 +59,17 @@ abstract class AbstractOrderTest extends TestCase
             ->setPrice(10);
 
         return $deliveryType;
+    }
+
+    protected function buildProductSeries(int $minimumQuantity): ProductSeries
+    {
+        $productType = new ProductType();
+        $productType->setMinimumQuantity($minimumQuantity);
+        $productCollection = new ProductCollection();
+        $productCollection->setProductType($productType);
+        $productSeries = new ProductSeries();
+        $productSeries->setProductCollection($productCollection);
+
+        return $productSeries;
     }
 }

@@ -32,6 +32,14 @@ class OrderTest extends AbstractOrderTest
         $this->assertEquals(90, $this->order->getTotalPrice());
     }
 
+    /**
+     * @expectedException \OrderBundle\Exception\QuantityTooSmallException
+     */
+    public function testTooSmallQuantity()
+    {
+        $this->order->addItem($this->products[1], 1, 0);
+    }
+
     public function testJson()
     {
         $json = json_encode($this->order);

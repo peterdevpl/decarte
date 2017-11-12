@@ -132,6 +132,11 @@ class Product
         return $this;
     }
 
+    public function getMinimumQuantity(): int
+    {
+        return $this->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
+    }
+
     public function getImages()
     {
         return $this->images;

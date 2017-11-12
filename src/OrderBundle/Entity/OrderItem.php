@@ -3,6 +3,7 @@
 namespace OrderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OrderBundle\Exception\QuantityTooSmallException;
 use ProductBundle\Entity\Product;
 
 /**
@@ -62,6 +63,13 @@ class OrderItem implements \JsonSerializable
 
     public function setQuantity(int $quantity)
     {
+        $minimumQuantity = $this->product->getMinimumQuantity();
+        if ($quantity < $minimumQuantity) {
+            $e = new QuantityTooSmallException($this->product);
+            $e->setContext($this->product, $quantity);
+            throw $e;
+        }
+
         $this->quantity = $quantity;
         return $this;
     }

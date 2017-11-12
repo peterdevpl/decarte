@@ -2,7 +2,6 @@
 
 namespace OrderBundle\Controller;
 
-use OrderBundle\Entity\Order;
 use OrderBundle\Form\ShippingDetailsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,27 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
-    /**
-     * @Route("/zloz-zamowienie", name="put_order")
-     * @return Response
-     */
-    public function putOrderAction()
-    {
-        $cartRepository = $this->get('cart_repository');
-        $orderRepository = $this->get('temporary_order_repository');
-
-        $cart = $cartRepository->getCart();
-        $order = $orderRepository->getOrder();
-
-        $order->clearItems();
-        foreach ($cart->getItems() as $cartItem) {
-            $order->addItem($cartItem->getProduct(), $cartItem->getQuantity(), $cartItem->getUnitPrice());
-        }
-        $orderRepository->persist($order);
-
-        return $this->redirectToRoute('order_shipping_details');
-    }
-
     /**
      * @Route("/zloz-zamowienie/dane-wysylki", name="order_shipping_details")
      * @param Request $request

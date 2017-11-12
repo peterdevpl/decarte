@@ -7,7 +7,7 @@
 
     <form action="{{ path('cart_save') }}" method="post">
         <ul id="cart_items">
-            {% for item in cart.getItems() %}
+            {% for item in order.getItems() %}
                 {% set collection = item.getProduct().getProductSeries().getProductCollection() %}
                 {% set type = collection.getProductType() %}
                 {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
@@ -41,7 +41,7 @@
         </ul>
 
         <div class="cart_total_price">
-            Razem <strong>{{ cart.getTotalPrice()|number_format(2, ',', ' ') }}</strong> zł<br>
+            Razem <strong>{{ order.getItemsPrice()|number_format(2, ',', ' ') }}</strong> zł<br>
             <small>plus koszty przesyłki &ndash; w następnym kroku</small>
         </div>
 
