@@ -2,10 +2,6 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-cart:
-    resource: "@CartBundle/Controller/"
-    type:     annotation
-
 order:
     resource: "@OrderBundle/Controller/"
     type:     annotation

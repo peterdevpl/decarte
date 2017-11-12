@@ -1,6 +1,6 @@
 <?php
 
-namespace CartBundle\Controller;
+namespace OrderBundle\Controller;
 
 use OrderBundle\Exception\QuantityTooSmallException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
