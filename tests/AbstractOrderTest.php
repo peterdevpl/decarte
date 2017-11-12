@@ -1,0 +1,60 @@
+<?php
+
+namespace Tests;
+
+use OrderBundle\Entity\DeliveryType;
+use OrderBundle\Entity\Order;
+use PHPUnit\Framework\TestCase;
+use ProductBundle\Entity\Product;
+
+abstract class AbstractOrderTest extends TestCase
+{
+    /**
+     * @var Order
+     */
+    protected $order;
+
+    /**
+     * @var Product[]
+     */
+    protected $products;
+
+    protected function setUp()
+    {
+        $this->products = [];
+
+        $this->products[0] = new Product();
+        $this->products[0]->setId(1)->setPrice(20);
+
+        $this->products[1] = new Product();
+        $this->products[1]->setId(2)->setPrice(30);
+
+        $this->order = new Order();
+        $this->order
+            ->setDeliveryType($this->getDeliveryType())
+            ->setCity('Gdańsk')
+            ->setEmail('a@b.pl')
+            ->setName('Jan Kowalski')
+            ->setNotes('Xxx')
+            ->setPhone('111222333')
+            ->setPostalCode('80-534')
+            ->setStreet('Starowiejska')
+            ->addItem($this->products[0], 1, $this->products[0]->getPrice())
+            ->addItem($this->products[1], 2, $this->products[1]->getPrice());
+    }
+
+    protected function getJsonEncodedOrder(): string
+    {
+        return trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'order.json'));
+    }
+
+    protected function getDeliveryType(): DeliveryType
+    {
+        $deliveryType = new DeliveryType();
+        $deliveryType
+            ->setId(1)
+            ->setPrice(10);
+
+        return $deliveryType;
+    }
+}

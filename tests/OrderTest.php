@@ -1,42 +1,9 @@
 <?php
 
-use OrderBundle\Entity\DeliveryType;
-use OrderBundle\Entity\Order;
-use PHPUnit\Framework\TestCase;
-use ProductBundle\Entity\Product;
+namespace Tests;
 
-class OrderTest extends TestCase
+class OrderTest extends AbstractOrderTest
 {
-    /**
-     * @var Order
-     */
-    protected $order;
-
-    protected function setUp()
-    {
-        $product1 = new Product();
-        $product1->setId(1)->setPrice(20);
-
-        $product2 = new Product();
-        $product2->setId(2)->setPrice(30);
-
-        $deliveryType = new DeliveryType();
-        $deliveryType->setPrice(10);
-
-        $this->order = new Order();
-        $this->order
-            ->setDeliveryType($deliveryType)
-            ->setCity('Gdańsk')
-            ->setEmail('a@b.pl')
-            ->setName('Jan Kowalski')
-            ->setNotes('Xxx')
-            ->setPhone('111222333')
-            ->setPostalCode('80-534')
-            ->setStreet('Starowiejska')
-            ->addItem($product1, 1, $product1->getPrice())
-            ->addItem($product2, 2, $product2->getPrice());
-    }
-
     public function testAddItems()
     {
         $this->assertEquals(2, count($this->order->getItems()));
@@ -68,7 +35,7 @@ class OrderTest extends TestCase
     public function testJson()
     {
         $json = json_encode($this->order);
-        $expected = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'order.json'));
+        $expected = $this->getJsonEncodedOrder();
         $this->assertEquals($expected, $json);
     }
 }
