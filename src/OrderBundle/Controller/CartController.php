@@ -85,16 +85,14 @@ class CartController extends Controller
 
         $quantities = $request->get('quantity');
         foreach ($quantities as $productId => $quantity) {
-            $item = $order->getItem((int) $productId);
-            if ($item) {
-                try {
-                    $item->setQuantity((int)$quantity);
-                } catch (QuantityTooSmallException $e) {
-                    $this->addFlash('error', sprintf('Minimalna liczba sztuk produktu %s to %i',
-                        $e->getProduct()->getName(),
-                        $e->getProduct()->getMinimumQuantity()
-                    ));
-                }
+            $item = $order->getItemById((int) $productId);
+            try {
+                $item->setQuantity((int)$quantity);
+            } catch (QuantityTooSmallException $e) {
+                $this->addFlash('error', sprintf('Minimalna liczba sztuk produktu %s to %i',
+                    $e->getProduct()->getName(),
+                    $e->getProduct()->getMinimumQuantity()
+                ));
             }
         }
 
