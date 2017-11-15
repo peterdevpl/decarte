@@ -7,17 +7,24 @@ class OrderTest extends AbstractOrderTest
     public function testAddItems()
     {
         $this->assertEquals(2, count($this->order->getItems()));
-        $this->assertEquals(1, $this->order->getItem(1)->getProduct()->getId());
-        $this->assertEquals(2, $this->order->getItem(2)->getProduct()->getId());
+    }
+
+    public function testAddExistingItem()
+    {
+        $this->order->addItem($this->products[0], 1, $this->products[0]->getPrice());
+
+        $this->assertEquals(2, count($this->order->getItems()));
+        $this->assertEquals(2, $this->order->getItem($this->products[0])->getQuantity());
+        $this->assertEquals(2, $this->order->getItem($this->products[1])->getQuantity());
+        $this->assertEquals(100, $this->order->getItemsPrice());
     }
 
     public function testRemoveProduct()
     {
-        $lastItem = $this->order->getItem(2);
-        $this->order->removeProduct($lastItem->getProduct());
+        $this->order->removeProduct($this->products[1]);
 
         $this->assertEquals(1, count($this->order->getItems()));
-        $this->assertEquals(1, $this->order->getItem(1)->getProduct()->getId());
+        $this->assertEquals(1, $this->order->getItem($this->products[0])->getProduct()->getId());
     }
 
     public function testClearItems()
@@ -37,6 +44,7 @@ class OrderTest extends AbstractOrderTest
      */
     public function testTooSmallQuantity()
     {
+        $this->order->clearItems();
         $this->order->addItem($this->products[1], 1, 0);
     }
 

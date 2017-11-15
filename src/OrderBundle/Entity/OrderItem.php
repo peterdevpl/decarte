@@ -32,7 +32,7 @@ class OrderItem implements \JsonSerializable
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $quantity = 1;
+    private $quantity = 0;
 
     /**
      * @ORM\Column(type="integer", name="unit_price")

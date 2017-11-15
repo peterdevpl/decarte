@@ -210,10 +210,17 @@ class Order implements \JsonSerializable
 
     public function addItem(Product $product, int $quantity, int $unitPrice)
     {
-        $item = new OrderItem($this, $product);
-        $item->setQuantity($quantity)->setUnitPrice($unitPrice);
-        $this->items->add($item);
+        $item = $this->getItem($product);
+        $item
+            ->setQuantity($item->getQuantity() + $quantity)
+            ->setUnitPrice($unitPrice);
+
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+        }
+
         $this->calculateTotalPrice();
+
         return $this;
     }
 
@@ -229,18 +236,18 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param Product $product
      * @return OrderItem
      */
-    public function getItem(int $id): OrderItem
+    public function getItem(Product $product): OrderItem
     {
         foreach ($this->items as $item) {
-            if ($item->getProduct()->getId() === $id) {
+            if ($item->getProduct()->getId() === $product->getId()) {
                 return $item;
             }
         }
 
-        return new OrderItem();
+        return new OrderItem($this, $product);
     }
 
     public function clearItems()
