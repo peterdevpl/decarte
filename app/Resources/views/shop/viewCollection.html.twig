@@ -40,7 +40,7 @@
                                 height="{{ image_product_small_height }}"
                                 alt="Zdjęcie">
                         </a><br>
-                        <span class="product_name">model {{ product.getName() }} &ndash; {{ product.getPrice()|number_format(2, ',', ' ') }} zł</span>
+                        <span class="product_name">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</span>
                     </li>
                 {% endfor %}
             </ul>

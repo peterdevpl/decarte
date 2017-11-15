@@ -28,7 +28,7 @@
     </div>
 
     <form method="post" action="{{ path('cart_add_item') }}" class="add_to_cart">
-        <div class="price">Cena: {{ product.getPrice()|number_format(2, ',', ' ') }} zł</div>
+        <div class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
         <div class="button">
             <input type="hidden" name="product_id" value="{{ product.getId() }}">
             <label for="quantity">Liczba sztuk:</label>

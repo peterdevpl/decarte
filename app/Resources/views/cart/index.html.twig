@@ -34,14 +34,14 @@
                             {% endif %}
                         </div>
 
-                        <div class="cart_item_price">{{ item.getTotalPrice()|number_format(2, ',', ' ') }} zł</div>
+                        <div class="cart_item_price">{{ (item.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
 
         <div class="cart_total_price">
-            Razem <strong>{{ order.getItemsPrice()|number_format(2, ',', ' ') }}</strong> zł<br>
+            Razem <strong>{{ (order.getItemsPrice() / 100)|number_format(2, ',', ' ') }}</strong> zł<br>
             <small>plus koszty przesyłki &ndash; w następnym kroku</small>
         </div>
 

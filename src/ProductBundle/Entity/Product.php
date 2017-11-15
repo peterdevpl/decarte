@@ -23,7 +23,7 @@ class Product
     /** @ORM\Column(type="string") */
     protected $name = '';
     
-    /** @ORM\Column(type="decimal", precision=10, scale=2) */
+    /** @ORM\Column(type="integer") */
     protected $price = 0;
     
     /** @ORM\Column(type="text") */
@@ -77,7 +77,7 @@ class Product
         return $this;
     }
     
-    public function getPrice()
+    public function getPrice(): int
     {
         return $this->price;
     }
