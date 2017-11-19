@@ -68,7 +68,7 @@ class Order implements \JsonSerializable
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order", cascade={"persist"})
      */
     private $items;
 
@@ -198,9 +198,15 @@ class Order implements \JsonSerializable
         return $this;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function getItems()

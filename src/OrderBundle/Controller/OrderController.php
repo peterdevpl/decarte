@@ -56,6 +56,13 @@ class OrderController extends Controller
      */
     public function saveAction()
     {
+        $order = $this->get('temporary_order_repository')->getOrder();
+        $order->setCreatedAt(new \DateTime());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($order);
+        $em->flush();
+
         return $this->redirectToRoute('order_confirmation', [], 303);
     }
 
