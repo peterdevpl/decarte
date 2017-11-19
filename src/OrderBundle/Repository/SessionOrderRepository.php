@@ -78,4 +78,9 @@ class SessionOrderRepository
     {
         $this->session->set('order', json_encode($order));
     }
+
+    public function clear()
+    {
+        $this->session->remove('order');
+    }
 }
