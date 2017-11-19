@@ -7,6 +7,12 @@ services:
     menu:
         class: AppBundle\Menu\Menu
 
+    realization_type_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - OrderBundle\Entity\RealizationType
+
     delivery_type_repository:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.entity_manager', getRepository]
@@ -21,4 +27,4 @@ services:
 
     temporary_order_repository:
         class: OrderBundle\Repository\SessionOrderRepository
-        arguments: ['@session', '@product_repository', '@delivery_type_repository']
+        arguments: ['@session', '@product_repository', '@realization_type_repository', '@delivery_type_repository']

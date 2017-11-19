@@ -74,6 +74,10 @@
 
         <p>{{ order.getDeliveryType() }}</p>
 
+        <h2>Tryb realizacji</h2>
+
+        <p>{{ order.getRealizationType() }}</p>
+
         <div id="order_total_price">DO ZAPŁATY: {{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
 
         <div class="cart_submit">

@@ -36,7 +36,7 @@ class OrderTest extends AbstractOrderTest
     public function testTotalPrice()
     {
         $this->assertEquals(80, $this->order->getItemsPrice());
-        $this->assertEquals(90, $this->order->getTotalPrice());
+        $this->assertEquals(105, $this->order->getTotalPrice());
     }
 
     /**

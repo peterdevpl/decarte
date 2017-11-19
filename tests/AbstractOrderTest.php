@@ -4,6 +4,7 @@ namespace Tests;
 
 use OrderBundle\Entity\DeliveryType;
 use OrderBundle\Entity\Order;
+use OrderBundle\Entity\RealizationType;
 use PHPUnit\Framework\TestCase;
 use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductCollection;
@@ -34,6 +35,7 @@ abstract class AbstractOrderTest extends TestCase
 
         $this->order = new Order();
         $this->order
+            ->setRealizationType($this->getRealizationType())
             ->setDeliveryType($this->getDeliveryType())
             ->setCity('Gdańsk')
             ->setEmail('a@b.pl')
@@ -49,6 +51,16 @@ abstract class AbstractOrderTest extends TestCase
     protected function getJsonEncodedOrder(): string
     {
         return trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'order.json'));
+    }
+
+    protected function getRealizationType(): RealizationType
+    {
+        $realizationType = new RealizationType();
+        $realizationType
+            ->setId(2)
+            ->setPrice(15);
+
+        return $realizationType;
     }
 
     protected function getDeliveryType(): DeliveryType

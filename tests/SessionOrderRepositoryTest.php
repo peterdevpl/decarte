@@ -3,6 +3,7 @@
 namespace Tests;
 
 use OrderBundle\Repository\DeliveryTypeRepository;
+use OrderBundle\Repository\RealizationTypeRepository;
 use OrderBundle\Repository\SessionOrderRepository;
 use ProductBundle\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -18,9 +19,12 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
 
         $session = new Session(new MockArraySessionStorage());
         $productRepository = $this->getProductRepository();
+        $realizationTypeRepository = $this->getRealizationTypeRepository();
         $deliveryTypeRepository = $this->getDeliveryTypeRepository();
 
-        $this->orderRepository = new SessionOrderRepository($session, $productRepository, $deliveryTypeRepository);
+        $this->orderRepository = new SessionOrderRepository(
+            $session, $productRepository, $realizationTypeRepository, $deliveryTypeRepository
+        );
     }
 
     protected function getProductRepository()
@@ -32,6 +36,14 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
         ]));
 
         return $productRepository;
+    }
+
+    protected function getRealizationTypeRepository()
+    {
+        $realizationTypeRepository = $this->createMock(RealizationTypeRepository::class);
+        $realizationTypeRepository->method('find')->willReturn($this->getRealizationType());
+
+        return $realizationTypeRepository;
     }
 
     protected function getDeliveryTypeRepository()

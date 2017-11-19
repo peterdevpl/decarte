@@ -43,6 +43,13 @@ class ShippingDetailsType extends AbstractType
                 'label' => 'Sposób dostawy',
                 'multiple' => false,
             ])
+            ->add('realizationType', EntityType::class, [
+                'choices' => $options['realization_types'],
+                'class' => 'OrderBundle:RealizationType',
+                'expanded' => true,
+                'label' => 'Tryb realizacji',
+                'multiple' => false,
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Dalej',
             ]);
@@ -52,6 +59,6 @@ class ShippingDetailsType extends AbstractType
     {
         $resolver
             ->setDefaults(['data_class' => Order::class])
-            ->setRequired(['delivery_types']);
+            ->setRequired(['realization_types', 'delivery_types']);
     }
 }

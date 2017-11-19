@@ -49,6 +49,13 @@ class Order implements \JsonSerializable
     private $phone = '';
 
     /**
+     * @ORM\ManyToOne(targetEntity="RealizationType", inversedBy="orders")
+     * @ORM\JoinColumn(name="realization_type_id", referencedColumnName="id")
+     * @var RealizationType
+     */
+    private $realizationType;
+
+    /**
      * @ORM\ManyToOne(targetEntity="DeliveryType", inversedBy="orders")
      * @ORM\JoinColumn(name="delivery_type_id", referencedColumnName="id")
      * @var DeliveryType
@@ -75,6 +82,8 @@ class Order implements \JsonSerializable
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->realizationType = new RealizationType();
+        $this->deliveryType = new DeliveryType();
     }
 
     public function getId(): int
@@ -82,7 +91,19 @@ class Order implements \JsonSerializable
         return $this->id;
     }
 
-    public function getDeliveryType()
+    public function getRealizationType(): RealizationType
+    {
+        return $this->realizationType;
+    }
+
+    public function setRealizationType(RealizationType $type)
+    {
+        $this->realizationType = $type;
+        $this->calculateTotalPrice();
+        return $this;
+    }
+
+    public function getDeliveryType(): DeliveryType
     {
         return $this->deliveryType;
     }
@@ -118,7 +139,8 @@ class Order implements \JsonSerializable
     {
         $this->totalPrice =
             $this->getItemsPrice() +
-            ($this->getDeliveryType() ? $this->getDeliveryType()->getPrice() : 0);
+            $this->getDeliveryType()->getPrice() +
+            $this->getRealizationType()->getPrice();
     }
 
     public function getNotes(): string
@@ -286,8 +308,10 @@ class Order implements \JsonSerializable
 
         return [
             'city' => $this->getCity(),
-            'deliveryTypeId' => $this->getDeliveryType() ? $this->getDeliveryType()->getId() : null,
-            'deliveryPrice' => $this->getDeliveryType() ? $this->getDeliveryType()->getPrice() : 0,
+            'realizationTypeId' => $this->getRealizationType()->getId(),
+            'realizationPrice' => $this->getRealizationType()->getPrice(),
+            'deliveryTypeId' => $this->getDeliveryType()->getId(),
+            'deliveryPrice' => $this->getDeliveryType()->getPrice(),
             'email' => $this->getEmail(),
             'id' => $this->getId(),
             'name' => $this->getName(),

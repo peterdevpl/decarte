@@ -15,6 +15,9 @@ class SessionOrderRepository
     private $productRepository;
 
     /** @var EntityRepository */
+    private $realizationTypeRepository;
+
+    /** @var EntityRepository */
     private $deliveryTypeRepository;
 
     private $order;
@@ -22,14 +25,16 @@ class SessionOrderRepository
     public function __construct(
         SessionInterface $session,
         EntityRepository $productRepository,
+        EntityRepository $realizationTypeRepository,
         EntityRepository $deliveryTypeRepository)
     {
+        $this->realizationTypeRepository = $realizationTypeRepository;
         $this->deliveryTypeRepository = $deliveryTypeRepository;
         $this->productRepository = $productRepository;
         $this->session = $session;
     }
 
-    public function getOrder()
+    public function getOrder(): Order
     {
         if (!$this->order) {
             $serializedOrder = $this->session->get('order');
@@ -62,6 +67,12 @@ class SessionOrderRepository
             foreach ($orderArray['items'] as $itemArray) {
                 $product = $this->productRepository->find($itemArray['productId']);
                 $order->addItem($product, $itemArray['quantity'], $itemArray['unitPrice']);
+            }
+
+            if ($orderArray['realizationTypeId']) {
+                $realizationType = $this->realizationTypeRepository->find($orderArray['realizationTypeId']);
+                $realizationType->setPrice($orderArray['realizationPrice']);
+                $order->setRealizationType($realizationType);
             }
 
             if ($orderArray['deliveryTypeId']) {
