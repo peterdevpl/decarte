@@ -260,6 +260,8 @@ class Order implements \JsonSerializable
             }
         }
 
+        $this->calculateTotalPrice();
+
         return $this;
     }
 
@@ -296,6 +298,8 @@ class Order implements \JsonSerializable
     public function clearItems()
     {
         $this->items->clear();
+        $this->calculateTotalPrice();
+
         return $this;
     }
 

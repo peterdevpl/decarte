@@ -25,12 +25,16 @@ class OrderTest extends AbstractOrderTest
 
         $this->assertEquals(1, count($this->order->getItems()));
         $this->assertEquals(1, $this->order->getItem($this->products[0])->getProduct()->getId());
+        $this->assertEquals(20, $this->order->getItemsPrice());
+        $this->assertEquals(45, $this->order->getTotalPrice());
     }
 
     public function testClearItems()
     {
         $this->order->clearItems();
         $this->assertEquals(0, count($this->order->getItems()));
+        $this->assertEquals(0, $this->order->getItemsPrice());
+        $this->assertEquals(25, $this->order->getTotalPrice());
     }
 
     public function testTotalPrice()
