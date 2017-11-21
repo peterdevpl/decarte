@@ -82,8 +82,6 @@ class Order implements \JsonSerializable
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->realizationType = new RealizationType();
-        $this->deliveryType = new DeliveryType();
     }
 
     public function getId(): int
@@ -91,7 +89,7 @@ class Order implements \JsonSerializable
         return $this->id;
     }
 
-    public function getRealizationType(): RealizationType
+    public function getRealizationType()
     {
         return $this->realizationType;
     }
@@ -103,7 +101,7 @@ class Order implements \JsonSerializable
         return $this;
     }
 
-    public function getDeliveryType(): DeliveryType
+    public function getDeliveryType()
     {
         return $this->deliveryType;
     }
@@ -137,10 +135,15 @@ class Order implements \JsonSerializable
 
     protected function calculateTotalPrice()
     {
-        $this->totalPrice =
-            $this->getItemsPrice() +
-            $this->getDeliveryType()->getPrice() +
-            $this->getRealizationType()->getPrice();
+        $this->totalPrice = $this->getItemsPrice();
+
+        if ($this->getDeliveryType()) {
+            $this->totalPrice += $this->getDeliveryType()->getPrice();
+        }
+
+        if ($this->getRealizationType()) {
+            $this->totalPrice += $this->getRealizationType()->getPrice();
+        }
     }
 
     public function getNotes(): string
@@ -312,10 +315,10 @@ class Order implements \JsonSerializable
 
         return [
             'city' => $this->getCity(),
-            'realizationTypeId' => $this->getRealizationType()->getId(),
-            'realizationPrice' => $this->getRealizationType()->getPrice(),
-            'deliveryTypeId' => $this->getDeliveryType()->getId(),
-            'deliveryPrice' => $this->getDeliveryType()->getPrice(),
+            'realizationTypeId' => $this->getRealizationType() ? $this->getRealizationType()->getId() : 0,
+            'realizationPrice' => $this->getRealizationType() ? $this->getRealizationType()->getPrice() : 0,
+            'deliveryTypeId' => $this->getDeliveryType() ? $this->getDeliveryType()->getId() : 0,
+            'deliveryPrice' => $this->getDeliveryType() ? $this->getDeliveryType()->getPrice() : 0,
             'email' => $this->getEmail(),
             'id' => $this->getId(),
             'name' => $this->getName(),
