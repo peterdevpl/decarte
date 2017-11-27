@@ -33,7 +33,7 @@ class ProductForm extends AbstractType
                 'label' => 'Seria',
             ])
             ->add('name', TextType::class, ['label' => 'Symbol'])
-            ->add('price', MoneyType::class, ['label' => 'Cena', 'currency' => 'PLN'])
+            ->add('price', MoneyType::class, ['label' => 'Cena', 'currency' => 'PLN', 'divisor' => 100])
             ->add('isVisible', CheckboxType::class, ['label' => 'Produkt widoczny na stronie', 'required' => false])
             ->add('hasDemo', CheckboxType::class, ['label' => 'Produkt dostępny w serwisie próbkowym', 'required' => false])
             ->add('descriptionSEO', TextareaType::class, ['label' => 'Ogólny opis, u góry strony', 'required' => false])
