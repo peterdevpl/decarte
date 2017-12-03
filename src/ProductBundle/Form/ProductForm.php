@@ -21,7 +21,7 @@ class ProductForm extends AbstractType
     {
         $resolver
             ->setDefaults(['data_class' => Product::class])
-            ->setRequired(['images', 'default_image', 'deletion_queue']);
+            ->setRequired(['images', 'original_image_directory', 'default_image', 'deletion_queue']);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)

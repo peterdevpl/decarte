@@ -23,6 +23,7 @@ abstract class ImageFileType extends AbstractType
         foreach ($options['images'] as $imageName => $imageOptions) {
             $builder->add($imageName . 'Name', HiddenType::class);
         }
+        $builder->add('originalName', HiddenType::class);
 
         $builder->add('image', FileType::class, [
             'label' => false,

@@ -34,6 +34,11 @@ class ProductImage
      */
     protected $smallName;
 
+    /**
+     * @ORM\Column(type="string", name="original_name")
+     */
+    protected $originalName;
+
     public function getProduct(): Product
     {
         return $this->product;
@@ -75,6 +80,17 @@ class ProductImage
     public function setSmallName($name)
     {
         $this->smallName = $name;
+        return $this;
+    }
+
+    public function getOriginalName()
+    {
+        return $this->originalName;
+    }
+
+    public function setOriginalName($name)
+    {
+        $this->originalName = $name;
         return $this;
     }
 }

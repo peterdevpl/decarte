@@ -10,15 +10,19 @@ parameters:
 
     image.collection.url: "zaproszenia/kolekcje"
     image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
+    image.collection.original.directory: "%image.collection.directory%/original"
     image.collection.width: 176
     image.collection.height: 117
     image.collection.quality: 85
 
     image.series.url: "zaproszenia/serie"
     image.series.directory: "%kernel.root_dir%/../public_html/%image.series.url%"
+    image.series.original.directory: "%image.series.directory%/original"
     image.series.width: 482
     image.series.height: 321
     image.series.quality: 90
+
+    image.product.original.directory: "%kernel.root_dir%/../public_html/zaproszenia/produkty/original"
 
     image.product.big.url: "zaproszenia/produkty/duze"
     image.product.big.directory: "%kernel.root_dir%/../public_html/%image.product.big.url%"

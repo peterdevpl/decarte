@@ -316,6 +316,7 @@ class AdminController extends Controller
                     'quality' => $this->getParameter('image.product.small.quality'),
                 ],
             ],
+            'original_image_directory' => $this->getParameter('image.product.original.directory'),
             'default_image' => 'small',
             'deletion_queue' => $this->getImagesDeletionQueue(),
         ]);

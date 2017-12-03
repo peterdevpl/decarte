@@ -6,6 +6,7 @@ use AppBundle\Upload\Thumbnail;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProductFormListener implements EventSubscriberInterface
@@ -40,6 +41,7 @@ class ProductFormListener implements EventSubscriberInterface
             if ($imageForm['image'] instanceof UploadedFile) {
                 $newImage = [
                     'sort' => $sort,
+                    'originalName' => $this->saveOriginalFile($imageForm['image']),
                 ];
 
                 $thumbnail = new Thumbnail($imageForm['image']);
@@ -63,6 +65,15 @@ class ProductFormListener implements EventSubscriberInterface
         }
 
         $event->setData($data);
+    }
+
+    protected function saveOriginalFile(File $image): string
+    {
+        $uploadedPath = $image->getRealPath();
+        $originalName = sha1_file($uploadedPath) . '.jpg';
+        copy($uploadedPath, $this->options['original_image_directory'] . '/' . $originalName);
+
+        return $originalName;
     }
 
     protected function scheduleForDeletion(string $path)
