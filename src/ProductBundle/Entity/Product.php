@@ -6,11 +6,13 @@ use AppBundle\Entity\SortableTrait;
 use AppBundle\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="\ProductBundle\Repository\ProductRepository")
  * @ORM\EntityListeners({"\AppBundle\Entity\SortListener"})
  * @ORM\Table(name="decarte_products")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Product
 {
@@ -44,8 +46,8 @@ class Product
     /** @ORM\Column(type="integer", name="last_changed_at") */
     protected $lastChangedAt = 0;
 
-    /** @ORM\Column(type="boolean", name="is_deleted") */
-    protected $isDeleted = false;
+    /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
+    protected $deletedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"})
@@ -161,17 +163,6 @@ class Product
     public function getCoverImage()
     {
         return $this->images->first();
-    }
-
-    public function remove()
-    {
-        $this->isDeleted = true;
-        return $this;
-    }
-
-    public function isDeleted(): bool
-    {
-        return $this->isDeleted;
     }
 
     public function __toString()

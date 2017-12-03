@@ -323,9 +323,13 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
             if ($form->has('delete') && $form->get('delete')->isClicked()) {
                 $collection = $product->getProductSeries()->getProductCollection();
-                $repository->remove($product);
+                $em->remove($product);
+                $em->flush();
+
                 $this->addFlash('notice', 'Produkt został usunięty');
 
                 return $this->redirectToRoute('admin_product_collection', [
@@ -335,7 +339,6 @@ class AdminController extends Controller
 
             $product = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
 

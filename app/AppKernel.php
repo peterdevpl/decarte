@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new OrderBundle\OrderBundle(),
             new ProductBundle\ProductBundle(),
             new Sentry\SentryBundle\SentryBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
