@@ -11,3 +11,7 @@ body {
 del {
     color: #808080;
 }
+
+.btn-aside {
+    float: right;
+}

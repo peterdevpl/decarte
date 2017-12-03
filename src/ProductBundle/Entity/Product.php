@@ -44,11 +44,14 @@ class Product
     /** @ORM\Column(type="integer", name="last_changed_at") */
     protected $lastChangedAt = 0;
 
+    /** @ORM\Column(type="boolean", name="is_deleted") */
+    protected $isDeleted = false;
+
     /**
      * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"})
      * @ORM\OrderBy({"sort" = "ASC"})
      */
-    protected $images = null;
+    protected $images;
 
     public function __construct()
     {
@@ -137,6 +140,9 @@ class Product
         return $this->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
     }
 
+    /**
+     * @return ProductImage[]|ArrayCollection
+     */
     public function getImages()
     {
         return $this->images;
@@ -155,6 +161,17 @@ class Product
     public function getCoverImage()
     {
         return $this->images->first();
+    }
+
+    public function remove()
+    {
+        $this->isDeleted = true;
+        return $this;
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
     }
 
     public function __toString()

@@ -25,6 +25,13 @@ services:
         arguments:
             - ProductBundle\Entity\Product
 
+    product_image_listener:
+        class: ProductBundle\Entity\Event\ProductImageListener
+        arguments: ['%image.product.big.directory%', '%image.product.small.directory%']
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
     temporary_order_repository:
         class: OrderBundle\Repository\SessionOrderRepository
         arguments: ['@session', '@product_repository', '@realization_type_repository', '@delivery_type_repository']

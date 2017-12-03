@@ -54,7 +54,10 @@ class ProductForm extends AbstractType
         $builder->add('save', SubmitType::class, ['label' => 'Zapisz produkt']);
         
         if ($builder->getData()->getId()) {
-            $builder->add('delete', SubmitType::class, ['label' => 'Usuń produkt']);
+            $builder->add('delete', SubmitType::class, [
+                'label' => 'Usuń produkt',
+                'attr' => ['class' => 'btn-danger btn-aside'],
+            ]);
         }
     }
 }

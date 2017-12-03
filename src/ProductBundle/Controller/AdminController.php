@@ -10,6 +10,7 @@ use ProductBundle\Form\ProductCollectionForm;
 use ProductBundle\Form\ProductSeriesForm;
 use ProductBundle\Form\ProductTypeForm;
 use ProductBundle\Form\ProductForm;
+use ProductBundle\Repository\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -283,16 +284,21 @@ class AdminController extends Controller
     public function editProductAction(Request $request, $productId)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('ProductBundle:Product')->find($productId);
+        $repository = $em->getRepository('ProductBundle:Product');
+        $product = $repository->find($productId);
         if (!$product) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
-        return $this->editProduct($request, $product, 'Produkt został zapisany');
+        return $this->editProduct($request, $repository, $product, 'Produkt został zapisany');
     }
 
-    protected function editProduct(Request $request, Product $product, string $successMessage)
-    {
+    protected function editProduct(
+        Request $request,
+        ProductRepository $repository,
+        Product $product,
+        string $successMessage
+    ) {
         $form = $this->createForm(ProductForm::class, $product, [
             'images' => [
                 'big' => [
@@ -316,6 +322,16 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('delete')->isClicked()) {
+                $collection = $product->getProductSeries()->getProductCollection();
+                $repository->remove($product);
+                $this->addFlash('notice', 'Produkt został usunięty');
+
+                return $this->redirectToRoute('admin_product_collection', [
+                    'collection' => $collection->getId(),
+                ]);
+            }
+
             $product = $form->getData();
 
             $em = $this->getDoctrine()->getManager();

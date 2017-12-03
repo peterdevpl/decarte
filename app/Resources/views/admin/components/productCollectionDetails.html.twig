@@ -46,6 +46,7 @@
 
                 {% spaceless %}
                     {% for product in series.getProducts() %}
+                        {% if not product.isDeleted() %}
                         <a href="{{ path('admin_edit_product', {'productId': product.getId()}) }}">
                             {% if product.getCoverImage() %}
                                 <img
@@ -56,6 +57,7 @@
                                 {{ product.getName() }} - brak zdjęcia
                             {% endif %}
                         </a>
+                        {% endif %}
                     {% endfor %}
                 {% endspaceless %}
             </div>

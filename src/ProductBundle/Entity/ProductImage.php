@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\EntityListeners({"\ProductBundle\Entity\Event\ProductImageListener"})
  * @ORM\Table(name="decarte_product_images")
  */
 class ProductImage
