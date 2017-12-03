@@ -117,7 +117,7 @@ class Thumbnail
         $data = ob_get_clean();
         imagedestroy($this->thumbnailBuffer);
 
-        $hash = substr(sha1($data), 0, 10);
+        $hash = sha1($data);
         $path = $directory . DIRECTORY_SEPARATOR . $hash . '.jpg';
         file_put_contents($path, $data);
 
