@@ -27,7 +27,7 @@ services:
 
     product_image_listener:
         class: ProductBundle\Entity\Event\ProductImageListener
-        arguments: ['%image.product.big.directory%', '%image.product.small.directory%']
+        arguments: ['%image.product.original.directory%', '%image.product.big.directory%', '%image.product.small.directory%']
         tags:
             - { name: doctrine.orm.entity_listener }
             - { name: doctrine.orm.entity_listener, entity_manager: custom }
