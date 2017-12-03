@@ -323,7 +323,7 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('delete')->isClicked()) {
+            if ($form->has('delete') && $form->get('delete')->isClicked()) {
                 $collection = $product->getProductSeries()->getProductCollection();
                 $repository->remove($product);
                 $this->addFlash('notice', 'Produkt został usunięty');
