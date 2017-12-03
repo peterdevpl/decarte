@@ -10,7 +10,6 @@ use ProductBundle\Form\ProductCollectionForm;
 use ProductBundle\Form\ProductSeriesForm;
 use ProductBundle\Form\ProductTypeForm;
 use ProductBundle\Form\ProductForm;
-use ProductBundle\Repository\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -290,15 +289,11 @@ class AdminController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
-        return $this->editProduct($request, $repository, $product, 'Produkt został zapisany');
+        return $this->editProduct($request, $product, 'Produkt został zapisany');
     }
 
-    protected function editProduct(
-        Request $request,
-        ProductRepository $repository,
-        Product $product,
-        string $successMessage
-    ) {
+    protected function editProduct(Request $request, Product $product, string $successMessage)
+    {
         $form = $this->createForm(ProductForm::class, $product, [
             'images' => [
                 'big' => [
