@@ -2,7 +2,7 @@
 
 {% block collection_details %}
     {% for series in productCollection.getProductSeries() %}
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="series_{{ series.getId() }}">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     {% if not series.isVisible() %}<del>{% endif %}
