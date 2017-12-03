@@ -31,5 +31,12 @@ class ProductTypeForm extends AbstractType
             ->add('description', TextareaType::class, ['label' => 'Opis', 'required' => false, 'attr' => ['rows' => 4]])
             ->add('save', SubmitType::class, ['label' => 'Zapisz typ produktu'])
             ->addEventSubscriber(new ProductTypeFormListener($options));
+
+        if ($builder->getData()->getId()) {
+            $builder->add('delete', SubmitType::class, [
+                'label' => 'Usuń dział',
+                'attr' => ['class' => 'btn-danger btn-aside'],
+            ]);
+        }
     }
 }

@@ -6,11 +6,13 @@ use AppBundle\Entity\SortableTrait;
 use AppBundle\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="\ProductBundle\Repository\ProductCollectionRepository")
  * @ORM\EntityListeners({"\AppBundle\Entity\SortListener"})
  * @ORM\Table(name="decarte_product_collections")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class ProductCollection
 {
@@ -35,6 +37,9 @@ class ProductCollection
     /** @ORM\Column(type="string", name="image_name", nullable=true) */
     protected $imageName = '';
 
+    /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
+    protected $deletedAt;
+
     /**
      * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="productCollections")
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id")
@@ -42,7 +47,7 @@ class ProductCollection
     protected $productType = null;
     
     /**
-     * @ORM\OneToMany(targetEntity="ProductSeries", mappedBy="productCollection")
+     * @ORM\OneToMany(targetEntity="ProductSeries", mappedBy="productCollection", cascade={"remove"})
      * @ORM\OrderBy({"sort" = "ASC"})
      */
     protected $productSeries = null;

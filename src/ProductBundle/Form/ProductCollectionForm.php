@@ -41,5 +41,12 @@ class ProductCollectionForm extends AbstractType
             ])
             ->add('save', SubmitType::class, ['label' => 'Zapisz kolekcję'])
             ->addEventSubscriber(new ProductCollectionFormListener($options));
+
+        if ($builder->getData()->getId()) {
+            $builder->add('delete', SubmitType::class, [
+                'label' => 'Usuń kolekcję',
+                'attr' => ['class' => 'btn-danger btn-aside'],
+            ]);
+        }
     }
 }

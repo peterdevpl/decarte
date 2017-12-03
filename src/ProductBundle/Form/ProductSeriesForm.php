@@ -39,5 +39,12 @@ class ProductSeriesForm extends AbstractType
             ])
             ->add('save', SubmitType::class, ['label' => 'Zapisz serię'])
             ->addEventSubscriber(new ProductSeriesFormListener($options));
+
+        if ($builder->getData()->getId()) {
+            $builder->add('delete', SubmitType::class, [
+                'label' => 'Usuń serię',
+                'attr' => ['class' => 'btn-danger btn-aside'],
+            ]);
+        }
     }
 }

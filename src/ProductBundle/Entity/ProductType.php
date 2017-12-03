@@ -6,11 +6,13 @@ use AppBundle\Entity\SortableTrait;
 use AppBundle\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="\ProductBundle\Repository\ProductTypeRepository")
  * @ORM\EntityListeners({"\AppBundle\Entity\SortListener"})
  * @ORM\Table(name="decarte_product_types")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class ProductType
 {
@@ -34,9 +36,12 @@ class ProductType
 
     /** @ORM\Column(type="boolean", name="has_front_page") */
     protected $hasFrontPage = false;
-    
+
+    /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
+    protected $deletedAt;
+
     /**
-     * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType")
+     * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType", cascade={"remove"})
      * @ORM\OrderBy({"sort" = "ASC"})
      */
     protected $productCollections = null;

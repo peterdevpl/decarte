@@ -55,9 +55,19 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            if ($form->has('delete') && $form->get('delete')->isClicked()) {
+                $em->remove($productType);
+                $em->flush();
+
+                $this->addFlash('notice', 'Dział został usunięty');
+
+                return $this->redirectToRoute('admin_index');
+            }
+
             $productType = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($productType);
             $em->flush();
 
@@ -156,9 +166,22 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            if ($form->has('delete') && $form->get('delete')->isClicked()) {
+                $type = $productCollection->getProductType();
+                $em->remove($productCollection);
+                $em->flush();
+
+                $this->addFlash('notice', 'Kolekcja została usunięta');
+
+                return $this->redirectToRoute('admin_product_collections', [
+                    'type' => $type->getId(),
+                ]);
+            }
+
             $productCollection = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($productCollection);
             $em->flush();
 
@@ -242,9 +265,22 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            if ($form->has('delete') && $form->get('delete')->isClicked()) {
+                $collection = $productSeries->getProductCollection();
+                $em->remove($productSeries);
+                $em->flush();
+
+                $this->addFlash('notice', 'Seria została usunięta');
+
+                return $this->redirectToRoute('admin_product_collection', [
+                    'collection' => $collection->getId(),
+                ]);
+            }
+
             $productSeries = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($productSeries);
             $em->flush();
 
