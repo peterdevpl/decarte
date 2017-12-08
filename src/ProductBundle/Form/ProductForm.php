@@ -27,10 +27,10 @@ class ProductForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('productSeries', EntityType::class, [
-                'class' => 'ProductBundle:ProductSeries',
-                'choices' => $builder->getData()->getProductSeries()->getProductCollection()->getProductSeries(),
-                'label' => 'Seria',
+            ->add('productCollection', EntityType::class, [
+                'class' => 'ProductBundle:ProductCollection',
+                'choices' => $builder->getData()->getProductCollection()->getProductType()->getProductCollections(),
+                'label' => 'Kolekcja',
             ])
             ->add('name', TextType::class, ['label' => 'Symbol'])
             ->add('price', MoneyType::class, ['label' => 'Cena', 'currency' => 'PLN', 'divisor' => 100])

@@ -44,11 +44,7 @@ class CartController extends Controller
         $productRepository = $em->getRepository('ProductBundle:Product');
         $product = $productRepository->find($productId);
 
-        if (!$product ||
-            !$product->isVisible() ||
-            !$product->getProductSeries()->isVisible() ||
-            !$product->getProductSeries()->getProductCollection()->isVisible() ||
-            !$product->getProductSeries()->getProductCollection()->getProductType()->isVisible()) {
+        if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
@@ -62,8 +58,8 @@ class CartController extends Controller
                 $e->getProduct()->getMinimumQuantity());
 
             return $this->redirectToRoute('shop_view_product', [
-                'type' => $product->getProductSeries()->getProductCollection()->getProductType()->getSlugName(),
-                'slugName' => $product->getProductSeries()->getProductCollection()->getSlugName(),
+                'type' => $product->getProductCollection()->getProductType()->getSlugName(),
+                'slugName' => $product->getProductCollection()->getSlugName(),
                 'id' => $product->getId(),
             ]);
         }

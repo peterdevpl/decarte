@@ -35,10 +35,10 @@ class Product
     protected $descriptionSEO = '';
     
     /**
-     * @ORM\ManyToOne(targetEntity="ProductSeries", inversedBy="products")
-     * @ORM\JoinColumn(name="product_series_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="ProductCollection", inversedBy="products")
+     * @ORM\JoinColumn(name="product_collection_id", referencedColumnName="id")
      */
-    protected $productSeries = null;
+    protected $productCollection = null;
     
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
@@ -115,14 +115,14 @@ class Product
         return $this;
     }
     
-    public function getProductSeries(): ProductSeries
+    public function getProductCollection(): ProductCollection
     {
-        return $this->productSeries;
+        return $this->productCollection;
     }
     
-    public function setProductSeries(ProductSeries $series)
+    public function setProductCollection(ProductCollection $collection)
     {
-        $this->productSeries = $series;
+        $this->productCollection = $collection;
         return $this;
     }
     
@@ -139,7 +139,7 @@ class Product
 
     public function getMinimumQuantity(): int
     {
-        return $this->getProductSeries()->getProductCollection()->getProductType()->getMinimumQuantity();
+        return $this->getProductCollection()->getProductType()->getMinimumQuantity();
     }
 
     /**
@@ -163,6 +163,11 @@ class Product
     public function getCoverImage()
     {
         return $this->images->first();
+    }
+
+    public function isVisible(): bool
+    {
+        return $this->isVisible && $this->getProductCollection()->isVisible();
     }
 
     public function __toString()

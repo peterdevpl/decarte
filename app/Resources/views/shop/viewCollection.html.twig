@@ -25,25 +25,20 @@
 
     {{ productCollection.getDescription()|raw }}
 
-    {% for series in allSeries %}
-        <div class="series">
-            <img class="series_photo" src="{{ asset(image_series_url~'/'~series.getImageName()) }}" alt="" width="{{ image_series_width }}">
-            <p class="description">{{ series.getDescription() }}</p>
-
-            <ul>
-                {% for product in series.getProducts() %}
-                    <li>
-                        <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
-                            <img
-                                src="{{ asset(image_product_small_url~'/'~product.getCoverImage().getSmallName()) }}"
-                                width="{{ image_product_small_width }}"
-                                height="{{ image_product_small_height }}"
-                                alt="Zdjęcie">
-                        </a><br>
-                        <span class="product_name">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endfor %}
+    <ul>
+        {% for product in productCollection.getProducts() %}
+            {% if product.isVisible() %}
+            <li>
+                <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
+                    <img
+                        src="{{ asset(image_product_small_url~'/'~product.getCoverImage().getSmallName()) }}"
+                        width="{{ image_product_small_width }}"
+                        height="{{ image_product_small_height }}"
+                        alt="Zdjęcie">
+                </a><br>
+                <span class="product_name">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</span>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 {% endblock %}

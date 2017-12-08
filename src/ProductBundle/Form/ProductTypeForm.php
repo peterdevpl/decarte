@@ -26,7 +26,6 @@ class ProductTypeForm extends AbstractType
             ->add('name', TextType::class, ['label' => 'Nazwa'])
             ->add('slugName', HiddenType::class)
             ->add('isVisible', CheckboxType::class, ['label' => 'Typ widoczny na stronie', 'required' => false])
-            ->add('hasFrontPage', CheckboxType::class, ['label' => 'Pokaż stronę z miniaturkami kolekcji', 'required' => false])
             ->add('minimumQuantity', NumberType::class, ['label' => 'Minimalna liczba zamawianych sztuk'])
             ->add('description', TextareaType::class, ['label' => 'Opis', 'required' => false, 'attr' => ['rows' => 4]])
             ->add('save', SubmitType::class, ['label' => 'Zapisz typ produktu'])

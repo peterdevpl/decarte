@@ -45,16 +45,16 @@ class ProductCollection
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id")
      */
     protected $productType = null;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="ProductSeries", mappedBy="productCollection", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="productCollection", cascade={"remove"})
      * @ORM\OrderBy({"sort" = "ASC"})
      */
-    protected $productSeries = null;
-   
+    protected $products = null;
+
     public function __construct()
     {
-        $this->productSeries = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
     
     public function getId(): int
@@ -62,9 +62,9 @@ class ProductCollection
         return $this->id;
     }
     
-    public function getProductSeries()
+    public function getProducts()
     {
-        return $this->productSeries;
+        return $this->products;
     }
     
     public function getProductType(): ProductType
@@ -131,6 +131,11 @@ class ProductCollection
     {
         $this->imageName = $image;
         return $this;
+    }
+
+    public function isVisible(): bool
+    {
+        return $this->isVisible && $this->getProductType()->isVisible();
     }
 
     public function __toString()

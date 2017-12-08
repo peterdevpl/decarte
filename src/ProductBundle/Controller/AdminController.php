@@ -217,98 +217,18 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/addProductSeries/{collectionId}", name="admin_add_product_series", requirements={"collectionId": "\d+"})
+     * @Route("/admin/addProduct/{collectionId}", name="admin_add_product", requirements={"collectionId": "\d+"})
      */
-    public function addProductSeriesAction(Request $request, $collectionId)
+    public function addProductAction(Request $request, $collectionId)
     {
         $em = $this->getDoctrine()->getManager();
         $productCollection = $em->getRepository('ProductBundle:ProductCollection')->find($collectionId);
         if (!$productCollection) {
-            throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
-        }
-
-        $productSeries = new ProductSeries();
-        $productSeries->setProductCollection($productCollection)->setIsVisible(true);
-
-        return $this->editProductSeries($request, $productSeries, 'Seria została dodana');
-    }
-
-    /**
-     * @Route("/admin/editProductSeries/{seriesId}", name="admin_edit_product_series", requirements={"seriesId": "\d+"})
-     */
-    public function editProductSeriesAction(Request $request, $seriesId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productSeries = $em->getRepository('ProductBundle:ProductSeries')->find($seriesId);
-        if (!$productSeries) {
-            throw $this->createNotFoundException('Nie znaleziono serii produktów');
-        }
-
-        return $this->editProductSeries($request, $productSeries, 'Seria została zapisana');
-    }
-
-    protected function editProductSeries(Request $request, ProductSeries $productSeries, string $successMessage)
-    {
-        $form = $this->createForm(ProductSeriesForm::class, $productSeries, [
-            'images' => [
-                'image' => [
-                    'url' => $this->getParameter('image.series.url'),
-                    'directory' => $this->getParameter('image.series.directory'),
-                    'width' => $this->getParameter('image.series.width'),
-                    'height' => $this->getParameter('image.series.height'),
-                    'quality' => $this->getParameter('image.series.quality'),
-                ],
-            ],
-            'default_image' => 'image',
-            'deletion_queue' => $this->getImagesDeletionQueue(),
-        ]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            if ($form->has('delete') && $form->get('delete')->isClicked()) {
-                $collection = $productSeries->getProductCollection();
-                $em->remove($productSeries);
-                $em->flush();
-
-                $this->addFlash('notice', 'Seria została usunięta');
-
-                return $this->redirectToRoute('admin_product_collection', [
-                    'collection' => $collection->getId(),
-                ]);
-            }
-
-            $productSeries = $form->getData();
-
-            $em->persist($productSeries);
-            $em->flush();
-
-            $this->deleteOldImages();
-            $this->addFlash('notice', $successMessage);
-
-            return $this->redirectToRoute('admin_edit_product_series', ['seriesId' => $productSeries->getId()]);
-        }
-
-        return $this->render('admin/editProductSeries.html.twig', [
-            'productSeries' => $productSeries,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/admin/addProduct/{seriesId}", name="admin_add_product", requirements={"seriesId": "\d+"})
-     */
-    public function addProductAction(Request $request, $seriesId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productSeries = $em->getRepository('ProductBundle:ProductSeries')->find($seriesId);
-        if (!$productSeries) {
             throw $this->createNotFoundException('Nie znaleziono serii produktów');
         }
 
         $product = new Product();
-        $product->setProductSeries($productSeries)->setIsVisible(true)->setHasDemo(true);
+        $product->setProductCollection($productCollection)->setIsVisible(true)->setHasDemo(true);
 
         return $this->editProduct($request, $product, 'Produkt został dodany');
     }
@@ -357,7 +277,7 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             if ($form->has('delete') && $form->get('delete')->isClicked()) {
-                $collection = $product->getProductSeries()->getProductCollection();
+                $collection = $product->getProductCollection();
                 $em->remove($product);
                 $em->flush();
 

@@ -4,7 +4,6 @@ namespace ProductBundle\Repository;
 
 use AppBundle\Repository\SortableRepositoryTrait;
 use Doctrine\ORM\EntityRepository;
-use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductType;
 
 class ProductRepository extends EntityRepository
@@ -15,9 +14,8 @@ class ProductRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder
-            ->select(['p', 'ps', 'pc'])
-            ->join('p.productSeries', 'ps')
-            ->join('ps.productCollection', 'pc')
+            ->select(['p', 'pc'])
+            ->join('p.productCollection', 'pc')
             ->where('pc.productType = :type')
             ->andWhere('p.hasDemo = :demo')
             ->setParameter(':type', $type->getId())
@@ -26,7 +24,6 @@ class ProductRepository extends EntityRepository
         if ($onlyVisible) {
             $queryBuilder
                 ->andWhere('p.isVisible = :visible')
-                ->andWhere('ps.isVisible = :visible')
                 ->andWhere('pc.isVisible = :visible')
                 ->setParameter(':visible', true);
         }
@@ -37,6 +34,6 @@ class ProductRepository extends EntityRepository
 
     protected function getSortGroupField()
     {
-        return 'productSeries';
+        return 'productCollection';
     }
 }

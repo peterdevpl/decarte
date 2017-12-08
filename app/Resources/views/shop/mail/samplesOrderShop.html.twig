@@ -6,7 +6,7 @@
             height="{{ image_product_small_height }}"
             border="1"><br>
         Próbka nr {{ loop.index }}:
-        {{ item.getProduct().getProductSeries().getProductCollection().getName() }}
+        {{ item.getProduct().getProductCollection().getName() }}
         {{ item.getProduct().getName() }}
     </p>
 {% endfor %}

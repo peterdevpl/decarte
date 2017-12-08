@@ -20,7 +20,7 @@
                 {% endspaceless %}
 
                 <a class="btn btn-default" role="button" href="{{ path('admin_edit_product_collection', {'collectionId': productCollection.getId()}) }}">Edytuj kolekcję</a>
-                <a class="btn btn-default" role="button" href="{{ path('admin_add_product_series', {'collectionId': productCollection.getId()}) }}">Dodaj nową serię</a>
+                <a class="btn btn-default" role="button" href="{{ path('admin_add_product', {'collectionId': productCollection.getId()}) }}">Dodaj nowy produkt</a>
 
                 {% if move_up is defined and move_up %}
                     <a

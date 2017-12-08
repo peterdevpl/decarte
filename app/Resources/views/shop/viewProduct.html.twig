@@ -1,6 +1,6 @@
 {% extends 'baseSidebar.html.twig' %}
 
-{% set productCollection = product.getProductSeries().getProductCollection() %}
+{% set productCollection = product.getProductCollection() %}
 {% set productType = productCollection.getProductType() %}
 
 {% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}

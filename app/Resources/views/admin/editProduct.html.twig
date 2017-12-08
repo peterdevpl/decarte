@@ -1,27 +1,25 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block breadcrumb %}
-    {% set series = product.getProductSeries() %}
-    {% set collection = series.getProductCollection() %}
+    {% set collection = product.getProductCollection() %}
     {% set type = collection.getProductType() %}
     <li><a href="{{ path('admin_index') }}">Strona główna</a></li>
     <li><a href="{{ path('admin_index') }}#products">Produkty</a></li>
     <li><a href="{{ path('admin_product_collections', {'type': type.getId()}) }}">{{ type.getName() }}</a></li>
     <li><a href="{{ path('admin_product_collection', {'collection': collection.getId()}) }}">{{ collection.getName() }}</a></li>
-    <li><a href="{{ path('admin_product_collection', {'collection': collection.getId()}) }}#series_{{ series.getId() }}">{{ series.getName() }}</a></li>
     <li class="active">{% if product.getId() %}{{ product.getName() }}{% else %}Nowy produkt{% endif %}</li>
 {% endblock %}
 
 {% block body %}
     {% if product.getId() %}
-        <p><a href="{{ path('admin_add_product', {'seriesId': product.getProductSeries().getId()}) }}" class="btn btn-default" role="button">Dodaj nowy produkt</a></p>
+        <p><a href="{{ path('admin_add_product', {'collectionId': product.getProductCollection().getId()}) }}" class="btn btn-default" role="button">Dodaj nowy produkt</a></p>
     {% endif %}
     
     <h1>{% if product.getId() %}Edycja produktu{% else %}Nowy produkt{% endif %}</h1>
 
     {% form_theme form 'form/fields.html.twig' %}
     {{ form_start(form) }}
-        {{ form_row(form.productSeries) }}
+        {{ form_row(form.productCollection) }}
         {{ form_row(form.name) }}
         {{ form_row(form.price) }}
         {{ form_row(form.isVisible) }}

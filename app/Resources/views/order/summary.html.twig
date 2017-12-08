@@ -52,7 +52,7 @@
             </thead>
             <tbody>
             {% for item in order.getItems() %}
-                {% set collection = item.getProduct().getProductSeries().getProductCollection() %}
+                {% set collection = item.getProduct().getProductCollection() %}
                 {% set type = collection.getProductType() %}
                 {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
 

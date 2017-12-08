@@ -26,13 +26,6 @@ class ProductsController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
 
-        if (!$productType->hasFrontPage()) {
-            return $this->redirectToRoute('shop_view_collection', [
-                'type' => $productType->getSlugName(),
-                'slugName' => $productCollections[0]->getSlugName(),
-            ]);
-        }
-
         return $this->render('shop/listCollections.html.twig', [
             'productType' => $productType,
             'productCollections' => $productCollections,
@@ -55,12 +48,10 @@ class ProductsController extends Controller
 
         $productType = $productCollection->getProductType();
         $allCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($productType->getId());
-        $allSeries = $em->getRepository('ProductBundle:ProductSeries')->getFromCollection($productCollection);
 
         return $this->render('shop/viewCollection.html.twig', [
             'productCollection' => $productCollection,
             'allCollections' => $allCollections,
-            'allSeries' => $allSeries,
         ]);
     }
 
@@ -75,11 +66,7 @@ class ProductsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('ProductBundle:Product')->find($id);
-        if (!$product ||
-            !$product->isVisible() ||
-            !$product->getProductSeries()->isVisible() ||
-            !$product->getProductSeries()->getProductCollection()->isVisible() ||
-            !$product->getProductSeries()->getProductCollection()->getProductType()->isVisible()) {
+        if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 

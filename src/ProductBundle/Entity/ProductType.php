@@ -34,9 +34,6 @@ class ProductType
     /** @ORM\Column(type="string") */
     protected $description = '';
 
-    /** @ORM\Column(type="boolean", name="has_front_page") */
-    protected $hasFrontPage = false;
-
     /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
     protected $deletedAt;
 
@@ -102,17 +99,6 @@ class ProductType
     public function setMinimumQuantity(int $value)
     {
         $this->minimumQuantity = $value;
-        return $this;
-    }
-
-    public function hasFrontPage()
-    {
-        return $this->hasFrontPage;
-    }
-
-    public function setHasFrontPage(bool $flag)
-    {
-        $this->hasFrontPage = $flag;
         return $this;
     }
 
