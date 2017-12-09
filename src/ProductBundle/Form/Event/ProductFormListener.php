@@ -39,41 +39,18 @@ class ProductFormListener implements EventSubscriberInterface
 
         foreach ($data['images'] as $sort => $imageForm) {
             if ($imageForm['image'] instanceof UploadedFile) {
-                $newImage = [
+                $file = $imageForm['image'];
+                $destinationName = sha1_file($file->getRealPath()) . '.jpg';
+                $file->move($this->options['image_directory'], $destinationName);
+
+                $data['images'][$sort] = [
+                    'imageName' => $destinationName,
                     'sort' => $sort,
-                    'originalName' => $this->saveOriginalFile($imageForm['image']),
                 ];
-
-                $thumbnail = new Thumbnail($imageForm['image']);
-                foreach ($this->options['images'] as $imageName => $imageOptions) {
-                    $file = $thumbnail->createCroppedThumbnail(
-                        $imageOptions['directory'],
-                        $imageOptions['width'],
-                        $imageOptions['height'],
-                        $imageOptions['quality']
-                    );
-
-                    if (!empty($imageForm[$imageName . 'Name'])) {
-                        $this->scheduleForDeletion($imageOptions['directory'] . DIRECTORY_SEPARATOR . $imageForm[$imageName . 'Name']);
-                    }
-
-                    $newImage[$imageName . 'Name'] = $file->getFilename();
-                }
-
-                $data['images'][$sort] = $newImage;
             }
         }
 
         $event->setData($data);
-    }
-
-    protected function saveOriginalFile(File $image): string
-    {
-        $uploadedPath = $image->getRealPath();
-        $originalName = sha1_file($uploadedPath) . '.jpg';
-        copy($uploadedPath, $this->options['original_image_directory'] . '/' . $originalName);
-
-        return $originalName;
     }
 
     protected function scheduleForDeletion(string $path)

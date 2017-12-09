@@ -25,20 +25,10 @@ class ProductImage
     protected $sort = 0;
 
     /**
-     * @ORM\Column(type="string", name="big_name")
+     * @ORM\Column(type="string", name="image_name")
      */
-    protected $bigName;
+    protected $imageName;
     
-    /**
-     * @ORM\Column(type="string", name="small_name")
-     */
-    protected $smallName;
-
-    /**
-     * @ORM\Column(type="string", name="original_name")
-     */
-    protected $originalName;
-
     public function getProduct(): Product
     {
         return $this->product;
@@ -61,36 +51,14 @@ class ProductImage
         return $this;
     }
 
-    public function getBigName()
+    public function getImageName()
     {
-        return $this->bigName;
+        return $this->imageName;
     }
     
-    public function setBigName($name)
+    public function setImageName($name)
     {
-        $this->bigName = $name;
-        return $this;
-    }
-
-    public function getSmallName()
-    {
-        return $this->smallName;
-    }
-    
-    public function setSmallName($name)
-    {
-        $this->smallName = $name;
-        return $this;
-    }
-
-    public function getOriginalName()
-    {
-        return $this->originalName;
-    }
-
-    public function setOriginalName($name)
-    {
-        $this->originalName = $name;
+        $this->imageName = $name;
         return $this;
     }
 }

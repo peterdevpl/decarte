@@ -3,11 +3,9 @@
 namespace ProductBundle\Controller;
 
 use ProductBundle\Entity\ProductCollection;
-use ProductBundle\Entity\ProductSeries;
 use ProductBundle\Entity\ProductType;
 use ProductBundle\Entity\Product;
 use ProductBundle\Form\ProductCollectionForm;
-use ProductBundle\Form\ProductSeriesForm;
 use ProductBundle\Form\ProductTypeForm;
 use ProductBundle\Form\ProductForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -150,16 +148,8 @@ class AdminController extends Controller
     protected function editProductCollection(Request $request, ProductCollection $productCollection, string $successMessage)
     {
         $form = $this->createForm(ProductCollectionForm::class, $productCollection, [
-            'images' => [
-                'image' => [
-                    'url' => $this->getParameter('image.collection.url'),
-                    'directory' => $this->getParameter('image.collection.directory'),
-                    'width' => $this->getParameter('image.collection.width'),
-                    'height' => $this->getParameter('image.collection.height'),
-                    'quality' => $this->getParameter('image.collection.quality'),
-                ],
-            ],
-            'default_image' => 'image',
+            'image_directory' => $this->getParameter('image.collection.directory'),
+            'image_url' => $this->getParameter('image.collection.url'),
             'deletion_queue' => $this->getImagesDeletionQueue(),
             'slugify' => $this->get('slugify'),
         ]);
@@ -251,24 +241,8 @@ class AdminController extends Controller
     protected function editProduct(Request $request, Product $product, string $successMessage)
     {
         $form = $this->createForm(ProductForm::class, $product, [
-            'images' => [
-                'big' => [
-                    'url' => $this->getParameter('image.product.big.url'),
-                    'directory' => $this->getParameter('image.product.big.directory'),
-                    'width' => $this->getParameter('image.product.big.width'),
-                    'height' => $this->getParameter('image.product.big.height'),
-                    'quality' => $this->getParameter('image.product.big.quality'),
-                ],
-                'small' => [
-                    'url' => $this->getParameter('image.product.small.url'),
-                    'directory' => $this->getParameter('image.product.small.directory'),
-                    'width' => $this->getParameter('image.product.small.width'),
-                    'height' => $this->getParameter('image.product.small.height'),
-                    'quality' => $this->getParameter('image.product.small.quality'),
-                ],
-            ],
-            'original_image_directory' => $this->getParameter('image.product.original.directory'),
-            'default_image' => 'small',
+            'image_directory' => $this->getParameter('image.product.directory'),
+            'image_url' => $this->getParameter('image.product.url'),
             'deletion_queue' => $this->getImagesDeletionQueue(),
         ]);
 

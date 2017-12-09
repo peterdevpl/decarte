@@ -21,7 +21,7 @@ class ProductForm extends AbstractType
     {
         $resolver
             ->setDefaults(['data_class' => Product::class])
-            ->setRequired(['images', 'original_image_directory', 'default_image', 'deletion_queue']);
+            ->setRequired(['image_url', 'image_directory', 'deletion_queue']);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -45,8 +45,7 @@ class ProductForm extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'entry_options' => [
-                    'images' => $options['images'],
-                    'default_image' => $options['default_image'],
+                    'image_url' => $options['image_url'],
                 ],
             ])
             ->addEventSubscriber(new ProductFormListener($options));

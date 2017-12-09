@@ -22,7 +22,12 @@
     <div id="slider" class="nivoSlider" style="width: 720px; height: 500px">
         {% set style = "" %}
         {% for image in product.getImages() %}
-            <img src="{{ asset(image_product_big_url~'/'~image.getBigName()) }}" style="{{ style }}">
+            <img
+                src="{{ asset(image_product_url~'/'~image.getImageName()) | imagine_filter('product_full') }}"
+                width="{{ image_product_big_width }}"
+                height="{{ image_product_big_height }}"
+                alt="Zdjęcie nr {{ loop.index }}"
+                style="{{ style }}">
             {% set style = "display: none; padding-top: 0px" %}
         {% endfor %}
     </div>

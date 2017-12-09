@@ -31,7 +31,7 @@ abstract class SingleImageFormListener implements EventSubscriberInterface
         if ($data['imageName']['image'] instanceof UploadedFile) {
             $file = $data['imageName']['image'];
             $destinationName = sha1_file($file->getRealPath()) . '.jpg';
-            $file->move($this->options['images']['image']['directory'], $destinationName);
+            $file->move($this->options['image_directory'], $destinationName);
 
             $data['imageName']['imageName'] = $destinationName;
             $event->setData($data);

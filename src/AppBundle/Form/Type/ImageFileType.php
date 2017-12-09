@@ -15,15 +15,12 @@ abstract class ImageFileType extends AbstractType
     {
         $resolver
             ->setDefaults(['compound' => true])
-            ->setRequired(['images', 'default_image']);
+            ->setRequired(['image_url']);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        foreach ($options['images'] as $imageName => $imageOptions) {
-            $builder->add($imageName . 'Name', HiddenType::class);
-        }
-        $builder->add('originalName', HiddenType::class);
+        $builder->add('imageName', HiddenType::class);
 
         $builder->add('image', FileType::class, [
             'label' => false,
@@ -34,9 +31,8 @@ abstract class ImageFileType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $default = $options['default_image'];
-        $fileName = $form->get($default . 'Name')->getData();
-        $view->vars['url'] = $fileName ? $options['images'][$default]['url'] . DIRECTORY_SEPARATOR . $fileName : null;
+        $fileName = $form->get('imageName')->getData();
+        $view->vars['url'] = $fileName ? $options['image_url'] . DIRECTORY_SEPARATOR . $fileName : null;
         $view->children['image']->vars = array_replace($view->vars, $view->children['image']->vars);
     }
 }

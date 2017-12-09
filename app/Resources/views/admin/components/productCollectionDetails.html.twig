@@ -6,7 +6,7 @@
             <a href="{{ path('admin_edit_product', {'productId': product.getId()}) }}">
                 {% if product.getCoverImage() %}
                     <img
-                        src="{{ asset(image_product_small_url~'/'~product.getCoverImage().getSmallName()) }}"
+                        src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
                         width="{{ image_product_small_width }}"
                         height="{{ image_product_small_height }}">
                 {% else %}

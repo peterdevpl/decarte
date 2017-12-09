@@ -8,20 +8,14 @@ use ProductBundle\Entity\ProductImage;
 class ProductImageListener
 {
     protected $originalDirectory;
-    protected $bigDirectory;
-    protected $smallDirectory;
 
-    public function __construct(string $originalDirectory, string $bigDirectory, string $smallDirectory)
+    public function __construct(string $originalDirectory)
     {
         $this->originalDirectory = $originalDirectory;
-        $this->bigDirectory = $bigDirectory;
-        $this->smallDirectory = $smallDirectory;
     }
 
     public function preRemove(ProductImage $object, LifecycleEventArgs $args)
     {
-        @unlink($this->originalDirectory . '/' . $object->getOriginalName());
-        @unlink($this->bigDirectory . '/' . $object->getBigName());
-        @unlink($this->smallDirectory . '/' . $object->getSmallName());
+        @unlink($this->originalDirectory . '/' . $object->getBigName());
     }
 }

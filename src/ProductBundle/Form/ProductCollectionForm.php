@@ -18,7 +18,7 @@ class ProductCollectionForm extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['images', 'default_image', 'deletion_queue', 'slugify']);
+        $resolver->setRequired(['image_directory', 'image_url', 'deletion_queue', 'slugify']);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -36,8 +36,7 @@ class ProductCollectionForm extends AbstractType
             ->add('imageName', StringImageFileType::class, [
                 'label' => 'Miniaturka',
                 'required' => false,
-                'images' => $options['images'],
-                'default_image' => $options['default_image'],
+                'image_url' => $options['image_url'],
             ])
             ->add('save', SubmitType::class, ['label' => 'Zapisz kolekcję'])
             ->addEventSubscriber(new ProductCollectionFormListener($options));

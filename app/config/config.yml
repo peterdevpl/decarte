@@ -14,16 +14,13 @@ parameters:
     image.collection.height: 117
     image.collection.quality: 85
 
-    image.product.original.directory: "%kernel.root_dir%/../public_html/zaproszenia/produkty/original"
+    image.product.url: "zaproszenia/produkty"
+    image.product.directory: "%kernel.root_dir%/../public_html/%image.product.url%"
 
-    image.product.big.url: "zaproszenia/produkty/duze"
-    image.product.big.directory: "%kernel.root_dir%/../public_html/%image.product.big.url%"
     image.product.big.width: 720
     image.product.big.height: 480
     image.product.big.quality: 90
 
-    image.product.small.url: "zaproszenia/produkty/male"
-    image.product.small.directory: "%kernel.root_dir%/../public_html/%image.product.small.url%"
     image.product.small.width: 230
     image.product.small.height: 153
     image.product.small.quality: 85
@@ -64,11 +61,9 @@ twig:
         image_collection_width: "%image.collection.width%"
         image_collection_height: "%image.collection.height%"
 
-        image_product_big_url: "%image.product.big.url%"
+        image_product_url: "%image.product.url%"
         image_product_big_width: "%image.product.big.width%"
         image_product_big_height: "%image.product.big.height%"
-
-        image_product_small_url: "%image.product.small.url%"
         image_product_small_width: "%image.product.small.width%"
         image_product_small_height: "%image.product.small.height%"
 
@@ -132,13 +127,26 @@ liip_imagine:
         default:
             filesystem:
                 data_root: "%kernel.root_dir%/../public_html/"
+
     resolvers:
         default:
             web_path:
                 web_root: "%kernel.root_dir%/../public_html/"
+
     filter_sets:
         cache: ~
+
         product_collection_thumb:
             quality: "%image.collection.quality%"
             filters:
                 thumbnail: { size: ["%image.collection.width%", "%image.collection.height%"], mode: outbound }
+
+        product_thumb:
+            quality: "%image.product.small.quality%"
+            filters:
+                thumbnail: { size: ["%image.product.small.width%", "%image.product.small.height%"], mode: outbound }
+
+        product_full:
+            quality: "%image.product.big.quality%"
+            filters:
+                thumbnail: { size: ["%image.product.big.width%", "%image.product.big.height%"], mode: outbound }

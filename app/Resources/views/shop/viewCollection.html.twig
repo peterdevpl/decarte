@@ -30,11 +30,13 @@
             {% if product.isVisible() %}
             <li>
                 <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
+                    {% if product.getCoverImage() %}
                     <img
-                        src="{{ asset(image_product_small_url~'/'~product.getCoverImage().getSmallName()) }}"
+                        src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
                         width="{{ image_product_small_width }}"
                         height="{{ image_product_small_height }}"
-                        alt="Zdjęcie">
+                        alt="Model {{ product.getName() }}">
+                    {% endif %}
                 </a><br>
                 <span class="product_name">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</span>
             </li>
