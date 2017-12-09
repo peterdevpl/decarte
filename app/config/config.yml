@@ -14,13 +14,6 @@ parameters:
     image.collection.height: 117
     image.collection.quality: 85
 
-    image.series.url: "zaproszenia/serie"
-    image.series.directory: "%kernel.root_dir%/../public_html/%image.series.url%"
-    image.series.original.directory: "%image.series.directory%/original"
-    image.series.width: 482
-    image.series.height: 321
-    image.series.quality: 90
-
     image.product.original.directory: "%kernel.root_dir%/../public_html/zaproszenia/produkty/original"
 
     image.product.big.url: "zaproszenia/produkty/duze"
@@ -70,10 +63,6 @@ twig:
         image_collection_url: "%image.collection.url%"
         image_collection_width: "%image.collection.width%"
         image_collection_height: "%image.collection.height%"
-
-        image_series_url: "%image.series.url%"
-        image_series_width: "%image.series.width%"
-        image_series_height: "%image.series.height%"
 
         image_product_big_url: "%image.product.big.url%"
         image_product_big_width: "%image.product.big.width%"
