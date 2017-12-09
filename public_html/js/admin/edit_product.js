@@ -1,6 +1,6 @@
 var $collectionHolder;
 
-var $addLink = $('<a>Dodaj zdjęcie</a>');
+var $addLink = $('<a class="btn btn-default" role="button">Dodaj nowe zdjęcie</a>');
 var $newLinkLi = $('<li></li>').append($addLink);
 
 function addImageForm($collectionHolder, $newLinkLi) {
@@ -26,7 +26,7 @@ function addImageForm($collectionHolder, $newLinkLi) {
 }
 
 function addImageFormDeleteLink($imageFormLi) {
-    var $removeFormA = $('<a>usuń zdjęcie</a>');
+    var $removeFormA = $('<a class="btn btn-danger" role="button">usuń zdjęcie</a>');
     $imageFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
