@@ -4,7 +4,7 @@
 
 {% block image_file_widget %}
     {% spaceless %}
-        {% if url %}<p><img src="{{ asset(url) }}"></p>{% endif %}
+        {% if url %}<p><img src="{{ asset(url) }}" width="200"></p>{% endif %}
         {{ block('form_widget_compound') }}
     {% endspaceless %}
 {% endblock image_file_widget %}

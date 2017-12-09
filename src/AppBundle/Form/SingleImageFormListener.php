@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Form;
 
-use AppBundle\Upload\Thumbnail;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,22 +29,12 @@ abstract class SingleImageFormListener implements EventSubscriberInterface
         $data = $event->getData();
 
         if ($data['imageName']['image'] instanceof UploadedFile) {
-            $thumbnail = new Thumbnail($data['imageName']['image']);
-            foreach ($this->options['images'] as $imageName => $imageOptions) {
-                $file = $thumbnail->createCroppedThumbnail(
-                    $imageOptions['directory'],
-                    $imageOptions['width'],
-                    $imageOptions['height'],
-                    $imageOptions['quality']
-                );
+            $file = $data['imageName']['image'];
+            $destinationName = sha1_file($file->getRealPath()) . '.jpg';
+            $file->move($this->options['images']['image']['directory'], $destinationName);
 
-                if (!empty($data['imageName'][$imageName . 'Name'])) {
-                    $this->scheduleForDeletion($imageOptions['directory'] . DIRECTORY_SEPARATOR . $data['imageName'][$imageName . 'Name']);
-                }
-
-                $data['imageName'][$imageName . 'Name'] = $file->getFilename();
-            }
-           $event->setData($data);
+            $data['imageName']['imageName'] = $destinationName;
+            $event->setData($data);
         }
     }
 
