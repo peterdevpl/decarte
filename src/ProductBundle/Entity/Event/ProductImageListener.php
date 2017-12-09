@@ -16,6 +16,6 @@ class ProductImageListener
 
     public function preRemove(ProductImage $object, LifecycleEventArgs $args)
     {
-        @unlink($this->originalDirectory . '/' . $object->getBigName());
+        @unlink($this->originalDirectory . '/' . $object->getImageName());
     }
 }

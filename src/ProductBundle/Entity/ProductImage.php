@@ -29,12 +29,12 @@ class ProductImage
      */
     protected $imageName;
     
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(Product $product)
+    public function setProduct(?Product $product)
     {
         $this->product = $product;
         return $this;

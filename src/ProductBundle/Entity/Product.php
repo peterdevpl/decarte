@@ -50,7 +50,7 @@ class Product
     protected $deletedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"sort" = "ASC"})
      */
     protected $images;
@@ -154,11 +154,14 @@ class Product
     {
         $image->setProduct($this);
         $this->images->add($image);
+        return $this;
     }
 
     public function removeImage(ProductImage $image)
     {
         $this->images->removeElement($image);
+        $image->setProduct(null);
+        return $this;
     }
 
     public function getCoverImage()
