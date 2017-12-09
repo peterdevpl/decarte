@@ -10,7 +10,6 @@ parameters:
 
     image.collection.url: "zaproszenia/kolekcje"
     image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
-    image.collection.original.directory: "%image.collection.directory%/original"
     image.collection.width: 176
     image.collection.height: 117
     image.collection.quality: 85
@@ -137,3 +136,20 @@ cocur_slugify:
 # Sentry error reporting
 sentry:
     dsn: "%sentry_dsn%"
+
+# Thumbnails
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.root_dir%/../public_html/"
+    resolvers:
+        default:
+            web_path:
+                web_root: "%kernel.root_dir%/../public_html/"
+    filter_sets:
+        cache: ~
+        product_collection_thumb:
+            quality: "%image.collection.quality%"
+            filters:
+                thumbnail: { size: ["%image.collection.width%", "%image.collection.height%"], mode: outbound }

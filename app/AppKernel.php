@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new ProductBundle\ProductBundle(),
             new Sentry\SentryBundle\SentryBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

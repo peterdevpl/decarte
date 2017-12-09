@@ -14,7 +14,7 @@
                 {% spaceless %}
                     {% if productCollection.getImageName() %}
                         <a href="{{ path('admin_product_collection', {'collection': productCollection.getId()}) }}">
-                            <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) }}" width="{{ image_collection_width }}" height="{{ image_collection_height }}">
+                            <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}" width="{{ image_collection_width }}" height="{{ image_collection_height }}">
                         </a>
                     {% endif %}
                 {% endspaceless %}

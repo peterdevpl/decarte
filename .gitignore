@@ -14,5 +14,6 @@
 !var/SymfonyRequirements.php
 /vendor/
 /public_html/bundles/
+/public_html/media/
 /public_html/zaproszenia
 /.idea
