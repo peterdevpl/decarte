@@ -32,16 +32,19 @@ class ProductFormListener implements EventSubscriberInterface
             return;
         }
 
-        foreach ($data['images'] as $sort => $imageForm) {
+        $sort = 0;
+        foreach ($data['images'] as $index => $imageForm) {
             if ($imageForm['image'] instanceof UploadedFile) {
                 $file = $imageForm['image'];
                 $destinationName = sha1_file($file->getRealPath()) . '.jpg';
                 $file->move($this->options['image_directory'], $destinationName);
 
-                $data['images'][$sort] = [
+                $data['images'][$index] = [
                     'imageName' => $destinationName,
-                    'sort' => $sort,
+                    'sort' => ++$sort,
                 ];
+            } else {
+                $sort = $imageForm['sort'];
             }
         }
 
