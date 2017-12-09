@@ -150,7 +150,6 @@ class AdminController extends Controller
         $form = $this->createForm(ProductCollectionForm::class, $productCollection, [
             'image_directory' => $this->getParameter('image.collection.directory'),
             'image_url' => $this->getParameter('image.collection.url'),
-            'deletion_queue' => $this->getImagesDeletionQueue(),
             'slugify' => $this->get('slugify'),
         ]);
 
@@ -175,7 +174,6 @@ class AdminController extends Controller
             $em->persist($productCollection);
             $em->flush();
 
-            $this->deleteOldImages();
             $this->addFlash('notice', $successMessage);
 
             return $this->redirectToRoute('admin_edit_product_collection', ['collectionId' => $productCollection->getId()]);
@@ -243,7 +241,6 @@ class AdminController extends Controller
         $form = $this->createForm(ProductForm::class, $product, [
             'image_directory' => $this->getParameter('image.product.directory'),
             'image_url' => $this->getParameter('image.product.url'),
-            'deletion_queue' => $this->getImagesDeletionQueue(),
         ]);
 
         $form->handleRequest($request);
@@ -267,7 +264,6 @@ class AdminController extends Controller
             $em->persist($product);
             $em->flush();
 
-            $this->deleteOldImages();
             $this->addFlash('notice', $successMessage);
 
             return $this->redirectToRoute('admin_edit_product', ['productId' => $product->getId()]);
@@ -277,24 +273,5 @@ class AdminController extends Controller
             'product' => $product,
             'form' => $form->createView(),
         ]);
-    }
-
-    protected function getImagesDeletionQueue()
-    {
-        if ($this->imagesToDelete === null) {
-            $this->imagesToDelete = new \SplQueue();
-        }
-        return $this->imagesToDelete;
-    }
-
-    protected function deleteOldImages()
-    {
-        $queue = $this->getImagesDeletionQueue();
-        while (!$queue->isEmpty()) {
-            $path = $queue->dequeue();
-            if (file_exists($path)) {
-                unlink($path);
-            }
-        }
     }
 }

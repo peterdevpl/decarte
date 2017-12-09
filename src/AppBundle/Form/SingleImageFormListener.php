@@ -37,9 +37,4 @@ abstract class SingleImageFormListener implements EventSubscriberInterface
             $event->setData($data);
         }
     }
-
-    protected function scheduleForDeletion(string $path)
-    {
-        $this->options['deletion_queue']->enqueue($path);
-    }
 }

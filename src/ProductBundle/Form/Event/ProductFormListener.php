@@ -2,11 +2,9 @@
 
 namespace ProductBundle\Form\Event;
 
-use AppBundle\Upload\Thumbnail;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProductFormListener implements EventSubscriberInterface
@@ -23,9 +21,6 @@ class ProductFormListener implements EventSubscriberInterface
         return [
             FormEvents::PRE_SUBMIT => [
                 ['onPreSubmit', 5],
-            ],
-            FormEvents::SUBMIT => [
-                ['onSubmit', 5],
             ],
         ];
     }
@@ -48,23 +43,6 @@ class ProductFormListener implements EventSubscriberInterface
                     'sort' => $sort,
                 ];
             }
-        }
-
-        $event->setData($data);
-    }
-
-    protected function scheduleForDeletion(string $path)
-    {
-        $this->options['deletion_queue']->enqueue($path);
-    }
-
-    public function onSubmit(FormEvent $event)
-    {
-        /** @var \ProductBundle\Entity\Product $data */
-        $data = $event->getData();
-
-        foreach ($data->getImages() as $image) {
-            $image->setProduct($data);
         }
 
         $event->setData($data);

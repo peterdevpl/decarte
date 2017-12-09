@@ -152,6 +152,7 @@ class Product
 
     public function addImage(ProductImage $image)
     {
+        $image->setProduct($this);
         $this->images->add($image);
     }
 
