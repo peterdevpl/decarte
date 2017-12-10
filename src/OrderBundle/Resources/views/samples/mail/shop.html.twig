@@ -1,7 +1,7 @@
 {% for item in order.getItems() %}
     <p>
         <img
-            src="{{ absolute_url(asset(image_product_small_url~'/'~item.getProduct().getCoverImage().getSmallName())) }}"
+            src="{{ absolute_url(asset(image_product_url~'/'~item.getProduct().getCoverImage().getImageName()) | imagine_filter('product_thumb')) }}"
             width="{{ image_product_small_width }}"
             height="{{ image_product_small_height }}"
             border="1"><br>

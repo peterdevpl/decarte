@@ -26,7 +26,7 @@ class ProductsController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
 
-        return $this->render('shop/listCollections.html.twig', [
+        return $this->render('ProductBundle:shop:list-collections.html.twig', [
             'productType' => $productType,
             'productCollections' => $productCollections,
         ]);
@@ -49,7 +49,7 @@ class ProductsController extends Controller
         $productType = $productCollection->getProductType();
         $allCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($productType->getId());
 
-        return $this->render('shop/viewCollection.html.twig', [
+        return $this->render('ProductBundle:shop:view-collection.html.twig', [
             'productCollection' => $productCollection,
             'allCollections' => $allCollections,
         ]);
@@ -70,7 +70,7 @@ class ProductsController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
-        return $this->render('shop/viewProduct.html.twig', [
+        return $this->render('ProductBundle:shop:view-product.html.twig', [
             'product' => $product,
         ]);
     }

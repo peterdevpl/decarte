@@ -21,7 +21,7 @@ class StaticPagesController extends Controller
         }
         $page = $page[0];
 
-        return $this->render('staticPage.html.twig', [
+        return $this->render('AppBundle:static:page.html.twig', [
             'page' => $page,
         ]);
     }

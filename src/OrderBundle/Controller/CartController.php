@@ -20,10 +20,10 @@ class CartController extends Controller
         $order = $repository->getOrder();
 
         if (count($order->getItems())) {
-            $view = 'cart/index.html.twig';
+            $view = 'OrderBundle:cart:index.html.twig';
             $parameters = ['order' => $order];
         } else {
-            $view = 'cart/empty.html.twig';
+            $view = 'OrderBundle:cart:empty.html.twig';
             $parameters = [];
         }
 

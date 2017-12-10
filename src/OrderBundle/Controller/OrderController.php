@@ -36,7 +36,7 @@ class OrderController extends Controller
             return $this->redirectToRoute('order_summary', [], 303);
         }
 
-        return $this->render('order/shippingDetails.html.twig', [
+        return $this->render('OrderBundle:order:shipping-details.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -47,7 +47,7 @@ class OrderController extends Controller
      */
     public function summaryAction()
     {
-        return $this->render('order/summary.html.twig', [
+        return $this->render('OrderBundle:order:summary.html.twig', [
             'order' => $this->get('temporary_order_repository')->getOrder(),
         ]);
     }
@@ -77,6 +77,6 @@ class OrderController extends Controller
      */
     public function confirmationAction()
     {
-        return $this->render('order/confirmation.html.twig');
+        return $this->render('OrderBundle:order:confirmation.html.twig');
     }
 }

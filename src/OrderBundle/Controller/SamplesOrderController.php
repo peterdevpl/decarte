@@ -40,7 +40,7 @@ class SamplesOrderController extends Controller
             return $this->redirectToRoute('shop_order_samples_confirmation');
         }
 
-        return $this->render('shop/orderSamples.html.twig', [
+        return $this->render('OrderBundle:samples:form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -51,7 +51,7 @@ class SamplesOrderController extends Controller
      */
     public function orderSamplesConfirmationAction()
     {
-        return $this->render('shop/orderSamplesConfirmation.html.twig');
+        return $this->render('OrderBundle:samples:confirmation.html.twig');
     }
 
     protected function sendSamplesOrderEmailToShop(SamplesOrder $order)
@@ -62,7 +62,7 @@ class SamplesOrderController extends Controller
             ->setFrom([$this->getParameter('admin_mail') => $order->getName()])
             ->setReplyTo($order->getEmail())
             ->setBody(
-                $this->renderView('shop/mail/samplesOrderShop.html.twig', [
+                $this->renderView('OrderBundle:samples/mail:shop.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
@@ -79,7 +79,7 @@ class SamplesOrderController extends Controller
             ->setFrom([$this->getParameter('admin_mail') => 'Sklep ślubny decARTe.com.pl'])
             ->setReplyTo($this->getParameter('admin_mail'))
             ->setBody(
-                $this->renderView('shop/mail/samplesOrderCustomer.html.twig', [
+                $this->renderView('OrderBundle:samples/mail:customer.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
