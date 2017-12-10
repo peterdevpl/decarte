@@ -1,0 +1,28 @@
+footer {
+  color: $darkGrayText;
+  font-size: 75%;
+  padding: 1em;
+
+  h2 {
+    font-size: 1.25em;
+  }
+
+  a, a:hover {
+    color: inherit;
+  }
+}
+
+#sitemap-with-contact {
+  background: $lightGray;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+#company-data {
+  background: $darkGrayBackground;
+  color: white;
+}

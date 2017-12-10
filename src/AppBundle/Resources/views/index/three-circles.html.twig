@@ -1,0 +1,21 @@
+<nav id="three-circles">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a id="three-circles-logo" href=""><img src="{{ asset('img/2018/decarte-logo.png') }}" alt="Logo decARTe"></a>
+            </div>
+            <div class="col">
+                <a id="three-circles-invitations" href="{{ path('shop_list_collections', {type: 'zaproszenia-slubne'}) }}">
+                    <img src="{{ asset('img/2018/zaproszenia.jpg') }}" alt="Zaproszenia">
+                    <div class="circle-title align-items-end"><span>Zaproszenia ślubne</span></div>
+                </a>
+            </div>
+            <div class="col">
+                <a id="three-circles-additions" href="{{ path('shop_list_collections', {type: 'dodatki'}) }}">
+                    <img src="{{ asset('img/2018/dodatki.jpg') }}" alt="Dodatki">
+                    <div class="circle-title align-items-end"><span>Dodatki</span></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

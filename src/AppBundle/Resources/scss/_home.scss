@@ -1,0 +1,53 @@
+#three-circles {
+  margin-bottom: 2em;
+  margin-top: 1em;
+
+  a {
+    display: block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  img {
+    transition: transform 0.3s ease 0s;
+    width: 100%;
+  }
+
+  a:hover img {
+    transform: scale(1.25);
+  }
+
+  .circle-title {
+    display: flex;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    span {
+      background: white;
+      color: black;
+      display: block;
+      font-size: 150%;
+      opacity: 0.75;
+      padding: 1rem 0;
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+    }
+  }
+}
+
+article {
+  font-size: 75%;
+  margin: 2em 0;
+}
+
+#welcome-text {
+  columns: 2;
+  text-align: justify;
+
+  address {
+    text-align: right;
+  }
+}

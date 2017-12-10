@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}decARTe{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link rel="shortcut icon" href="{{ asset('img/2018/decarte-icon.png') }}">
+</head>
+<body>
+
+<header>
+    {{ include('@App/layout/contact-bar.html.twig') }}
+    {{ include('@App/layout/top-navigation.html.twig') }}
+</header>
+
+<main>
+    {% block main %}{% endblock %}
+</main>
+
+{{ include('@App/layout/sitemap-with-contact.html.twig') }}
+{{ include('@App/layout/company-data.html.twig') }}
+
+</body>
+</html>

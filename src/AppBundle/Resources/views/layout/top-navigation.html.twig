@@ -1,0 +1,21 @@
+<nav id="top-navigation">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-11" id="top-links">
+                <ul>
+                    <li><a href="{{ path('static_page', {slugName: 'zamowienia'}) }}">Jak zamawiać</a></li>
+                    <li><a href="{{ path('static_page', {slugName: 'pytania-i-odpowiedzi'}) }}">Pytania i&nbsp;odpowiedzi</a></li>
+                    <li><a href="{{ path('static_page', {slugName: 'o-nas'}) }}">O nas</a></li>
+                    <li><a href="{{ path('static_page', {slugName: 'kontakt'}) }}">Kontakt</a></li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-1" id="cart-button">
+                <a href="{{ path('cart_index') }}">
+                    <img src="{{ asset('img/2018/cart.png') }}" alt="Koszyk">
+                    <span class="cart-number">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
