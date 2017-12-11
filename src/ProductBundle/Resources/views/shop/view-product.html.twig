@@ -1,57 +1,51 @@
-{% extends '@App/layout/base.html.twig' %}
+{% extends '@App/layout/base-with-sidebar.html.twig' %}
 
 {% set productCollection = product.getProductCollection() %}
 {% set productType = productCollection.getProductType() %}
 
 {% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}
 
-{% block main %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <nav>
-                    <a href="{{ path('default') }}">Strona główna</a> &raquo;
-                    <a href="{{ path('shop_list_collections', {'type': productType.getSlugName()}) }}">{{ productType.getName() }}</a> &raquo;
-                    <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">{{ productCollection.getName }}</a> &raquo;
-                    Model: {{ product.getName() }}
-                </nav>
+{% block contents %}
+    <nav>
+        <a href="{{ path('default') }}">Strona główna</a> &raquo;
+        <a href="{{ path('shop_list_collections', {'type': productType.getSlugName()}) }}">{{ productType.getName() }}</a> &raquo;
+        <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">{{ productCollection.getName }}</a> &raquo;
+        Model: {{ product.getName() }}
+    </nav>
 
-                <hr>
+    <hr>
 
-                <h1 class="product_name">{{ productCollection.getName() }} - Model: {{ product.getName() }}</h1>
+    <h1 class="product_name">{{ productCollection.getName() }} - Model: {{ product.getName() }}</h1>
 
-                <p class="short_description">{{ product.getDescriptionSEO() }}</p>
+    <p class="short_description">{{ product.getDescriptionSEO() }}</p>
 
-                <div id="slider" class="nivoSlider" style="width: 720px; height: 500px">
-                    {% set style = "" %}
-                    {% for image in product.getImages() %}
-                        <img
-                            src="{{ asset(image_product_url~'/'~image.getImageName()) | imagine_filter('product_full') }}"
-                            width="{{ image_product_big_width }}"
-                            height="{{ image_product_big_height }}"
-                            alt="Zdjęcie nr {{ loop.index }}"
-                            style="{{ style }}">
-                        {% set style = "display: none; padding-top: 0px" %}
-                    {% endfor %}
-                </div>
-
-                <form method="post" action="{{ path('cart_add_item') }}" class="add_to_cart">
-                    <div class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
-                    <div class="button">
-                        <input type="hidden" name="product_id" value="{{ product.getId() }}">
-                        <label for="quantity">Liczba sztuk:</label>
-                        <input type="number" name="quantity" id="quantity" min="{{ productType.getMinimumQuantity() }}" value="{{ productType.getMinimumQuantity() }}">
-                        {% if productType.getMinimumQuantity() > 1 %}
-                            <small>(minimum {{ productType.getMinimumQuantity() }})</small>
-                        {% endif %}
-                        <input type="submit" value="Dodaj do koszyka">
-                    </div>
-                </form>
-
-                <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
-            </div>
-        </div>
+    <div id="slider" class="nivoSlider" style="width: 720px; height: 500px">
+        {% set style = "" %}
+        {% for image in product.getImages() %}
+            <img
+                src="{{ asset(image_product_url~'/'~image.getImageName()) | imagine_filter('product_full') }}"
+                width="{{ image_product_big_width }}"
+                height="{{ image_product_big_height }}"
+                alt="Zdjęcie nr {{ loop.index }}"
+                style="{{ style }}">
+            {% set style = "display: none; padding-top: 0px" %}
+        {% endfor %}
     </div>
+
+    <form method="post" action="{{ path('cart_add_item') }}" class="add_to_cart">
+        <div class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
+        <div class="button">
+            <input type="hidden" name="product_id" value="{{ product.getId() }}">
+            <label for="quantity">Liczba sztuk:</label>
+            <input type="number" name="quantity" id="quantity" min="{{ productType.getMinimumQuantity() }}" value="{{ productType.getMinimumQuantity() }}">
+            {% if productType.getMinimumQuantity() > 1 %}
+                <small>(minimum {{ productType.getMinimumQuantity() }})</small>
+            {% endif %}
+            <input type="submit" value="Dodaj do koszyka">
+        </div>
+    </form>
+
+    <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
 {% endblock %}
 
 {% block stylesheets %}

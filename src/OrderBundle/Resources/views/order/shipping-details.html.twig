@@ -1,43 +1,37 @@
-{% extends '@App/layout/base.html.twig' %}
+{% extends '@App/layout/base-with-sidebar.html.twig' %}
 
 {% block title %}Dane do wysyłki - decARTe{% endblock %}
 
-{% block main %}
+{% block contents %}
     {% form_theme form 'form/fields.html.twig' %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                {{ form_start(form) }}
+    {{ form_start(form) }}
 
-                <h2>Dane zamawiającego</h2>
+    <h2>Dane zamawiającego</h2>
 
-                {{ form_row(form.name) }}
-                {{ form_row(form.street) }}
-                {{ form_row(form.postalCode) }}
-                {{ form_row(form.city) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.phone) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.street) }}
+    {{ form_row(form.postalCode) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.phone) }}
 
-                <h2>Sposób dostawy</h2>
+    <h2>Sposób dostawy</h2>
 
-                {{ form_widget(form.deliveryType) }}
+    {{ form_widget(form.deliveryType) }}
 
-                <h2>Tryb realizacji</h2>
+    <h2>Tryb realizacji</h2>
 
-                {{ form_widget(form.realizationType) }}
+    {{ form_widget(form.realizationType) }}
 
-                <h2>Uwagi lub pytania</h2>
+    <h2>Uwagi lub pytania</h2>
 
-                {{ form_widget(form.notes) }}
+    {{ form_widget(form.notes) }}
 
-                {{ form_end(form) }}
+    {{ form_end(form) }}
 
-                <p>Po złożeniu zamówienia, w ciągu godziny otrzymają Państwo maila ze szczegółami dotyczącymi realizacji zamówienia
-                    oraz rozbudowanym formularzem, w którym będzie można sprecyzować szczegóły zlecenia.</p>
+    <p>Po złożeniu zamówienia, w ciągu godziny otrzymają Państwo maila ze szczegółami dotyczącymi realizacji zamówienia
+        oraz rozbudowanym formularzem, w którym będzie można sprecyzować szczegóły zlecenia.</p>
 
-                <p>W razie wątpliwości zachęcamy również do kontaktu telefonicznego: <strong>793-697-390, 600-151-804</strong>.</p>
-            </div>
-        </div>
-    </div>
+    <p>W razie wątpliwości zachęcamy również do kontaktu telefonicznego: <strong>793-697-390, 600-151-804</strong>.</p>
 {% endblock %}
