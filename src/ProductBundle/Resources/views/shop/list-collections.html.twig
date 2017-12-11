@@ -8,11 +8,18 @@
     <ul id="collections">
         {% for productCollection in productCollections %}
             <li>
-                <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">
-                    <span class="header">{{ productCollection.getName() }}</span><br>
-                    <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}" width="{{ image_collection_width }}" height="{{ image_collection_height }}" alt="*"><br>
-                    <span class="description">{{ productCollection.getShortDescription()|raw|nl2br }}</span>
-                </a>
+                <figure>
+                    <img
+                        src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}"
+                        width="{{ image_collection_width }}"
+                        height="{{ image_collection_height }}"
+                        alt="{{ productCollection.getName() }}">
+                    <figcaption>
+                        <h2>{{ productCollection.getName() }}</h2>
+                        <p class="description">{{ productCollection.getShortDescription()|raw }}</p>
+                        <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">zobacz</a>
+                    </figcaption>
+                </figure>
             </li>
         {% endfor %}
     </ul>

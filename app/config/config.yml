@@ -10,8 +10,8 @@ parameters:
 
     image.collection.url: "zaproszenia/kolekcje"
     image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
-    image.collection.width: 176
-    image.collection.height: 117
+    image.collection.width: 408
+    image.collection.height: 272
     image.collection.quality: 85
 
     image.product.url: "zaproszenia/produkty"

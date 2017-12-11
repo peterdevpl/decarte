@@ -3,6 +3,8 @@
 @import "~bootstrap/scss/_mixins";
 
 @import "_variables";
+@import "_mixins";
+
 @import "layout/_body";
 @import "layout/_contact-bar";
 @import "layout/_footer";
@@ -10,3 +12,5 @@
 @import "layout/_sidebar";
 
 @import "_home";
+
+@import "products/_collections";
