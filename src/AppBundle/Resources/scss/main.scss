@@ -1,4 +1,7 @@
-@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/_mixins";
+
 @import "_variables";
 @import "layout/_body";
 @import "layout/_contact-bar";

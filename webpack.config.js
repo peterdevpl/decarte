@@ -4,6 +4,10 @@ Encore
     .setOutputPath('public_html/build/')
     .setPublicPath('/build')
     .addEntry('app', './src/AppBundle/Resources/js/app.js')
+    .createSharedEntry('vendor', [
+        'jquery',
+        'bootstrap/scss/bootstrap.scss'
+    ])
     .enableSassLoader()
     .autoProvidejQuery()
     .enableSourceMaps(!Encore.isProduction())
