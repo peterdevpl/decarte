@@ -2,9 +2,19 @@
   background: $leadingColor;
   color: white;
   font-size: 90%;
-  padding: 14px 0;
+  padding: 4px 0;
 
   a {
     color: white;
+  }
+}
+
+#home-logo {
+  &:hover {
+    text-decoration: none;
+  }
+
+  img {
+    margin-right: 1rem;
   }
 }
