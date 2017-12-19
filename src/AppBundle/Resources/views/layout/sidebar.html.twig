@@ -1,40 +1,9 @@
 <nav>
     <ul class="nav flex-column">
+        {% for entry in menu.getEntries() %}
         <li class="nav-item">
-            <a class="nav-link active" href="{{ path('shop_list_collections', {type: 'zaproszenia-slubne'}) }}">Zaproszenia ślubne</a>
+            <a class="nav-link" href="{{ path(entry.getRouteName(), entry.getRouteParams()) }}">{{ entry.getTitle() }}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('shop_order_samples') }}">Zamów próbki</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Winietki</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Zawieszki</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Menu</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Podziękowania dla rodziców</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Podziękowania dla gości</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Księgi gości</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Poduszki pod obrączki</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Gadżety weselne</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Dekoracje samochodowe</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Zaproszenia na inne okazje</a>
-        </li>
+        {% endfor %}
     </ul>
 </nav>

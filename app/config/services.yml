@@ -6,6 +6,7 @@ parameters:
 services:
     menu:
         class: AppBundle\Menu\Menu
+        arguments: ['@product_type_repository', '@product_collection_repository']
 
     realization_type_repository:
         class: Doctrine\ORM\EntityRepository
@@ -24,6 +25,18 @@ services:
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments:
             - ProductBundle\Entity\Product
+
+    product_collection_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - ProductBundle\Entity\ProductCollection
+
+    product_type_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - ProductBundle\Entity\ProductType
 
     product_image_listener:
         class: ProductBundle\Entity\Event\ProductImageListener

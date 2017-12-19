@@ -2,23 +2,48 @@
 
 namespace AppBundle\Menu;
 
+use ProductBundle\Repository\ProductCollectionRepository;
+use ProductBundle\Repository\ProductTypeRepository;
+
 class Menu
 {
+    private $productTypeRepository;
+    private $productCollectionRepository;
+    private $entries;
+
+    public function __construct(
+        ProductTypeRepository $productTypeRepository,
+        ProductCollectionRepository $productCollectionRepository
+    ) {
+        $this->productTypeRepository = $productTypeRepository;
+        $this->productCollectionRepository = $productCollectionRepository;
+    }
+
     public function getEntries()
     {
-        return [
+        if (is_array($this->entries)) {
+            return $this->entries;
+        }
+
+        $this->entries = [
             new MenuEntry('shop_list_collections', 'Zaproszenia ślubne', ['type' => 'zaproszenia-slubne']),
             new MenuEntry('shop_order_samples', 'Zamów próbki'),
-            new MenuEntry('shop_list_collections', 'Winietki', ['type' => 'winietki']),
-            new MenuEntry('shop_list_collections', 'Etykiety, zawieszki', ['type' => 'etykiety-i-zawieszki']),
-            new MenuEntry('shop_list_collections', 'Menu', ['type' => 'menu-weselne']),
-            new MenuEntry('shop_list_collections', 'Podziękowania', ['type' => 'podziekowania']),
-            new MenuEntry('shop_list_collections', 'Księgi gości', ['type' => 'ksiegi-gosci']),
-            new MenuEntry('static_page', 'Candy table', ['slugName' => 'candy-table']),
-            new MenuEntry('shop_list_collections', 'Poduszki pod obrączki', ['type' => 'poduszki-pod-obraczki']),
-            new MenuEntry('shop_list_collections', 'Gadżety weselne', ['type' => 'gadzety-weselne']),
-            new MenuEntry('shop_list_collections', 'Dekoracje samochodowe', ['type' => 'dekoracje-samochodowe']),
-            new MenuEntry('cart_index', 'Koszyk'),
         ];
+
+        $type = $this->productTypeRepository->findBySlugName('dodatki');
+        if (!$type) {
+            return $this->entries;
+        }
+
+        $collections = $this->productCollectionRepository->getProductCollections($type->getId());
+        foreach ($collections as $collection) {
+            $this->entries[] = new MenuEntry(
+                'shop_view_collection',
+                $collection->getName(),
+                ['type' => $type->getSlugName(), 'slugName' => $collection->getSlugName()]
+            );
+        }
+
+        return $this->entries;
     }
 }
