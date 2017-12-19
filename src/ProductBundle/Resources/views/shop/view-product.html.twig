@@ -10,16 +10,13 @@
 
     <p class="short_description">{{ product.getDescriptionSEO() }}</p>
 
-    <div id="slider" class="nivoSlider" style="width: 720px; height: 500px">
-        {% set style = "" %}
+    <div id="slider">
         {% for image in product.getImages() %}
             <img
                 src="{{ asset(image_product_url~'/'~image.getImageName()) | imagine_filter('product_full') }}"
                 width="{{ image_product_big_width }}"
                 height="{{ image_product_big_height }}"
-                alt="Zdjęcie nr {{ loop.index }}"
-                style="{{ style }}">
-            {% set style = "display: none; padding-top: 0px" %}
+                alt="Zdjęcie nr {{ loop.index }}">
         {% endfor %}
     </div>
 
@@ -37,14 +34,4 @@
     </form>
 
     <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
-{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('slider/nivo-slider.css') }}" type="text/css" media="screen">
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('slider/jquery.nivo.slider.pack.js') }}"></script>
-    <script src="{{ asset('js/product.js') }}"></script>
 {% endblock %}
