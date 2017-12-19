@@ -13,7 +13,7 @@
             <div class="col-12 col-md-1" id="cart-button">
                 <a href="{{ path('cart_index') }}">
                     <img src="{{ asset('img/2018/cart.png') }}" alt="Koszyk">
-                    <span class="cart-number">0</span>
+                    <span class="cart-number">{{ cart.getOrder().getItems().count() }}</span>
                 </a>
             </div>
         </div>

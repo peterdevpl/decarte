@@ -72,6 +72,8 @@ twig:
 
         menu: "@menu"
 
+        cart: "@temporary_order_repository"
+
 # Doctrine Configuration
 doctrine:
     dbal:
