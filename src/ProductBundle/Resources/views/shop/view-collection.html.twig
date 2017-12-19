@@ -25,11 +25,12 @@
 
     {{ productCollection.getDescription()|raw }}
 
-    <ul>
+    <ul id="products" class="figures">
         {% for product in productCollection.getProducts() %}
             {% if product.isVisible() %}
             <li>
-                <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
+                <figure>
+
                     {% if product.getCoverImage() %}
                     <img
                         src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
@@ -37,8 +38,12 @@
                         height="{{ image_product_small_height }}"
                         alt="Model {{ product.getName() }}">
                     {% endif %}
-                </a><br>
-                <span class="product_name">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</span>
+
+                    <figcaption>
+                        <p class="description">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
+                        <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">zobacz</a>
+                    </figcaption>
+                </figure>
             </li>
             {% endif %}
         {% endfor %}
