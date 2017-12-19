@@ -48,6 +48,10 @@ header {
   position: relative;
   text-align: right;
 
+  a:hover {
+    text-decoration: none;
+  }
+
   img {
     width: 36px;
   }
@@ -63,9 +67,5 @@ header {
     left: -10px;
     top: -10px;
     vertical-align: middle;
-
-    a {
-      text-decoration: none;
-    }
   }
 }
