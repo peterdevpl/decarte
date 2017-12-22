@@ -23,6 +23,7 @@ security:
         default:
             anonymous: ~
             http_basic: ~
+            logout_on_user_change: true
             provider: decarte_db_provider
 
     access_control:
