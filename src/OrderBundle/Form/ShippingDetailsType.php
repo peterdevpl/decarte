@@ -18,7 +18,7 @@ class ShippingDetailsType extends AbstractType
     {
         $builder
             ->add('name',TextType::class, ['label' => 'Imię i nazwisko', 'attr' => ['size' => 60]])
-            ->add('street', TextType::class, ['label' => 'Adres (ulica lub miejscowość, numer)', 'attr' => ['size' => 60]])
+            ->add('street', TextType::class, ['label' => 'Ulica, nr domu i mieszkania', 'attr' => ['size' => 60]])
             ->add('postalCode', TextType::class, [
                 'label' => 'Kod pocztowy',
                 'attr' => [
