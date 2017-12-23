@@ -1,0 +1,22 @@
+.cart-item {
+  border-bottom: solid $lightGray 1px;
+  clear: left;
+  margin-top: 1rem;
+
+  img {
+    border: solid $lightGray 1px;
+    float: left;
+    height: 100px;
+    margin-right: 1rem;
+    width: auto;
+  }
+
+  input[type="number"] {
+    width: 5rem;
+  }
+}
+
+.cart-total-price {
+  font-size: 110%;
+  margin-bottom: 1rem;
+}

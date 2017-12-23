@@ -2,7 +2,10 @@
 
 namespace OrderBundle\Controller;
 
+use OrderBundle\Entity\Order;
 use OrderBundle\Exception\QuantityTooSmallException;
+use OrderBundle\Form\Cart\CartType;
+use OrderBundle\Repository\SessionOrderRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,22 +15,49 @@ class CartController extends Controller
 {
     /**
      * @Route("/koszyk", name="cart_index")
+     * @param Request $request
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $repository = $this->get('temporary_order_repository');
         $order = $repository->getOrder();
 
         if (count($order->getItems())) {
-            $view = 'OrderBundle:cart:index.html.twig';
-            $parameters = ['order' => $order];
+            return $this->showCart($repository, $order, $request);
         } else {
             $view = 'OrderBundle:cart:empty.html.twig';
             $parameters = [];
         }
 
         return $this->render($view, $parameters);
+    }
+
+    protected function showCart(SessionOrderRepository $repository, Order $order, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $realizationTypes = $em->getRepository('OrderBundle:RealizationType')->getRealizationTypes();
+        $deliveryTypes = $em->getRepository('OrderBundle:DeliveryType')->getDeliveryTypes();
+
+        $form = $this->createForm(CartType::class, $order, [
+            'realization_types' => $realizationTypes,
+            'delivery_types' => $deliveryTypes,
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order = $form->getData();
+            $repository->persist($order);
+
+            $route = $form->has('save_and_order') && $form->get('save_and_order')->isClicked() ?
+                'order_shipping_details' : 'cart_index';
+
+            return $this->redirectToRoute($route, [], 303);
+        }
+
+        return $this->render('OrderBundle:cart:index.html.twig', [
+            'form' => $form->createView(),
+            'order' => $order,
+        ]);
     }
 
     /**
@@ -67,39 +97,5 @@ class CartController extends Controller
         $orderRepository->persist($order);
 
         return $this->redirectToRoute('cart_index');
-    }
-
-    /**
-     * @Route("/koszyk/zapisz", name="cart_save")
-     * @param Request $request
-     * @return Response
-     */
-    public function saveAction(Request $request)
-    {
-        $orderRepository = $this->get('temporary_order_repository');
-        $order = $orderRepository->getOrder();
-
-        $quantities = $request->get('quantity');
-        foreach ($quantities as $productId => $quantity) {
-            $item = $order->getItemById((int) $productId);
-            try {
-                $item->setQuantity((int)$quantity);
-            } catch (QuantityTooSmallException $e) {
-                $this->addFlash('error', sprintf('Minimalna liczba sztuk produktu %s to %i',
-                    $e->getProduct()->getName(),
-                    $e->getProduct()->getMinimumQuantity()
-                ));
-            }
-        }
-
-        $orderRepository->persist($order);
-
-        if (!empty($request->get('save'))) {
-            $route = 'cart_index';
-        } else {
-            $route = 'order_shipping_details';
-        }
-
-        return $this->redirectToRoute($route);
     }
 }

@@ -164,7 +164,7 @@ class Product
         return $this;
     }
 
-    public function getCoverImage()
+    public function getCoverImage(): ?ProductImage
     {
         return $this->images->first();
     }

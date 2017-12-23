@@ -5,49 +5,17 @@
 {% block contents %}
     <h1>Koszyk</h1>
 
-    <form action="{{ path('cart_save') }}" method="post">
-        <ul id="cart_items">
-            {% for item in order.getItems() %}
-                {% set collection = item.getProduct().getProductCollection() %}
-                {% set type = collection.getProductType() %}
-                {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
-                <li>
-                    <a href="{{ url }}"><img
-                        src="{{ asset(image_product_url~'/'~item.getProduct().getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
-                        width="{{ image_product_small_width }}"
-                        height="{{ image_product_small_height }}"></a>
+    {% form_theme form '@Order/cart/fields.html.twig' %}
 
-                    <div class="cart_item_description">
-                        <h2><a href="{{ url }}">{{ collection.getName() }} - {{ item.getProduct().getName() }}</a></h2>
+    {{ form_start(form) }}
 
-                        <div class="cart_item_quantity">
-                            <label for="quantity_{{ item.getProduct().getId() }}">Liczba sztuk:</label>
-                            <input
-                                type="number"
-                                class="quantity"
-                                name="quantity[{{ item.getProduct().getId() }}]"
-                                id="quantity_{{ item.getProduct().getId() }}"
-                                min="{{ type.getMinimumQuantity() }}"
-                                value="{{ item.getQuantity() }}">
-                            {% if type.getMinimumQuantity() > 1 %}
-                                <small>(minimum {{ type.getMinimumQuantity() }})</small>
-                            {% endif %}
-                        </div>
+    {{ form_row(form.items) }}
+    {{ form_row(form.deliveryType) }}
+    {{ form_row(form.realizationType) }}
 
-                        <div class="cart_item_price">{{ (item.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="cart-total-price">
+        Razem <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }}</strong> zł
+    </div>
 
-        <div class="cart_total_price">
-            Razem <strong>{{ (order.getItemsPrice() / 100)|number_format(2, ',', ' ') }}</strong> zł<br>
-            <small>plus koszty przesyłki &ndash; w następnym kroku</small>
-        </div>
-
-        <div class="cart_submit">
-            <input type="submit" name="save" value="Zapisz zmiany">
-            <input type="submit" name="save_and_order" value="Złóż zamówienie">
-        </div>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}

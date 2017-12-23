@@ -3,7 +3,7 @@
 {% block title %}Dane do wysyłki - decARTe{% endblock %}
 
 {% block contents %}
-    {% form_theme form 'form/fields.html.twig' %}
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {{ form_start(form) }}
 
@@ -16,17 +16,9 @@
     {{ form_row(form.email) }}
     {{ form_row(form.phone) }}
 
-    <h2>Sposób dostawy</h2>
-
-    {{ form_widget(form.deliveryType) }}
-
-    <h2>Tryb realizacji</h2>
-
-    {{ form_widget(form.realizationType) }}
-
     <h2>Uwagi lub pytania</h2>
 
-    {{ form_widget(form.notes) }}
+    {{ form_row(form.notes) }}
 
     {{ form_end(form) }}
 

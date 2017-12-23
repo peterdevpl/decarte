@@ -17,17 +17,10 @@ class OrderController extends Controller
      */
     public function shippingDetailsAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $realizationTypes = $em->getRepository('OrderBundle:RealizationType')->getRealizationTypes();
-        $deliveryTypes = $em->getRepository('OrderBundle:DeliveryType')->getDeliveryTypes();
-
         $repository = $this->get('temporary_order_repository');
         $order = $repository->getOrder();
 
-        $form = $this->createForm(ShippingDetailsType::class, $order, [
-            'realization_types' => $realizationTypes,
-            'delivery_types' => $deliveryTypes,
-        ]);
+        $form = $this->createForm(ShippingDetailsType::class, $order);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
