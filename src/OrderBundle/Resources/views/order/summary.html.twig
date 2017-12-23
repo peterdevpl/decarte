@@ -10,14 +10,14 @@
 
         <h2>Kupujący</h2>
 
-        <table>
+        <table class="table table-sm">
             <tbody>
                 <tr>
                     <th>Imię i nazwisko:</th>
                     <td>{{ order.getName() }}</td>
                 </tr>
                 <tr>
-                    <th>Adres:</th>
+                    <th>Ulica:</th>
                     <td>{{ order.getStreet() }}</td>
                 </tr>
                 <tr>
@@ -41,13 +41,13 @@
 
         <h2>Zawartość zamówienia</h2>
 
-        <table>
-            <thead>
+        <table class="table table-sm">
+            <thead class="thead-light">
                 <tr>
-                    <th>L.p.</th>
-                    <th>Nazwa produktu</th>
-                    <th>Liczba szt.</th>
-                    <th>Razem</th>
+                    <th scope="col"><abbr title="Liczba porządkowa">L.p.</abbr></th>
+                    <th scope="col">Nazwa produktu</th>
+                    <th scope="col">Liczba sztuk</th>
+                    <th scope="col">Razem</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +57,7 @@
                 {% set url = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': item.getProduct().getId()}) %}
 
                 <tr>
-                    <td>{{ loop.index }}.</td>
+                    <th scope="row">{{ loop.index }}.</th>
                     <td><a href="{{ url }}">{{ collection.getName() }} - {{ item.getProduct().getName() }}</a></td>
                     <td>{{ item.getQuantity() }}</td>
                     <td>{{ (item.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</td>
@@ -78,7 +78,7 @@
 
         <p>{{ order.getRealizationType() }}</p>
 
-        <div id="order_total_price">DO ZAPŁATY: {{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
+        <div id="order-total-price">Do zapłaty: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</strong></div>
 
         <div class="cart_submit">
             <input type="submit" name="edit_order" value="Wróć do edycji danych">
