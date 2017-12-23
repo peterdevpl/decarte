@@ -1,6 +1,6 @@
 .cart-item {
   border-bottom: solid $lightGray 1px;
-  clear: left;
+  clear: both;
   margin-top: 1rem;
 
   img {
@@ -19,4 +19,10 @@
 .cart-total-price {
   font-size: 110%;
   margin-bottom: 1rem;
+}
+
+.item-price {
+  float: right;
+  font-size: 1.25rem;
+  font-weight: bold;
 }

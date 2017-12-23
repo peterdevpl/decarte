@@ -9,6 +9,10 @@
             <img src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}" alt="Zdjęcie">
         </a>
 
+        <div class="item-price">
+            {{ (item.getUnitPrice() / 100)|number_format(2, ',', ' ')  }} zł
+        </div>
+
         <h2><a href="{{ productLink }}">{{ collection.getName()~' - '~product.getName() }}</a></h2>
 
         {{ block('form_widget') }}

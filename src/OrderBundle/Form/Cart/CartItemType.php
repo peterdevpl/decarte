@@ -49,6 +49,7 @@ class CartItemType extends AbstractType
         $orderItem = $form->getData();
         $product = $orderItem->getProduct();
 
+        $view->vars['item'] = $orderItem;
         $view->vars['product'] = $product;
     }
 }
