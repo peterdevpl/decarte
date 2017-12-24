@@ -27,6 +27,8 @@ parameters:
 
     samples_count: 2
 
+    admin.mail: "%admin_mail%"
+
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }

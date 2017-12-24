@@ -61,6 +61,9 @@ class OrderController extends Controller
 
         $repository->clear();
 
+        $this->get('order_mailer')->sendEmailToShop($order);
+        $this->get('order_mailer')->sendEmailToCustomer($order);
+
         return $this->redirectToRoute('order_confirmation', [], 303);
     }
 

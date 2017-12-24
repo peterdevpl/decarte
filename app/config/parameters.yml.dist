@@ -20,3 +20,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     sentry_dsn:        https://example.org/
+    admin_mail:        admin@example.org

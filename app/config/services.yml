@@ -48,3 +48,7 @@ services:
     temporary_order_repository:
         class: OrderBundle\Repository\SessionOrderRepository
         arguments: ['@session', '@product_repository', '@realization_type_repository', '@delivery_type_repository']
+
+    order_mailer:
+        class: OrderBundle\Service\OrderMailer
+        arguments: ['@mailer', '@templating', '%admin.mail%']

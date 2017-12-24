@@ -1,0 +1,45 @@
+<p>Szanowni Państwo,<br>
+    Dziękujemy za złożenie zamówienia w naszej firmie.</p>
+
+<p>Zamówione przez Was produkty:</p>
+
+{% for item in order.getItems() %}
+    <p><img
+        src="{{ absolute_url(asset(image_product_url~'/'~item.getProduct().getCoverImage().getImageName()) | imagine_filter('product_thumb')) }}"
+        border="1"
+        width="{{ image_product_small_width }}"
+        height="{{ image_product_small_height }}"><br>
+    liczba sztuk: {{ item.getQuantity() }}</p>
+{% endfor %}
+
+<p><strong>Wstępny kosztorys:</strong> {{ (order.getItemsPrice() / 100)|number_format(2, ',', ' ') }} PLN + koszt przesyłki<br>
+    <strong>Przesyłka:</strong> {{ order.getDeliveryType() }}</p>
+
+<p><strong>Dane konta:</strong><br>
+    Pracownia decARTe s.c.<br>
+    ING Bank Śląski SA<br>
+    77 1050 1764 1000 0092 3525 8671<br>
+    W tytule proszę podać imię i nazwisko.<br>
+    Jeśli wybrali Państwo wpłatę na konto, prosimy o przesłanie potwierdzenia wpłaty.</p>
+
+<p><strong>PROCEDURA realizacji wygląda następująco:</strong></p>
+
+<ol>
+    <li><strong>Prosimy wypełnienie i odesłanie formularza znajdującego się w załączniku.</strong></li>
+    <li>Po otrzymaniu powyższych informacji, w ciągu maksymalnie 7 dni roboczych, przygotujemy dla Państwa
+        skład tekstu do akceptacji przed drukiem i wyślemy mailem celem akceptacji. Prosimy zapoznać się uważnie z przesłanymi załącznikami,
+        jeśli uznają Państwo, że należy dokonać jakichkolwiek zmian, poinformujcie nas mailowo - tekst trafi do korekty.</li>
+    <li>Wraz z zatwierdzeniem zgodności treści oraz układu tekstu, zamówienie trafia do druku.
+        Nie ma już możliwości dokonywania zmian. Reklamacje dotyczące błędów w składach, które zostały zatwierdzone, nie będą rozpatrywane.</li>
+    <li>Wysyłka ma miejsce najpóźniej 14. dnia roboczego, licząc od daty przesłania do nas wypełnionego formularza (+ 24 godziny na każdą korektę tekstu).</li>
+    <li>Jeśli nasz produkt z jakichkolwiek przyczyn nie spełnia Państwa oczekiwań, przysługuje prawo reklamacji. Prosimy o kontakt z nami, a uzgodnimy warunki korzystne dla obu stron.</li>
+    <li>Jeśli mają Państwo pytania czy wątpliwości w trakcie realizacji zamówienia, prosimy o kontakt:
+        <ul>
+            <li>info@decarte.pl - na maile odpowiadamy w ciągu 24h w dni robocze od poniedziałku do piątku, 9:00-16:00</li>
+            <li>tel. 793-697-390 lub 600-151-804 (pon-pt w godzinach 10:00-19:00)</li>
+        </ul>
+    </li>
+</ol>
+
+<p>Dziękujemy!<br>
+    Zespół decarte.com.pl</p>

@@ -1,0 +1,16 @@
+{% for item in order.getItems() %}
+    <p><img
+            src="{{ absolute_url(asset(image_product_url~'/'~item.getProduct().getCoverImage().getImageName()) | imagine_filter('product_thumb')) }}"
+            border="1"
+            width="{{ image_product_small_width }}"
+            height="{{ image_product_small_height }}"><br>
+        cena za sztukę: {{ (item.getUnitPrice() / 100)|number_format(2, ',', ' ') }} PLN
+        liczba sztuk: {{ item.getQuantity() }}</p>
+{% endfor %}
+
+<p>Nazwisko: {{ order.getName() }}
+<br>Ulica: {{ order.getStreet() }}
+<br>Miasto: {{ order.getPostalCode()~' '~order.getCity() }}
+<br>Telefon: {{ order.getPhone() }}
+<br>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a><br>' .
+<br>Uwagi: {{ order.getNotes() }}
