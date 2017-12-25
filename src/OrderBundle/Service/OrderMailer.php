@@ -9,12 +9,14 @@ class OrderMailer
     protected $mailer;
     protected $templating;
     protected $adminMail;
+    protected $attachmentPath;
 
     public function __construct(\Swift_Mailer $mailer, $templating, string $adminMail)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->adminMail = $adminMail;
+        $this->attachmentPath = realpath(__DIR__ . '/../Resources/attachments/formularz_zamowienia.doc');
     }
 
     public function sendEmailToShop(Order $order)
@@ -48,7 +50,8 @@ class OrderMailer
                     'order' => $order,
                 ]),
                 'text/html'
-            );
+            )
+            ->attach(\Swift_Attachment::fromPath($this->attachmentPath));
 
         $this->mailer->send($message);
     }
