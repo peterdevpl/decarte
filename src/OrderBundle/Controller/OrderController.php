@@ -59,10 +59,10 @@ class OrderController extends Controller
         $em->persist($order);
         $em->flush();
 
-        $repository->clear();
-
         $this->get('order_mailer')->sendEmailToShop($order);
         $this->get('order_mailer')->sendEmailToCustomer($order);
+
+        $repository->clear();
 
         return $this->redirectToRoute('order_confirmation', [], 303);
     }

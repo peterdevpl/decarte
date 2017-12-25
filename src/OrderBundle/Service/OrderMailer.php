@@ -27,7 +27,7 @@ class OrderMailer
             ->setFrom([$this->adminMail => $order->getName()])
             ->setReplyTo($order->getEmail())
             ->setBody(
-                $this->templating->render('OrderBundle:order/mail/shop.html.twig', [
+                $this->templating->render('order/mail/shop.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
@@ -44,7 +44,7 @@ class OrderMailer
             ->setFrom([$this->adminMail => 'Sklep ślubny decARTe.com.pl'])
             ->setReplyTo($this->adminMail)
             ->setBody(
-                $this->templating->render('OrderBundle:order/mail/customer.html.twig', [
+                $this->templating->render('order/mail/customer.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
