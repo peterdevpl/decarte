@@ -3,6 +3,7 @@
 namespace OrderBundle\Service;
 
 use OrderBundle\Entity\Order;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
 class OrderMailer
 {
@@ -11,7 +12,7 @@ class OrderMailer
     protected $adminMail;
     protected $attachmentPath;
 
-    public function __construct(\Swift_Mailer $mailer, $templating, string $adminMail)
+    public function __construct(\Swift_Mailer $mailer, TwigEngine $templating, string $adminMail)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -29,7 +30,7 @@ class OrderMailer
             ->setFrom([$this->adminMail => $order->getName()])
             ->setReplyTo($order->getEmail())
             ->setBody(
-                $this->templating->render('order/mail/shop.html.twig', [
+                $this->templating->render('@Order/order/mail/shop.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
@@ -46,7 +47,7 @@ class OrderMailer
             ->setFrom([$this->adminMail => 'Sklep ślubny decARTe.com.pl'])
             ->setReplyTo($this->adminMail)
             ->setBody(
-                $this->templating->render('order/mail/customer.html.twig', [
+                $this->templating->render('@Order/order/mail/customer.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
