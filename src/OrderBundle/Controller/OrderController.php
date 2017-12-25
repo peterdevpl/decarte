@@ -62,6 +62,10 @@ class OrderController extends Controller
         $this->get('order_mailer')->sendEmailToShop($order);
         $this->get('order_mailer')->sendEmailToCustomer($order);
 
+        if ($order->getDeliveryType()->getShortName() === 'PayU') {
+            $this->get('payment_payu')->createOrder($order);
+        }
+
         $repository->clear();
 
         return $this->redirectToRoute('order_confirmation', [], 303);
@@ -74,5 +78,14 @@ class OrderController extends Controller
     public function confirmationAction()
     {
         return $this->render('OrderBundle:order:confirmation.html.twig');
+    }
+
+    /**
+     * @Route("/payu", name="payu_notification")
+     * @param Request $request
+     */
+    public function payuNotificationAction(Request $request)
+    {
+        /* todo... */
     }
 }

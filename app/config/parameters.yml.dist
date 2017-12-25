@@ -21,3 +21,9 @@ parameters:
 
     sentry_dsn:        https://example.org/
     admin_mail:        admin@example.org
+
+    payu_environment:         sandbox
+    payu_pos_id:              ~
+    payu_signature_key:       ~
+    payu_oauth_client_id:     ~
+    payu_oauth_client_secret: ~

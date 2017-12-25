@@ -234,6 +234,9 @@ class Order implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return ArrayCollection|OrderItem[]
+     */
     public function getItems()
     {
         return $this->items;

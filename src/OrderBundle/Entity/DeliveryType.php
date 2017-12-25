@@ -24,6 +24,9 @@ class DeliveryType
     /** @ORM\Column(type="string") */
     protected $name = '';
 
+    /** @ORM\Column(type="string") */
+    protected $shortName = '';
+
     /** @ORM\Column(type="integer") */
     protected $price = 0;
 
@@ -49,6 +52,17 @@ class DeliveryType
     public function setName(string $name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getShortName(): string
+    {
+        return $this->shortName;
+    }
+
+    public function setShortName(string $name)
+    {
+        $this->shortName = $name;
         return $this;
     }
 

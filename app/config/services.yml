@@ -52,3 +52,14 @@ services:
     order_mailer:
         class: OrderBundle\Service\OrderMailer
         arguments: ['@mailer', '@templating', '%admin.mail%']
+
+    payment_payu:
+        class: OrderBundle\Service\Payment\PayU
+        arguments:
+            $environment: '%payu_environment%'
+            $posId: '%payu_pos_id%'
+            $signatureKey: '%payu_signature_key%'
+            $clientId: '%payu_oauth_client_id%'
+            $clientSecret: '%payu_oauth_client_secret%'
+            $continueUrl: ''
+            $notifyUrl: ''
