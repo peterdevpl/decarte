@@ -5,6 +5,7 @@ namespace OrderBundle\Service\Payment;
 use OrderBundle\Entity\Order;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PayU
 {
@@ -17,14 +18,16 @@ class PayU
         string $signatureKey,
         string $clientId,
         string $clientSecret,
-        string $continueUrl,
-        string $notifyUrl
+        UrlGeneratorInterface $router
     ) {
         \OpenPayU_Configuration::setEnvironment($environment);
         \OpenPayU_Configuration::setMerchantPosId($posId);
         \OpenPayU_Configuration::setSignatureKey($signatureKey);
         \OpenPayU_Configuration::setOauthClientId($clientId);
         \OpenPayU_Configuration::setOauthClientSecret($clientSecret);
+
+        $this->continueUrl = $router->generate('order_confirmation', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->notifyUrl = $router->generate('payu_notification', [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     public function createOrder(Order $order): Response

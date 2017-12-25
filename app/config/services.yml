@@ -61,5 +61,4 @@ services:
             $signatureKey: '%payu_signature_key%'
             $clientId: '%payu_oauth_client_id%'
             $clientSecret: '%payu_oauth_client_secret%'
-            $continueUrl: ''
-            $notifyUrl: ''
+            $router: '@router'
