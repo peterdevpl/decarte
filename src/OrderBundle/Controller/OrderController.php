@@ -63,11 +63,11 @@ class OrderController extends Controller
         $this->get('order_mailer')->sendEmailToShop($order);
         $this->get('order_mailer')->sendEmailToCustomer($order);
 
-        if ($order->getDeliveryType()->getShortName() === 'PayU') {
-            $this->get('payment_payu')->createOrder($request, $order);
-        }
-
         $repository->clear();
+
+        if ($order->getDeliveryType()->getShortName() === 'PayU') {
+            return $this->get('payment_payu')->createOrder($request, $order);
+        }
 
         return $this->redirectToRoute('order_confirmation', [], 303);
     }
