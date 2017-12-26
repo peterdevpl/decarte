@@ -47,9 +47,10 @@ class OrderController extends Controller
 
     /**
      * @Route("/zapisz-zamowienie", name="order_save")
+     * @param Request $request
      * @return Response
      */
-    public function saveAction()
+    public function saveAction(Request $request)
     {
         $repository = $this->get('temporary_order_repository');
         $order = $repository->getOrder();
@@ -63,7 +64,7 @@ class OrderController extends Controller
         $this->get('order_mailer')->sendEmailToCustomer($order);
 
         if ($order->getDeliveryType()->getShortName() === 'PayU') {
-            $this->get('payment_payu')->createOrder($order);
+            $this->get('payment_payu')->createOrder($request, $order);
         }
 
         $repository->clear();

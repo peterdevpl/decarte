@@ -4,6 +4,7 @@ namespace OrderBundle\Service\Payment;
 
 use OrderBundle\Entity\Order;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -30,12 +31,12 @@ class PayU
         $this->notifyUrl = $router->generate('payu_notification', [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
-    public function createOrder(Order $order): Response
+    public function createOrder(Request $request, Order $order): Response
     {
         $orderData = [
             'continueUrl' => $this->continueUrl,
             'notifyUrl' => $this->notifyUrl,
-            'customerIp' => $_SERVER['REMOTE_ADDR'],
+            'customerIp' => $request->getClientIp(),
             'merchantPosId' => \OpenPayU_Configuration::getMerchantPosId(),
             'description' => 'New order',
             'currencyCode' => 'PLN',
