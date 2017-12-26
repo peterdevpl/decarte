@@ -84,9 +84,10 @@ class OrderController extends Controller
     /**
      * @Route("/payu", name="payu_notification")
      * @param Request $request
+     * @return Response
      */
     public function payuNotificationAction(Request $request)
     {
-        /* todo... */
+        return $this->get('payment_payu')->processNotification($request);
     }
 }

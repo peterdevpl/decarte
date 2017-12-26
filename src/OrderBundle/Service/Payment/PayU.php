@@ -58,4 +58,11 @@ class PayU
 
         return new RedirectResponse($payUResponse->getResponse()->redirectUri);
     }
+
+    public function processNotification(Request $request)
+    {
+        \OpenPayU_Order::consumeNotification($request->getContent());
+
+        return new Response();
+    }
 }
