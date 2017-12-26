@@ -3,6 +3,7 @@
 namespace OrderBundle\Service\Payment;
 
 use OrderBundle\Entity\Order;
+use OrderBundle\Service\Payment\PayU\Notification;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,10 +70,10 @@ class PayU
         return new RedirectResponse($payUResponse->getResponse()->redirectUri);
     }
 
-    public function processNotification(Request $request)
+    public function processNotification(Request $request): Notification
     {
-        \OpenPayU_Order::consumeNotification($request->getContent());
+        $response = \OpenPayU_Order::consumeNotification($request->getContent());
 
-        return new Response();
+        return new Notification($response);
     }
 }
