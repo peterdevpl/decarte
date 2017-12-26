@@ -3,18 +3,25 @@
   margin-top: 1em;
 
   a {
+    border-radius: 50%;
     display: block;
     overflow: hidden;
     position: relative;
+
+    &.zoomable {
+      border-color: $leadingColor;
+      border-style: solid;
+      border-width: 1px;
+
+      &:hover img {
+        transform: scale(1.25);
+      }
+    }
   }
 
   img {
     transition: transform $transitionTime ease 0s;
     width: 100%;
-  }
-
-  a:hover img {
-    transform: scale(1.25);
   }
 
   .circle-title {
@@ -43,7 +50,6 @@
 }
 
 #welcome-text {
-  columns: 2;
   font-size: 75%;
   text-align: justify;
 
