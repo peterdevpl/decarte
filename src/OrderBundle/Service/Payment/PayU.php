@@ -42,6 +42,11 @@ class PayU
             'currencyCode' => 'PLN',
             'totalAmount' => $order->getTotalPrice(),
             'extOrderId' => $order->getId(),
+            'buyer' => [
+                'email' => $order->getEmail(),
+                'phone' => $order->getPhone(),
+                'lastName' => $order->getName(),
+            ],
             'products' => [],
         ];
 
