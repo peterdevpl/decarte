@@ -60,14 +60,14 @@ class OrderController extends Controller
         $em->persist($order);
         $em->flush();
 
-        $repository->clear();
+        $this->get('order_mailer')->sendEmailToShop($order);
+        $this->get('order_mailer')->sendEmailToCustomer($order);
 
         if ($order->getDeliveryType()->getShortName() === 'PayU') {
-            return $this->get('payment_payu')->createOrder($request, $order);
-        } else {
-            $this->get('order_mailer')->sendEmailToShop($order);
-            $this->get('order_mailer')->sendEmailToCustomer($order);
+            $this->get('payment_payu')->createOrder($request, $order);
         }
+
+        $repository->clear();
 
         return $this->redirectToRoute('order_confirmation', [], 303);
     }
@@ -88,16 +88,6 @@ class OrderController extends Controller
      */
     public function payuNotificationAction(Request $request)
     {
-        $notification = $this->get('payment_payu')->processNotification($request);
-        if ($notification->isCompleted()) {
-            $em = $this->getDoctrine()->getManager();
-            $repository = $em->getRepository('OrderBundle:Order');
-            $order = $repository->find($notification->getOrderId());
-
-            $this->get('order_mailer')->sendEmailToShop($order);
-            $this->get('order_mailer')->sendEmailToCustomer($order);
-        }
-
-        return new Response();
+        return $this->get('payment_payu')->processNotification($request);
     }
 }
