@@ -4,13 +4,18 @@
             border="1"
             width="{{ image_product_small_width }}"
             height="{{ image_product_small_height }}"><br>
-        cena za sztukę: {{ (item.getUnitPrice() / 100)|number_format(2, ',', ' ') }} PLN
+        {{ item.getProduct().getProductCollection().getName() }} - {{ item.getProduct().getName() }}
+        cena za sztukę: {{ (item.getUnitPrice() / 100)|number_format(2, ',', ' ') }} PLN<br>
         liczba sztuk: {{ item.getQuantity() }}</p>
 {% endfor %}
+
+<p>Sposób dostawy/płatności: {{ order.getDeliveryType().getName() }}
+<br>Suma: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} PLN</strong></p>
 
 <p>Nazwisko: {{ order.getName() }}
 <br>Ulica: {{ order.getStreet() }}
 <br>Miasto: {{ order.getPostalCode()~' '~order.getCity() }}
 <br>Telefon: {{ order.getPhone() }}
-<br>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a><br>
-<br>Uwagi: {{ order.getNotes() }}</p>
+<br>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a></p>
+
+<p>Uwagi: {{ order.getNotes() }}</p>
