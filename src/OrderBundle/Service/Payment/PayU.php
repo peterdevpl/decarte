@@ -33,19 +33,24 @@ class PayU
 
     public function createOrder(Request $request, Order $order): Response
     {
+        $name = explode(' ', $order->getName());
+        $firstName = $name[0];
+        $lastName = $name[1] ?? '';
+
         $orderData = [
             'continueUrl' => $this->continueUrl,
             'notifyUrl' => $this->notifyUrl,
             'customerIp' => $request->getClientIp(),
             'merchantPosId' => \OpenPayU_Configuration::getMerchantPosId(),
-            'description' => 'New order',
+            'description' => $order->getName(),
             'currencyCode' => 'PLN',
             'totalAmount' => $order->getTotalPrice(),
             'extOrderId' => $order->getId(),
             'buyer' => [
                 'email' => $order->getEmail(),
                 'phone' => $order->getPhone(),
-                'lastName' => $order->getName(),
+                'firstName' => $firstName,
+                'lastName' => $lastName,
             ],
             'products' => [],
         ];
