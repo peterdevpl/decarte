@@ -41,6 +41,7 @@ class CartType extends AbstractType
             ])
             ->add('save_and_order', SubmitType::class, [
                 'label' => 'Złóż zamówienie',
+                'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
 
