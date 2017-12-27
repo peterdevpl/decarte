@@ -80,7 +80,13 @@
 
         <p>{{ order.getRealizationType() }}</p>
 
-        <div id="order-total-price">Do zapłaty: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</strong></div>
+        <div id="order-total-price">
+            <span>Do zapłaty: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</strong></span><br>
+            <input type="checkbox" id="terms" value="1" required>
+            <label for="terms">Znam i akceptuję postanowienia
+                <a href="{{ path('static_page', {slugName: 'regulamin'}) }}" target="_blank">regulaminu</a>
+            </label>
+        </div>
 
         <div class="cart_submit">
             <input type="submit" name="edit_order" value="Wróć do edycji danych" class="btn btn-secondary">

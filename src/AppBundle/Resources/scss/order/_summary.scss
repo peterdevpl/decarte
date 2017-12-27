@@ -1,5 +1,8 @@
 #order-total-price {
-  font-size: 1.25rem;
   margin-bottom: 1rem;
   text-align: right;
+
+  span {
+    font-size: 1.25rem;
+  }
 }
