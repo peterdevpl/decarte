@@ -32,6 +32,7 @@ class ShippingDetailsType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Dalej',
+                'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
 
