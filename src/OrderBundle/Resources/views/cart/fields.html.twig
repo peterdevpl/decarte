@@ -4,7 +4,7 @@
     {% set collection = product.getProductCollection() %}
     {% set type = collection.getProductType() %}
     {% set productLink = path('shop_view_product', {'type': type.getSlugName(), 'slugName': collection.getSlugName(), 'id': product.getId()}) %}
-    <div class="cart-item">
+    <div class="cart-item" data-product-id="{{ product.getId() }}">
         <a href="{{ productLink }}">
             <img src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}" alt="Zdjęcie">
         </a>
@@ -15,6 +15,9 @@
 
         <h2><a href="{{ productLink }}">{{ collection.getName()~' - '~product.getName() }}</a></h2>
 
+        <a href="{{ path('cart_delete_item', {productId: product.getId()}) }}" class="btn btn-secondary btn-sm" style="float: right">
+            usuń
+        </a>
         {{ block('form_widget') }}
     </div>
 {% endblock %}

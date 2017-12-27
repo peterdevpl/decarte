@@ -98,4 +98,23 @@ class CartController extends Controller
 
         return $this->redirectToRoute('cart_index');
     }
+
+    /**
+     * @Route("/koszyk/usun/{productId}", name="cart_delete_item", requirements={"productId": "\d+"})
+     * @param int $productId
+     * @return Response
+     */
+    public function deleteItemAction(int $productId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productRepository = $em->getRepository('ProductBundle:Product');
+        $product = $productRepository->find($productId);
+
+        $orderRepository = $this->get('temporary_order_repository');
+        $order = $orderRepository->getOrder();
+        $order->removeProduct($product);
+        $orderRepository->persist($order);
+
+        return $this->redirectToRoute('cart_index');
+    }
 }
