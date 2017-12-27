@@ -8,6 +8,8 @@
 
         <p>Pracownia decARTe s.c., ul. Reymonta 1, 80-290 Gdańsk</p>
 
+        <p>Kraj prowadzenia działalności: Polska</p>
+
         <h2>Kupujący</h2>
 
         <table class="table table-sm">
@@ -70,7 +72,7 @@
             <p>Uwagi: {{ order.getNotes()|nl2br }}</p>
         {% endif %}
 
-        <h2>Sposób dostawy</h2>
+        <h2>Sposób dostawy/płatności</h2>
 
         <p>{{ order.getDeliveryType() }}</p>
 
@@ -81,10 +83,8 @@
         <div id="order-total-price">Do zapłaty: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</strong></div>
 
         <div class="cart_submit">
-            <input type="submit" name="edit_order" value="Wróć do edycji danych">
-            <input type="submit" name="save_and_order" value="Zamawiam i płacę">
+            <input type="submit" name="edit_order" value="Wróć do edycji danych" class="btn btn-secondary">
+            <input type="submit" name="save_and_order" value="Zamawiam i płacę" class="btn btn-primary">
         </div>
-
-        <p>Kraj prowadzenia działalności: Polska</p>
     </form>
 {% endblock %}

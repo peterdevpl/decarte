@@ -52,6 +52,10 @@ class OrderController extends Controller
      */
     public function saveAction(Request $request)
     {
+        if ($request->request->has('edit_order')) {
+            return $this->redirectToRoute('order_shipping_details', [], 303);
+        }
+
         $repository = $this->get('temporary_order_repository');
         $order = $repository->getOrder();
         $order->setCreatedAt(new \DateTime());

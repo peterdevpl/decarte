@@ -13,7 +13,8 @@
     liczba sztuk: {{ item.getQuantity() }}</p>
 {% endfor %}
 
-<p>Sposób dostawy/płatności: {{ order.getDeliveryType() }}</p>
+<p>Sposób dostawy/płatności: {{ order.getDeliveryType() }}<br>
+    Tryb realizacji: {{ order.getRealizationType() }}</p>
 
 <p><strong>Razem do zapłaty: {{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} PLN</strong></p>
 

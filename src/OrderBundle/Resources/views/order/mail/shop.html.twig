@@ -4,7 +4,7 @@
             border="1"
             width="{{ image_product_small_width }}"
             height="{{ image_product_small_height }}"><br>
-        {{ item.getProduct().getProductCollection().getName() }} - {{ item.getProduct().getName() }}
+        {{ item.getProduct().getProductCollection().getName() }} - {{ item.getProduct().getName() }}<br>
         cena za sztukę: {{ (item.getUnitPrice() / 100)|number_format(2, ',', ' ') }} PLN<br>
         liczba sztuk: {{ item.getQuantity() }}</p>
 {% endfor %}
