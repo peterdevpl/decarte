@@ -48,6 +48,10 @@
 {{ include('@App/layout/sitemap-with-contact.html.twig') }}
 {{ include('@App/layout/company-data.html.twig') }}
 
+<script src="{{ asset('build/manifest.js') }}"></script>
+<script src="{{ asset('build/vendor.js') }}"></script>
+<script src="{{ asset('build/app.js') }}"></script>
+
 {% block javascripts %}{% endblock %}
 
 </body>

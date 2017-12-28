@@ -21,15 +21,15 @@
     </div>
 
     <form method="post" action="{{ path('cart_add_item') }}" class="add_to_cart">
-        <div class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</div>
-        <div class="button">
+        <div class="price"><strong>Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</strong></div>
+        <div class="button form-group">
             <input type="hidden" name="product_id" value="{{ product.getId() }}">
             <label for="quantity">Liczba sztuk:</label>
             <input type="number" name="quantity" id="quantity" min="{{ productType.getMinimumQuantity() }}" value="{{ productType.getMinimumQuantity() }}">
             {% if productType.getMinimumQuantity() > 1 %}
                 <small>(minimum {{ productType.getMinimumQuantity() }})</small>
             {% endif %}
-            <input type="submit" value="Dodaj do koszyka">
+            <input type="submit" value="Dodaj do koszyka" class="btn btn-primary btn-sm">
         </div>
     </form>
 
