@@ -10,14 +10,14 @@ class OrderMailer
     protected $mailer;
     protected $templating;
     protected $adminMail;
-    protected $attachmentPath;
+    protected $attachmentDir;
 
     public function __construct(\Swift_Mailer $mailer, TwigEngine $templating, string $adminMail)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->adminMail = $adminMail;
-        $this->attachmentPath = realpath(__DIR__ . '/../Resources/attachments/formularz_zamowienia.doc');
+        $this->attachmentDir = realpath(__DIR__ . '/../Resources/attachments');
     }
 
     public function sendEmailToShop(Order $order)
@@ -41,6 +41,8 @@ class OrderMailer
 
     public function sendEmailToCustomer(Order $order)
     {
+        $productTypes = $order->getProductTypes();
+
         $message = \Swift_Message::newInstance()
             ->setSubject('Potwierdzenie przyjęcia zamówienia')
             ->setTo($order->getEmail())
@@ -49,10 +51,15 @@ class OrderMailer
             ->setBody(
                 $this->templating->render('@Order/order/mail/customer.html.twig', [
                     'order' => $order,
+                    'formsCount' => count($productTypes),
                 ]),
                 'text/html'
-            )
-            ->attach(\Swift_Attachment::fromPath($this->attachmentPath));
+            );
+
+        foreach ($productTypes as $type) {
+            $path = $this->attachmentDir . '/formularz-' . $type->getSlugName() . '.doc';
+            $message->attach(\Swift_Attachment::fromPath($path));
+        }
 
         $this->mailer->send($message);
     }

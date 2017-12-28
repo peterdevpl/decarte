@@ -309,6 +309,20 @@ class Order implements \JsonSerializable
         return $this;
     }
 
+    public function getProductTypes(): array
+    {
+        $types = [];
+
+        foreach ($this->getItems() as $item) {
+            $type = $item->getProduct()->getProductCollection()->getProductType();
+            if (!in_array($type, $types)) {
+                $types[] = $type;
+            }
+        }
+
+        return $types;
+    }
+
     public function jsonSerialize()
     {
         $items = [];
