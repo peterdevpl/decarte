@@ -2,7 +2,9 @@
 
 {% block collection_details %}
     {% spaceless %}
+        <ul class="products">
         {% for product in productCollection.getProducts() %}
+            <li>
             <a href="{{ path('admin_edit_product', {'productId': product.getId()}) }}">
                 {% if product.getCoverImage() %}
                     <img
@@ -12,7 +14,12 @@
                 {% else %}
                     {{ product.getName() }} - brak zdjęcia
                 {% endif %}
-            </a>
+            </a><br>
+                pozycja: <input type="number" value="{{ product.getSort() }}"
+                                data-action="{{ path('admin_set_product_position') }}"
+                                data-product-id="{{ product.getId() }}">
+            </li>
         {% endfor %}
+        </ul>
     {% endspaceless %}
 {% endblock %}

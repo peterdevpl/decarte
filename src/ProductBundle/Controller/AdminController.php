@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -273,5 +274,27 @@ class AdminController extends Controller
             'product' => $product,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/setProductPosition", name="admin_set_product_position")
+     * @param Request $request
+     * @return Response
+     */
+    public function setProductPositionAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('ProductBundle:Product');
+        $product = $repository->find($request->request->get('productId'));
+        if (!$product) {
+            throw $this->createNotFoundException('Nie znaleziono produktu');
+        }
+
+        $product->setSort($request->request->get('position'));
+
+        $em->persist($product);
+        $em->flush();
+
+        return new Response();
     }
 }

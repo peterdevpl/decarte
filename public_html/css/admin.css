@@ -27,3 +27,20 @@ del {
     margin-bottom: 1em;
     padding-bottom: 1em;
 }
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.products li {
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+}
+
+.products input {
+    width: 6rem;
+}
