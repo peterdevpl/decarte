@@ -5,7 +5,7 @@
 {% block contents %}
     {{ productType.getDescription()|raw }}
 
-    <ul id="collections" class="figures">
+    <ul id="collections" class="figures figures-hover">
         {% for productCollection in productCollections %}
             <li>
                 <figure>

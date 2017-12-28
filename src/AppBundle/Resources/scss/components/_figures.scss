@@ -14,28 +14,6 @@
     width: 100%;
   }
 
-  h2 {
-    bottom: 0;
-    color: white;
-    left: 0;
-    padding-left: 1rem;
-    padding-bottom: 0.5rem;
-    position: absolute;
-    text-shadow: 1px 1px 8px black;
-    transition: transform $transitionTime;
-  }
-
-  p.description {
-    background: rgba(255, 255, 255, 0.75);
-    bottom: 0;
-    left: 0;
-    margin-bottom: 0;
-    opacity: 0;
-    padding: 0.5rem 1rem;
-    position: absolute;
-    transition: opacity $transitionTime;
-  }
-
   a {
     bottom: 0;
     font-size: 0;
@@ -48,6 +26,32 @@
 
   figure {
     position: relative;
+  }
+}
+
+.figures-hover {
+  figure {
+    h2 {
+      bottom: 0;
+      color: white;
+      left: 0;
+      padding-left: 1rem;
+      padding-bottom: 0.5rem;
+      position: absolute;
+      text-shadow: 1px 1px 8px black;
+      transition: transform $transitionTime;
+    }
+
+    p.description {
+      background: rgba(255, 255, 255, 0.75);
+      bottom: 0;
+      left: 0;
+      margin-bottom: 0;
+      opacity: 0;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      transition: opacity $transitionTime;
+    }
 
     &:hover {
       h2 {
