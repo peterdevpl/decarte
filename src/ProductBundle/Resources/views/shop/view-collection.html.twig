@@ -5,24 +5,6 @@
 {% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}
 
 {% block contents %}
-    <ul id="short_collections">
-        {% spaceless %}
-            {% for collection in allCollections %}
-                <li>
-                    {% if collection.getId() == productCollection.getId() %}
-                        {% set linkClass = "active" %}
-                    {% else %}
-                        {% set linkClass = "" %}
-                    {% endif %}
-
-                    <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': collection.getSlugName()}) }}" class="{{ linkClass }}">
-                        {{ collection.getName() }}
-                    </a>
-                </li>
-            {% endfor %}
-        {% endspaceless %}
-    </ul>
-
     {{ productCollection.getDescription()|raw }}
 
     <ul id="products" class="figures">
