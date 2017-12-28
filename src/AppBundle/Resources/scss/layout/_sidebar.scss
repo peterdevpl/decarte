@@ -1,4 +1,8 @@
 .nav-link {
   padding-left: 0;
   padding-top: 0;
+
+  &.subitem {
+    padding-left: 1.5rem;
+  }
 }

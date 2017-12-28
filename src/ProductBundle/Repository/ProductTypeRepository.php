@@ -14,7 +14,7 @@ class ProductTypeRepository extends EntityRepository
         $queryBuilder = $this->createQueryBuilder('pt');
 
         if ($onlyVisible) {
-            $queryBuilder->where('pt.is_visible = :visible')->setParameter('visible', true);
+            $queryBuilder->where('pt.isVisible = :visible')->setParameter('visible', true);
         }
         
         $queryBuilder->orderBy('pt.id', 'ASC');

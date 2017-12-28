@@ -25,24 +25,26 @@ class Menu
             return $this->entries;
         }
 
-        $this->entries = [
-            new MenuEntry('shop_list_collections', 'Zaproszenia ślubne', ['type' => 'zaproszenia-slubne']),
-            new MenuEntry('shop_order_samples', 'Zamów próbki'),
-        ];
+        $this->entries = [];
 
-        $type = $this->productTypeRepository->findBySlugName('dodatki');
-        if (!$type) {
-            return $this->entries;
-        }
-
-        $collections = $this->productCollectionRepository->getProductCollections($type->getId());
-        foreach ($collections as $collection) {
+        foreach ($this->productTypeRepository->getProductTypes() as $productType) {
             $this->entries[] = new MenuEntry(
-                'shop_view_collection',
-                $collection->getName(),
-                ['type' => $type->getSlugName(), 'slugName' => $collection->getSlugName()]
+                'shop_list_collections',
+                $productType->getName(),
+                ['type' => $productType->getSlugName()]
             );
+
+            foreach ($this->productCollectionRepository->getProductCollections($productType->getId()) as $collection) {
+                $this->entries[] = new MenuEntry(
+                    'shop_view_collection',
+                    $collection->getName(),
+                    ['type' => $productType->getSlugName(), 'slugName' => $collection->getSlugName()],
+                    'subitem'
+                );
+            }
         }
+
+        $this->entries[] = new MenuEntry('shop_order_samples', 'Zamów próbki');
 
         return $this->entries;
     }
