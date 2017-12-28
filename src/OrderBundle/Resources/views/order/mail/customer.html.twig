@@ -18,12 +18,14 @@
 
 <p><strong>Razem do zapłaty: {{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} PLN</strong></p>
 
+{% if order.getDeliveryType().getShortName() == 'przedpłata' %}
 <p><strong>Dane konta:</strong><br>
     Pracownia decARTe s.c.<br>
     ING Bank Śląski SA<br>
     77 1050 1764 1000 0092 3525 8671<br>
     W tytule proszę podać imię i nazwisko.<br>
-    Jeśli wybrali Państwo wpłatę na konto, prosimy o przesłanie potwierdzenia wpłaty.</p>
+    Prosimy o przesłanie mailem potwierdzenia wpłaty.</p>
+{% endif %}
 
 <p><strong>PROCEDURA realizacji wygląda następująco:</strong></p>
 
