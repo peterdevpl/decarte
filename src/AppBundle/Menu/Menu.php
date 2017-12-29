@@ -25,7 +25,9 @@ class Menu
             return $this->entries;
         }
 
-        $this->entries = [];
+        $this->entries = [
+            new MenuEntry('shop_order_samples', 'Zamów próbki'),
+        ];
 
         foreach ($this->productTypeRepository->getProductTypes() as $productType) {
             $this->entries[] = new MenuEntry(
@@ -43,8 +45,6 @@ class Menu
                 );
             }
         }
-
-        $this->entries[] = new MenuEntry('shop_order_samples', 'Zamów próbki');
 
         return $this->entries;
     }
