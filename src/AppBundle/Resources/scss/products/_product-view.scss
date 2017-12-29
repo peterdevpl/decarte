@@ -17,11 +17,10 @@
 #slider-thumbnails {
   display: flex;
   @include list-none;
-  justify-content: center;
   margin-bottom: 1rem;
 
   li {
-    margin: 0 0.5rem;
+    margin-right: 1rem;
 
     img {
       cursor: pointer;
