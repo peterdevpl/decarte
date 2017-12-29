@@ -25,4 +25,12 @@ class StaticPagesController extends Controller
             'page' => $page,
         ]);
     }
+
+    /**
+     * @Route("/teksty/{section}", name="texts_section", requirements={"section": "cytaty|czcionki|grafiki|menu|teksty|wierszyki|zawieszki"})
+     */
+    public function textsSectionAction(string $section)
+    {
+        return $this->render('@App/static/texts/' . $section . '.html.twig');
+    }
 }

@@ -1,0 +1,139 @@
+#teksty_menu {
+  list-style-type: none;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  text-align: center;
+}
+
+#teksty_menu li {
+  display: inline-block;
+  vertical-align: top;
+  width: 130px;
+}
+
+#teksty_menu a {
+  background: #A3A4A3;
+  color: #FFFFFF;
+  display: table-cell;
+  height: 3em;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  width: 130px;
+}
+
+#teksty_menu a:hover, #teksty_menu a.current {
+  background: rgb(223, 137, 176) none repeat scroll 0 0;
+}
+
+.teksty, .cytaty, .wierszyki {
+  padding: 1em;
+}
+
+.teksty ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.teksty li {
+  counter-increment: step-counter;
+  margin-bottom: 2em;
+}
+
+.teksty li::before {
+  color: #D0276C;
+  content: counter(step-counter, decimal) ".";
+  display: block;
+  font-weight: bold;
+  text-align: center;
+}
+
+.teksty p {
+  text-align: center;
+}
+
+.cytaty ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.cytaty li {
+  counter-increment: step-counter;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+.cytaty li p {
+  text-align: center;
+}
+
+.cytaty li::before {
+  color: #D0276C;
+  content: "cytat nr " counter(step-counter, decimal);
+  display: block;
+}
+
+.wierszyki ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wierszyki li {
+  counter-increment: step-counter;
+  text-align: center;
+}
+
+.wierszyki li p {
+  text-align: center;
+}
+
+.wierszyki li::before {
+  color: #D0276C;
+  content: counter(step-counter, decimal);
+  display: block;
+}
+
+.wierszyki p {
+  margin-top: 0;
+}
+
+#fonts {
+  background: #FFFFFF;
+  margin: 1em;
+  padding: 0;
+  list-style-type: none;
+}
+
+#fonts li {
+  padding: 0.5em 1em;
+}
+
+.grafiki {
+  background: #FFFFFF;
+  margin: 1em;
+  padding: 0.5em 0;
+}
+
+.cytaty ol {
+  display: flex;
+  flex-flow: column wrap;
+  max-height: 3700px;
+}
+
+.cytaty li {
+  width: 45%;
+}
+
+.wierszyki ol {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+#fonts {
+  display: flex;
+  flex-flow: column wrap;
+  max-height: 700px;
+}
