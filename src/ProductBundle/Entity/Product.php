@@ -179,6 +179,6 @@ class Product
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getProductCollection()->getName() . ' - ' . $this->getName();
     }
 }

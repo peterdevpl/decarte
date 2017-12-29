@@ -28,16 +28,16 @@ class OrderSamplesType extends AbstractType
                 'label' => false,
                 'entry_type' => SampleType::class,
                 'entry_options' => [
-                    'label' => 'Próbka',
+                    'label' => false,
                     'products' => $options['products'],
                 ],
             ])
             ->add('notes', TextareaType::class, ['label' => 'Uwagi', 'required' => false, 'attr' => ['cols' => 40, 'rows' => 4]])
-            ->add('email', EmailType::class, ['label' => 'E-mail', 'attr' => ['size' => 50]])
-            ->add('name', TextType::class, ['label' => 'Imię i nazwisko', 'attr' => ['size' => 50]])
-            ->add('address', TextType::class, ['label' => 'Adres', 'attr' => ['size' => 50]])
-            ->add('postal_code', TextType::class, ['label' => 'Kod pocztowy', 'attr' => ['size' => 6]])
-            ->add('city', TextType::class, ['label' => 'Miasto', 'attr' => ['size' => 50]])
-            ->add('submit', SubmitType::class, ['label' => 'Zamów']);
+            ->add('email', EmailType::class, ['label' => 'E-mail'])
+            ->add('name', TextType::class, ['label' => 'Imię i nazwisko'])
+            ->add('address', TextType::class, ['label' => 'Ulica, nr domu i mieszkania'])
+            ->add('postal_code', TextType::class, ['label' => 'Kod pocztowy'])
+            ->add('city', TextType::class, ['label' => 'Miasto'])
+            ->add('submit', SubmitType::class, ['label' => 'Zamów', 'attr' => ['class' => 'btn btn-primary']]);
     }
 }

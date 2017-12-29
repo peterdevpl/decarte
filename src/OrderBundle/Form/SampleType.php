@@ -23,7 +23,7 @@ class SampleType extends AbstractType
             ->add('product', EntityType::class, [
                 'class' => 'ProductBundle:Product',
                 'choices' => $options['products'],
-                'label' => 'model nr',
+                'label' => 'model',
                 'placeholder' => '--',
                 'required' => false,
             ]);

@@ -18,6 +18,7 @@ class ProductRepository extends EntityRepository
             ->join('p.productCollection', 'pc')
             ->where('pc.productType = :type')
             ->andWhere('p.hasDemo = :demo')
+            ->orderBy('pc.sort, p.sort', 'ASC')
             ->setParameter(':type', $type->getId())
             ->setParameter(':demo', true);
 

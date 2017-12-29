@@ -62,7 +62,7 @@ class SamplesOrderController extends Controller
             ->setFrom([$this->getParameter('admin_mail') => $order->getName()])
             ->setReplyTo($order->getEmail())
             ->setBody(
-                $this->renderView('OrderBundle:samples/mail:shop.html.twig', [
+                $this->renderView('@Order/samples/mail/shop.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
@@ -79,7 +79,7 @@ class SamplesOrderController extends Controller
             ->setFrom([$this->getParameter('admin_mail') => 'Sklep ślubny decARTe.com.pl'])
             ->setReplyTo($this->getParameter('admin_mail'))
             ->setBody(
-                $this->renderView('OrderBundle:samples/mail:customer.html.twig', [
+                $this->renderView('@Order/samples/mail/customer.html.twig', [
                     'order' => $order,
                 ]),
                 'text/html'
