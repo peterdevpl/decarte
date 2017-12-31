@@ -1,7 +1,7 @@
 <footer id="sitemap-with-contact">
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-sm-6 col-md-4">
                 <h2>Informacje</h2>
                 <ul>
                     <li><a href="{{ path('static_page', {slugName: 'zamowienia'}) }}">Jak zamawiać</a></li>
@@ -13,7 +13,7 @@
                 </ul>
             </div>
 
-            <div class="col">
+            <div class="col-12 col-sm-6 col-md-4">
                 <h2>Produkty</h2>
                 <ul>
                     {% for entry in menu.getEntries() %}
@@ -22,7 +22,7 @@
                 </ul>
             </div>
 
-            <div class="col" id="footer-contact">
+            <div class="col-12 col-md-4" id="footer-contact">
                 <h2>Kontakt</h2>
                 <p>
                     <a href="mailto:info&#64;decarte&#46;pl">info&#64;decarte&#46;pl</a><br>

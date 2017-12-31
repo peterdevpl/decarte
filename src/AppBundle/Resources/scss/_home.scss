@@ -4,6 +4,7 @@
   a {
     border-radius: 50%;
     display: block;
+    margin-bottom: 1rem;
     overflow: hidden;
     position: relative;
 
@@ -15,6 +16,10 @@
       &:hover img {
         transform: scale(1.25);
       }
+    }
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 0;
     }
   }
 
