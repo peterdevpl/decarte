@@ -1,15 +1,19 @@
 #slider {
-  height: 622px;
   margin-bottom: 1rem;
   position: relative;
 
   img {
+    height: auto;
+    left: 0;
+    max-width: 100%;
     opacity: 0;
     position: absolute;
+    top: 0;
     transition: opacity $transitionTime;
 
     &:first-child {
       opacity: 1;
+      position: static;
     }
   }
 }
