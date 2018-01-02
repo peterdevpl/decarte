@@ -49,6 +49,12 @@
   }
 }
 
+@include media-breakpoint-down(xs) {
+  #three-circles a#three-circles-logo {
+    display: none;
+  }
+}
+
 #home-article {
   margin: 2em 0;
 }
