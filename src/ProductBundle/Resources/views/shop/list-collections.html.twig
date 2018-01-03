@@ -2,6 +2,12 @@
 
 {% block title %}{{ productType.getName() }} - decARTe{% endblock %}
 
+{% block meta %}
+    <meta property="og:title" content="{{ productType.getName() }} - decARTe">
+    <meta property="og:description" content="{{ productType.getDescription() | striptags }}">
+    <meta property="description" content="{{ productType.getDescription() | striptags }}">
+{% endblock %}
+
 {% block contents %}
     {{ productType.getDescription()|raw }}
 

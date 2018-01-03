@@ -13,7 +13,9 @@
     <link rel="mask-icon" href="{{ asset('/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
     <meta name="Author" content="decARTe zaproszenia ślubne">
-    <meta name="description" content="Oferta sklepu decARTe obejmuje wyjątkowe gadżety i akcesoria ślubne i weselne - zaproszenia, winietki, zawieszki, ozdoby, dekoracje, księgi gości i wiele innych artykułów.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ app.request.uri }}">
+    {% block meta %}<meta name="description" content="Oferta sklepu decARTe obejmuje wyjątkowe gadżety i akcesoria ślubne i weselne - zaproszenia, winietki, zawieszki, ozdoby, dekoracje, księgi gości i wiele innych artykułów.">{% endblock %}
     <script type="application/ld+json">
 {
 	"@context": "http://schema.org",

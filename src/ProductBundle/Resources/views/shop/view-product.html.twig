@@ -2,8 +2,16 @@
 
 {% set productCollection = product.getProductCollection() %}
 {% set productType = productCollection.getProductType() %}
+{% set pageTitle = productCollection.getName()~' - model '~product.getName()~' - '~productType.getName()~' - decARTe' %}
 
-{% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}
+{% block title %}{{ pageTitle }}{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:image" content="{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}">
+    <meta property="og:description" content="{{ product.getDescriptionSEO() }}">
+    <meta property="description" content="{{ product.getDescriptionSEO() }}">
+{% endblock %}
 
 {% block contents %}
     <h1 class="product_name">{{ productCollection.getName() }} - Model: {{ product.getName() }}</h1>
