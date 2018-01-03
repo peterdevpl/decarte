@@ -12,18 +12,18 @@ parameters:
     image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
     image.collection.width: 408
     image.collection.height: 306
-    image.collection.quality: 90
+    image.collection.quality: 80
 
     image.product.url: "zaproszenia/produkty"
     image.product.directory: "%kernel.root_dir%/../public_html/%image.product.url%"
 
     image.product.big.width: 830
     image.product.big.height: 622
-    image.product.big.quality: 90
+    image.product.big.quality: 80
 
     image.product.small.width: 267
     image.product.small.height: 200
-    image.product.small.quality: 90
+    image.product.small.quality: 80
 
     samples_count: 2
 
