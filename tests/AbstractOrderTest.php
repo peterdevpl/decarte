@@ -75,9 +75,10 @@ abstract class AbstractOrderTest extends TestCase
     protected function buildProductCollection(int $minimumQuantity): ProductCollection
     {
         $productType = new ProductType();
-        $productType->setMinimumQuantity($minimumQuantity);
         $productCollection = new ProductCollection();
-        $productCollection->setProductType($productType);
+        $productCollection
+            ->setProductType($productType)
+            ->setMinimumQuantity($minimumQuantity);
 
         return $productCollection;
     }

@@ -139,7 +139,7 @@ class Product
 
     public function getMinimumQuantity(): int
     {
-        return $this->getProductCollection()->getProductType()->getMinimumQuantity();
+        return $this->getProductCollection()->getMinimumQuantity();
     }
 
     /**

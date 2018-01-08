@@ -27,7 +27,10 @@ class ProductCollection
     
     /** @ORM\Column(type="string", name="slug_name") */
     protected $slugName = '';
-    
+
+    /** @ORM\Column(type="integer", name="minimum_quantity") */
+    protected $minimumQuantity = 1;
+
     /** @ORM\Column(type="text", name="short_description") */
     protected $shortDescription = '';
     
@@ -99,7 +102,18 @@ class ProductCollection
         $this->slugName = $name;
         return $this;
     }
-    
+
+    public function getMinimumQuantity(): int
+    {
+        return $this->minimumQuantity;
+    }
+
+    public function setMinimumQuantity(int $value)
+    {
+        $this->minimumQuantity = $value;
+        return $this;
+    }
+
     public function getDescription(): string
     {
         return $this->description;

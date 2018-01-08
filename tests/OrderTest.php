@@ -7,7 +7,7 @@ class OrderTest extends AbstractOrderTest
     public function testAddItems()
     {
         $this->assertEquals(2, count($this->order->getItems()));
-        $this->assertEquals(2, count($this->order->getProductTypes()));
+        $this->assertEquals(1, count($this->order->getProductTypes()));
     }
 
     public function testAddExistingItem()

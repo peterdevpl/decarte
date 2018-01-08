@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -31,6 +32,7 @@ class ProductCollectionForm extends AbstractType
             ->add('name', TextType::class, ['label' => 'Nazwa'])
             ->add('slugName', HiddenType::class)
             ->add('isVisible', CheckboxType::class, ['label' => 'Kolekcja widoczna na stronie', 'required' => false])
+            ->add('minimumQuantity', NumberType::class, ['label' => 'Minimalna liczba zamawianych sztuk'])
             ->add('shortDescription', TextareaType::class, ['label' => 'Opis na stronie głównej', 'required' => false, 'attr' => ['rows' => 4]])
             ->add('description', TextareaType::class, ['label' => 'Pełny opis', 'required' => false, 'attr' => ['rows' => 4]])
             ->add('imageName', StringImageFileType::class, [
