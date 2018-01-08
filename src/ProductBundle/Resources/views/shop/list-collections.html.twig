@@ -23,7 +23,9 @@
                     <figcaption>
                         <h2>{{ productCollection.getName() }}</h2>
                         <p class="description">{{ productCollection.getShortDescription()|raw }}</p>
-                        <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">zobacz</a>
+                        <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">
+                            {{ productType.getName()~': '~productCollection.getName() }}
+                        </a>
                     </figcaption>
                 </figure>
             </li>

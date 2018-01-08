@@ -30,7 +30,9 @@
 
                     <figcaption>
                         <p class="description">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
-                        <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">zobacz</a>
+                        <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
+                            {{ productType.getName()~': '~productCollection.getName()~' '~product.getName() }}
+                        </a>
                     </figcaption>
                 </figure>
             </li>

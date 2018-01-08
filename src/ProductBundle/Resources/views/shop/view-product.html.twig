@@ -24,7 +24,7 @@
                 src="{{ asset(image_product_url~'/'~image.getImageName()) | imagine_filter('product_full') }}"
                 width="{{ image_product_big_width }}"
                 height="{{ image_product_big_height }}"
-                alt="Zdjęcie nr {{ loop.index }}">
+                alt="{{ productType.getName()~': '~productCollection.getName()~' '~product.getName()~' - zdjęcie nr '~loop.index }}">
         {% endfor %}
     </div>
 
