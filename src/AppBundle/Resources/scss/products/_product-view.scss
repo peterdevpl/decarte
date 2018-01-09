@@ -20,6 +20,7 @@
 
 #slider-thumbnails {
   display: flex;
+  flex-wrap: wrap;
   @include list-none;
   margin-bottom: 1rem;
 

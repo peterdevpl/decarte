@@ -1,8 +1,8 @@
-<nav>
-    <ul class="nav flex-column">
+<nav id="sidebar">
+    <ul class="nav">
         {% for entry in menu.getEntries() %}
-        <li class="nav-item">
-            <a class="nav-link {{ entry.getCssClass() }}" href="{{ path(entry.getRouteName(), entry.getRouteParams()) }}">{{ entry.getTitle() }}</a>
+        <li class="nav-item {{ entry.getCssClass() }}">
+            <a class="nav-link" href="{{ path(entry.getRouteName(), entry.getRouteParams()) }}">{{ entry.getTitle() }}</a>
         </li>
         {% endfor %}
     </ul>

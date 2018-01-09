@@ -1,8 +1,26 @@
-.nav-link {
-  padding-left: 0;
-  padding-top: 0;
+#sidebar .nav {
+  flex-direction: column;
+}
 
-  &.subitem {
+.nav-item {
+  .nav-link {
+    padding-left: 0;
+    padding-top: 0;
+  }
+
+  &.subitem .nav-link {
     padding-left: 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  #sidebar .nav {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .nav-item.subitem {
+    display: none;
   }
 }

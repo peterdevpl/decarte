@@ -22,6 +22,12 @@ footer {
   }
 }
 
+@include media-breakpoint-down(sm) {
+  #sitemap-with-contact ul {
+    margin-bottom: 1rem;
+  }
+}
+
 #company-data {
   background: $darkGrayBackground;
   color: white;
