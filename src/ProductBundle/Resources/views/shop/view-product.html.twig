@@ -11,6 +11,36 @@
     <meta property="og:image" content="{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}">
     <meta property="og:description" content="{{ product.getDescriptionSEO() }}">
     <meta property="description" content="{{ product.getDescriptionSEO() }}">
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{{ absolute_url(path('shop_list_collections', {type: productType.getSlugName()})) }}",
+      "name": "{{ productType.getName() }}"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{{ absolute_url(path('shop_view_collection', {type: productType.getSlugName(), slugName: productCollection.getSlugName()})) }}",
+      "name": "{{ productCollection.getName() }}",
+      "image": "{{ absolute_url(asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb')) }}"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "item": {
+      "@id": "{{ absolute_url(path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()})) }}",
+      "name": "Model {{ product.getName() }}",
+      "image": "{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}"
+    }
+  }]
+}
+    </script>
 {% endblock %}
 
 {% block contents %}
