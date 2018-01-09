@@ -76,6 +76,8 @@ twig:
 
         cart: "@temporary_order_repository"
 
+        google_analytics: "%google_analytics%"
+
 # Doctrine Configuration
 doctrine:
     dbal:

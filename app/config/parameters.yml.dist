@@ -20,6 +20,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     sentry_dsn:        https://example.org/
+    google_analytics:  ~
     admin_mail:        admin@example.org
 
     payu_environment:         sandbox
