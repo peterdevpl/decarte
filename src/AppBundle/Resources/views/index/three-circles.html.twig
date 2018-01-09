@@ -1,7 +1,7 @@
 <nav id="three-circles">
     <div class="row">
         <div class="col-12 col-sm-4">
-            <a id="three-circles-logo" href=""><img src="{{ asset('img/2018/decarte-logo.svg') }}" alt="Logo decARTe"></a>
+            <a id="three-circles-logo" href="{{ path('static_page', {slugName: 'kontakt'}) }}"><img src="{{ asset('img/2018/decarte-logo.svg') }}" alt="Logo decARTe"></a>
         </div>
         <div class="col-12 col-sm-4">
             <a id="three-circles-invitations" class="zoomable" href="{{ path('shop_list_collections', {type: 'zaproszenia-slubne'}) }}">

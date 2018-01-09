@@ -4,21 +4,28 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <h2>Informacje</h2>
                 <ul>
-                    <li><a href="{{ path('static_page', {slugName: 'zamowienia'}) }}">Jak zamawiać</a></li>
+                    <li><a href="{{ path('static_page', {slugName: 'zamowienia'}) }}">Jak zamówić</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'pytania-i-odpowiedzi'}) }}">Pytania i odpowiedzi</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'o-nas'}) }}">O nas</a></li>
-                    <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Pomocnik</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'regulamin'}) }}">Regulamin</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'polityka-prywatnosci'}) }}">Polityka prywatności</a></li>
+                    {% for entry in menu.getEntries() %}
+                        {% if entry.getCssClass() != 'subitem' %}
+                            <li><a href="{{ path(entry.getRouteName(), entry.getRouteParams()) }}">{{ entry.getTitle() }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
 
             <div class="col-12 col-sm-6 col-md-4">
-                <h2>Produkty</h2>
+                <h2>Pomocnik</h2>
                 <ul>
-                    {% for entry in menu.getEntries() %}
-                    <li><a href="{{ path(entry.getRouteName(), entry.getRouteParams()) }}">{{ entry.getTitle() }}</a></li>
-                    {% endfor %}
+                    <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Teksty zaproszeń ślubnych</a></li>
+                    <li><a href="{{ path('texts_section', {section: 'cytaty'}) }}">Cytaty</a></li>
+                    <li><a href="{{ path('texts_section', {section: 'wierszyki'}) }}">Wierszyki</a></li>
+                    <li><a href="{{ path('texts_section', {section: 'czcionki'}) }}">Czcionki</a></li>
+                    <li><a href="{{ path('texts_section', {section: 'grafiki'}) }}">Ornamenty i&nbsp;grafiki</a></li>
+                    <li><a href="{{ path('texts_section', {section: 'zawieszki'}) }}">Teksty na&nbsp;zawieszki</a></li>
                 </ul>
             </div>
 
