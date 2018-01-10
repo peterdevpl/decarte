@@ -3,7 +3,5 @@
 {% block title %}{{ page.getTitle() }} - decARTe{% endblock %}
 
 {% block contents %}
-    <h1>{{ page.getTitle() }}</h1>
-
     {{ page.getContents()|raw }}
 {% endblock %}
