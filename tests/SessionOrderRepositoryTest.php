@@ -23,7 +23,10 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
         $deliveryTypeRepository = $this->getDeliveryTypeRepository();
 
         $this->orderRepository = new SessionOrderRepository(
-            $session, $productRepository, $realizationTypeRepository, $deliveryTypeRepository
+            $session,
+            $productRepository,
+            $realizationTypeRepository,
+            $deliveryTypeRepository
         );
     }
 

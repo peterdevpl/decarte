@@ -91,7 +91,9 @@ class AdminController extends Controller
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono typu produktów');
         }
-        $productCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($type, false);
+        $productCollections = $em
+            ->getRepository('ProductBundle:ProductCollection')
+            ->getProductCollections($type, false);
 
         return $this->render('admin/productCollections.html.twig', [
             'productType' => $productType,
@@ -100,7 +102,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/productCollection/{collection}", name="admin_product_collection", requirements={"collection": "\d+"})
+     * @Route(
+     *     "/admin/productCollection/{collection}",
+     *     name="admin_product_collection",
+     *     requirements={"collection": "\d+"}
+     * )
      */
     public function viewProductCollectionAction($collection)
     {
@@ -116,7 +122,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/addProductCollection/{typeId}", name="admin_add_product_collection", requirements={"typeId": "\d+"})
+     * @Route(
+     *     "/admin/addProductCollection/{typeId}",
+     *     name="admin_add_product_collection",
+     *     requirements={"typeId": "\d+"}
+     * )
      */
     public function addProductCollectionAction(Request $request, $typeId)
     {
@@ -133,7 +143,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/editProductCollection/{collectionId}", name="admin_edit_product_collection", requirements={"collectionId": "\d+"})
+     * @Route(
+     *     "/admin/editProductCollection/{collectionId}",
+     *     name="admin_edit_product_collection",
+     *     requirements={"collectionId": "\d+"}
+     * )
      */
     public function editProductCollectionAction(Request $request, $collectionId)
     {
@@ -146,8 +160,11 @@ class AdminController extends Controller
         return $this->editProductCollection($request, $productCollection, 'Kolekcja została zapisana');
     }
 
-    protected function editProductCollection(Request $request, ProductCollection $productCollection, string $successMessage)
-    {
+    protected function editProductCollection(
+        Request $request,
+        ProductCollection $productCollection,
+        string $successMessage
+    ) {
         $form = $this->createForm(ProductCollectionForm::class, $productCollection, [
             'image_directory' => $this->getParameter('image.collection.directory'),
             'image_url' => $this->getParameter('image.collection.url'),
@@ -177,7 +194,10 @@ class AdminController extends Controller
 
             $this->addFlash('notice', $successMessage);
 
-            return $this->redirectToRoute('admin_edit_product_collection', ['collectionId' => $productCollection->getId()]);
+            return $this->redirectToRoute(
+                'admin_edit_product_collection',
+                ['collectionId' => $productCollection->getId()]
+            );
         }
 
         return $this->render('admin/editProductCollection.html.twig', [
@@ -187,7 +207,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/move/{class}/{id}/{direction}", name="admin_move", requirements={"class": "Product|ProductSeries|ProductCollection", "id": "\d+", "direction": "up|down"})
+     * @Route(
+     *     "/admin/move/{class}/{id}/{direction}",
+     *     name="admin_move",
+     *     requirements={"class": "Product|ProductSeries|ProductCollection", "id": "\d+", "direction": "up|down"}
+     * )
      * @param Request $request
      * @param string $class Entity class
      * @param int $id Entity ID

@@ -34,10 +34,23 @@ class ProductForm extends AbstractType
             ])
             ->add('name', TextType::class, ['label' => 'Symbol'])
             ->add('price', MoneyType::class, ['label' => 'Cena', 'currency' => 'PLN', 'divisor' => 100])
-            ->add('isVisible', CheckboxType::class, ['label' => 'Produkt widoczny na stronie', 'required' => false])
-            ->add('hasDemo', CheckboxType::class, ['label' => 'Produkt dostępny w serwisie próbkowym', 'required' => false])
-            ->add('descriptionSEO', TextareaType::class, ['label' => 'Ogólny opis, u góry strony', 'required' => false])
-            ->add('description', TextareaType::class, ['label' => 'Szczegółowy opis u dołu strony', 'required' => false, 'attr' => ['rows' => 10]])
+            ->add('isVisible', CheckboxType::class, [
+                'label' => 'Produkt widoczny na stronie',
+                'required' => false,
+            ])
+            ->add('hasDemo', CheckboxType::class, [
+                'label' => 'Produkt dostępny w serwisie próbkowym',
+                'required' => false,
+            ])
+            ->add('descriptionSEO', TextareaType::class, [
+                'label' => 'Ogólny opis, u góry strony',
+                'required' => false,
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Szczegółowy opis u dołu strony',
+                'required' => false,
+                'attr' => ['rows' => 10],
+            ])
             ->add('images', CollectionType::class, [
                 'label' => false,
                 'entry_type' => ProductImageFileType::class,

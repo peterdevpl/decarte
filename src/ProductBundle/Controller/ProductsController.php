@@ -21,7 +21,9 @@ class ProductsController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
 
-        $productCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($productType->getId());
+        $productCollections = $em
+            ->getRepository('ProductBundle:ProductCollection')
+            ->getProductCollections($productType->getId());
         if (!$productCollections) {
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
@@ -33,7 +35,11 @@ class ProductsController extends Controller
     }
 
     /**
-     * @Route("/sklep/{type}/{slugName}", name="shop_view_collection", requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"})
+     * @Route(
+     *     "/sklep/{type}/{slugName}",
+     *     name="shop_view_collection",
+     *     requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"}
+     * )
      * @param string $type
      * @param string $slugName
      * @return Response
@@ -47,7 +53,9 @@ class ProductsController extends Controller
         }
 
         $productType = $productCollection->getProductType();
-        $allCollections = $em->getRepository('ProductBundle:ProductCollection')->getProductCollections($productType->getId());
+        $allCollections = $em
+            ->getRepository('ProductBundle:ProductCollection')
+            ->getProductCollections($productType->getId());
 
         return $this->render('ProductBundle:shop:view-collection.html.twig', [
             'productCollection' => $productCollection,
@@ -56,7 +64,11 @@ class ProductsController extends Controller
     }
 
     /**
-     * @Route("/sklep/{type}/{slugName}/{id}", name="shop_view_product", requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+", "id": "\d+"})
+     * @Route(
+     *     "/sklep/{type}/{slugName}/{id}",
+     *     name="shop_view_product",
+     *     requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+", "id": "\d+"}
+     * )
      * @param string $type Used only for SEO.
      * @param string $slugName Used only for SEO.
      * @param int $id

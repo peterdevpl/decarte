@@ -26,8 +26,8 @@ class SessionOrderRepository
         SessionInterface $session,
         EntityRepository $productRepository,
         EntityRepository $realizationTypeRepository,
-        EntityRepository $deliveryTypeRepository)
-    {
+        EntityRepository $deliveryTypeRepository
+    ) {
         $this->realizationTypeRepository = $realizationTypeRepository;
         $this->deliveryTypeRepository = $deliveryTypeRepository;
         $this->productRepository = $productRepository;

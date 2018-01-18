@@ -32,7 +32,11 @@ class OrderSamplesType extends AbstractType
                     'products' => $options['products'],
                 ],
             ])
-            ->add('notes', TextareaType::class, ['label' => 'Uwagi', 'required' => false, 'attr' => ['cols' => 40, 'rows' => 4]])
+            ->add('notes', TextareaType::class, [
+                'label' => 'Uwagi',
+                'required' => false,
+                'attr' => ['cols' => 40, 'rows' => 4]
+            ])
             ->add('email', EmailType::class, ['label' => 'E-mail'])
             ->add('name', TextType::class, ['label' => 'Imię i nazwisko'])
             ->add('address', TextType::class, ['label' => 'Ulica, nr domu i mieszkania'])

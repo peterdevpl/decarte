@@ -11,3 +11,7 @@ cache:
 install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer install -o
+
+script:
+  - vendor/bin/phpunit
+  - vendor/bin/phpcs --standard=PSR2 src tests

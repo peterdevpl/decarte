@@ -27,7 +27,11 @@ class StaticPagesController extends Controller
     }
 
     /**
-     * @Route("/teksty/{section}", name="texts_section", requirements={"section": "cytaty|czcionki|grafiki|menu|teksty|wierszyki|zawieszki"})
+     * @Route(
+     *     "/teksty/{section}",
+     *     name="texts_section",
+     *     requirements={"section": "cytaty|czcionki|grafiki|menu|teksty|wierszyki|zawieszki"}
+     * )
      */
     public function textsSectionAction(string $section)
     {

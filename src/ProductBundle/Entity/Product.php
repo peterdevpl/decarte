@@ -50,7 +50,9 @@ class Product
     protected $deletedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true
+ *     )
      * @ORM\OrderBy({"sort" = "ASC"})
      */
     protected $images;
