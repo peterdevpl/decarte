@@ -4,5 +4,10 @@ php:
   - '7.1'
   - '7.2'
 
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
 install:
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer install -o
