@@ -47,6 +47,20 @@ class GoogleExport
         return $response;
     }
 
+    public function exportProductsCollection($products)
+    {
+        $client = $this->shoppingService->getClient();
+        $client->setUseBatch(true);
+        $batch = new \Google_Http_Batch($client);
+
+        foreach ($products as $product) {
+            $request = $this->exportProduct($product);
+            $batch->add($request);
+        }
+
+        return $batch->execute();
+    }
+
     protected function transformProduct(Product $product): \Google_Service_ShoppingContent_Product
     {
         $exportedProduct = new \Google_Service_ShoppingContent_Product();

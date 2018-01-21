@@ -33,6 +33,23 @@ class ProductRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findAllVisibleProducts()
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder
+            ->select(['p', 'pc', 'pt'])
+            ->join('p.productCollection', 'pc')
+            ->join('pc.productType', 'pt')
+            ->where('p.isVisible = :visible')
+            ->andWhere('pc.isVisible = :visible')
+            ->andWhere('pt.isVisible = :visible')
+            ->orderBy('pt.sort, pc.sort, p.sort', 'ASC')
+            ->setParameter(':visible', true);
+
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
     protected function getSortGroupField()
     {
         return 'productCollection';

@@ -26,16 +26,35 @@ class ExportToGoogleCommand extends Command
         $this
             ->setName('product:export-to-google')
             ->setDescription('Exports products data to Google Merchant Center')
-            ->addArgument('id', InputArgument::REQUIRED, 'Product ID');
+            ->addArgument('id', InputArgument::OPTIONAL, 'Product ID');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $productId = $input->getArgument('id');
+        if ($productId) {
+            $this->exportSingleProduct($output, $productId);
+        } else {
+            $this->exportAllProducts($output);
+        }
+    }
+
+    protected function exportSingleProduct(OutputInterface $output, int $productId)
+    {
         $output->writeln('Exporting product ID=' . $productId);
 
         $product = $this->productRepository->find($productId);
         $response = $this->exportService->exportProduct($product);
+
+        var_dump($response);
+    }
+
+    protected function exportAllProducts(OutputInterface $output)
+    {
+        $products = $this->productRepository->findAllVisibleProducts();
+        $output->writeln(sprintf('Exporting %d products', count($products)));
+
+        $response = $this->exportService->exportProductsCollection($products);
 
         var_dump($response);
     }
