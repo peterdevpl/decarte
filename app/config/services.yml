@@ -62,3 +62,18 @@ services:
             $clientId: '%payu_oauth_client_id%'
             $clientSecret: '%payu_oauth_client_secret%'
             $router: '@router'
+
+    product_google_export:
+        class: ProductBundle\Service\GoogleExport
+        arguments:
+            $router: '@router'
+            $imagineCacheManager: '@liip_imagine.cache.manager'
+            $canonicalDomain: '%canonical_domain%'
+            $productImagesDirectory: '%image.product.url%'
+            $merchantId: '%google_merchant_id%'
+            $googlePrivateKey: '%google_private_key%'
+
+    product_google_export_command:
+        class: ProductBundle\Command\ExportToGoogleCommand
+        arguments: ['@product_google_export', '@product_repository']
+        tags: [console.command]

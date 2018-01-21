@@ -21,7 +21,13 @@ parameters:
 
     sentry_dsn:        https://example.org/
     google_analytics:  ~
+    google_merchant_id: ~
+
+    # Google API private key (JSON) for handling Merchant Center
+    google_private_key: ~
+
     admin_mail:        admin@example.org
+    canonical_domain:  http://localhost/
 
     payu_environment:         sandbox
     payu_pos_id:              ~
