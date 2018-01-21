@@ -58,18 +58,21 @@ Expires A2592000
     #RewriteRule ^app\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
 
     # Redirects from old links
-    RewriteRule ^zaproszenia_slubne\.php %{ENV:BASE}/sklep/zaproszenia-slubne [R=301,L]
+    RewriteRule ^zaproszenia %{ENV:BASE}/sklep/zaproszenia-slubne [R=301,L]
     RewriteRule ^winietki\.php %{ENV:BASE}/sklep/dodatki/winietki [R=301,L]
     RewriteRule ^stol\.php %{ENV:BASE}/sklep/dodatki [R=301,L]
     RewriteRule ^gadzety\.php %{ENV:BASE}/sklep/dodatki [R=301,L]
     RewriteRule ^menu\.php %{ENV:BASE}/sklep/dodatki [R=301,L]
-    RewriteRule ^ksiegi\.php %{ENV:BASE}/sklep/dodatki [R=301,L]
+    RewriteRule ^ksiegi\.php %{ENV:BASE}/sklep/dodatki/ksiegi-gosci-weselnych [R=301,L]
+    RewriteRule ^poduszki\.php %{ENV:BASE}/sklep/dodatki/poduszki-pod-obraczki [R=301,L]
+    RewriteRule ^etykiety\.php %{ENV:BASE}/sklep/dodatki/naklejki [R=301,L]
     RewriteRule ^inne\.php %{ENV:BASE}/sklep/zaproszenia-slubne [R=301,L]
     RewriteRule ^kontakt\.php %{ENV:BASE}/informacje/kontakt [R=301,L]
     RewriteRule ^zamowienia\.php %{ENV:BASE}/informacje/zamowienia [R=301,L]
     RewriteRule ^onas\.php %{ENV:BASE}/informacje/o-nas [R=301,L]
     RewriteRule ^regulamin\.php %{ENV:BASE}/informacje/regulamin [R=301,L]
     RewriteRule ^pytania\.php %{ENV:BASE}/informacje/pytania-i-odpowiedzi [R=301,L]
+    RewriteRule ^podziekowania\.php %{ENV:BASE}/sklep/dodatki/podziekowania-dla-gosci [R=301,L]
     RewriteRule ^teksty/?$ %{ENV:BASE}/teksty/teksty [R=302,L]
 
     # If the requested filename exists, simply serve it.
