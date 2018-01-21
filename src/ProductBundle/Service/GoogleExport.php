@@ -3,6 +3,9 @@
 namespace ProductBundle\Service;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 use ProductBundle\Entity\Product;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -57,9 +60,7 @@ class GoogleExport
             $product->getProductCollection()->getProductType()->getName(),
             $product->getProductCollection()->getName(),
         ]));
-        $exportedProduct->setPrice(new \Google_Service_ShoppingContent_Price([
-            'currency' => 'PLN', 'value' => round($product->getPrice() / 100, 2)
-        ]));
+        $exportedProduct->setPrice($this->getPrice($product));
         $exportedProduct->setAvailability('preorder');
         $exportedProduct->setDescription(strip_tags($product->getDescriptionSEO()));
         $exportedProduct->setBrand('decARTe');
@@ -79,7 +80,17 @@ class GoogleExport
         return $exportedProduct;
     }
 
-    protected function getCanonicalImageUrl(Product $product)
+    protected function getPrice(Product $product): \Google_Service_ShoppingContent_Price
+    {
+        $money = Money::PLN($product->getPrice());
+        $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
+        return new \Google_Service_ShoppingContent_Price([
+            'currency' => $money->getCurrency()->getCode(), 'value' => $formatter->format($money)
+        ]);
+    }
+
+    protected function getCanonicalImageUrl(Product $product): string
     {
         $absoluteLink = $this->imagineCacheManager->getBrowserPath(
             '/' . $this->productImagesDirectory . '/' . $product->getCoverImage()->getImageName(),
