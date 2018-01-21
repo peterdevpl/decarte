@@ -289,6 +289,12 @@ class AdminController extends Controller
             $em->persist($product);
             $em->flush();
 
+            if ($product->isVisible()) {
+                $this->get('product_google_export')->exportProduct($product);
+            } else {
+                $this->get('product_google_export')->deleteProduct($product);
+            }
+
             $this->addFlash('notice', $successMessage);
 
             return $this->redirectToRoute('admin_edit_product', ['productId' => $product->getId()]);

@@ -61,6 +61,16 @@ class GoogleExport
         return $batch->execute();
     }
 
+    public function deleteProduct(Product $product)
+    {
+        return $this->shoppingService->products->delete($this->merchantId, $this->buildProductId($product->getId()));
+    }
+
+    protected function buildProductId(int $id): string
+    {
+        return sprintf('%s:%s:%s:%s', 'online', 'pl', 'PL', $id);
+    }
+
     protected function transformProduct(Product $product): \Google_Service_ShoppingContent_Product
     {
         $exportedProduct = new \Google_Service_ShoppingContent_Product();
