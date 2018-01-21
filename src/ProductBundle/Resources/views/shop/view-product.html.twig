@@ -41,6 +41,28 @@
   }]
 }
     </script>
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ productCollection.getName()~' - '~product.getName() }}",
+  "image": [
+    "{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}"
+   ],
+  "description": "{{ product.getDescriptionSEO() }}",
+  "brand": {
+    "@type": "Thing",
+    "name": "decARTe"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "PLN",
+    "price": "{{ (product.getPrice() / 100)|number_format(2, '.', '') }}",
+    "itemCondition": "http://schema.org/NewCondition",
+    "availability": "http://schema.org/InStock"
+  }
+}
+    </script>
 {% endblock %}
 
 {% block contents %}
