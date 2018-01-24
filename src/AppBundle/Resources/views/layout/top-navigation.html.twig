@@ -15,7 +15,9 @@
             <div class="col-12 col-md-1" id="cart-button">
                 <a href="{{ path('cart_index') }}">
                     <img src="{{ asset('img/2018/cart.png') }}" alt="Koszyk">
+                    {% if cart.getOrder().getItems().count() %}
                     <span class="cart-number">{{ cart.getOrder().getItems().count() }}</span>
+                    {% endif %}
                 </a>
             </div>
         </div>
