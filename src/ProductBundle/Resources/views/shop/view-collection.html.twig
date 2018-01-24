@@ -12,7 +12,15 @@
 {% endblock %}
 
 {% block contents %}
-    {{ productCollection.getDescription()|raw }}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('shop_list_collections', {type: productType.getSlugName()}) }}">{{ productType.getName() }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ productCollection.getName() }}</li>
+    </ol>
+
+    <h1>{{ productCollection.getName() }}</h1>
+
+    <p>{{ productCollection.getDescription()|raw }}</p>
 
     <ul id="products">
         {% for product in productCollection.getProducts() %}

@@ -66,7 +66,12 @@
 {% endblock %}
 
 {% block contents %}
-    <h1 class="product_name">{{ productCollection.getName() }} - Model: {{ product.getName() }}</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('shop_list_collections', {type: productType.getSlugName()}) }}">{{ productType.getName() }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('shop_view_collection', {type: productType.getSlugName(), slugName: productCollection.getSlugName()}) }}">{{ productCollection.getName() }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.getName() }}</a></li>
+    </ol>
 
     <form action="{{ path('cart_add_item') }}" method="post" class="add-product-to-cart">
         <p class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
@@ -76,6 +81,8 @@
             <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
         </div>
     </form>
+
+    <h1 class="product_name">{{ productCollection.getName() }} - model {{ product.getName() }}</h1>
 
     <p class="short_description">{{ product.getDescriptionSEO() }}</p>
 
