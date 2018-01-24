@@ -14,27 +14,26 @@
 {% block contents %}
     {{ productCollection.getDescription()|raw }}
 
-    <ul id="products" class="figures">
+    <ul id="products">
         {% for product in productCollection.getProducts() %}
             {% if product.isVisible() %}
             <li>
-                <figure>
-
-                    {% if product.getCoverImage() %}
+                {% if product.getCoverImage() %}
+                <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
                     <img
                         src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
                         width="{{ image_product_small_width }}"
                         height="{{ image_product_small_height }}"
                         alt="Model {{ product.getName() }}">
-                    {% endif %}
+                </a>
+                {% endif %}
 
-                    <figcaption>
-                        <p class="description">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
-                        <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
-                            {{ productType.getName()~': '~productCollection.getName()~' '~product.getName() }}
-                        </a>
-                    </figcaption>
-                </figure>
+                <form action="{{ path('cart_add_item') }}" method="post" class="product-order-button">
+                    <input type="hidden" name="product_id" value="{{ product.getId() }}">
+                    <input type="hidden" name="quantity" value="{{ product.getMinimumQuantity() }}">
+                    <button type="submit">Zamów</button>
+                </form>
+                <p class="description">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
             </li>
             {% endif %}
         {% endfor %}

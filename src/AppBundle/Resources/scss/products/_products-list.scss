@@ -1,0 +1,25 @@
+#products {
+  @include list-none;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  li {
+    width: 267px;
+  }
+}
+
+.product-order-button {
+  float: right;
+
+  button {
+    background: $lightGray;
+    border-style: none;
+    color: $leadingColor;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 0 0.5rem;
+  }
+}
