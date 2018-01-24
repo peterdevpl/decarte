@@ -18,17 +18,12 @@
 }
 
 @include media-breakpoint-down(sm) {
-  #contact-bar-col {
-    flex-wrap: wrap;
-  }
-
   .site-logo, .social-icons {
     width: 50%;
   }
 
   .contact-data {
-    order: 1;
-    text-align: center;
+    display: none;
   }
 }
 

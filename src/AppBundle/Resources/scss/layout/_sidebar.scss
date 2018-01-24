@@ -14,13 +14,7 @@
 }
 
 @include media-breakpoint-down(sm) {
-  #sidebar .nav {
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-
-  .nav-item.subitem {
+  .sidebar {
     display: none;
   }
 }
