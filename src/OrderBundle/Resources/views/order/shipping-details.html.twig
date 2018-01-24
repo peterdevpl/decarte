@@ -3,11 +3,11 @@
 {% block title %}Dane do wysyłki - decARTe{% endblock %}
 
 {% block contents %}
+    <h1><span class="step">Krok 1 z 2:</span> Podaj swoje dane</h1>
+
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {{ form_start(form) }}
-
-    <h2>Dane zamawiającego</h2>
 
     {{ form_row(form.name) }}
     {{ form_row(form.street) }}
@@ -21,8 +21,6 @@
     {{ form_row(form.notes) }}
 
     {{ form_end(form) }}
-
-    <p>W następnym kroku zobaczą Państwo podsumowanie zamówienia.</p>
 
     <p>Po złożeniu zamówienia, w ciągu godziny otrzymają Państwo maila ze szczegółami dotyczącymi realizacji zamówienia
         oraz rozbudowanym formularzem, w którym będzie można sprecyzować szczegóły zlecenia.</p>

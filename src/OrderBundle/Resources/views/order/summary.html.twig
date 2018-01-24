@@ -3,6 +3,8 @@
 {% block title %}Sprawdź zamówienie - decARTe{% endblock %}
 
 {% block contents %}
+    <h1><span class="step">Krok 2 z 2:</span> Sprawdź swoje zamówienie</h1>
+
     <form action="{{ path('order_save') }}" method="post">
         <h2>Sprzedawca</h2>
 
@@ -92,7 +94,7 @@
             </label>
         </div>
 
-        <div class="cart_submit">
+        <div class="order-submit">
             <a href="{{ path('order_shipping_details') }}" class="btn btn-secondary">Wróć do edycji danych</a>
             <input type="submit" name="save_and_order" value="Zamawiam i płacę" class="btn btn-primary">
         </div>
