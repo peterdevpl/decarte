@@ -9,6 +9,11 @@
 {% endblock %}
 
 {% block contents %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ productType.getName() }}</li>
+    </ol>
+
     {{ productType.getDescription()|raw }}
 
     <ul id="collections" class="figures figures-hover">
