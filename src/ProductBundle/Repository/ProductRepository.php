@@ -3,7 +3,9 @@
 namespace ProductBundle\Repository;
 
 use AppBundle\Repository\SortableRepositoryTrait;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
+use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductType;
 
 class ProductRepository extends EntityRepository
@@ -48,6 +50,28 @@ class ProductRepository extends EntityRepository
 
         $query = $queryBuilder->getQuery();
         return $query->getResult();
+    }
+
+    public function findPrevious(Product $product)
+    {
+        return $this->findClosestSibling($product, 'lt', 'DESC');
+    }
+
+    public function findNext(Product $product)
+    {
+        return $this->findClosestSibling($product, 'gt', 'ASC');
+    }
+
+    protected function findClosestSibling(Product $product, string $expression, string $sortOrder)
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('isVisible', '1'))
+            ->andWhere(Criteria::expr()->eq('productCollection', $product->getProductCollection()))
+            ->andWhere(Criteria::expr()->$expression('sort', $product->getSort()))
+            ->orderBy(['sort' => $sortOrder])
+            ->setMaxResults(1);
+
+        return $this->matching($criteria)->first();
     }
 
     protected function getSortGroupField()

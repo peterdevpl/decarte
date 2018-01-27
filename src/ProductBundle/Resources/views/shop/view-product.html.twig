@@ -11,6 +11,8 @@
     <meta property="og:image" content="{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}">
     <meta property="og:description" content="{{ product.getDescriptionSEO() }}">
     <meta property="description" content="{{ product.getDescriptionSEO() }}">
+    {% if previousUrl %}<link rel="prev" href="{{ previousUrl }}">{% endif %}
+    {% if nextUrl %}<link rel="next" href="{{ nextUrl }}">{% endif %}
     <script type="application/ld+json">
 {
   "@context": "http://schema.org",

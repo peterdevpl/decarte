@@ -77,13 +77,39 @@ class ProductsController extends Controller
     public function viewProductAction($type, $slugName, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('ProductBundle:Product')->find($id);
+        $productRepository = $em->getRepository('ProductBundle:Product');
+        $product = $productRepository->find($id);
         if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
+        $previousProduct = $productRepository->findPrevious($product);
+        $nextProduct = $productRepository->findNext($product);
+        $previousPath = null;
+        $nextPath = null;
+
+        if ($previousProduct) {
+            $previousPath = $this->generateUrl('shop_view_product', [
+                'type' => $previousProduct->getProductCollection()->getProductType()->getSlugName(),
+                'slugName' => $previousProduct->getProductCollection()->getSlugName(),
+                'id' => $previousProduct->getId(),
+            ]);
+        }
+
+        if ($nextProduct) {
+            $nextPath = $this->generateUrl('shop_view_product', [
+                'type' => $nextProduct->getProductCollection()->getProductType()->getSlugName(),
+                'slugName' => $nextProduct->getProductCollection()->getSlugName(),
+                'id' => $nextProduct->getId(),
+            ]);
+        }
+
         return $this->render('ProductBundle:shop:view-product.html.twig', [
             'product' => $product,
+            'previousPath' => $previousPath,
+            'nextPath' => $nextPath,
+            'previousUrl' => $previousPath ? $this->getParameter('canonical_domain') . $previousPath : null,
+            'nextUrl' => $nextPath ? $this->getParameter('canonical_domain') . $nextPath : null,
         ]);
     }
 }
