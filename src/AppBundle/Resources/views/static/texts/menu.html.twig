@@ -1,8 +1,16 @@
-<ul id="teksty_menu">
-    <li><a href="{{ path('texts_section', {section: 'cytaty'}) }}">Cytaty</a></li>
-    <li><a href="{{ path('texts_section', {section: 'czcionki'}) }}">Czcionki</a></li>
-    <li><a href="{{ path('texts_section', {section: 'grafiki'}) }}">Grafiki</a></li>
-    <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Teksty</a></li>
-    <li><a href="{{ path('texts_section', {section: 'wierszyki'}) }}">Wierszyki</a></li>
-    <li><a href="{{ path('texts_section', {section: 'zawieszki'}) }}">Zawieszki</a></li>
-</ul>
+<p id="teksty_produkty">
+    Zobacz nasze
+    <a href="{{ path('shop_list_collections', {type: 'zaproszenia-slubne'}) }}">zaproszenia ślubne</a>
+    i <a href="{{ path('shop_list_collections', {type: 'dodatki'}) }}">dodatki</a>
+</p>
+
+<nav>
+    <ul id="teksty_menu">
+        <li><a href="{{ path('texts_section', {section: 'cytaty'}) }}">Cytaty</a></li>
+        <li><a href="{{ path('texts_section', {section: 'czcionki'}) }}">Czcionki</a></li>
+        <li><a href="{{ path('texts_section', {section: 'grafiki'}) }}">Grafiki</a></li>
+        <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Teksty</a></li>
+        <li><a href="{{ path('texts_section', {section: 'wierszyki'}) }}">Wierszyki</a></li>
+        <li><a href="{{ path('texts_section', {section: 'zawieszki'}) }}">Zawieszki</a></li>
+    </ul>
+</nav>

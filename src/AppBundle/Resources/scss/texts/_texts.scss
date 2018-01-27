@@ -1,3 +1,13 @@
+#teksty_produkty {
+  text-align: center;
+}
+
+@include media-breakpoint-up(md) {
+  #teksty_produkty {
+    display: none;
+  }
+}
+
 #teksty_menu {
   list-style-type: none;
   margin: 0 0 2rem 0;
@@ -119,21 +129,27 @@
 
 .cytaty ol {
   display: flex;
-  flex-flow: column wrap;
-  max-height: 3700px;
+  flex-wrap: wrap;
 }
 
-.cytaty li {
-  width: 45%;
+.cytaty li, .wierszyki li {
+  width: 100%;
 }
 
 .wierszyki ol {
   display: flex;
-  flex-flow: column wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 #fonts {
   display: flex;
-  flex-flow: column wrap;
-  max-height: 700px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@include media-breakpoint-up(lg) {
+  .cytaty li, .wierszyki li {
+    width: 45%;
+  }
 }
