@@ -6,7 +6,7 @@ Encore
     .addEntry('app', './src/AppBundle/Resources/js/app.js')
     .createSharedEntry('vendor', [
         'jquery',
-        'bootstrap/scss/bootstrap.scss'
+        './src/AppBundle/Resources/scss/bootstrap.scss'
     ])
     .enableSassLoader()
     .autoProvidejQuery()
