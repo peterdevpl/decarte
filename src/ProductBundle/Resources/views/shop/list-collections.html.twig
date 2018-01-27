@@ -14,7 +14,9 @@
         <li class="breadcrumb-item active" aria-current="page">{{ productType.getName() }}</li>
     </ol>
 
+    <article class="product-type-description">
     {{ productType.getDescription()|raw }}
+    </article>
 
     <ul id="collections" class="figures figures-hover">
         {% for productCollection in productCollections %}

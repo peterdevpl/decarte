@@ -1,0 +1,5 @@
+@include media-breakpoint-down(sm) {
+  .product-type-description {
+    display: none;
+  }
+}

@@ -60,3 +60,9 @@
     }
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .figures-hover figure p.description {
+    display: none;
+  }
+}
