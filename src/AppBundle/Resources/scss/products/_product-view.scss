@@ -1,7 +1,33 @@
-.add-product-to-cart {
-  float: right;
-  margin-left: 1rem;
+.product-actions {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 1rem;
+}
+
+.product-siblings {
+  font-size: 110%;
+
+  .prev::before {
+    content: '« ';
+  }
+
+  .next::after {
+    content: ' »';
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .product-actions {
+    float: right;
+    margin-left: 1rem;
+  }
+
+  .product-siblings {
+    display: none;
+  }
+}
+
+.add-product-to-cart {
   text-align: center;
 
   .price {
