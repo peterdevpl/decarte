@@ -1,4 +1,4 @@
-<nav id="top-navigation">
+<nav id="top-navigation" class="{% if app.request.attributes.get('_route') != 'default' %}hide-on-mobile{% endif %}">
     <div class="container">
         <div class="row">
             <div class="col" id="top-links">
@@ -20,3 +20,16 @@
         </div>
     </div>
 </nav>
+
+<script>
+    var hamburger = document.getElementById('hamburger');
+    var topNavigation = document.getElementById('top-navigation');
+    hamburger.addEventListener('click', function() {
+        var style = getComputedStyle(topNavigation, null);
+        if (style.display === 'none') {
+            topNavigation.style.display = 'block';
+        }  else {
+            topNavigation.style.display = 'none';
+        }
+    });
+</script>

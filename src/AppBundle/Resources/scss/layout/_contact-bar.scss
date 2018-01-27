@@ -18,11 +18,17 @@
 }
 
 @include media-breakpoint-down(sm) {
-  .site-logo, .social-icons {
+  .site-logo, .hamburger {
     width: 50%;
   }
 
-  .contact-data {
+  .contact-data, .social-icons {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .hamburger {
     display: none;
   }
 }
@@ -34,5 +40,16 @@
 
   img {
     margin-right: 1rem;
+  }
+}
+
+.hamburger {
+  text-align: right;
+
+  button {
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im00IDEwaDI0YzEuMTA0IDAgMi0wLjg5NiAyLTJzLTAuODk2LTItMi0yaC0yNGMtMS4xMDQgMC0yIDAuODk2LTIgMnMwLjg5NiAyIDIgMnptMjQgNGgtMjRjLTEuMTA0IDAtMiAwLjg5Ni0yIDJzMC44OTYgMiAyIDJoMjRjMS4xMDQgMCAyLTAuODk2IDItMnMtMC44OTYtMi0yLTJ6bTAgOGgtMjRjLTEuMTA0IDAtMiAwLjg5Ni0yIDJzMC44OTYgMiAyIDJoMjRjMS4xMDQgMCAyLTAuODk2IDItMnMtMC44OTYtMi0yLTJ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+DQo=') no-repeat;
+    border-style: none;
+    height: 32px;
+    width: 32px;
   }
 }

@@ -44,6 +44,12 @@
   }
 }
 
+@include media-breakpoint-down(sm) {
+  #top-navigation.hide-on-mobile {
+    display: none;
+  }
+}
+
 .social-icons {
   text-align: right;
 
