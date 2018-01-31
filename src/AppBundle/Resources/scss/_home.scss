@@ -60,10 +60,16 @@
 }
 
 #welcome-text {
-  font-size: 75%;
+  font-size: 90%;
   text-align: justify;
 
   address {
     text-align: right;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  #welcome-text {
+    font-size: 75%;
   }
 }
