@@ -74,13 +74,18 @@
             <p>Uwagi: {{ order.getNotes()|nl2br }}</p>
         {% endif %}
 
-        <h2>Sposób dostawy/płatności</h2>
+        <div class="order-delivery-and-realization">
+            <div class="order-delivery">
+                <h3>Sposób dostawy/płatności</h3>
 
-        <p>{{ order.getDeliveryType() }}</p>
+                <p>{{ order.getDeliveryType() }}</p>
+            </div>
+            <div class="order-realization">
+                <h3>Tryb realizacji</h3>
 
-        <h2>Tryb realizacji</h2>
-
-        <p>{{ order.getRealizationType() }}</p>
+                <p>{{ order.getRealizationType() }}</p>
+            </div>
+        </div>
 
         <div id="order-total-price">
             <span>Do zapłaty: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} zł</strong></span><br>
@@ -96,7 +101,7 @@
 
         <div class="order-submit">
             <a href="{{ path('order_shipping_details') }}" class="btn btn-secondary">Wróć do edycji danych</a>
-            <input type="submit" name="save_and_order" value="Zamawiam i płacę" class="btn btn-primary">
+            <input type="submit" name="save_and_order" value="Zamawiam z obowiązkiem zapłaty" class="btn btn-warning">
         </div>
     </form>
 {% endblock %}

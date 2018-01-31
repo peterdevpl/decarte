@@ -1,5 +1,6 @@
 #order-total-price {
   margin-bottom: 1rem;
+  margin-top: 1rem;
   text-align: right;
 
   span {
@@ -14,5 +15,16 @@
 
   input {
     float: right;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .order-delivery-and-realization {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .order-delivery, .order-realization {
+    width: 50%;
   }
 }
