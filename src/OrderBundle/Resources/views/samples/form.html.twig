@@ -3,12 +3,27 @@
 {% block title %}Serwis próbkowy - decARTe{% endblock %}
 
 {% block contents %}
-    <h1 style="text-align: center; font-size: 18px; text-transform: uppercase">Serwis próbkowy</h1>
+    <h1 class="samples">Serwis próbkowy</h1>
 
-    <h2 style="text-align: center; font-size: 14px">Koszt: 10 PLN ({{ samples_count }} dowolne zaproszenia z losowym nadrukiem; wysyłka w cenie próbnika)</h2>
+    <h2 class="samples">Koszt: 10 PLN ({{ samples_count }} dowolne zaproszenia z losowym nadrukiem; wysyłka w cenie próbnika)</h2>
 
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
-    {{ form(form) }}
+
+    {{ form_start(form) }}
+
+    <div class="samples-products">
+        {% for item in form.items %}
+            {{ form_row(item.product, {'label': 'Zaproszenie nr '~loop.index}) }}
+        {% endfor %}
+    </div>
+
+    {{ form_row(form.email) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.postal_code) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.notes) }}
+    {{ form_end(form) }}
 
     <p>Numer konta do wpłaty otrzymają Państwo w mailu.</p>
 {% endblock %}

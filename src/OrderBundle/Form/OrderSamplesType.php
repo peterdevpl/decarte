@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,16 +31,15 @@ class OrderSamplesType extends AbstractType
                     'products' => $options['products'],
                 ],
             ])
-            ->add('notes', TextareaType::class, [
-                'label' => 'Uwagi',
-                'required' => false,
-                'attr' => ['cols' => 40, 'rows' => 4]
-            ])
+            ->add('notes', TextType::class, ['label' => 'Uwagi', 'required' => false])
             ->add('email', EmailType::class, ['label' => 'E-mail'])
             ->add('name', TextType::class, ['label' => 'Imię i nazwisko'])
             ->add('address', TextType::class, ['label' => 'Ulica, nr domu i mieszkania'])
             ->add('postal_code', TextType::class, ['label' => 'Kod pocztowy'])
             ->add('city', TextType::class, ['label' => 'Miasto'])
-            ->add('submit', SubmitType::class, ['label' => 'Zamów', 'attr' => ['class' => 'btn btn-primary']]);
+            ->add('submit', SubmitType::class, [
+                'label' => 'Zamów próbki',
+                'attr' => ['class' => 'btn btn-primary'],
+            ]);
     }
 }
