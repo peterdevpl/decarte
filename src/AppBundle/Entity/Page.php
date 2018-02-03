@@ -2,6 +2,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="\AppBundle\Repository\PageRepository") @ORM\Table(name="decarte_pages")
@@ -19,6 +20,18 @@ class Page
     
     /** @ORM\Column(type="text") */
     protected $contents;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime_immutable", name="created_at")
+     */
+    protected $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime_immutable", name="updated_at", nullable=true)
+     */
+    protected $updatedAt;
 
     public function getId(): int
     {
@@ -48,5 +61,15 @@ class Page
     public function setContents(string $contents)
     {
         $this->contents = $contents;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 }

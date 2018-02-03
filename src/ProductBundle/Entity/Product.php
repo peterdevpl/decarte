@@ -42,9 +42,18 @@ class Product
     
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
-    
-    /** @ORM\Column(type="integer", name="last_changed_at") */
-    protected $lastChangedAt = 0;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime_immutable", name="created_at")
+     */
+    protected $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime_immutable", name="updated_at", nullable=true)
+     */
+    protected $updatedAt;
 
     /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
     protected $deletedAt;
@@ -142,6 +151,16 @@ class Product
     public function getMinimumQuantity(): int
     {
         return $this->getProductCollection()->getMinimumQuantity();
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 
     /**
