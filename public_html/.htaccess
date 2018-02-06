@@ -29,6 +29,9 @@ Expires A2592000
     RewriteCond %{HTTP_HOST} ^(www\.)?decarte\.com\.pl$
     RewriteRule ^(.*)$ https://www.decarte.com.pl/$1 [R=301,L]
 
+    RewriteCond %{HTTP_HOST} ^decarte\.com\.pl$
+    RewriteRule ^(.*)$ https://www.decarte.com.pl/$1 [R=301,L]
+
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
