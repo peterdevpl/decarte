@@ -26,7 +26,7 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/polyfill-apcu": "^1.0",
         "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
+        "sensio/framework-extra-bundle": "^5.1",
         "cocur/slugify": "^2.4",
         "sentry/sentry-symfony": "^0.7.1",
         "stof/doctrine-extensions-bundle": "^1.2",
