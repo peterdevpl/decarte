@@ -24,7 +24,7 @@ class OrderMailer
     {
         $express = ($order->getRealizationType()->getPrice() > 0 ? ' - EKSPRES!' : '');
 
-        $message = \Swift_Message::newInstance()
+        $message = (new \Swift_Message())
             ->setSubject('ZAMÓWIENIE WWW' . $express)
             ->setTo($this->adminMail)
             ->setFrom([$this->adminMail => $order->getName()])
@@ -43,7 +43,7 @@ class OrderMailer
     {
         $productTypes = $order->getProductTypes();
 
-        $message = \Swift_Message::newInstance()
+        $message = (new \Swift_Message())
             ->setSubject('Potwierdzenie przyjęcia zamówienia')
             ->setTo($order->getEmail())
             ->setFrom([$this->adminMail => 'Sklep ślubny decARTe.com.pl'])

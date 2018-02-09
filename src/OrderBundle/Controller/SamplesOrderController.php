@@ -56,7 +56,7 @@ class SamplesOrderController extends Controller
 
     protected function sendSamplesOrderEmailToShop(SamplesOrder $order)
     {
-        $message = \Swift_Message::newInstance()
+        $message = (new \Swift_Message())
             ->setSubject('ZAMÓWIENIE WWW - PRÓBKI')
             ->setTo($this->getParameter('admin_mail'))
             ->setFrom([$this->getParameter('admin_mail') => $order->getName()])
@@ -73,7 +73,7 @@ class SamplesOrderController extends Controller
 
     protected function sendSamplesOrderEmailToCustomer(SamplesOrder $order)
     {
-        $message = \Swift_Message::newInstance()
+        $message = (new \Swift_Message())
             ->setSubject('Zamówienie decarte.com.pl - próbki')
             ->setTo($order->getEmail())
             ->setFrom([$this->getParameter('admin_mail') => 'Sklep ślubny decARTe.com.pl'])
