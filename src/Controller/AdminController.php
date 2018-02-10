@@ -3,20 +3,22 @@
 namespace Decarte\Shop\Controller;
 
 use Decarte\Shop\Form\PageForm;
+use Decarte\Shop\Repository\PageRepository;
+use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
     /**
      * @Route("/admin", name="admin_index")
      */
-    public function indexAction()
+    public function indexAction(ProductTypeRepository $productTypeRepository, PageRepository $pageRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $productTypes = $em->getRepository('ProductBundle:ProductType')->getProductTypes(false);
-        $pages = $em->getRepository('AppBundle:Page')->getPages();
+        $productTypes = $productTypeRepository->getProductTypes(false);
+        $pages = $pageRepository->getPages();
 
         return $this->render('admin/index.html.twig', [
             'productTypes' => $productTypes,
