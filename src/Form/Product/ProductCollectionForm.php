@@ -8,7 +8,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +18,7 @@ class ProductCollectionForm extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['image_directory', 'image_url', 'slugify']);
+        $resolver->setRequired(['image_directory', 'image_url']);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -30,7 +29,6 @@ class ProductCollectionForm extends AbstractType
                 'label' => 'Typ',
             ])
             ->add('name', TextType::class, ['label' => 'Nazwa'])
-            ->add('slugName', HiddenType::class)
             ->add('isVisible', CheckboxType::class, [
                 'label' => 'Kolekcja widoczna na stronie',
                 'required' => false,

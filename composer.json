@@ -20,7 +20,6 @@
         "symfony/swiftmailer-bundle": "^3.1",
         "symfony/monolog-bundle": "^3.1",
         "sensio/framework-extra-bundle": "^5.1",
-        "cocur/slugify": "^3.1",
         "sentry/sentry-symfony": "^2.0.1",
         "stof/doctrine-extensions-bundle": "^1.2",
         "doctrine/doctrine-migrations-bundle": "^1.3",

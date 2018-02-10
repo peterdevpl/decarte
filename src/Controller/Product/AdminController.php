@@ -53,9 +53,7 @@ class AdminController extends Controller
 
     protected function editProductType(Request $request, ProductType $productType, string $successMessage)
     {
-        $form = $this->createForm(ProductTypeForm::class, $productType, [
-            'slugify' => $this->get('slugify'),
-        ]);
+        $form = $this->createForm(ProductTypeForm::class, $productType);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -178,7 +176,6 @@ class AdminController extends Controller
         $form = $this->createForm(ProductCollectionForm::class, $productCollection, [
             'image_directory' => $this->getParameter('image.collection.directory'),
             'image_url' => $this->getParameter('image.collection.url'),
-            'slugify' => $this->get('slugify'),
         ]);
 
         $form->handleRequest($request);

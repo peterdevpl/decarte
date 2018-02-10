@@ -25,7 +25,10 @@ class ProductCollection
     /** @ORM\Column(type="string") */
     protected $name = '';
     
-    /** @ORM\Column(type="string", name="slug_name") */
+    /**
+     * @ORM\Column(type="string", name="slug_name")
+     * @Gedmo\Slug(fields={"name"})
+     */
     protected $slugName = '';
 
     /** @ORM\Column(type="integer", name="minimum_quantity") */
