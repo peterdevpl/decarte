@@ -1,4 +1,3 @@
-/app/config/parameters.yml
 /build/
 /phpunit.xml
 /var/*
@@ -19,3 +18,5 @@
 /public_html/zaproszenia
 /.idea
 /node_modules/
+.phpunit
+.env

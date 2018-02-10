@@ -3,10 +3,10 @@ var Encore = require('@symfony/webpack-encore');
 Encore
     .setOutputPath('public_html/build/')
     .setPublicPath('/build')
-    .addEntry('app', './src/AppBundle/Resources/js/app.js')
+    .addEntry('app', './assets/js/app.js')
     .createSharedEntry('vendor', [
         'jquery',
-        './src/AppBundle/Resources/scss/bootstrap.scss'
+        './assets/scss/bootstrap.scss'
     ])
     .enableSassLoader()
     .autoProvidejQuery()

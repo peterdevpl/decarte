@@ -1,0 +1,49 @@
+{% extends 'layout/base-with-sidebar.html.twig' %}
+
+{% set productType = productCollection.getProductType() %}
+
+{% block title %}{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ productCollection.getName() }} - {{ productType.getName() }} - decARTe">
+    <meta property="og:image" content="{{ absolute_url(asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb')) }}">
+    <meta property="og:description" content="{{ productCollection.getDescription() | striptags }}">
+    <meta property="description" content="{{ productCollection.getDescription() | striptags }}">
+{% endblock %}
+
+{% block contents %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('shop_list_collections', {type: productType.getSlugName()}) }}">{{ productType.getName() }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ productCollection.getName() }}</li>
+    </ol>
+
+    <h1>{{ productCollection.getName() }}</h1>
+
+    <p>{{ productCollection.getDescription()|raw }}</p>
+
+    <ul id="products">
+        {% for product in productCollection.getProducts() %}
+            {% if product.isVisible() %}
+            <li>
+                {% if product.getCoverImage() %}
+                <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
+                    <img
+                        src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
+                        width="{{ image_product_small_width }}"
+                        height="{{ image_product_small_height }}"
+                        alt="Model {{ product.getName() }}">
+                </a>
+                {% endif %}
+
+                <form action="{{ path('cart_add_item') }}" method="post" class="product-order-button">
+                    <input type="hidden" name="product_id" value="{{ product.getId() }}">
+                    <input type="hidden" name="quantity" value="{{ product.getMinimumQuantity() }}">
+                    <button type="submit">Zamów</button>
+                </form>
+                <p class="description">model {{ product.getName() }} &ndash; {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

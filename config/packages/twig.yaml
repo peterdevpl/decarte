@@ -1,0 +1,22 @@
+twig:
+    paths: ['%kernel.project_dir%/templates']
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    globals:
+        image_collection_url: "%image.collection.url%"
+        image_collection_width: "%image.collection.width%"
+        image_collection_height: "%image.collection.height%"
+
+        image_product_url: "%image.product.url%"
+        image_product_big_width: "%image.product.big.width%"
+        image_product_big_height: "%image.product.big.height%"
+        image_product_small_width: "%image.product.small.width%"
+        image_product_small_height: "%image.product.small.height%"
+
+        samples_count: 2
+
+        menu: '@Decarte\Shop\Service\Menu\Menu'
+
+        cart: '@Decarte\Shop\Repository\Order\SessionOrderRepository'
+
+        google_analytics: "%env(GOOGLE_ANALYTICS)%"

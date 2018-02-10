@@ -1,0 +1,63 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}decARTe{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/vendor.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+    <link rel="mask-icon" href="{{ asset('/safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="Author" content="decARTe zaproszenia ślubne">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ app.request.uri }}">
+    {% block meta %}<meta name="description" content="Oferta sklepu decARTe obejmuje wyjątkowe gadżety i akcesoria ślubne i weselne - zaproszenia, winietki, zawieszki, ozdoby, dekoracje, księgi gości i wiele innych artykułów.">{% endblock %}
+    <script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "Store",
+	"address": {
+		"@type": "PostalAddress",
+		"addressLocality": "Gdańsk",
+		"streetAddress": "Reymonta 1",
+		"postalCode": "80-290",
+		"addressRegion": "pomorskie"
+	},
+	"name": "Pracownia decARTe s.c.",
+	"email": "info@decarte.pl",
+	"telephone": "+48600151804, +48793697390",
+	"vatID": "9571090366",
+	"image": "https://www.decarte.com.pl/img/decarte_logo.png"
+}
+    </script>
+    {{ google_analytics|raw }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+<header>
+    {{ include('layout/contact-bar.html.twig') }}
+    {{ include('layout/top-navigation.html.twig') }}
+</header>
+
+<main>
+    {% block main %}{% endblock %}
+</main>
+
+{{ include('layout/sitemap-with-contact.html.twig') }}
+{{ include('layout/company-data.html.twig') }}
+
+<script src="{{ asset('build/manifest.js') }}"></script>
+<script src="{{ asset('build/vendor.js') }}"></script>
+<script src="{{ asset('build/app.js') }}"></script>
+
+{% block javascripts %}{% endblock %}
+
+</body>
+</html>
+{% endspaceless %}

@@ -1,0 +1,41 @@
+{% extends 'layout/base-with-sidebar.html.twig' %}
+
+{% block title %}{{ productType.getName() }} - decARTe{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ productType.getName() }} - decARTe">
+    <meta property="og:description" content="{{ productType.getDescription() | striptags }}">
+    <meta property="description" content="{{ productType.getDescription() | striptags }}">
+{% endblock %}
+
+{% block contents %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ productType.getName() }}</li>
+    </ol>
+
+    <article class="product-type-description">
+    {{ productType.getDescription()|raw }}
+    </article>
+
+    <ul id="collections" class="figures figures-hover">
+        {% for productCollection in productCollections %}
+            <li>
+                <figure>
+                    <img
+                        src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}"
+                        width="{{ image_collection_width }}"
+                        height="{{ image_collection_height }}"
+                        alt="{{ productCollection.getName() }}">
+                    <figcaption>
+                        <h2>{{ productCollection.getName() }}</h2>
+                        <p class="description">{{ productCollection.getShortDescription()|raw }}</p>
+                        <a href="{{ path('shop_view_collection', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName()}) }}">
+                            {{ productType.getName()~': '~productCollection.getName() }}
+                        </a>
+                    </figcaption>
+                </figure>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

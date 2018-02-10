@@ -1,0 +1,46 @@
+parameters:
+    image.collection.url: "zaproszenia/kolekcje"
+    image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
+    image.collection.width: 408
+    image.collection.height: 306
+    image.collection.quality: 80
+
+    image.product.url: "zaproszenia/produkty"
+    image.product.directory: "%kernel.root_dir%/../public_html/%image.product.url%"
+
+    image.product.big.width: 830
+    image.product.big.height: 622
+    image.product.big.quality: 80
+
+    image.product.small.width: 267
+    image.product.small.height: 200
+    image.product.small.quality: 80
+
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.root_dir%/../public_html/"
+
+    resolvers:
+        default:
+            web_path:
+                web_root: "%kernel.root_dir%/../public_html/"
+
+    filter_sets:
+        cache: ~
+
+        product_collection_thumb:
+            quality: "%image.collection.quality%"
+            filters:
+                thumbnail: { size: ["%image.collection.width%", "%image.collection.height%"], mode: outbound }
+
+        product_thumb:
+            quality: "%image.product.small.quality%"
+            filters:
+                thumbnail: { size: ["%image.product.small.width%", "%image.product.small.height%"], mode: outbound }
+
+        product_full:
+            quality: "%image.product.big.quality%"
+            filters:
+                thumbnail: { size: ["%image.product.big.width%", "%image.product.big.height%"], mode: outbound }

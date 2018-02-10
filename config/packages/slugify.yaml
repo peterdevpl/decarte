@@ -1,0 +1,3 @@
+cocur_slugify:
+    lowercase: true
+    rulesets: [ "polish" ]

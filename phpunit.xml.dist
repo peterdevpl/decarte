@@ -3,11 +3,14 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="app/autoload.php"
+         bootstrap="vendor/autoload.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <server name="KERNEL_DIR" value="app/" />
+        <env name="KERNEL_CLASS" value="Decarte\Shop\Kernel" />
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_DEBUG" value="1"/>
+        <env name="APP_SECRET" value="47eb5838437d29adaaaba06efe1620bcf121eb2f"/>
     </php>
 
     <testsuites>

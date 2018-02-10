@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests;
+namespace Decarte\Shop\Tests;
 
-use OrderBundle\Entity\DeliveryType;
-use OrderBundle\Entity\Order;
-use OrderBundle\Entity\RealizationType;
+use Decarte\Shop\Entity\Order\DeliveryType;
+use Decarte\Shop\Entity\Order\Order;
+use Decarte\Shop\Entity\Order\RealizationType;
+use Decarte\Shop\Entity\Product\Product;
+use Decarte\Shop\Entity\Product\ProductCollection;
+use Decarte\Shop\Entity\Product\ProductType;
 use PHPUnit\Framework\TestCase;
-use ProductBundle\Entity\Product;
-use ProductBundle\Entity\ProductCollection;
-use ProductBundle\Entity\ProductType;
 
 abstract class AbstractOrderTest extends TestCase
 {
