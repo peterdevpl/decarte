@@ -29,10 +29,9 @@ class AdminController extends Controller
     /**
      * @Route("/admin/page/{pageId}", name="admin_editpage", requirements={"pageId": "\d+"})
      */
-    public function editPageAction(Request $request, $pageId)
+    public function editPageAction(Request $request, int $pageId, PageRepository $pageRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('AppBundle:Page')->find($pageId);
+        $page = $pageRepository->find($pageId);
         if (!$page) {
             throw $this->createNotFoundException('Nie znaleziono strony');
         }
@@ -42,6 +41,7 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $page = $form->getData();
 
+            $em = $this->getDoctrine()->getManager();
             $em->persist($page);
             $em->flush();
 

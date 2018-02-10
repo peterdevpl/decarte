@@ -8,6 +8,9 @@ use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Form\Product\ProductCollectionForm;
 use Decarte\Shop\Form\Product\ProductTypeForm;
 use Decarte\Shop\Form\Product\ProductForm;
+use Decarte\Shop\Repository\Product\ProductCollectionRepository;
+use Decarte\Shop\Repository\Product\ProductRepository;
+use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,7 +25,7 @@ class AdminController extends Controller
      * @Route("/admin/addProductType", name="admin_add_product_type")
      * @param Request $request
      */
-    public function addProductTypeAction(Request $request)
+    public function addProductTypeAction(Request $request): Response
     {
         $productType = new ProductType();
         $productType->setIsVisible(true);
@@ -35,10 +38,12 @@ class AdminController extends Controller
      * @param Request $request
      * @param int $typeId
      */
-    public function editProductTypeAction(Request $request, $typeId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productType = $em->getRepository('ProductBundle:ProductType')->find($typeId);
+    public function editProductTypeAction(
+        Request $request,
+        int $typeId,
+        ProductTypeRepository $productTypeRepository
+    ): Response {
+        $productType = $productTypeRepository->find($typeId);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono typu produktów');
         }
@@ -84,16 +89,16 @@ class AdminController extends Controller
     /**
      * @Route("/admin/productCollections/{type}", name="admin_product_collections", requirements={"type": "\d+"})
      */
-    public function listProductCollectionsAction($type)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productType = $em->getRepository('ProductBundle:ProductType')->find($type);
+    public function listProductCollectionsAction(
+        string $type,
+        ProductTypeRepository $typeRepository,
+        ProductCollectionRepository $collectionRepository
+    ): Response {
+        $productType = $typeRepository->find($type);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono typu produktów');
         }
-        $productCollections = $em
-            ->getRepository('ProductBundle:ProductCollection')
-            ->getProductCollections($type, false);
+        $productCollections = $collectionRepository->getProductCollections($type, false);
 
         return $this->render('admin/productCollections.html.twig', [
             'productType' => $productType,
@@ -108,10 +113,11 @@ class AdminController extends Controller
      *     requirements={"collection": "\d+"}
      * )
      */
-    public function viewProductCollectionAction($collection)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productCollection = $em->getRepository('ProductBundle:ProductCollection')->find($collection);
+    public function viewProductCollectionAction(
+        string $collection,
+        ProductCollectionRepository $collectionRepository
+    ): Response {
+        $productCollection = $collectionRepository->find($collection);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
         }
@@ -128,10 +134,12 @@ class AdminController extends Controller
      *     requirements={"typeId": "\d+"}
      * )
      */
-    public function addProductCollectionAction(Request $request, $typeId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productType = $em->getRepository('ProductBundle:ProductType')->find($typeId);
+    public function addProductCollectionAction(
+        Request $request,
+        int $typeId,
+        ProductTypeRepository $typeRepository
+    ): Response {
+        $productType = $typeRepository->find($typeId);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono typu produktu');
         }
@@ -149,10 +157,12 @@ class AdminController extends Controller
      *     requirements={"collectionId": "\d+"}
      * )
      */
-    public function editProductCollectionAction(Request $request, $collectionId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productCollection = $em->getRepository('ProductBundle:ProductCollection')->find($collectionId);
+    public function editProductCollectionAction(
+        Request $request,
+        int $collectionId,
+        ProductCollectionRepository $collectionRepository
+    ): Response {
+        $productCollection = $collectionRepository->find($collectionId);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
         }
@@ -164,7 +174,7 @@ class AdminController extends Controller
         Request $request,
         ProductCollection $productCollection,
         string $successMessage
-    ) {
+    ): Response {
         $form = $this->createForm(ProductCollectionForm::class, $productCollection, [
             'image_directory' => $this->getParameter('image.collection.directory'),
             'image_url' => $this->getParameter('image.collection.url'),
@@ -210,7 +220,7 @@ class AdminController extends Controller
      * @Route(
      *     "/admin/move/{class}/{id}/{direction}",
      *     name="admin_move",
-     *     requirements={"class": "Product|ProductSeries|ProductCollection", "id": "\d+", "direction": "up|down"}
+     *     requirements={"class": "Product|ProductCollection", "id": "\d+", "direction": "up|down"}
      * )
      * @param Request $request
      * @param string $class Entity class
@@ -218,7 +228,7 @@ class AdminController extends Controller
      * @param string $direction "up" or "down"
      * @return RedirectResponse
      */
-    public function moveAction(Request $request, $class, $id, $direction)
+    public function moveAction(Request $request, string $class, int $id, string $direction): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $object = $em->getRepository('ProductBundle:' . $class);
@@ -232,12 +242,14 @@ class AdminController extends Controller
     /**
      * @Route("/admin/addProduct/{collectionId}", name="admin_add_product", requirements={"collectionId": "\d+"})
      */
-    public function addProductAction(Request $request, $collectionId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $productCollection = $em->getRepository('ProductBundle:ProductCollection')->find($collectionId);
+    public function addProductAction(
+        Request $request,
+        int $collectionId,
+        ProductCollectionRepository $collectionRepository
+    ): Response {
+        $productCollection = $collectionRepository->find($collectionId);
         if (!$productCollection) {
-            throw $this->createNotFoundException('Nie znaleziono serii produktów');
+            throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
         }
 
         $product = new Product();
@@ -249,11 +261,9 @@ class AdminController extends Controller
     /**
      * @Route("/admin/editProduct/{productId}", name="admin_edit_product", requirements={"productId": "\d+"})
      */
-    public function editProductAction(Request $request, $productId)
+    public function editProductAction(Request $request, int $productId, ProductRepository $productRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('ProductBundle:Product');
-        $product = $repository->find($productId);
+        $product = $productRepository->find($productId);
         if (!$product) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
@@ -261,7 +271,7 @@ class AdminController extends Controller
         return $this->editProduct($request, $product, 'Produkt został zapisany');
     }
 
-    protected function editProduct(Request $request, Product $product, string $successMessage)
+    protected function editProduct(Request $request, Product $product, string $successMessage): Response
     {
         $form = $this->createForm(ProductForm::class, $product, [
             'image_directory' => $this->getParameter('image.product.directory'),
@@ -311,17 +321,16 @@ class AdminController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function setProductPositionAction(Request $request)
+    public function setProductPositionAction(Request $request, ProductRepository $productRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('ProductBundle:Product');
-        $product = $repository->find($request->request->get('productId'));
+        $product = $productRepository->find($request->request->get('productId'));
         if (!$product) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
         $product->setSort($request->request->get('position'));
 
+        $em = $this->getDoctrine()->getManager();
         $em->persist($product);
         $em->flush();
 
