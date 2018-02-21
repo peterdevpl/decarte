@@ -135,7 +135,8 @@ class AdminController extends Controller
     public function addProductCollectionAction(
         Request $request,
         int $typeId,
-        ProductTypeRepository $typeRepository
+        ProductTypeRepository $typeRepository,
+        ProductTypeRepository $productTypeRepository
     ): Response {
         $productType = $typeRepository->find($typeId);
         if (!$productType) {
@@ -145,7 +146,12 @@ class AdminController extends Controller
         $productCollection = new ProductCollection();
         $productCollection->setProductType($productType)->setIsVisible(true);
 
-        return $this->editProductCollection($request, $productCollection, 'Kolekcja została dodana');
+        return $this->editProductCollection(
+            $request,
+            $productCollection,
+            $productTypeRepository,
+            'Kolekcja została dodana'
+        );
     }
 
     /**
@@ -158,24 +164,32 @@ class AdminController extends Controller
     public function editProductCollectionAction(
         Request $request,
         int $collectionId,
-        ProductCollectionRepository $collectionRepository
+        ProductCollectionRepository $collectionRepository,
+        ProductTypeRepository $productTypeRepository
     ): Response {
         $productCollection = $collectionRepository->find($collectionId);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
         }
 
-        return $this->editProductCollection($request, $productCollection, 'Kolekcja została zapisana');
+        return $this->editProductCollection(
+            $request,
+            $productCollection,
+            $productTypeRepository,
+            'Kolekcja została zapisana'
+        );
     }
 
     protected function editProductCollection(
         Request $request,
         ProductCollection $productCollection,
+        ProductTypeRepository $productTypeRepository,
         string $successMessage
     ): Response {
+        $productTypes = $productTypeRepository->findAll();
+
         $form = $this->createForm(ProductCollectionForm::class, $productCollection, [
-            'image_directory' => $this->getParameter('image.collection.directory'),
-            'image_url' => $this->getParameter('image.collection.url'),
+            'product_types' => $productTypes,
         ]);
 
         $form->handleRequest($request);

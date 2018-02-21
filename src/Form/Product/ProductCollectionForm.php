@@ -2,6 +2,8 @@
 
 namespace Decarte\Shop\Form\Product;
 
+use Decarte\Shop\Entity\Product\ProductCollection;
+use Decarte\Shop\Entity\Product\ProductType;
 use Decarte\Shop\Form\Type\StringImageFileType;
 use Decarte\Shop\Form\Product\Event\ProductCollectionFormListener;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,16 +18,28 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductCollectionForm extends AbstractType
 {
+    private $listener;
+    private $imageUrl;
+
+    public function __construct(ProductCollectionFormListener $listener, string $imageUrl)
+    {
+        $this->listener = $listener;
+        $this->imageUrl = $imageUrl;
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['image_directory', 'image_url']);
+        $resolver
+            ->setDefaults(['data_class' => ProductCollection::class])
+            ->setRequired(['product_types']);
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('productType', EntityType::class, [
-                'class' => 'ProductBundle:ProductType',
+                'class' => ProductType::class,
+                'choices' => $options['product_types'],
                 'label' => 'Typ',
             ])
             ->add('name', TextType::class, ['label' => 'Nazwa'])
@@ -47,10 +61,10 @@ class ProductCollectionForm extends AbstractType
             ->add('imageName', StringImageFileType::class, [
                 'label' => 'Miniaturka',
                 'required' => false,
-                'image_url' => $options['image_url'],
+                'image_url' => $this->imageUrl,
             ])
             ->add('save', SubmitType::class, ['label' => 'Zapisz kolekcję'])
-            ->addEventSubscriber(new ProductCollectionFormListener($options));
+            ->addEventSubscriber($this->listener);
 
         if ($builder->getData()->getId()) {
             $builder->add('delete', SubmitType::class, [
