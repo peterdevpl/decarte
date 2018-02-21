@@ -3,6 +3,7 @@
 namespace Decarte\Shop\Form\Product;
 
 use Decarte\Shop\Entity\Product\Product;
+use Decarte\Shop\Entity\Product\ProductCollection;
 use Decarte\Shop\Form\Product\Event\ProductFormListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,18 +18,25 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductForm extends AbstractType
 {
+    private $listener;
+    private $imageUrl;
+
+    public function __construct(ProductFormListener $listener, string $imageUrl)
+    {
+        $this->listener = $listener;
+        $this->imageUrl = $imageUrl;
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver
-            ->setDefaults(['data_class' => Product::class])
-            ->setRequired(['image_url', 'image_directory']);
+        $resolver->setDefaults(['data_class' => Product::class]);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('productCollection', EntityType::class, [
-                'class' => 'ProductBundle:ProductCollection',
+                'class' => ProductCollection::class,
                 'choices' => $builder->getData()->getProductCollection()->getProductType()->getProductCollections(),
                 'label' => 'Kolekcja',
             ])
@@ -58,10 +66,10 @@ class ProductForm extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'entry_options' => [
-                    'image_url' => $options['image_url'],
+                    'image_url' => $this->imageUrl,
                 ],
             ])
-            ->addEventSubscriber(new ProductFormListener($options));
+            ->addEventSubscriber($this->listener);
 
         $builder->add('save', SubmitType::class, ['label' => 'Zapisz produkt']);
         

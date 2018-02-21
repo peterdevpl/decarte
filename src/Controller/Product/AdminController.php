@@ -284,10 +284,7 @@ class AdminController extends Controller
 
     protected function editProduct(Request $request, Product $product, string $successMessage): Response
     {
-        $form = $this->createForm(ProductForm::class, $product, [
-            'image_directory' => $this->getParameter('image.product.directory'),
-            'image_url' => $this->getParameter('image.product.url'),
-        ]);
+        $form = $this->createForm(ProductForm::class, $product);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -36,6 +36,10 @@ services:
         arguments:
             $imageUrl: '%image.collection.url%'
 
+    Decarte\Shop\Form\Product\ProductForm:
+        arguments:
+            $imageUrl: '%image.product.url%'
+
     Decarte\Shop\Service\GoogleExport:
         arguments:
             $canonicalDomain: '%env(CANONICAL_DOMAIN)%'
