@@ -24,6 +24,12 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    Decarte\Shop\Entity\Product\Event\ProductImageListener:
+        arguments:
+            - '%image.product.directory%'
+        tags:
+            - { name: doctrine.orm.entity_listener }
+
     Decarte\Shop\Form\Product\Event\ProductCollectionFormListener:
         arguments:
             - '%image.collection.directory%'
