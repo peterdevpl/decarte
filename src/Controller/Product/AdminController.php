@@ -228,22 +228,20 @@ class AdminController extends Controller
 
     /**
      * @Route(
-     *     "/admin/move/{class}/{id}/{direction}",
-     *     name="admin_move",
-     *     requirements={"class": "Product|ProductCollection", "id": "\d+", "direction": "up|down"}
+     *     "/admin/move/{id}/{direction}",
+     *     name="admin_move_collection",
+     *     requirements={"id": "\d+", "direction": "up|down"}
      * )
-     * @param Request $request
-     * @param string $class Entity class
-     * @param int $id Entity ID
-     * @param string $direction "up" or "down"
      * @return RedirectResponse
      */
-    public function moveAction(Request $request, string $class, int $id, string $direction): RedirectResponse
-    {
-        $em = $this->getDoctrine()->getManager();
-        $object = $em->getRepository('ProductBundle:' . $class);
+    public function moveCollectionAction(
+        Request $request,
+        int $id,
+        string $direction,
+        ProductCollectionRepository $collectionRepository
+    ): RedirectResponse {
         $method = 'move' . ucfirst($direction);
-        $object->$method($id);
+        $collectionRepository->$method($id);
 
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);

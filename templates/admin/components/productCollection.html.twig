@@ -26,7 +26,7 @@
                     <a
                         class="btn btn-success"
                         role="button"
-                        href="{{ path('admin_move', {'class': 'ProductCollection', 'id': productCollection.getId(), 'direction': 'up'}) }}">
+                        href="{{ path('admin_move_collection', {'id': productCollection.getId(), 'direction': 'up'}) }}">
                         Przesuń wyżej
                     </a>
                 {% endif %}
@@ -35,7 +35,7 @@
                     <a
                         class="btn btn-success"
                         role="button"
-                        href="{{ path('admin_move', {'class': 'ProductCollection', 'id': productCollection.getId(), 'direction': 'down'}) }}">
+                        href="{{ path('admin_move_collection', {'id': productCollection.getId(), 'direction': 'down'}) }}">
                         Przesuń niżej
                     </a>
                 {% endif %}
