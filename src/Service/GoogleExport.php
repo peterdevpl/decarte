@@ -23,9 +23,13 @@ class GoogleExport
         CacheManager $imagineCacheManager,
         string $canonicalDomain,
         string $productImagesDirectory,
-        string $merchantId,
-        string $googlePrivateKey
+        ?string $merchantId,
+        ?string $googlePrivateKey
     ) {
+        if (empty($merchantId) || empty($googlePrivateKey)) {
+            return;
+        }
+
         $client = new \Google_Client();
         $client->setApplicationName('decARTe');
         $client->setAuthConfig(json_decode($googlePrivateKey, true));
@@ -41,6 +45,10 @@ class GoogleExport
 
     public function exportProduct(Product $product)
     {
+        if (!$this->shoppingService) {
+            return;
+        }
+
         $exportedProduct = $this->transformProduct($product);
         $response = $this->shoppingService->products->insert($this->merchantId, $exportedProduct);
 
@@ -49,6 +57,10 @@ class GoogleExport
 
     public function exportProductsCollection($products)
     {
+        if (!$this->shoppingService) {
+            return;
+        }
+
         $client = $this->shoppingService->getClient();
         $client->setUseBatch(true);
         $batch = new \Google_Http_Batch($client);
@@ -63,6 +75,10 @@ class GoogleExport
 
     public function deleteProduct(Product $product)
     {
+        if (!$this->shoppingService) {
+            return;
+        }
+
         return $this->shoppingService->products->delete($this->merchantId, $this->buildProductId($product->getId()));
     }
 

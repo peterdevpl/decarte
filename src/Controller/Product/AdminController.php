@@ -11,6 +11,7 @@ use Decarte\Shop\Form\Product\ProductForm;
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
+use Decarte\Shop\Service\GoogleExport;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,8 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
-    protected $imagesToDelete = null;
-
     /**
      * @Route("/admin/addProductType", name="admin_add_product_type")
      * @param Request $request
@@ -256,7 +255,8 @@ class AdminController extends Controller
     public function addProductAction(
         Request $request,
         int $collectionId,
-        ProductCollectionRepository $collectionRepository
+        ProductCollectionRepository $collectionRepository,
+        GoogleExport $googleExport
     ): Response {
         $productCollection = $collectionRepository->find($collectionId);
         if (!$productCollection) {
@@ -266,24 +266,37 @@ class AdminController extends Controller
         $product = new Product();
         $product->setProductCollection($productCollection)->setIsVisible(true)->setHasDemo(true);
 
-        return $this->editProduct($request, $product, 'Produkt został dodany');
+        return $this->editProduct(
+            $request,
+            $product,
+            $googleExport,
+            'Produkt został dodany'
+        );
     }
 
     /**
      * @Route("/admin/editProduct/{productId}", name="admin_edit_product", requirements={"productId": "\d+"})
      */
-    public function editProductAction(Request $request, int $productId, ProductRepository $productRepository): Response
-    {
+    public function editProductAction(
+        Request $request,
+        int $productId,
+        ProductRepository $productRepository,
+        GoogleExport $googleExport
+    ): Response {
         $product = $productRepository->find($productId);
         if (!$product) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
-        return $this->editProduct($request, $product, 'Produkt został zapisany');
+        return $this->editProduct($request, $product, $googleExport, 'Produkt został zapisany');
     }
 
-    protected function editProduct(Request $request, Product $product, string $successMessage): Response
-    {
+    protected function editProduct(
+        Request $request,
+        Product $product,
+        GoogleExport $googleExport,
+        string $successMessage
+    ): Response {
         $form = $this->createForm(ProductForm::class, $product);
 
         $form->handleRequest($request);
@@ -308,9 +321,9 @@ class AdminController extends Controller
             $em->flush();
 
             if ($product->isVisible()) {
-                $this->get('product_google_export')->exportProduct($product);
+                $googleExport->exportProduct($product);
             } else {
-                $this->get('product_google_export')->deleteProduct($product);
+                $googleExport->deleteProduct($product);
             }
 
             $this->addFlash('notice', $successMessage);
