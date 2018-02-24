@@ -1,0 +1,30 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+    encoders:
+        Decarte\Shop\Entity\User:
+            algorithm: bcrypt
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        in_memory:
+            memory: ~
+        decarte_db_provider:
+            entity:
+                class: Decarte\Shop\Entity\User
+                property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        default:
+            anonymous: ~
+            http_basic: ~
+            logout_on_user_change: true
+            provider: decarte_db_provider
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_USER }

@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="panel panel-default product-collection">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="{{ path('admin_product_collection', {'collection': productCollection.getId()}) }}">
+                    {% if not productCollection.isVisible() %}<del>{% endif %}
+                    {{ productCollection.getName() }}
+                    {% if not productCollection.isVisible() %}</del> <small>(niewidoczne na stronie)</small>{% endif %}
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                {% spaceless %}
+                    {% if productCollection.getImageName() %}
+                        <a href="{{ path('admin_product_collection', {'collection': productCollection.getId()}) }}">
+                            <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}" width="{{ image_collection_width }}" height="{{ image_collection_height }}">
+                        </a>
+                    {% endif %}
+                {% endspaceless %}
+
+                <a class="btn btn-default" role="button" href="{{ path('admin_edit_product_collection', {'collectionId': productCollection.getId()}) }}">Edytuj kolekcję</a>
+                <a class="btn btn-default" role="button" href="{{ path('admin_add_product', {'collectionId': productCollection.getId()}) }}">Dodaj nowy produkt</a>
+
+                {% if move_up is defined and move_up %}
+                    <a
+                        class="btn btn-success"
+                        role="button"
+                        href="{{ path('admin_move_collection', {'id': productCollection.getId(), 'direction': 'up'}) }}">
+                        Przesuń wyżej
+                    </a>
+                {% endif %}
+
+                {% if move_down is defined and move_down %}
+                    <a
+                        class="btn btn-success"
+                        role="button"
+                        href="{{ path('admin_move_collection', {'id': productCollection.getId(), 'direction': 'down'}) }}">
+                        Przesuń niżej
+                    </a>
+                {% endif %}
+            </p>
+            
+            {% block collection_details %}{% endblock %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+{% extends 'layout/base-with-sidebar.html.twig' %}
+
+{% set productCollection = product.getProductCollection() %}
+{% set productType = productCollection.getProductType() %}
+{% set pageTitle = productCollection.getName()~' - model '~product.getName()~' - '~productType.getName()~' - decARTe' %}
+
+{% block title %}{{ pageTitle }}{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:image" content="{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}">
+    <meta property="og:description" content="{{ product.getDescriptionSEO() }}">
+    <meta property="description" content="{{ product.getDescriptionSEO() }}">
+    {% if previousUrl %}<link rel="prev" href="{{ previousUrl }}">{% endif %}
+    {% if nextUrl %}<link rel="next" href="{{ nextUrl }}">{% endif %}
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{{ absolute_url(path('shop_list_collections', {type: productType.getSlugName()})) }}",
+      "name": "{{ productType.getName() }}"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{{ absolute_url(path('shop_view_collection', {type: productType.getSlugName(), slugName: productCollection.getSlugName()})) }}",
+      "name": "{{ productCollection.getName() }}",
+      "image": "{{ absolute_url(asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb')) }}"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "item": {
+      "@id": "{{ absolute_url(path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()})) }}",
+      "name": "Model {{ product.getName() }}",
+      "image": "{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}"
+    }
+  }]
+}
+    </script>
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ productCollection.getName()~' - '~product.getName() }}",
+  "image": [
+    "{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full')) }}"
+   ],
+  "description": "{{ product.getDescriptionSEO() }}",
+  "brand": {
+    "@type": "Thing",
+    "name": "decARTe"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "PLN",
+    "price": "{{ (product.getPrice() / 100)|number_format(2, '.', '') }}",
+    "itemCondition": "http://schema.org/NewCondition",
+    "availability": "http://schema.org/InStock"
+  }
+}
+    </script>
+{% endblock %}
+
+{% block contents %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('shop_list_collections', {type: productType.getSlugName()}) }}">{{ productType.getName() }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('shop_view_collection', {type: productType.getSlugName(), slugName: productCollection.getSlugName()}) }}">{{ productCollection.getName() }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.getName() }}</a></li>
+    </ol>
+
+    <div class="product-actions">
+        <div class="product-siblings" role="navigation">
+            {% if previousPath %}<p><a href="{{ previousPath }}" class="prev">Poprzedni produkt</a></p>{% endif %}
+            {% if nextPath %}<p><a href="{{ nextPath }}" class="next">Następny produkt</a></p>{% endif %}
+        </div>
+
+        <form action="{{ path('cart_add_item') }}" method="post" class="add-product-to-cart">
+            <p class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
+            <div>
+                <input type="hidden" name="product_id" value="{{ product.getId() }}">
+                <input type="hidden" name="quantity" value="{{ product.getMinimumQuantity() }}">
+                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
+            </div>
+        </form>
+    </div>
+
+    <h1 class="product_name">{{ productCollection.getName() }} - model {{ product.getName() }}</h1>
+
+    <p class="short_description">{{ product.getDescriptionSEO() }}</p>
+
+    <div id="slider">
+        {% for image in product.getImages() %}
+            <img
+                src="{{ asset(image_product_url~'/'~image.getImageName()) | imagine_filter('product_full') }}"
+                width="{{ image_product_big_width }}"
+                height="{{ image_product_big_height }}"
+                alt="{{ productType.getName()~': '~productCollection.getName()~' '~product.getName()~' - zdjęcie nr '~loop.index }}">
+        {% endfor %}
+    </div>
+
+    <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
+{% endblock %}

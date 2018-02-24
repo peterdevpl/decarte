@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Decarte\Shop\Tests;
 
 class OrderTest extends AbstractOrderTest
 {
@@ -45,7 +45,7 @@ class OrderTest extends AbstractOrderTest
     }
 
     /**
-     * @expectedException \OrderBundle\Exception\QuantityTooSmallException
+     * @expectedException \Decarte\Shop\Exception\QuantityTooSmallException
      */
     public function testTooSmallQuantity()
     {

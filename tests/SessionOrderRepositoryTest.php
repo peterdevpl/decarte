@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests;
+namespace Decarte\Shop\Tests;
 
-use OrderBundle\Repository\DeliveryTypeRepository;
-use OrderBundle\Repository\RealizationTypeRepository;
-use OrderBundle\Repository\SessionOrderRepository;
-use ProductBundle\Repository\ProductRepository;
+use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
+use Decarte\Shop\Repository\Order\RealizationTypeRepository;
+use Decarte\Shop\Repository\Order\SessionOrderRepository;
+use Decarte\Shop\Repository\Product\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 

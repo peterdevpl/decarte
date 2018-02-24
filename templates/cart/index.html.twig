@@ -1,0 +1,21 @@
+{% extends 'layout/base-with-sidebar.html.twig' %}
+
+{% block title %}Koszyk - decARTe{% endblock %}
+
+{% block contents %}
+    <h1>Koszyk</h1>
+
+    {% form_theme form 'cart/fields.html.twig' %}
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.items) }}
+    {{ form_row(form.deliveryType) }}
+    {{ form_row(form.realizationType) }}
+
+    <div class="cart-total-price">
+        Razem <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }}</strong> zł
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -8,7 +8,6 @@ cache:
     - $HOME/.composer/cache/files
 
 install:
-  - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer install -o
 
 script:
