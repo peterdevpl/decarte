@@ -1,6 +1,6 @@
 <?php
 
-namespace Decarte\Shop\Service\Menu;
+namespace Decarte\Shop\Service\View\Menu;
 
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;

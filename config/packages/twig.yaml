@@ -15,7 +15,7 @@ twig:
 
         samples_count: 2
 
-        menu: '@Decarte\Shop\Service\Menu\Menu'
+        menu: '@Decarte\Shop\Service\View\Menu\Menu'
 
         cart: '@Decarte\Shop\Repository\Order\SessionOrderRepository'
 

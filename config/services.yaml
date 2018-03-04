@@ -49,7 +49,6 @@ services:
     Decarte\Shop\Service\GoogleExport:
         arguments:
             $canonicalDomain: '%env(CANONICAL_DOMAIN)%'
-            $productImagesDirectory: '%image.product.url%'
             $merchantId: '%env(GOOGLE_MERCHANT_ID)%'
             $googlePrivateKey: '%env(GOOGLE_PRIVATE_KEY)%'
 
@@ -65,6 +64,11 @@ services:
         arguments:
             $adminMail: '%env(ADMIN_MAIL)%'
             $attachmentDir: '%kernel.project_dir%/assets/doc'
+
+    Decarte\Shop\Service\Url\ProductCollectionImageUrl:
+        arguments:
+            $canonicalDomain: '%env(CANONICAL_DOMAIN)%'
+            $imagesDirectory: '%image.collection.url%'
 
     Decarte\Shop\Service\Url\ProductImageUrl:
         arguments:

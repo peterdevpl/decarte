@@ -5,7 +5,10 @@ namespace Decarte\Shop\Controller\Product;
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
+use Decarte\Shop\Service\Schema\BreadcrumbListSchema;
 use Decarte\Shop\Service\Schema\ProductSchema;
+use Decarte\Shop\Service\Url\ProductUrl;
+use Decarte\Shop\Service\View\Breadcrumb\Product\ProductBreadcrumbs;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,7 +86,10 @@ class ProductsController extends Controller
         string $slugName,
         int $id,
         ProductRepository $productRepository,
-        ProductSchema $productSchema
+        ProductUrl $productUrl,
+        ProductSchema $productSchema,
+        ProductBreadcrumbs $breadcrumbsGenerator,
+        BreadcrumbListSchema $breadcrumbsSchema
     ): Response {
         $product = $productRepository->find($id);
         if (!$product || !$product->isVisible()) {
@@ -92,28 +98,15 @@ class ProductsController extends Controller
 
         $previousProduct = $productRepository->findPrevious($product);
         $nextProduct = $productRepository->findNext($product);
-        $previousPath = null;
         $nextPath = null;
 
-        if ($previousProduct) {
-            $previousPath = $this->generateUrl('shop_view_product', [
-                'type' => $previousProduct->getProductCollection()->getProductType()->getSlugName(),
-                'slugName' => $previousProduct->getProductCollection()->getSlugName(),
-                'id' => $previousProduct->getId(),
-            ]);
-        }
-
-        if ($nextProduct) {
-            $nextPath = $this->generateUrl('shop_view_product', [
-                'type' => $nextProduct->getProductCollection()->getProductType()->getSlugName(),
-                'slugName' => $nextProduct->getProductCollection()->getSlugName(),
-                'id' => $nextProduct->getId(),
-            ]);
-        }
+        $previousPath = $previousProduct ? $productUrl->generate($previousProduct) : null;
+        $nextPath = $nextProduct ? $productUrl->generate($nextProduct) : null;
 
         return $this->render('shop/view-product.html.twig', [
             'product' => $product,
             'schema' => $productSchema->generateProductData($product),
+            'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbsGenerator->generate($product)),
             'previousPath' => $previousPath,
             'nextPath' => $nextPath,
             'previousUrl' => $previousPath ? $this->getParameter('canonical_domain') . $previousPath : null,
