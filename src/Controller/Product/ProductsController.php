@@ -5,6 +5,7 @@ namespace Decarte\Shop\Controller\Product;
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
+use Decarte\Shop\Service\Schema\ProductSchema;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,7 +82,8 @@ class ProductsController extends Controller
         string $type,
         string $slugName,
         int $id,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        ProductSchema $productSchema
     ): Response {
         $product = $productRepository->find($id);
         if (!$product || !$product->isVisible()) {
@@ -111,6 +113,7 @@ class ProductsController extends Controller
 
         return $this->render('shop/view-product.html.twig', [
             'product' => $product,
+            'schema' => $productSchema->generateProductData($product),
             'previousPath' => $previousPath,
             'nextPath' => $nextPath,
             'previousUrl' => $previousPath ? $this->getParameter('canonical_domain') . $previousPath : null,

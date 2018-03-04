@@ -65,3 +65,8 @@ services:
         arguments:
             $adminMail: '%env(ADMIN_MAIL)%'
             $attachmentDir: '%kernel.project_dir%/assets/doc'
+
+    Decarte\Shop\Service\Url\ProductImageUrl:
+        arguments:
+            $canonicalDomain: '%env(CANONICAL_DOMAIN)%'
+            $imagesDirectory: '%image.product.url%'
