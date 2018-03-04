@@ -3,7 +3,7 @@
 namespace Decarte\Shop\Service;
 
 use Decarte\Shop\Entity\Product\Product;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Decarte\Shop\Service\Url\ProductImageUrl;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
@@ -12,17 +12,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class GoogleExport
 {
     private $router;
-    private $imagineCacheManager;
+    private $imageUrlGenerator;
     private $canonicalDomain;
-    private $productImagesDirectory;
     private $merchantId;
     private $shoppingService;
 
     public function __construct(
         UrlGeneratorInterface $router,
-        CacheManager $imagineCacheManager,
+        ProductImageUrl $imageUrlGenerator,
         string $canonicalDomain,
-        string $productImagesDirectory,
         ?string $merchantId,
         ?string $googlePrivateKey
     ) {
@@ -36,9 +34,8 @@ class GoogleExport
         $client->setScopes(\Google_Service_ShoppingContent::CONTENT);
 
         $this->router = $router;
-        $this->imagineCacheManager = $imagineCacheManager;
+        $this->imageUrlGenerator = $imageUrlGenerator;
         $this->canonicalDomain = $canonicalDomain;
-        $this->productImagesDirectory = $productImagesDirectory;
         $this->merchantId = $merchantId;
         $this->shoppingService = new \Google_Service_ShoppingContent($client);
     }
@@ -132,13 +129,10 @@ class GoogleExport
 
     protected function getCanonicalImageUrl(Product $product): string
     {
-        $absoluteLink = $this->imagineCacheManager->getBrowserPath(
-            '/' . $this->productImagesDirectory . '/' . $product->getCoverImage()->getImageName(),
-            'product_full'
-        );
+        if ($product->getCoverImage()) {
+            return $this->imageUrlGenerator->getCanonicalUrl($product->getCoverImage());
+        }
 
-        $urlParts = parse_url($absoluteLink);
-
-        return $this->canonicalDomain . $urlParts['path'];
+        return '';
     }
 }
