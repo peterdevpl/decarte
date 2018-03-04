@@ -19,10 +19,11 @@
 
 {% block contents %}
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('default') }}">Strona główna</a></li>
-        <li class="breadcrumb-item"><a href="{{ path('shop_list_collections', {type: productType.getSlugName()}) }}">{{ productType.getName() }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ path('shop_view_collection', {type: productType.getSlugName(), slugName: productCollection.getSlugName()}) }}">{{ productCollection.getName() }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ product.getName() }}</a></li>
+        {% for breadcrumb in breadcrumbs.getList() %}
+            <li {% if loop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
+                <a href="{{ breadcrumb.getUrl() }}">{{ breadcrumb.getName() }}</a>
+            </li>
+        {% endfor %}
     </ol>
 
     <div class="product-actions">

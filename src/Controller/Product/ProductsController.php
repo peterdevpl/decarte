@@ -102,11 +102,13 @@ class ProductsController extends Controller
 
         $previousPath = $previousProduct ? $productUrl->generate($previousProduct) : null;
         $nextPath = $nextProduct ? $productUrl->generate($nextProduct) : null;
+        $breadcrumbs = $breadcrumbsGenerator->generate($product);
 
         return $this->render('shop/view-product.html.twig', [
             'product' => $product,
             'schema' => $productSchema->generateProductData($product),
-            'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbsGenerator->generate($product)),
+            'breadcrumbs' => $breadcrumbs,
+            'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbs),
             'previousPath' => $previousPath,
             'nextPath' => $nextPath,
             'previousUrl' => $previousPath ? $this->getParameter('canonical_domain') . $previousPath : null,
