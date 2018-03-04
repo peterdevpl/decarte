@@ -1,11 +1,11 @@
 {% extends 'layout/base-with-sidebar.html.twig' %}
 
-{% block title %}{{ productType.getName() }} - decARTe{% endblock %}
+{% block title %}{{ productType.getTitleSEO() }} - decARTe{% endblock %}
 
 {% block meta %}
     <meta property="og:title" content="{{ productType.getName() }} - decARTe">
-    <meta property="og:description" content="{{ productType.getDescription() | striptags }}">
-    <meta property="description" content="{{ productType.getDescription() | striptags }}">
+    <meta property="og:description" content="{{ productType.getDescriptionSEO() | striptags }}">
+    <meta property="description" content="{{ productType.getDescriptionSEO() | striptags }}">
     {{ breadcrumbsSchema|raw }}
 {% endblock %}
 

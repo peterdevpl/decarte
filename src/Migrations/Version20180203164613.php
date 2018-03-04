@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Decarte\Shop\DoctrineMigrations;
+namespace Decarte\Shop\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Migrations\Version;

@@ -31,8 +31,14 @@ class ProductType
      */
     protected $slugName = '';
 
+    /** @ORM\Column(type="string", name="title_seo") */
+    protected $titleSEO = '';
+
     /** @ORM\Column(type="string") */
     protected $description = '';
+
+    /** @ORM\Column(type="string", name="description_seo") */
+    protected $descriptionSEO = '';
 
     /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
     protected $deletedAt;
@@ -75,6 +81,17 @@ class ProductType
         return $this;
     }
 
+    public function getTitleSEO(): string
+    {
+        return $this->titleSEO;
+    }
+
+    public function setTitleSEO(string $title)
+    {
+        $this->titleSEO = $title;
+        return $this;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
@@ -85,7 +102,18 @@ class ProductType
         $this->description = (string) $description;
         return $this;
     }
-    
+
+    public function getDescriptionSEO(): string
+    {
+        return $this->descriptionSEO;
+    }
+
+    public function setDescriptionSEO(?string $description)
+    {
+        $this->descriptionSEO = (string) $description;
+        return $this;
+    }
+
     public function getProductCollections()
     {
         return $this->productCollections;

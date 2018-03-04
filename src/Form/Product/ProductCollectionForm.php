@@ -43,13 +43,14 @@ class ProductCollectionForm extends AbstractType
                 'label' => 'Typ',
             ])
             ->add('name', TextType::class, ['label' => 'Nazwa'])
+            ->add('title_seo', TextType::class, ['label' => 'Tytuł SEO'])
             ->add('isVisible', CheckboxType::class, [
                 'label' => 'Kolekcja widoczna na stronie',
                 'required' => false,
             ])
             ->add('minimumQuantity', NumberType::class, ['label' => 'Minimalna liczba zamawianych sztuk'])
             ->add('shortDescription', TextareaType::class, [
-                'label' => 'Opis na stronie głównej',
+                'label' => 'Opis na stronie głównej i SEO',
                 'required' => false,
                 'attr' => ['rows' => 4],
             ])

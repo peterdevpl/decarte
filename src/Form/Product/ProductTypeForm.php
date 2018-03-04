@@ -16,11 +16,15 @@ class ProductTypeForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'Nazwa'])
+            ->add('title_seo', TextType::class, ['label' => 'Tytuł SEO'])
             ->add('isVisible', CheckboxType::class, [
                 'label' => 'Typ widoczny na stronie', 'required' => false,
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Opis', 'required' => false, 'attr' => ['rows' => 4],
+            ])
+            ->add('description_seo', TextareaType::class, [
+                'label' => 'Opis SEO', 'required' => false, 'attr' => ['rows' => 4],
             ])
             ->add('save', SubmitType::class, ['label' => 'Zapisz typ produktu']);
 

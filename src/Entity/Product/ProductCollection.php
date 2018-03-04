@@ -31,6 +31,9 @@ class ProductCollection
      */
     protected $slugName = '';
 
+    /** @ORM\Column(type="string", name="title_seo") */
+    protected $titleSEO = '';
+
     /** @ORM\Column(type="integer", name="minimum_quantity") */
     protected $minimumQuantity = 1;
 
@@ -103,6 +106,17 @@ class ProductCollection
     public function setSlugName(string $name)
     {
         $this->slugName = $name;
+        return $this;
+    }
+
+    public function getTitleSEO(): string
+    {
+        return $this->titleSEO;
+    }
+
+    public function setTitleSEO(string $title)
+    {
+        $this->titleSEO = $title;
         return $this;
     }
 
