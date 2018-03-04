@@ -9,6 +9,8 @@ use Decarte\Shop\Service\Schema\BreadcrumbListSchema;
 use Decarte\Shop\Service\Schema\ProductSchema;
 use Decarte\Shop\Service\Url\ProductUrl;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductBreadcrumbs;
+use Decarte\Shop\Service\View\Breadcrumb\Product\ProductCollectionBreadcrumbs;
+use Decarte\Shop\Service\View\Breadcrumb\Product\ProductTypeBreadcrumbs;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +25,9 @@ class ProductsController extends Controller
     public function listCollectionsAction(
         string $type,
         ProductTypeRepository $productTypeRepository,
-        ProductCollectionRepository $productCollectionRepository
+        ProductCollectionRepository $productCollectionRepository,
+        ProductTypeBreadcrumbs $breadcrumbsGenerator,
+        BreadcrumbListSchema $breadcrumbsSchema
     ): Response {
         $productType = $productTypeRepository->findBySlugName($type);
         if (!$productType) {
@@ -35,9 +39,13 @@ class ProductsController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
         }
 
+        $breadcrumbs = $breadcrumbsGenerator->generate($productType);
+
         return $this->render('shop/list-collections.html.twig', [
             'productType' => $productType,
             'productCollections' => $productCollections,
+            'breadcrumbs' => $breadcrumbs,
+            'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbs),
         ]);
     }
 
@@ -54,7 +62,9 @@ class ProductsController extends Controller
     public function viewCollectionAction(
         string $type,
         string $slugName,
-        ProductCollectionRepository $productCollectionRepository
+        ProductCollectionRepository $productCollectionRepository,
+        ProductCollectionBreadcrumbs $breadcrumbsGenerator,
+        BreadcrumbListSchema $breadcrumbsSchema
     ): Response {
         $productCollection = $productCollectionRepository->findBySlugName($type, $slugName);
         if (!$productCollection) {
@@ -63,10 +73,13 @@ class ProductsController extends Controller
 
         $productType = $productCollection->getProductType();
         $allCollections = $productCollectionRepository->getProductCollections($productType->getId());
+        $breadcrumbs = $breadcrumbsGenerator->generate($productCollection);
 
         return $this->render('shop/view-collection.html.twig', [
             'productCollection' => $productCollection,
             'allCollections' => $allCollections,
+            'breadcrumbs' => $breadcrumbs,
+            'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbs),
         ]);
     }
 
