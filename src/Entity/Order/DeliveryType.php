@@ -2,7 +2,6 @@
 
 namespace Decarte\Shop\Entity\Order;
 
-use Decarte\Shop\Entity\SortableTrait;
 use Decarte\Shop\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DeliveryType
 {
-    use SortableTrait;
     use VisibilityTrait;
 
     /**
@@ -32,6 +30,9 @@ class DeliveryType
 
     /** @ORM\Column(type="boolean", name="is_personal") */
     protected $isPersonal = false;
+
+    /** @ORM\Column(type="integer") */
+    protected $sort = 0;
 
     public function getId(): int
     {

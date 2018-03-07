@@ -2,7 +2,6 @@
 
 namespace Decarte\Shop\Entity\Product;
 
-use Decarte\Shop\Entity\SortableTrait;
 use Decarte\Shop\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,13 +9,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="\Decarte\Shop\Repository\Product\ProductCollectionRepository")
- * @ORM\EntityListeners({"\Decarte\Shop\Entity\SortListener"})
  * @ORM\Table(name="decarte_product_collections")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class ProductCollection
 {
-    use SortableTrait;
     use VisibilityTrait;
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
@@ -50,6 +47,13 @@ class ProductCollection
     protected $deletedAt;
 
     /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(type="integer")
+     */
+    protected $sort = 0;
+
+    /**
+     * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="productCollections")
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id")
      */
@@ -162,6 +166,16 @@ class ProductCollection
     {
         $this->imageName = $image;
         return $this;
+    }
+
+    public function getSort(): int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $value)
+    {
+        $this->sort = $value;
     }
 
     public function isVisible(): bool

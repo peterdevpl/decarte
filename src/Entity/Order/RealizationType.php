@@ -2,7 +2,6 @@
 
 namespace Decarte\Shop\Entity\Order;
 
-use Decarte\Shop\Entity\SortableTrait;
 use Decarte\Shop\Entity\VisibilityTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RealizationType
 {
-    use SortableTrait;
     use VisibilityTrait;
 
     /**
@@ -29,6 +27,9 @@ class RealizationType
 
     /** @ORM\Column(type="integer") */
     protected $price = 0;
+
+    /** @ORM\Column(type="integer") */
+    protected $sort = 0;
 
     public function getId(): int
     {
