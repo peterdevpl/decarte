@@ -13,6 +13,7 @@ use Decarte\Shop\Service\View\Breadcrumb\Product\ProductCollectionBreadcrumbs;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductTypeBreadcrumbs;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductsController extends Controller
@@ -23,12 +24,20 @@ class ProductsController extends Controller
      * @return Response
      */
     public function listCollectionsAction(
+        Request $request,
         string $type,
         ProductTypeRepository $productTypeRepository,
         ProductCollectionRepository $productCollectionRepository,
+        ProductRepository $productRepository,
         ProductTypeBreadcrumbs $breadcrumbsGenerator,
-        BreadcrumbListSchema $breadcrumbsSchema
+        BreadcrumbListSchema $breadcrumbsSchema,
+        ProductUrl $productUrl
     ): Response {
+        if ($request->query->has('z')) {
+            $product = $productRepository->find($request->query->get('z'));
+            return $this->redirect($productUrl->generate($product), 301);
+        }
+
         $productType = $productTypeRepository->findBySlugName($type);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono produktów tego typu');
@@ -95,6 +104,7 @@ class ProductsController extends Controller
      * @return Response
      */
     public function viewProductAction(
+        Request $request,
         string $type,
         string $slugName,
         int $id,
@@ -104,6 +114,11 @@ class ProductsController extends Controller
         ProductBreadcrumbs $breadcrumbsGenerator,
         BreadcrumbListSchema $breadcrumbsSchema
     ): Response {
+        if ($request->query->has('z')) {
+            $product = $productRepository->find($request->query->get('z'));
+            return $this->redirect($productUrl->generate($product), 301);
+        }
+
         $product = $productRepository->find($id);
         if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
