@@ -35,6 +35,9 @@ class ProductsController extends Controller
     ): Response {
         if ($request->query->has('z')) {
             $product = $productRepository->find($request->query->get('z'));
+            if (!$product) {
+                throw $this->createNotFoundException('Nie znaleziono produktu');
+            }
             return $this->redirect($productUrl->generate($product), 301);
         }
 
@@ -116,6 +119,9 @@ class ProductsController extends Controller
     ): Response {
         if ($request->query->has('z')) {
             $product = $productRepository->find($request->query->get('z'));
+            if (!$product) {
+                throw $this->createNotFoundException('Nie znaleziono produktu');
+            }
             return $this->redirect($productUrl->generate($product), 301);
         }
 
