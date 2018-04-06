@@ -46,9 +46,10 @@ class OrderMailer
     public function sendEmailToCustomer(Order $order)
     {
         $productTypes = $order->getProductTypes();
+        $express = ($order->getRealizationType()->getPrice() > 0 ? ' - tryb ekspresowy' : '');
 
         $message = (new \Swift_Message())
-            ->setSubject('Potwierdzenie przyjęcia zamówienia')
+            ->setSubject('Potwierdzenie przyjęcia zamówienia' . $express)
             ->setTo($order->getEmail())
             ->setFrom([$this->adminMail => 'Sklep ślubny decARTe.com.pl'])
             ->setReplyTo($this->adminMail)
