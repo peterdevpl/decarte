@@ -6,11 +6,14 @@
             height="{{ image_product_small_height }}"><br>
         {{ item.getProduct().getProductCollection().getName() }} - {{ item.getProduct().getName() }}<br>
         cena za sztukę: {{ (item.getUnitPrice() / 100)|number_format(2, ',', ' ') }} PLN<br>
-        liczba sztuk: {{ item.getQuantity() }}</p>
+        liczba sztuk: {{ item.getQuantity() }}<br>
+        razem: {{ (item.getTotalPrice / 100)|number_format(2, ',', ' ') }} PLN</p>
 {% endfor %}
 
-<p>Sposób dostawy/płatności: {{ order.getDeliveryType().getName() }}
-<br>Suma: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} PLN</strong></p>
+<p>Sposób dostawy/płatności: {{ order.getDeliveryType() }}<br>
+Tryb realizacji: {{ order.getRealizationType() }}</p>
+
+<p>Suma: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} PLN</strong></p>
 
 <p>Nazwisko: {{ order.getName() }}
 <br>Ulica: {{ order.getStreet() }}
