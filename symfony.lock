@@ -134,6 +134,9 @@
     "myclabs/deep-copy": {
         "version": "1.7.0"
     },
+    "nikic/php-parser": {
+        "version": "v4.0.1"
+    },
     "ocramius/proxy-manager": {
         "version": "2.2.0"
     },
