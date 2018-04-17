@@ -26,10 +26,8 @@ class OrderMailer
 
     public function sendEmailToShop(Order $order)
     {
-        $express = ($order->getRealizationType()->getPrice() > 0 ? ' - EKSPRES!' : '');
-
         $message = (new \Swift_Message())
-            ->setSubject('ZAMÓWIENIE WWW' . $express)
+            ->setSubject('ZAMÓWIENIE WWW' . $order->getRealizationType()->getShopEmailSuffix())
             ->setTo($this->adminMail)
             ->setFrom([$this->adminMail => $order->getName()])
             ->setReplyTo($order->getEmail())
@@ -46,10 +44,9 @@ class OrderMailer
     public function sendEmailToCustomer(Order $order)
     {
         $productTypes = $order->getProductTypes();
-        $express = ($order->getRealizationType()->getPrice() > 0 ? 'TRYB EKSPRESOWY - ' : '');
 
         $message = (new \Swift_Message())
-            ->setSubject($express . 'Potwierdzenie przyjęcia zamówienia')
+            ->setSubject($order->getRealizationType()->getCustomerEmailPrefix() . 'Potwierdzenie przyjęcia zamówienia')
             ->setTo($order->getEmail())
             ->setFrom([$this->adminMail => 'Sklep ślubny decARTe.com.pl'])
             ->setReplyTo($this->adminMail)

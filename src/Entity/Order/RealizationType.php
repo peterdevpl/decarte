@@ -28,6 +28,12 @@ class RealizationType
     /** @ORM\Column(type="integer") */
     protected $price = 0;
 
+    /** @ORM\Column(type="string", name="shop_email_suffix") */
+    protected $shopEmailSuffix = '';
+
+    /** @ORM\Column(type="string", name="customer_email_prefix") */
+    protected $customerEmailPrefix = '';
+
     /** @ORM\Column(type="integer") */
     protected $sort = 0;
 
@@ -64,6 +70,16 @@ class RealizationType
         return $this->days;
     }
 
+    public function getShopEmailSuffix(): string
+    {
+        return $this->shopEmailSuffix;
+    }
+
+    public function getCustomerEmailPrefix(): string
+    {
+        return $this->customerEmailPrefix;
+    }
+
     public function getPrice(): int
     {
         return $this->price;
@@ -77,7 +93,8 @@ class RealizationType
 
     public function __toString()
     {
-        $description = $this->getName() . ' - ' . $this->days . ' dni roboczych';
+        $description = $this->getName() . ' - ' . $this->days .
+            ($this->days > 4 ? ' dni roboczych' : ' dni robocze');
         if ($this->getPrice() > 0) {
             $description .= ' (+' . ($this->getPrice() / 100) . ' PLN)';
         }
