@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "32cb2f43e8132f320b79dbcc9f862ca1",
+    "content-hash": "83885619cf20bf7cd83f2ba6c821df67",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1693,16 +1693,16 @@
         },
         {
             "name": "liip/imagine-bundle",
-            "version": "2.0.x-dev",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "7700c5a82ff900189d00bedbc3d5bde9efbb4990"
+                "reference": "66959e113d1976d0b23a2617771c2c65d62ea44b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/7700c5a82ff900189d00bedbc3d5bde9efbb4990",
-                "reference": "7700c5a82ff900189d00bedbc3d5bde9efbb4990",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/66959e113d1976d0b23a2617771c2c65d62ea44b",
+                "reference": "66959e113d1976d0b23a2617771c2c65d62ea44b",
                 "shasum": ""
             },
             "require": {
@@ -1789,7 +1789,7 @@
                 "symfony",
                 "transformation"
             ],
-            "time": "2018-03-21T08:53:31+00:00"
+            "time": "2018-04-30T09:53:17+00:00"
         },
         {
             "name": "moneyphp/money",
@@ -5351,9 +5351,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "liip/imagine-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

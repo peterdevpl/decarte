@@ -23,7 +23,7 @@
         "sentry/sentry-symfony": "^2.0.1",
         "stof/doctrine-extensions-bundle": "^1.2",
         "doctrine/doctrine-migrations-bundle": "^1.3",
-        "liip/imagine-bundle": "^2.0@dev",
+        "liip/imagine-bundle": "^2.0",
         "openpayu/openpayu": "^2.2",
         "google/apiclient": "^2.2",
         "moneyphp/money": "^3.1",
