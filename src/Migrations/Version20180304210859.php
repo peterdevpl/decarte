@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Decarte\Shop\Migrations;
 
@@ -12,7 +14,7 @@ class Version20180304210859 extends AbstractMigration
     {
         parent::__construct($version);
         $this->abortIf(
-            $this->connection->getDatabasePlatform()->getName() !== 'mysql',
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
         );
     }

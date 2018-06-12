@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Order\Samples;
 
 use Decarte\Shop\Entity\Product\Product;
@@ -16,6 +18,7 @@ class OrderItem
     public function setProduct(Product $product)
     {
         $this->product = $product;
+
         return $this;
     }
 }

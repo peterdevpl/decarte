@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Repository;
 
 use Doctrine\Common\Collections\Criteria;
@@ -70,7 +72,9 @@ trait SortableRepositoryTrait
 
     /**
      * Fetches next sorting number for an entity.
+     *
      * @param $object
+     *
      * @return int
      */
     public function fetchSortNumber($object)
@@ -92,6 +96,7 @@ trait SortableRepositoryTrait
         }
 
         $query = $queryBuilder->getQuery();
+
         return (int) $query->getResult()[0][1];
     }
 }

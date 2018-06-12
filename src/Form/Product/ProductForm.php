@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Form\Product;
 
 use Decarte\Shop\Entity\Product\Product;
@@ -31,7 +33,7 @@ class ProductForm extends AbstractType
     {
         $resolver->setDefaults(['data_class' => Product::class]);
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -72,7 +74,7 @@ class ProductForm extends AbstractType
             ->addEventSubscriber($this->listener);
 
         $builder->add('save', SubmitType::class, ['label' => 'Zapisz produkt']);
-        
+
         if ($builder->getData()->getId()) {
             $builder->add('delete', SubmitType::class, [
                 'label' => 'Usuń produkt',

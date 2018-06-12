@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Repository\Order;
 
 use Decarte\Shop\Entity\Order\RealizationType;
@@ -27,6 +29,7 @@ class RealizationTypeRepository extends ServiceEntityRepository
         }
 
         $query = $queryBuilder->getQuery();
+
         return $query->getResult();
     }
 

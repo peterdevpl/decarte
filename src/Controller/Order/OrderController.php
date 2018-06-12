@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller\Order;
 
 use Decarte\Shop\Form\Order\ShippingDetailsType;
@@ -15,7 +17,9 @@ class OrderController extends Controller
 {
     /**
      * @Route("/zloz-zamowienie/dane-wysylki", name="order_shipping_details")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function shippingDetailsAction(Request $request, SessionOrderRepository $orderRepository): Response
@@ -38,6 +42,7 @@ class OrderController extends Controller
 
     /**
      * @Route("/podsumowanie-zamowienia", name="order_summary")
+     *
      * @return Response
      */
     public function summaryAction(SessionOrderRepository $orderRepository): Response
@@ -49,7 +54,9 @@ class OrderController extends Controller
 
     /**
      * @Route("/zapisz-zamowienie", name="order_save")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function saveAction(
@@ -70,7 +77,7 @@ class OrderController extends Controller
 
         $orderRepository->clear();
 
-        if ($order->getDeliveryType()->getShortName() === 'PayU') {
+        if ('PayU' === $order->getDeliveryType()->getShortName()) {
             return $payu->createOrder($request, $order);
         }
 
@@ -79,6 +86,7 @@ class OrderController extends Controller
 
     /**
      * @Route("/potwierdzenie-zamowienia", name="order_confirmation")
+     *
      * @return Response
      */
     public function confirmationAction(): Response
@@ -88,7 +96,9 @@ class OrderController extends Controller
 
     /**
      * @Route("/payu", name="payu_notification")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function payuNotificationAction(Request $request, PayU $payu): Response

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Service\View\Breadcrumb\Product;
 
 use Decarte\Shop\Entity\Product\ProductCollection;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\VisibilityTrait;
@@ -42,6 +44,7 @@ class DeliveryType
     public function setId(int $id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -53,6 +56,7 @@ class DeliveryType
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -64,6 +68,7 @@ class DeliveryType
     public function setShortName(string $name)
     {
         $this->shortName = $name;
+
         return $this;
     }
 
@@ -75,6 +80,7 @@ class DeliveryType
     public function setPrice(int $price)
     {
         $this->price = $price;
+
         return $this->price;
     }
 
@@ -86,6 +92,7 @@ class DeliveryType
     public function setIsPersonal(bool $flag)
     {
         $this->isPersonal = $flag;
+
         return $this;
     }
 

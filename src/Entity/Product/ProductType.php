@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Product;
 
 use Decarte\Shop\Entity\VisibilityTrait;
@@ -18,7 +20,7 @@ class ProductType
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
-    
+
     /** @ORM\Column(type="string") */
     protected $name = '';
 
@@ -48,10 +50,10 @@ class ProductType
 
     /**
      * @ORM\OneToMany(targetEntity="ProductCollection", mappedBy="productType", cascade={"remove"})
-     * @ORM\OrderBy({"sort" = "ASC"})
+     * @ORM\OrderBy({"sort": "ASC"})
      */
     protected $productCollections = null;
-    
+
     public function __construct()
     {
         $this->productCollections = new ArrayCollection();
@@ -61,15 +63,16 @@ class ProductType
     {
         return $this->id;
     }
-    
+
     public function getName(): string
     {
         return $this->name;
     }
-    
+
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -81,6 +84,7 @@ class ProductType
     public function setSlugName(string $name)
     {
         $this->slugName = $name;
+
         return $this;
     }
 
@@ -92,6 +96,7 @@ class ProductType
     public function setTitleSEO(string $title)
     {
         $this->titleSEO = $title;
+
         return $this;
     }
 
@@ -103,6 +108,7 @@ class ProductType
     public function setDescription(?string $description)
     {
         $this->description = (string) $description;
+
         return $this;
     }
 
@@ -114,6 +120,7 @@ class ProductType
     public function setDescriptionSEO(?string $description)
     {
         $this->descriptionSEO = (string) $description;
+
         return $this;
     }
 

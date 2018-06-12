@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller\Product;
 
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
@@ -20,7 +22,9 @@ class ProductsController extends Controller
 {
     /**
      * @Route("/sklep/{type}", name="shop_list_collections", requirements={"type": "[0-9a-z\-]+"})
+     *
      * @param string $type
+     *
      * @return Response
      */
     public function listCollectionsAction(
@@ -38,6 +42,7 @@ class ProductsController extends Controller
             if (!$product) {
                 throw $this->createNotFoundException('Nie znaleziono produktu');
             }
+
             return $this->redirect($productUrl->generate($product), 301);
         }
 
@@ -67,8 +72,10 @@ class ProductsController extends Controller
      *     name="shop_view_collection",
      *     requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"}
      * )
+     *
      * @param string $type
      * @param string $slugName
+     *
      * @return Response
      */
     public function viewCollectionAction(
@@ -101,9 +108,11 @@ class ProductsController extends Controller
      *     name="shop_view_product",
      *     requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+", "id": "\d+"}
      * )
-     * @param string $type Used only for SEO.
-     * @param string $slugName Used only for SEO.
-     * @param int $id
+     *
+     * @param string $type     used only for SEO
+     * @param string $slugName used only for SEO
+     * @param int    $id
+     *
      * @return Response
      */
     public function viewProductAction(
@@ -122,6 +131,7 @@ class ProductsController extends Controller
             if (!$product) {
                 throw $this->createNotFoundException('Nie znaleziono produktu');
             }
+
             return $this->redirect($productUrl->generate($product), 301);
         }
 

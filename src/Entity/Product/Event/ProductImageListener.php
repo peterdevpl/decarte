@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Product\Event;
 
 use Decarte\Shop\Entity\Product\ProductImage;

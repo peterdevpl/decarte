@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller\Product;
 
 use Decarte\Shop\Entity\Product\ProductCollection;
@@ -22,6 +24,7 @@ class AdminController extends Controller
 {
     /**
      * @Route("/admin/addProductType", name="admin_add_product_type")
+     *
      * @param Request $request
      */
     public function addProductTypeAction(Request $request): Response
@@ -34,8 +37,9 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/editProductType/{typeId}", name="admin_edit_product_type", requirements={"typeId": "\d+"})
+     *
      * @param Request $request
-     * @param int $typeId
+     * @param int     $typeId
      */
     public function editProductTypeAction(
         Request $request,
@@ -232,6 +236,7 @@ class AdminController extends Controller
      *     name="admin_move_collection",
      *     requirements={"id": "\d+", "direction": "up|down"}
      * )
+     *
      * @return RedirectResponse
      */
     public function moveCollectionAction(
@@ -244,6 +249,7 @@ class AdminController extends Controller
         $collectionRepository->$method($id);
 
         $referer = $request->headers->get('referer');
+
         return $this->redirect($referer);
     }
 
@@ -337,7 +343,9 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/setProductPosition", name="admin_set_product_position")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function setProductPositionAction(Request $request, ProductRepository $productRepository): Response

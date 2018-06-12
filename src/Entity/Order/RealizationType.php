@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\VisibilityTrait;
@@ -45,6 +47,7 @@ class RealizationType
     public function setId(int $id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -56,6 +59,7 @@ class RealizationType
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -67,6 +71,7 @@ class RealizationType
     public function setDays(int $days)
     {
         $this->days = $days;
+
         return $this->days;
     }
 
@@ -88,6 +93,7 @@ class RealizationType
     public function setPrice(int $price)
     {
         $this->price = $price;
+
         return $this->price;
     }
 

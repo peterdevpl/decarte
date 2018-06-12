@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Service\Schema;
 
 use Decarte\Shop\Service\View\Breadcrumb\BreadcrumbList;

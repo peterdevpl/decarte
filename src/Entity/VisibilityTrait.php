@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +19,7 @@ trait VisibilityTrait
     public function setIsVisible(bool $flag)
     {
         $this->isVisible = $flag;
+
         return $this;
     }
 }

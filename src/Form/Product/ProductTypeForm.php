@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Form\Product;
 
-use Decarte\Shop\Form\Product\Event\ProductTypeFormListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

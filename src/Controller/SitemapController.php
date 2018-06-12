@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Decarte\Shop\Controller;
 
@@ -12,6 +14,7 @@ class SitemapController extends Controller
 {
     /**
      * @Route("/sitemap.xml", name="sitemap")
+     *
      * @return Response
      */
     public function indexAction(ProductRepository $productsRepository, ProductUrl $productUrl): Response
@@ -25,7 +28,7 @@ class SitemapController extends Controller
             $date = $product->getUpdatedAt() ?? $product->getCreatedAt();
             $dateFormatted = $date->format('Y-m-d');
             $xml .= "<url><loc>{$url}</loc><lastmod>{$dateFormatted}</lastmod>" .
-                "<changefreq>daily</changefreq><priority>0.8</priority></url>";
+                '<changefreq>daily</changefreq><priority>0.8</priority></url>';
         }
 
         $xml .= '</urlset>';

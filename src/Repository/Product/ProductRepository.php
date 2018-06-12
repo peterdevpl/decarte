@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Repository\Product;
 
 use Decarte\Shop\Entity\Product\Product;
@@ -38,6 +40,7 @@ class ProductRepository extends ServiceEntityRepository
         }
 
         $query = $queryBuilder->getQuery();
+
         return $query->getResult();
     }
 
@@ -55,6 +58,7 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter(':visible', true);
 
         $query = $queryBuilder->getQuery();
+
         return $query->getResult();
     }
 

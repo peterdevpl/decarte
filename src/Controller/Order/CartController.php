@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller\Order;
 
 use Decarte\Shop\Entity\Order\Order;
@@ -18,7 +20,9 @@ class CartController extends Controller
 {
     /**
      * @Route("/koszyk", name="cart_index")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(
@@ -78,7 +82,9 @@ class CartController extends Controller
 
     /**
      * @Route("/koszyk/dodaj", name="cart_add_item")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function addItemAction(
@@ -116,7 +122,9 @@ class CartController extends Controller
 
     /**
      * @Route("/koszyk/usun/{productId}", name="cart_delete_item", requirements={"productId": "\d+"})
+     *
      * @param int $productId
+     *
      * @return Response
      */
     public function deleteItemAction(

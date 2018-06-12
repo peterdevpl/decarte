@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Order\Samples;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,12 +35,14 @@ class Order
     public function addItem(OrderItem $item)
     {
         $this->items->add($item);
+
         return $this;
     }
 
     public function removeItem(OrderItem $item)
     {
         $this->items->removeElement($item);
+
         return $this;
     }
 
@@ -50,6 +54,7 @@ class Order
     public function setNotes($notes)
     {
         $this->notes = $notes ?? '';
+
         return $this;
     }
 
@@ -61,6 +66,7 @@ class Order
     public function setEmail(string $email)
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -72,6 +78,7 @@ class Order
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -83,6 +90,7 @@ class Order
     public function setAddress(string $address)
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -94,6 +102,7 @@ class Order
     public function setPostalCode(string $code)
     {
         $this->postalCode = $code;
+
         return $this;
     }
 
@@ -105,6 +114,7 @@ class Order
     public function setCity(string $city)
     {
         $this->city = $city;
+
         return $this;
     }
 }

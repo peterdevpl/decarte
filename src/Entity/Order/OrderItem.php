@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\Product\Product;
@@ -7,7 +9,7 @@ use Decarte\Shop\Exception\QuantityTooSmallException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="decarte_orders_items")
  */
 class OrderItem implements \JsonSerializable
@@ -16,6 +18,7 @@ class OrderItem implements \JsonSerializable
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Order", inversedBy="items")
      * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     *
      * @var Order
      */
     private $order;
@@ -24,18 +27,21 @@ class OrderItem implements \JsonSerializable
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="\Decarte\Shop\Entity\Product\Product", inversedBy="orderItems")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     *
      * @var Product
      */
     private $product;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     private $quantity = 0;
 
     /**
      * @ORM\Column(type="integer", name="unit_price")
+     *
      * @var int
      */
     private $unitPrice = 0;
@@ -65,12 +71,13 @@ class OrderItem implements \JsonSerializable
     {
         $minimumQuantity = $this->product->getMinimumQuantity();
         if ($quantity < $minimumQuantity) {
-            $e = new QuantityTooSmallException($this->product);
+            $e = new QuantityTooSmallException();
             $e->setContext($this->product, $quantity);
             throw $e;
         }
 
         $this->quantity = $quantity;
+
         return $this;
     }
 
@@ -82,6 +89,7 @@ class OrderItem implements \JsonSerializable
     public function setUnitPrice(int $price)
     {
         $this->unitPrice = $price;
+
         return $this;
     }
 

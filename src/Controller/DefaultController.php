@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

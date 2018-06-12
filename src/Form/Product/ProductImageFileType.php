@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Form\Product;
 
 use Decarte\Shop\Form\Type\ImageFileType;

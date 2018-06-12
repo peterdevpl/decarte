@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Product;
 
 use Decarte\Shop\Entity\VisibilityTrait;
@@ -18,10 +20,10 @@ class ProductCollection
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
-    
+
     /** @ORM\Column(type="string") */
     protected $name = '';
-    
+
     /**
      * @ORM\Column(type="string", name="slug_name")
      * @Gedmo\Slug(fields={"name"})
@@ -36,10 +38,10 @@ class ProductCollection
 
     /** @ORM\Column(type="text", name="short_description") */
     protected $shortDescription = '';
-    
+
     /** @ORM\Column(type="text") */
     protected $description = '';
-    
+
     /** @ORM\Column(type="string", name="image_name", nullable=true) */
     protected $imageName = '';
 
@@ -61,7 +63,7 @@ class ProductCollection
 
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="productCollection", cascade={"remove"})
-     * @ORM\OrderBy({"sort" = "ASC"})
+     * @ORM\OrderBy({"sort": "ASC"})
      */
     protected $products = null;
 
@@ -69,47 +71,50 @@ class ProductCollection
     {
         $this->products = new ArrayCollection();
     }
-    
+
     public function getId(): int
     {
         return $this->id;
     }
-    
+
     public function getProducts()
     {
         return $this->products;
     }
-    
+
     public function getProductType(): ProductType
     {
         return $this->productType;
     }
-    
+
     public function setProductType(ProductType $type)
     {
         $this->productType = $type;
+
         return $this;
     }
-    
+
     public function getName(): string
     {
         return $this->name;
     }
-    
+
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
-    
+
     public function getSlugName(): string
     {
         return $this->slugName;
     }
-    
+
     public function setSlugName(string $name)
     {
         $this->slugName = $name;
+
         return $this;
     }
 
@@ -121,6 +126,7 @@ class ProductCollection
     public function setTitleSEO(string $title)
     {
         $this->titleSEO = $title;
+
         return $this;
     }
 
@@ -132,6 +138,7 @@ class ProductCollection
     public function setMinimumQuantity(int $value)
     {
         $this->minimumQuantity = $value;
+
         return $this;
     }
 
@@ -139,10 +146,11 @@ class ProductCollection
     {
         return $this->description;
     }
-    
+
     public function setDescription($description)
     {
         $this->description = (string) $description;
+
         return $this;
     }
 
@@ -150,10 +158,11 @@ class ProductCollection
     {
         return $this->shortDescription;
     }
-    
+
     public function setShortDescription($description)
     {
         $this->shortDescription = (string) $description;
+
         return $this;
     }
 
@@ -161,10 +170,11 @@ class ProductCollection
     {
         return $this->imageName;
     }
-    
+
     public function setImageName($image)
     {
         $this->imageName = $image;
+
         return $this;
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller;
 
 use Decarte\Shop\Repository\PageRepository;
@@ -11,6 +13,7 @@ class StaticPagesController extends Controller
 {
     /**
      * @Route("/informacje/{slugName}", name="static_page", requirements={"slugName": "[0-9a-z\-]+"})
+     *
      * @param string $slugName
      */
     public function showAction(string $slugName, PageRepository $pageRepository): Response

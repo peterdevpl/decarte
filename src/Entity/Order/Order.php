@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\Product\Product;
@@ -51,6 +53,7 @@ class Order implements \JsonSerializable
     /**
      * @ORM\ManyToOne(targetEntity="RealizationType", inversedBy="orders")
      * @ORM\JoinColumn(name="realization_type_id", referencedColumnName="id")
+     *
      * @var RealizationType
      */
     private $realizationType;
@@ -58,6 +61,7 @@ class Order implements \JsonSerializable
     /**
      * @ORM\ManyToOne(targetEntity="DeliveryType", inversedBy="orders")
      * @ORM\JoinColumn(name="delivery_type_id", referencedColumnName="id")
+     *
      * @var DeliveryType
      */
     private $deliveryType;
@@ -70,6 +74,7 @@ class Order implements \JsonSerializable
 
     /**
      * @ORM\Column(type="datetime", name="created_at")
+     *
      * @var \DateTime
      */
     private $createdAt;
@@ -98,6 +103,7 @@ class Order implements \JsonSerializable
     {
         $this->realizationType = $type;
         $this->calculateTotalPrice();
+
         return $this;
     }
 
@@ -110,6 +116,7 @@ class Order implements \JsonSerializable
     {
         $this->deliveryType = $type;
         $this->calculateTotalPrice();
+
         return $this;
     }
 
@@ -119,6 +126,7 @@ class Order implements \JsonSerializable
         foreach ($this->items as $item) {
             $sum += $item->getTotalPrice();
         }
+
         return $sum;
     }
 
@@ -130,6 +138,7 @@ class Order implements \JsonSerializable
     public function setTotalPrice(int $price)
     {
         $this->totalPrice = $price;
+
         return $this;
     }
 
@@ -154,6 +163,7 @@ class Order implements \JsonSerializable
     public function setNotes($notes)
     {
         $this->notes = (string) $notes;
+
         return $this;
     }
 
@@ -165,6 +175,7 @@ class Order implements \JsonSerializable
     public function setEmail(string $email)
     {
         $this->email = mb_strtolower(trim($email), 'UTF-8');
+
         return $this;
     }
 
@@ -176,6 +187,7 @@ class Order implements \JsonSerializable
     public function setName(string $name)
     {
         $this->name = trim($name);
+
         return $this;
     }
 
@@ -187,6 +199,7 @@ class Order implements \JsonSerializable
     public function setStreet(string $street)
     {
         $this->street = trim($street);
+
         return $this;
     }
 
@@ -198,6 +211,7 @@ class Order implements \JsonSerializable
     public function setPostalCode(string $code)
     {
         $this->postalCode = $code;
+
         return $this;
     }
 
@@ -209,6 +223,7 @@ class Order implements \JsonSerializable
     public function setCity(string $city)
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -220,6 +235,7 @@ class Order implements \JsonSerializable
     public function setPhone(string $phone)
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -231,6 +247,7 @@ class Order implements \JsonSerializable
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -273,6 +290,7 @@ class Order implements \JsonSerializable
 
     /**
      * @param Product $product
+     *
      * @return OrderItem
      */
     public function getItem(Product $product): OrderItem
@@ -288,6 +306,7 @@ class Order implements \JsonSerializable
 
     /**
      * @param int $productId
+     *
      * @return OrderItem
      */
     public function getItemById(int $productId): OrderItem

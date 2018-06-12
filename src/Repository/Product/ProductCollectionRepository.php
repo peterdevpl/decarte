@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Repository\Product;
 
 use Decarte\Shop\Entity\Product\ProductCollection;
@@ -29,6 +31,7 @@ class ProductCollectionRepository extends ServiceEntityRepository
         }
 
         $query = $queryBuilder->getQuery();
+
         return $query->getResult();
     }
 

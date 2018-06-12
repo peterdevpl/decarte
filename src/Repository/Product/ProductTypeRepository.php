@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Repository\Product;
 
 use Decarte\Shop\Entity\Product\ProductType;
@@ -23,10 +25,10 @@ class ProductTypeRepository extends ServiceEntityRepository
         if ($onlyVisible) {
             $queryBuilder->where('pt.isVisible = :visible')->setParameter('visible', true);
         }
-        
+
         $queryBuilder->orderBy('pt.id', 'ASC');
         $query = $queryBuilder->getQuery();
-        
+
         return $query->getResult();
     }
 

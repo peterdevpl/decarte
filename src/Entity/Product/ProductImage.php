@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -28,7 +30,7 @@ class ProductImage
      * @ORM\Column(type="string", name="image_name")
      */
     protected $imageName;
-    
+
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -37,6 +39,7 @@ class ProductImage
     public function setProduct(?Product $product)
     {
         $this->product = $product;
+
         return $this;
     }
 
@@ -44,10 +47,11 @@ class ProductImage
     {
         return $this->sort;
     }
-    
+
     public function setSort(int $sort)
     {
         $this->sort = $sort;
+
         return $this;
     }
 
@@ -55,10 +59,11 @@ class ProductImage
     {
         return $this->imageName;
     }
-    
+
     public function setImageName($name)
     {
         $this->imageName = $name;
+
         return $this;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Service\View\Menu;
 
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;

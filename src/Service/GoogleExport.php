@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Service;
 
 use Decarte\Shop\Entity\Product\Product;
@@ -123,7 +125,7 @@ class GoogleExport
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
         return new \Google_Service_ShoppingContent_Price([
-            'currency' => $money->getCurrency()->getCode(), 'value' => $formatter->format($money)
+            'currency' => $money->getCurrency()->getCode(), 'value' => $formatter->format($money),
         ]);
     }
 

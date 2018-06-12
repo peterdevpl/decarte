@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Service\Url;
 
 use Decarte\Shop\Entity\Product\ProductImage;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Controller\Order;
 
 use Decarte\Shop\Entity\Order\Samples\Order;
@@ -16,7 +18,9 @@ class SamplesOrderController extends Controller
 {
     /**
      * @Route("/zamow-probki", name="shop_order_samples")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function orderSamplesAction(
@@ -25,7 +29,7 @@ class SamplesOrderController extends Controller
         ProductRepository $productRepository
     ): Response {
         $order = new Order();
-        for ($n = 0; $n < $this->getParameter('samples_count'); $n++) {
+        for ($n = 0; $n < $this->getParameter('samples_count'); ++$n) {
             $order->addItem(new OrderItem());
         }
 
@@ -51,6 +55,7 @@ class SamplesOrderController extends Controller
 
     /**
      * @Route("/zamow-probki/potwierdzenie", name="shop_order_samples_confirmation")
+     *
      * @return Response
      */
     public function orderSamplesConfirmationAction(): Response

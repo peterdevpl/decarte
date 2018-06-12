@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Decarte\Shop\Entity\Product;
 
 use Decarte\Shop\Entity\VisibilityTrait;
@@ -18,16 +20,16 @@ class Product
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
     protected $id = 0;
-    
+
     /** @ORM\Column(type="string") */
     protected $name = '';
-    
+
     /** @ORM\Column(type="integer") */
     protected $price = 0;
-    
+
     /** @ORM\Column(type="text") */
     protected $description = '';
-    
+
     /** @ORM\Column(type="text", name="description_seo") */
     protected $descriptionSEO = '';
 
@@ -43,7 +45,7 @@ class Product
      * @ORM\JoinColumn(name="product_collection_id", referencedColumnName="id")
      */
     protected $productCollection = null;
-    
+
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
 
@@ -65,8 +67,8 @@ class Product
     /**
      * @ORM\OneToMany(
      *     targetEntity="ProductImage", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true
- *     )
-     * @ORM\OrderBy({"sort" = "ASC"})
+     * )
+     * @ORM\OrderBy({"sort": "ASC"})
      */
     protected $images;
 
@@ -74,7 +76,7 @@ class Product
     {
         $this->images = new ArrayCollection();
     }
-    
+
     public function getId(): int
     {
         return $this->id;
@@ -83,72 +85,79 @@ class Product
     public function setId(int $id)
     {
         $this->id = $id;
+
         return $this;
     }
-    
+
     public function getName(): string
     {
         return $this->name;
     }
-    
+
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
-    
+
     public function getPrice(): int
     {
         return $this->price;
     }
-    
+
     public function setPrice($price)
     {
         $this->price = $price;
+
         return $this;
     }
-    
+
     public function getDescription(): string
     {
         return $this->description;
     }
-    
+
     public function setDescription($description)
     {
         $this->description = $description ?? '';
+
         return $this;
     }
-    
+
     public function getDescriptionSEO(): string
     {
         return $this->descriptionSEO;
     }
-    
+
     public function setDescriptionSEO($description)
     {
         $this->descriptionSEO = $description ?? '';
+
         return $this;
     }
-    
+
     public function getProductCollection(): ProductCollection
     {
         return $this->productCollection;
     }
-    
+
     public function setProductCollection(ProductCollection $collection)
     {
         $this->productCollection = $collection;
+
         return $this;
     }
-    
+
     public function hasDemo(): bool
     {
         return $this->hasDemo;
     }
-    
+
     public function setHasDemo(bool $flag)
     {
         $this->hasDemo = $flag;
+
         return $this;
     }
 
@@ -189,6 +198,7 @@ class Product
     {
         $image->setProduct($this);
         $this->images->add($image);
+
         return $this;
     }
 
@@ -196,6 +206,7 @@ class Product
     {
         $this->images->removeElement($image);
         $image->setProduct(null);
+
         return $this;
     }
 
