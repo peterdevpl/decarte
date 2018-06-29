@@ -16,8 +16,10 @@ Tryb realizacji: {{ order.getRealizationType() }}</p>
 <p>Suma: <strong>{{ (order.getTotalPrice() / 100)|number_format(2, ',', ' ') }} PLN</strong></p>
 
 <p>Nazwisko: {{ order.getName() }}
+{% if order.hasShippingAddress() %}
 <br>Ulica: {{ order.getStreet() }}
 <br>Miasto: {{ order.getPostalCode()~' '~order.getCity() }}
+{% endif %}
 <br>Telefon: {{ order.getPhone() }}
 <br>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a></p>
 

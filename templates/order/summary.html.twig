@@ -20,6 +20,7 @@
                     <th>Imię i nazwisko:</th>
                     <td>{{ order.getName() }}</td>
                 </tr>
+                {% if order.hasShippingAddress() %}
                 <tr>
                     <th>Ulica:</th>
                     <td>{{ order.getStreet() }}</td>
@@ -32,6 +33,7 @@
                     <th>Miasto:</th>
                     <td>{{ order.getCity() }}</td>
                 </tr>
+                {% endif %}
                 <tr>
                     <th>E-mail:</th>
                     <td>{{ order.getEmail() }}</td>

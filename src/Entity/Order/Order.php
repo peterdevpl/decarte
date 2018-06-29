@@ -31,19 +31,19 @@ class Order implements \JsonSerializable
     private $name = '';
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $street = '';
+    private $street;
 
     /**
-     * @ORM\Column(type="string", name="postal_code")
+     * @ORM\Column(type="string", name="postal_code", nullable=true)
      */
-    private $postalCode = '';
+    private $postalCode;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $city = '';
+    private $city;
 
     /**
      * @ORM\Column(type="string")
@@ -191,36 +191,36 @@ class Order implements \JsonSerializable
         return $this;
     }
 
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    public function setStreet(string $street)
+    public function setStreet(?string $street)
     {
-        $this->street = trim($street);
+        $this->street = $street;
 
         return $this;
     }
 
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $code)
+    public function setPostalCode(?string $code)
     {
         $this->postalCode = $code;
 
         return $this;
     }
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
-    public function setCity(string $city)
+    public function setCity(?string $city)
     {
         $this->city = $city;
 
@@ -249,6 +249,11 @@ class Order implements \JsonSerializable
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function hasShippingAddress(): bool
+    {
+        return (null === $this->deliveryType) || !$this->deliveryType->isPersonal();
     }
 
     /**
