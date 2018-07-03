@@ -355,7 +355,7 @@ class AdminController extends Controller
             throw $this->createNotFoundException('Nie znaleziono produktu');
         }
 
-        $product->setSort($request->request->get('position'));
+        $product->setSort($request->request->getInt('position'));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
