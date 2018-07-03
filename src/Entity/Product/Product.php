@@ -106,7 +106,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice($price)
+    public function setPrice(int $price)
     {
         $this->price = $price;
 
@@ -118,7 +118,7 @@ class Product
         return $this->description;
     }
 
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description ?? '';
 
@@ -130,7 +130,7 @@ class Product
         return $this->descriptionSEO;
     }
 
-    public function setDescriptionSEO($description)
+    public function setDescriptionSEO(?string $description)
     {
         $this->descriptionSEO = $description ?? '';
 
