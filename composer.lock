@@ -2018,16 +2018,16 @@
         },
         {
             "name": "openpayu/openpayu",
-            "version": "2.2.9",
+            "version": "2.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PayU/openpayu_php.git",
-                "reference": "3d3e409887490b0683f6ff5250b4cf289313443e"
+                "reference": "3d79a87d182e065afd88896011cb3ded56968aed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PayU/openpayu_php/zipball/3d3e409887490b0683f6ff5250b4cf289313443e",
-                "reference": "3d3e409887490b0683f6ff5250b4cf289313443e",
+                "url": "https://api.github.com/repos/PayU/openpayu_php/zipball/3d79a87d182e065afd88896011cb3ded56968aed",
+                "reference": "3d79a87d182e065afd88896011cb3ded56968aed",
                 "shasum": ""
             },
             "require": {
@@ -2060,7 +2060,7 @@
                 }
             ],
             "description": "OpenPayU PHP Library",
-            "time": "2018-01-19T14:00:05+00:00"
+            "time": "2018-08-06T15:03:44+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
