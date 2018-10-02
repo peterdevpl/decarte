@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Decarte\Shop\Controller\Order;
 
 use Decarte\Shop\Entity\Order\Order;
+use Decarte\Shop\Exception\MixedProductsException;
 use Decarte\Shop\Exception\QuantityTooSmallException;
 use Decarte\Shop\Form\Cart\CartType;
 use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
@@ -104,6 +105,14 @@ class CartController extends Controller
 
         try {
             $order->addItem($product, $quantity, $product->getPrice());
+        } catch (MixedProductsException $e) {
+            $this->addFlash('error', 'Nie można w jednym zamówieniu umieścić produktów zwykłych i z pogotowia zaproszeniowego');
+
+            return $this->redirectToRoute('shop_view_product', [
+                'type' => $product->getProductCollection()->getProductType()->getSlugName(),
+                'slugName' => $product->getProductCollection()->getSlugName(),
+                'id' => $product->getId(),
+            ]);
         } catch (QuantityTooSmallException $e) {
             $this->addFlash('error', 'Minimalna liczba sztuk to ' .
                 $e->getProduct()->getMinimumQuantity());

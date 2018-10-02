@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\Product\Product;
+use Decarte\Shop\Exception\MixedProductsException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use function Functional\some;
 
 /**
  * @ORM\Entity(repositoryClass="\OrderBundle\Repository\OrderRepository")
@@ -264,8 +266,13 @@ class Order implements \JsonSerializable
         return $this->items;
     }
 
-    public function addItem(Product $product, int $quantity, int $unitPrice)
+    public function addItem(Product $product, int $quantity, int $unitPrice): self
     {
+        if (count($this->getItems()) > 0 &&
+            $this->hasExclusiveItems() !== $product->getProductCollection()->isExclusive()) {
+            throw new MixedProductsException();
+        }
+
         $item = $this->getItem($product);
         $item
             ->setQuantity($item->getQuantity() + $quantity)
@@ -345,6 +352,13 @@ class Order implements \JsonSerializable
         }
 
         return $types;
+    }
+
+    public function hasExclusiveItems(): bool
+    {
+        return some($this->getItems(), function (OrderItem $item) {
+            return $item->getProduct()->getProductCollection()->isExclusive();
+        });
     }
 
     public function jsonSerialize()

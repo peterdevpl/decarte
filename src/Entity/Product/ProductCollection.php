@@ -62,6 +62,11 @@ class ProductCollection
     protected $productType = null;
 
     /**
+     * @ORM\Column(type="boolean", name="is_exclusive")
+     */
+    private $isExclusive = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="productCollection", cascade={"remove"})
      * @ORM\OrderBy({"sort": "ASC"})
      */
@@ -191,6 +196,18 @@ class ProductCollection
     public function isVisible(): bool
     {
         return $this->isVisible && $this->getProductType()->isVisible();
+    }
+
+    public function isExclusive(): bool
+    {
+        return $this->isExclusive;
+    }
+
+    public function setIsExclusive(bool $flag): self
+    {
+        $this->isExclusive = $flag;
+
+        return $this;
     }
 
     public function __toString()

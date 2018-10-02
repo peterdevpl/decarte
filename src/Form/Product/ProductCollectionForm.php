@@ -50,6 +50,10 @@ class ProductCollectionForm extends AbstractType
                 'label' => 'Kolekcja widoczna na stronie',
                 'required' => false,
             ])
+            ->add('isExclusive', CheckboxType::class, [
+                'label' => 'Wymuś osobne zamówienie, bez wyboru trybu realizacji',
+                'required' => false,
+            ])
             ->add('minimumQuantity', NumberType::class, ['label' => 'Minimalna liczba zamawianych sztuk'])
             ->add('shortDescription', TextareaType::class, [
                 'label' => 'Opis na stronie głównej i SEO',

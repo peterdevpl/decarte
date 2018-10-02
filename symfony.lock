@@ -137,6 +137,9 @@
             "ref": "d2a601ea5ccad81de2a131ed68481d012ed4667c"
         }
     },
+    "lstrojny/functional-php": {
+        "version": "1.8.0"
+    },
     "moneyphp/money": {
         "version": "v3.1.1"
     },
