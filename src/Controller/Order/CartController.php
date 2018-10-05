@@ -42,12 +42,9 @@ class CartController extends Controller
                 $order,
                 $request
             );
-        } else {
-            $view = 'cart/empty.html.twig';
-            $parameters = [];
         }
 
-        return $this->render($view, $parameters);
+        return $this->render('cart/empty.html.twig');
     }
 
     protected function showCart(
