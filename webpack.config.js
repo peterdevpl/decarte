@@ -5,11 +5,9 @@ Encore
     .setPublicPath('/build')
     .addEntry('app', './assets/js/app.js')
     .createSharedEntry('vendor', [
-        'jquery',
         './assets/scss/bootstrap.scss'
     ])
     .enableSassLoader()
-    .autoProvidejQuery()
     .enableSourceMaps(!Encore.isProduction())
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
