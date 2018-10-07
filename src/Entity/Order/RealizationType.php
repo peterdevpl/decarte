@@ -25,7 +25,10 @@ class RealizationType
     protected $name = '';
 
     /** @ORM\Column(type="integer") */
-    protected $days = 0;
+    private $deliveryDays = 0;
+
+    /** @ORM\Column(type="integer") */
+    private $dtpDays = 0;
 
     /** @ORM\Column(type="integer") */
     protected $price = 0;
@@ -63,16 +66,28 @@ class RealizationType
         return $this;
     }
 
-    public function getDays(): int
+    public function getDeliveryDays(): int
     {
-        return $this->days;
+        return $this->deliveryDays;
     }
 
-    public function setDays(int $days)
+    public function setDeliveryDays(int $deliveryDays): self
     {
-        $this->days = $days;
+        $this->deliveryDays = $deliveryDays;
 
-        return $this->days;
+        return $this;
+    }
+
+    public function getDTPDays(): int
+    {
+        return $this->dtpDays;
+    }
+
+    public function setDTPDays(int $dtpDays): self
+    {
+        $this->dtpDays = $dtpDays;
+
+        return $this;
     }
 
     public function getShopEmailSuffix(): string
@@ -99,8 +114,8 @@ class RealizationType
 
     public function __toString()
     {
-        $description = $this->getName() . ' - ' . $this->days .
-            ($this->days > 4 ? ' dni roboczych' : ' dni robocze');
+        $description = $this->getName() . ' - ' . $this->deliveryDays .
+            ($this->deliveryDays > 4 ? ' dni roboczych' : ' dni robocze');
         if ($this->getPrice() > 0) {
             $description .= ' (+' . ($this->getPrice() / 100) . ' PLN)';
         }

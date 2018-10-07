@@ -33,12 +33,12 @@
     <li><strong>Prosimy wypełnienie i odesłanie
             {% if formsCount > 1 %}formularzy znajdujących{% else %}formularza znajdującego{% endif %}
             się w załączniku.</strong></li>
-    <li>Po otrzymaniu powyższych informacji, w ciągu maksymalnie 7 dni roboczych, przygotujemy dla Państwa
+    <li>Po otrzymaniu powyższych informacji, w ciągu maksymalnie {{ order.getRealizationType().getDTPDays() }} dni roboczych, przygotujemy dla Państwa
         skład tekstu do akceptacji przed drukiem i wyślemy mailem celem akceptacji. Prosimy zapoznać się uważnie z przesłanymi załącznikami,
         jeśli uznają Państwo, że należy dokonać jakichkolwiek zmian, poinformujcie nas mailowo - tekst trafi do korekty.</li>
     <li>Wraz z zatwierdzeniem zgodności treści oraz układu tekstu, zamówienie trafia do druku.
         Nie ma już możliwości dokonywania zmian. Reklamacje dotyczące błędów w składach, które zostały zatwierdzone, nie będą rozpatrywane.</li>
-    <li>Wysyłka ma miejsce najpóźniej 14. dnia roboczego, licząc od daty przesłania do nas wypełnionego formularza (+ 24 godziny na każdą korektę tekstu).</li>
+    <li>Wysyłka ma miejsce najpóźniej {{ order.getRealizationType().getDeliveryDays() }}. dnia roboczego, licząc od daty przesłania do nas wypełnionego formularza (+ 24 godziny na każdą korektę tekstu).</li>
     <li>Jeśli nasz produkt z jakichkolwiek przyczyn nie spełnia Państwa oczekiwań, przysługuje prawo reklamacji. Prosimy o kontakt z nami, a uzgodnimy warunki korzystne dla obu stron.</li>
     <li>Jeśli mają Państwo pytania czy wątpliwości w trakcie realizacji zamówienia, prosimy o kontakt:
         <ul>
