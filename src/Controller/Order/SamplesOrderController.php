@@ -9,10 +9,10 @@ use Decarte\Shop\Entity\Order\Samples\OrderItem;
 use Decarte\Shop\Form\Order\OrderSamplesType;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class SamplesOrderController extends Controller
 {

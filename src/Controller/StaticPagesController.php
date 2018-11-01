@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Decarte\Shop\Controller;
 
 use Decarte\Shop\Repository\PageRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class StaticPagesController extends Controller
 {

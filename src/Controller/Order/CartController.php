@@ -11,10 +11,10 @@ use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\RealizationTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends Controller
 {
