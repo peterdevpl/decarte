@@ -3,9 +3,11 @@
 {% block title %}Serwis próbkowy - decARTe{% endblock %}
 
 {% block contents %}
-    <img src="/img/samples-form.jpg" width="832" height="559" alt="Serwis próbkowy" />
+    <img src="/img/samples-form.jpg" alt="Serwis próbkowy" class="samples-header" />
 
     <h2 class="samples">Koszt: 15 PLN ({{ samples_count }} dowolne zaproszenia z losowym nadrukiem; wysyłka w cenie próbnika)</h2>
+
+    <p class="samples-remark">Numer konta do wpłaty otrzymają Państwo w mailu.</p>
 
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
@@ -24,6 +26,4 @@
     {{ form_row(form.city) }}
     {{ form_row(form.notes) }}
     {{ form_end(form) }}
-
-    <p>Numer konta do wpłaty otrzymają Państwo w mailu.</p>
 {% endblock %}

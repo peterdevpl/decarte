@@ -6,9 +6,19 @@ h1.samples {
 
 h2.samples {
   font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   margin-top: 1rem;
   text-align: center;
+}
+
+.samples-remark {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+img.samples-header {
+  height: auto;
+  max-width: 100%;
 }
 
 @include media-breakpoint-up(md) {
