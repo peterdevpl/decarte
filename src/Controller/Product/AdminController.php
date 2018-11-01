@@ -324,11 +324,13 @@ class AdminController extends Controller
             $em->persist($product);
             $em->flush();
 
-            if ($product->isVisible()) {
-                $googleExport->exportProduct($product);
-            } else {
-                $googleExport->deleteProduct($product);
-            }
+            try {
+                if ($product->isVisible()) {
+                    $googleExport->exportProduct($product);
+                } else {
+                    $googleExport->deleteProduct($product);
+                }
+            } catch (\Exception $e) {}
 
             $this->addFlash('notice', $successMessage);
 
