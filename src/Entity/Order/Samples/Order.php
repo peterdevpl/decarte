@@ -6,7 +6,7 @@ namespace Decarte\Shop\Entity\Order\Samples;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Order
+final class Order
 {
     protected $items;
 
@@ -21,6 +21,8 @@ class Order
     protected $postalCode = '';
 
     protected $city = '';
+
+    private $phone = '';
 
     public function __construct()
     {
@@ -116,5 +118,17 @@ class Order
         $this->city = $city;
 
         return $this;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
     }
 }

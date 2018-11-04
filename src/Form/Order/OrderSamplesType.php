@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class OrderSamplesType extends AbstractType
+final class OrderSamplesType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -35,6 +35,7 @@ class OrderSamplesType extends AbstractType
             ])
             ->add('notes', TextType::class, ['label' => 'Uwagi', 'required' => false])
             ->add('email', EmailType::class, ['label' => 'E-mail'])
+            ->add('phone', TextType::class, ['label' => 'form.phone'])
             ->add('name', TextType::class, ['label' => 'Imię i nazwisko'])
             ->add('address', TextType::class, ['label' => 'Ulica, nr domu i mieszkania'])
             ->add('postal_code', TextType::class, ['label' => 'Kod pocztowy'])
