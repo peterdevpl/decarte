@@ -33,15 +33,15 @@ final class OrderSamplesType extends AbstractType
                     'products' => $options['products'],
                 ],
             ])
-            ->add('notes', TextType::class, ['label' => 'Uwagi', 'required' => false])
-            ->add('email', EmailType::class, ['label' => 'E-mail'])
+            ->add('notes', TextType::class, ['label' => 'form.notes', 'required' => false])
+            ->add('email', EmailType::class, ['label' => 'form.email'])
             ->add('phone', TextType::class, ['label' => 'form.phone'])
-            ->add('name', TextType::class, ['label' => 'Imię i nazwisko'])
-            ->add('address', TextType::class, ['label' => 'Ulica, nr domu i mieszkania'])
-            ->add('postal_code', TextType::class, ['label' => 'Kod pocztowy'])
-            ->add('city', TextType::class, ['label' => 'Miasto'])
+            ->add('name', TextType::class, ['label' => 'form.name'])
+            ->add('address', TextType::class, ['label' => 'form.address'])
+            ->add('postal_code', TextType::class, ['label' => 'form.zipcode'])
+            ->add('city', TextType::class, ['label' => 'form.city'])
             ->add('submit', SubmitType::class, [
-                'label' => 'Zamów próbki',
+                'label' => 'order.samples',
                 'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
