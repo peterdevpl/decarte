@@ -1,13 +1,13 @@
-{% for item in order.getItems() %}
+{% for product in order.getItems() %}
     <p>
         <img
-            src="{{ absolute_url(asset(image_product_url~'/'~item.getProduct().getCoverImage().getImageName()) | imagine_filter('product_thumb')) }}"
+            src="{{ absolute_url(asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb')) }}"
             width="{{ image_product_small_width }}"
             height="{{ image_product_small_height }}"
             border="1"><br>
         Próbka nr {{ loop.index }}:
-        {{ item.getProduct().getProductCollection().getName() }}
-        {{ item.getProduct().getName() }}
+        {{ product.getProductCollection().getName() }}
+        {{ product.getName() }}
     </p>
 {% endfor %}
 

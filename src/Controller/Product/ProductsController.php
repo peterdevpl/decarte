@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Controller\Product;
 
+use Decarte\Shop\Entity\Product\Product;
+use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
@@ -124,7 +126,8 @@ class ProductsController extends Controller
         ProductUrl $productUrl,
         ProductSchema $productSchema,
         ProductBreadcrumbs $breadcrumbsGenerator,
-        BreadcrumbListSchema $breadcrumbsSchema
+        BreadcrumbListSchema $breadcrumbsSchema,
+        SessionSamplesOrderRepository $samplesOrderRepository
     ): Response {
         if ($request->query->has('z')) {
             $product = $productRepository->find($request->query->get('z'));
@@ -135,6 +138,7 @@ class ProductsController extends Controller
             return $this->redirect($productUrl->generate($product), 301);
         }
 
+        /** @var Product $product */
         $product = $productRepository->find($id);
         if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
@@ -148,6 +152,9 @@ class ProductsController extends Controller
         $nextPath = $nextProduct ? $productUrl->generate($nextProduct) : null;
         $breadcrumbs = $breadcrumbsGenerator->generate($product);
 
+        $samplesOrder = $samplesOrderRepository->getOrder();
+        $hasDemo = $product->hasDemo() && ($samplesOrder->getItems()->count() < $this->getParameter('samples_count'));
+
         return $this->render('shop/view-product.html.twig', [
             'product' => $product,
             'schema' => $productSchema->generateProductData($product),
@@ -157,6 +164,7 @@ class ProductsController extends Controller
             'nextPath' => $nextPath,
             'previousUrl' => $previousPath ? $this->getParameter('canonical_domain') . $previousPath : null,
             'nextUrl' => $nextPath ? $this->getParameter('canonical_domain') . $nextPath : null,
+            'hasDemo' => $hasDemo,
         ]);
     }
 }

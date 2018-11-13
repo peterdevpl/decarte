@@ -4,7 +4,12 @@
             <div class="col" id="top-links">
                 <ul>
                     <li><a href="{{ path('static_page', {slugName: 'zamowienia'}) }}">Jak zamówić</a></li>
-                    <li><a href="{{ path('shop_order_samples') }}">Zamów próbki</a></li>
+                    <li><a href="{{ path('shop_order_samples') }}">
+                        {% trans %}order.samples{% endtrans %}
+                        {% if samples.getOrder().getItems().count() %}
+                            <span class="samples-count">{{ samples.getOrder().getItems().count() }}</span>
+                        {% endif %}
+                    </a></li>
                     <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Pomocnik</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'pytania-i-odpowiedzi'}) }}">Pytania i&nbsp;odpowiedzi</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'o-nas'}) }}">O nas</a></li>
@@ -22,10 +27,10 @@
 </nav>
 
 <script>
-    var hamburger = document.getElementById('hamburger');
-    var topNavigation = document.getElementById('top-navigation');
+    let hamburger = document.getElementById('hamburger');
+    let topNavigation = document.getElementById('top-navigation');
     hamburger.addEventListener('click', function() {
-        var style = getComputedStyle(topNavigation, null);
+        let style = getComputedStyle(topNavigation, null);
         if (style.display === 'none') {
             topNavigation.style.display = 'block';
         }  else {

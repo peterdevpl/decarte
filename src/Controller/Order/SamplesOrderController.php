@@ -6,7 +6,9 @@ namespace Decarte\Shop\Controller\Order;
 
 use Decarte\Shop\Entity\Order\Samples\Order;
 use Decarte\Shop\Entity\Order\Samples\OrderItem;
+use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Form\Order\OrderSamplesType;
+use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SamplesOrderController extends Controller
+final class SamplesOrderController extends Controller
 {
     /**
      * @Route("/zamow-probki", name="shop_order_samples")
@@ -25,14 +27,11 @@ class SamplesOrderController extends Controller
      */
     public function orderSamplesAction(
         Request $request,
+        SessionSamplesOrderRepository $samplesOrderRepository,
         ProductTypeRepository $productTypeRepository,
         ProductRepository $productRepository
     ): Response {
-        $order = new Order();
-        for ($n = 0; $n < $this->getParameter('samples_count'); ++$n) {
-            $order->addItem(new OrderItem());
-        }
-
+        $order = $samplesOrderRepository->getOrder();
         $productType = $productTypeRepository->find(1);
         $products = $productRepository->findDemos($productType);
 
@@ -44,6 +43,7 @@ class SamplesOrderController extends Controller
             $order = $form->getData();
             $this->sendSamplesOrderEmailToShop($order);
             $this->sendSamplesOrderEmailToCustomer($order);
+            $samplesOrderRepository->clear();
 
             return $this->redirectToRoute('shop_order_samples_confirmation');
         }
@@ -51,6 +51,26 @@ class SamplesOrderController extends Controller
         return $this->render('samples/form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/zamow-probki/dodaj", name="shop_add_sample")
+     */
+    public function addSampleAction(
+        Request $request,
+        SessionSamplesOrderRepository $samplesOrderRepository,
+        ProductRepository $productRepository
+    ): Response {
+        /** @var Product $product */
+        $product = $productRepository->find($request->get('product_id'));
+        $order = $samplesOrderRepository->getOrder();
+
+        if ($order->getItems()->count() < $this->getParameter('samples_count')) {
+            $order->addItem($product);
+            $samplesOrderRepository->persist($order);
+        }
+
+        return $this->redirectToRoute('shop_order_samples');
     }
 
     /**

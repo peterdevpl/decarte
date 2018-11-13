@@ -23,11 +23,8 @@ img.samples-header {
 
 @include media-breakpoint-up(md) {
   .samples-products {
-    display: flex;
-    justify-content: space-between;
-
     .form-group {
-      width: 49%;
+      width: 50%;
     }
   }
 }

@@ -7,3 +7,5 @@ form.city: 'Miasto'
 form.notes: 'Uwagi'
 
 order.samples: 'Zamów próbki'
+order.samples.service: 'Serwis próbkowy'
+order.samples.bank_account_emailed: 'Numer konta do wpłaty otrzymają Państwo w mailu.'

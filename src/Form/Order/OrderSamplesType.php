@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Decarte\Shop\Form\Order;
 
 use Decarte\Shop\Entity\Order\Samples\Order;
+use Decarte\Shop\Entity\Product\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -27,11 +29,15 @@ final class OrderSamplesType extends AbstractType
         $builder
             ->add('items', CollectionType::class, [
                 'label' => false,
-                'entry_type' => SampleType::class,
+                'entry_type' => EntityType::class,
                 'entry_options' => [
-                    'label' => false,
-                    'products' => $options['products'],
+                    'class' => Product::class,
+                    'choices' => $options['products'],
+                    'label' => 'Zaproszenie nr __number__',
+                    'placeholder' => '--',
+                    'required' => false,
                 ],
+                'allow_add' => true,
             ])
             ->add('notes', TextType::class, ['label' => 'form.notes', 'required' => false])
             ->add('email', EmailType::class, ['label' => 'form.email'])

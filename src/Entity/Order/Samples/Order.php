@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Entity\Order\Samples;
 
+use Decarte\Shop\Entity\Product\Product;
 use Doctrine\Common\Collections\ArrayCollection;
 
-final class Order
+final class Order implements \JsonSerializable
 {
-    protected $items;
+    private $items;
 
-    protected $notes = '';
+    private $notes = '';
 
-    protected $email = '';
+    private $email = '';
 
-    protected $name = '';
+    private $name = '';
 
-    protected $address = '';
+    private $address = '';
 
-    protected $postalCode = '';
+    private $postalCode = '';
 
-    protected $city = '';
+    private $city = '';
 
     private $phone = '';
 
@@ -29,19 +30,19 @@ final class Order
         $this->items = new ArrayCollection();
     }
 
-    public function getItems()
+    public function getItems(): ArrayCollection
     {
         return $this->items;
     }
 
-    public function addItem(OrderItem $item)
+    public function addItem(Product $item): self
     {
         $this->items->add($item);
 
         return $this;
     }
 
-    public function removeItem(OrderItem $item)
+    public function removeItem(Product $item): self
     {
         $this->items->removeElement($item);
 
@@ -53,7 +54,7 @@ final class Order
         return $this->notes;
     }
 
-    public function setNotes($notes)
+    public function setNotes($notes): self
     {
         $this->notes = $notes ?? '';
 
@@ -65,7 +66,7 @@ final class Order
         return $this->email;
     }
 
-    public function setEmail(string $email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -77,7 +78,7 @@ final class Order
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -89,7 +90,7 @@ final class Order
         return $this->address;
     }
 
-    public function setAddress(string $address)
+    public function setAddress(string $address): self
     {
         $this->address = $address;
 
@@ -101,7 +102,7 @@ final class Order
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $code)
+    public function setPostalCode(string $code): self
     {
         $this->postalCode = $code;
 
@@ -113,7 +114,7 @@ final class Order
         return $this->city;
     }
 
-    public function setCity(string $city)
+    public function setCity(string $city): self
     {
         $this->city = $city;
 
@@ -130,5 +131,25 @@ final class Order
     public function getPhone(): string
     {
         return $this->phone;
+    }
+
+    public function jsonSerialize()
+    {
+        $items = \array_map(function(Product $item) {
+            return [
+                'productId' => $item->getId(),
+            ];
+        }, $this->items->getValues());
+
+        return [
+            'city' => $this->city,
+            'email' => $this->email,
+            'name' => $this->name,
+            'address' => $this->address,
+            'postalCode' => $this->postalCode,
+            'phone' => $this->phone,
+            'notes' => $this->notes,
+            'items' => $items,
+        ];
     }
 }
