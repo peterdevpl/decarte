@@ -32,14 +32,23 @@
             {% if nextPath %}<p><a href="{{ nextPath }}" class="next">Następny produkt</a></p>{% endif %}
         </div>
 
-        <form action="{{ path('cart_add_item') }}" method="post" class="add-product-to-cart">
-            <p class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
-            <div>
+        <div class="add-product-to-cart">
+            <form action="{{ path('cart_add_item') }}" method="post">
+                <p class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
+                <div>
+                    <input type="hidden" name="product_id" value="{{ product.getId() }}">
+                    <input type="hidden" name="quantity" value="{{ product.getMinimumQuantity() }}">
+                    <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
+                </div>
+            </form>
+
+            {% if hasDemo %}
+            <form action="{{ path('shop_add_sample') }}" method="post" class="sample">
                 <input type="hidden" name="product_id" value="{{ product.getId() }}">
-                <input type="hidden" name="quantity" value="{{ product.getMinimumQuantity() }}">
-                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
-            </div>
-        </form>
+                <button type="submit" class="btn">Zamów próbkę</button>
+            </form>
+            {% endif %}
+        </div>
     </div>
 
     <h1 class="product_name">{{ productCollection.getName() }} - model {{ product.getName() }}</h1>

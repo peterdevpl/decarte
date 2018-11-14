@@ -39,6 +39,7 @@
   }
 
   #slider {
+    clear: right;
     margin-bottom: 1rem;
     position: relative;
 
@@ -82,5 +83,9 @@
     font-size: 120%;
     font-weight: bold;
     margin-bottom: 0.5rem;
+  }
+
+  .sample {
+    margin-top: 0.5rem;
   }
 }

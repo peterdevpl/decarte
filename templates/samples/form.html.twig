@@ -1,21 +1,24 @@
 {% extends 'layout/base-with-sidebar.html.twig' %}
 
-{% block title %}Serwis próbkowy - decARTe{% endblock %}
+{% block title %}{% trans %}order.samples.service{% endtrans %} - decARTe{% endblock %}
 
 {% block contents %}
-    <img src="/img/samples-form.jpg" alt="Serwis próbkowy" class="samples-header" />
+    <img src="/img/samples-form.jpg" alt="{% trans %}order.samples.service{% endtrans %}" class="samples-header" />
 
     <h2 class="samples">Koszt: 15 PLN ({{ samples_count }} dowolne zaproszenia z losowym nadrukiem; wysyłka w cenie próbnika)</h2>
 
-    <p class="samples-remark">Numer konta do wpłaty otrzymają Państwo w mailu.</p>
+    <p class="samples-remark">{% trans %}order.samples.bank_account_emailed{% endtrans %}</p>
 
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {{ form_start(form) }}
 
-    <div class="samples-products">
+    <div class="samples-products"
+         id="samples-products"
+         data-max-items="{{ samples_count }}"
+         data-prototype="{{ form_row(form.items.vars.prototype)|e }}">
         {% for item in form.items %}
-            {{ form_row(item.product, {'label': 'Zaproszenie nr '~loop.index}) }}
+            {{ form_row(item, {'label': 'Zaproszenie nr '~loop.index}) }}
         {% endfor %}
     </div>
 
@@ -27,4 +30,15 @@
     {{ form_row(form.city) }}
     {{ form_row(form.notes) }}
     {{ form_end(form) }}
+
+    <script>
+        const items = document.getElementById('samples-products');
+        const itemsCount = document.querySelectorAll('#samples-products .form-group').length;
+        const maxCount = parseInt(items.getAttribute('data-max-items'));
+        const prototype = items.getAttribute('data-prototype');
+        for (let index = itemsCount; index < maxCount; index++) {
+            const newWidget = prototype.replace(/__name__/g, index).replace(/__number__/g, index + 1);
+            items.insertAdjacentHTML('beforeend', newWidget);
+        }
+    </script>
 {% endblock %}
