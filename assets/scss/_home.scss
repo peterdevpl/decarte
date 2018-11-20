@@ -1,5 +1,7 @@
 #three-circles {
-  margin-bottom: 2em;
+  border-bottom: solid $lightGray 1px;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 
   a {
     border-radius: 50%;
@@ -59,17 +61,79 @@
   margin: 2em 0;
 }
 
-#welcome-text {
-  font-size: 90%;
+.welcome-text {
   text-align: justify;
+
+  h2 {
+    font-size: 150%;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+  }
 
   address {
     text-align: right;
   }
 }
 
-@include media-breakpoint-up(md) {
-  #welcome-text {
-    font-size: 75%;
+.welcome-image {
+  margin-bottom: 1rem;
+
+  img {
+    border: solid $lightGray 1px;
+    height: auto;
+    max-width: 100%;
+  }
+
+  a:hover img {
+    border-color: $linkHover;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .home {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .welcome-text {
+    font-size: 110%;
+    margin-bottom: 2rem;
+  }
+
+  .welcome-text, .welcome-image {
+    max-width: 540px;
+  }
+
+  .welcome-image {
+    margin-bottom: 2rem;
+
+    img {
+      padding: 8px;
+    }
+  }
+
+  #home-article-part1 {
+    order: 1;
+  }
+
+  #home-image-1 {
+    order: 2;
+  }
+
+  #home-image-2 {
+    order: 3;
+  }
+
+  #home-article-part2 {
+    order: 4;
+  }
+
+  #home-article-part3 {
+    order: 5;
+  }
+
+  #home-image-3 {
+    order: 6;
   }
 }
