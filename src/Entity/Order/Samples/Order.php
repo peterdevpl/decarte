@@ -135,7 +135,7 @@ final class Order implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $items = \array_map(function(Product $item) {
+        $items = \array_map(function (Product $item) {
             return [
                 'productId' => $item->getId(),
             ];

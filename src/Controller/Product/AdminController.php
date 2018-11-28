@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends Controller
+final class AdminController extends Controller
 {
     /**
      * @Route("/admin/addProductType", name="admin_add_product_type")
@@ -330,7 +330,8 @@ class AdminController extends Controller
                 } else {
                     $googleExport->deleteProduct($product);
                 }
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
 
             $this->addFlash('notice', $successMessage);
 
