@@ -7,11 +7,12 @@ namespace Decarte\Shop\Service;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Service\Url\ProductImageUrl;
 use Money\Currencies\ISOCurrencies;
+use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class GoogleExport
+final class GoogleExport
 {
     private $router;
     private $imageUrlGenerator;
@@ -32,7 +33,7 @@ class GoogleExport
 
         $client = new \Google_Client();
         $client->setApplicationName('decARTe');
-        $client->setAuthConfig(json_decode($googlePrivateKey, true));
+        $client->setAuthConfig(\json_decode($googlePrivateKey, true));
         $client->setScopes(\Google_Service_ShoppingContent::CONTENT);
 
         $this->router = $router;
@@ -121,7 +122,7 @@ class GoogleExport
 
     protected function getPrice(Product $product): \Google_Service_ShoppingContent_Price
     {
-        $money = Money::PLN($product->getPrice());
+        $money = new Money($product->getPrice(), new Currency('PLN'));
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
         return new \Google_Service_ShoppingContent_Price([

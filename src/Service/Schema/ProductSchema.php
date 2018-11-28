@@ -7,11 +7,12 @@ namespace Decarte\Shop\Service\Schema;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Service\Url\ProductImageUrl;
 use Money\Currencies\ISOCurrencies;
+use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Spatie\SchemaOrg\Schema;
 
-class ProductSchema
+final class ProductSchema
 {
     private $imageUrlGenerator;
 
@@ -22,7 +23,7 @@ class ProductSchema
 
     public function generateProductData(Product $product): string
     {
-        $money = Money::PLN($product->getPrice());
+        $money = new Money($product->getPrice(), new Currency('PLN'));
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
         $schema = Schema::product()
