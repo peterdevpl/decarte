@@ -29,7 +29,8 @@ final class SamplesOrderController extends Controller
         Request $request,
         SessionSamplesOrderRepository $samplesOrderRepository,
         ProductTypeRepository $productTypeRepository,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        \Swift_Mailer $mailer
     ): Response {
         $order = $samplesOrderRepository->getOrder();
         $productType = $productTypeRepository->find(1);
@@ -41,8 +42,8 @@ final class SamplesOrderController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
-            $this->sendSamplesOrderEmailToShop($order);
-            $this->sendSamplesOrderEmailToCustomer($order);
+            $this->sendSamplesOrderEmailToShop($order, $mailer);
+            $this->sendSamplesOrderEmailToCustomer($order, $mailer);
             $samplesOrderRepository->clear();
 
             return $this->redirectToRoute('shop_order_samples_confirmation');
@@ -83,7 +84,7 @@ final class SamplesOrderController extends Controller
         return $this->render('samples/confirmation.html.twig');
     }
 
-    protected function sendSamplesOrderEmailToShop(Order $order)
+    private function sendSamplesOrderEmailToShop(Order $order, \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message())
             ->setSubject('ZAMÓWIENIE WWW - PRÓBKI')
@@ -97,10 +98,10 @@ final class SamplesOrderController extends Controller
                 'text/html'
             );
 
-        $this->get('mailer')->send($message);
+        $mailer->send($message);
     }
 
-    protected function sendSamplesOrderEmailToCustomer(Order $order)
+    private function sendSamplesOrderEmailToCustomer(Order $order, \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message())
             ->setSubject('Zamówienie decarte.com.pl - próbki')
@@ -114,6 +115,6 @@ final class SamplesOrderController extends Controller
                 'text/html'
             );
 
-        $this->get('mailer')->send($message);
+        $mailer->send($message);
     }
 }
