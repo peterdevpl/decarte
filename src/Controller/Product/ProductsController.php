@@ -15,12 +15,12 @@ use Decarte\Shop\Service\Url\ProductUrl;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductBreadcrumbs;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductCollectionBreadcrumbs;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductTypeBreadcrumbs;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProductsController extends Controller
+final class ProductsController extends AbstractController
 {
     /**
      * @Route("/sklep/{type}", name="shop_list_collections", requirements={"type": "[0-9a-z\-]+"})

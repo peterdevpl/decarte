@@ -8,12 +8,12 @@ use Decarte\Shop\Form\Order\ShippingDetailsType;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Service\OrderMailer;
 use Decarte\Shop\Service\Payment\PayU;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class OrderController extends Controller
+final class OrderController extends AbstractController
 {
     /**
      * @Route("/zloz-zamowienie/dane-wysylki", name="order_shipping_details")

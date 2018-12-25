@@ -14,13 +14,13 @@ use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Decarte\Shop\Service\GoogleExport;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class AdminController extends Controller
+final class AdminController extends AbstractController
 {
     /**
      * @Route("/admin/addProductType", name="admin_add_product_type")

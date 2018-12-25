@@ -6,11 +6,11 @@ namespace Decarte\Shop\Controller;
 
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Service\Url\ProductUrl;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SitemapController extends Controller
+final class SitemapController extends AbstractController
 {
     /**
      * @Route("/sitemap.xml", name="sitemap")

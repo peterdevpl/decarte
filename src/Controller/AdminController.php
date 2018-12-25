@@ -7,12 +7,12 @@ namespace Decarte\Shop\Controller;
 use Decarte\Shop\Form\PageForm;
 use Decarte\Shop\Repository\PageRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends Controller
+final class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin_index")

@@ -11,12 +11,12 @@ use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\RealizationTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CartController extends Controller
+final class CartController extends AbstractController
 {
     /**
      * @Route("/koszyk", name="cart_index")

@@ -11,12 +11,12 @@ use Decarte\Shop\Form\Order\OrderSamplesType;
 use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class SamplesOrderController extends Controller
+final class SamplesOrderController extends AbstractController
 {
     /**
      * @Route("/zamow-probki", name="shop_order_samples")

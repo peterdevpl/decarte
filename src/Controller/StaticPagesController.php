@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Decarte\Shop\Controller;
 
 use Decarte\Shop\Repository\PageRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class StaticPagesController extends Controller
+final class StaticPagesController extends AbstractController
 {
     /**
      * @Route("/informacje/{slugName}", name="static_page", requirements={"slugName": "[0-9a-z\-]+"})
