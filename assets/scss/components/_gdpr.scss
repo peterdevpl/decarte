@@ -1,0 +1,46 @@
+#gdpr-warning, #gdpr-frame {
+  background: $lightGray;
+  color: black;
+  font-size: 90%;
+  padding: 0.5rem 1rem;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  button {
+    background: white;
+    border-radius: 4px;
+    border-style: none;
+    color: #000;
+    cursor: pointer;
+    height: 2rem;
+    margin-top: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+#gdpr-warning {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 9999;
+}
+
+@include media-breakpoint-up(md) {
+  #gdpr-warning, #gdpr-frame {
+    align-items: center;
+    display: flex;
+
+    button {
+      margin-left: 1rem;
+      margin-top: 0;
+    }
+  }
+}
