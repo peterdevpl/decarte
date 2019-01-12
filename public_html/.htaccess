@@ -11,9 +11,9 @@ DirectoryIndex index.php
 # when compiling LESS/Sass/CoffeScript assets.
 # Options FollowSymlinks
 
-# Set assets expiration for 1 month
+# Set assets expiration for 1 year
 :Location *.(jpg|png|svg|css|js)
-Expires A2592000
+Expires 31536000
 :Location
 
 # Disabling MultiViews prevents unwanted negotiation, e.g. "/app" should not resolve
