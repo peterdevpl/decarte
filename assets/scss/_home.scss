@@ -137,3 +137,13 @@
     order: 6;
   }
 }
+
+@include media-breakpoint-up(xl) {
+  #home-image-1 {
+    max-width: 650px;
+  }
+
+  #home-article-part1 {
+    max-width: 450px;
+  }
+}
