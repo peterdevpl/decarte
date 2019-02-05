@@ -3,8 +3,10 @@
 {% block title %}{{ productType.getTitleSEO() }} - decARTe{% endblock %}
 
 {% block meta %}
+    <link rel="canonical" href="{{ currentUrl }}">
     <meta property="og:title" content="{{ productType.getName() }} - decARTe">
     <meta property="og:description" content="{{ productType.getDescriptionSEO() | striptags }}">
+    <meta property="og:url" content="{{ currentUrl }}">
     <meta property="description" content="{{ productType.getDescriptionSEO() | striptags }}">
     {{ breadcrumbsSchema|raw }}
 {% endblock %}

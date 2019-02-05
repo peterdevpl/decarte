@@ -2,6 +2,11 @@
 
 {% block title %}{{ page.getTitle() }} - decARTe{% endblock %}
 
+{% block meta %}
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+{% endblock %}
+
 {% block contents %}
     {{ page.getContents()|raw }}
 {% endblock %}

@@ -1,6 +1,11 @@
 {% extends 'layout/base-with-sidebar.html.twig' %}
 
-{% block title %}Cytaty - decARTe{% endblock %}
+{% block title %}Cytaty do zaproszeń ślubnych - decARTe{% endblock %}
+
+{% block meta %}
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+{% endblock %}
 
 {% block contents %}
     {% include 'static/texts/menu.html.twig' %}

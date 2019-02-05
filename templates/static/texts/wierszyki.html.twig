@@ -2,6 +2,11 @@
 
 {% block title %}Wierszyki ślubne - decARTe{% endblock %}
 
+{% block meta %}
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+{% endblock %}
+
 {% block contents %}
     {% include 'static/texts/menu.html.twig' %}
 

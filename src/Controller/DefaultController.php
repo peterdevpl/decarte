@@ -15,6 +15,8 @@ final class DefaultController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('index/index.html.twig');
+        return $this->render('index/index.html.twig', [
+            'canonicalUrl' => $this->getParameter('canonical_domain') . '/',
+        ]);
     }
 }

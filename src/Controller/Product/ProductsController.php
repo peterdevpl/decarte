@@ -11,6 +11,8 @@ use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Decarte\Shop\Service\Schema\BreadcrumbListSchema;
 use Decarte\Shop\Service\Schema\ProductSchema;
+use Decarte\Shop\Service\Url\ProductCollectionUrl;
+use Decarte\Shop\Service\Url\ProductTypeUrl;
 use Decarte\Shop\Service\Url\ProductUrl;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductBreadcrumbs;
 use Decarte\Shop\Service\View\Breadcrumb\Product\ProductCollectionBreadcrumbs;
@@ -37,6 +39,7 @@ final class ProductsController extends AbstractController
         ProductRepository $productRepository,
         ProductTypeBreadcrumbs $breadcrumbsGenerator,
         BreadcrumbListSchema $breadcrumbsSchema,
+        ProductTypeUrl $productTypeUrl,
         ProductUrl $productUrl
     ): Response {
         if ($request->query->has('z')) {
@@ -59,12 +62,14 @@ final class ProductsController extends AbstractController
         }
 
         $breadcrumbs = $breadcrumbsGenerator->generate($productType);
+        $currentUrl = $productTypeUrl->generate($productType);
 
         return $this->render('shop/list-collections.html.twig', [
             'productType' => $productType,
             'productCollections' => $productCollections,
             'breadcrumbs' => $breadcrumbs,
             'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbs),
+            'currentUrl' => $this->getParameter('canonical_domain') . $currentUrl,
         ]);
     }
 
@@ -85,6 +90,7 @@ final class ProductsController extends AbstractController
         string $slugName,
         ProductCollectionRepository $productCollectionRepository,
         ProductCollectionBreadcrumbs $breadcrumbsGenerator,
+        ProductCollectionUrl $productCollectionUrl,
         BreadcrumbListSchema $breadcrumbsSchema
     ): Response {
         $productCollection = $productCollectionRepository->findBySlugName($type, $slugName);
@@ -95,12 +101,14 @@ final class ProductsController extends AbstractController
         $productType = $productCollection->getProductType();
         $allCollections = $productCollectionRepository->getProductCollections($productType->getId());
         $breadcrumbs = $breadcrumbsGenerator->generate($productCollection);
+        $currentUrl = $productCollectionUrl->generate($productCollection);
 
         return $this->render('shop/view-collection.html.twig', [
             'productCollection' => $productCollection,
             'allCollections' => $allCollections,
             'breadcrumbs' => $breadcrumbs,
             'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbs),
+            'currentUrl' => $this->getParameter('canonical_domain') . $currentUrl,
         ]);
     }
 
@@ -148,6 +156,7 @@ final class ProductsController extends AbstractController
         $nextProduct = $productRepository->findNext($product);
         $nextPath = null;
 
+        $currentPath = $productUrl->generate($product);
         $previousPath = $previousProduct ? $productUrl->generate($previousProduct) : null;
         $nextPath = $nextProduct ? $productUrl->generate($nextProduct) : null;
         $breadcrumbs = $breadcrumbsGenerator->generate($product);
@@ -162,6 +171,7 @@ final class ProductsController extends AbstractController
             'breadcrumbsSchema' => $breadcrumbsSchema->generateData($breadcrumbs),
             'previousPath' => $previousPath,
             'nextPath' => $nextPath,
+            'currentUrl' => $this->getParameter('canonical_domain') . $currentPath,
             'previousUrl' => $previousPath ? $this->getParameter('canonical_domain') . $previousPath : null,
             'nextUrl' => $nextPath ? $this->getParameter('canonical_domain') . $nextPath : null,
             'hasDemo' => $hasDemo,
