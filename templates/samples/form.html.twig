@@ -5,7 +5,9 @@
 {% block contents %}
     <img src="/img/samples-form.jpg" alt="{% trans %}order.samples.service{% endtrans %}" class="samples-header" />
 
-    <h2 class="samples">Koszt: 15 PLN ({{ samples_count }} dowolne zaproszenia z losowym nadrukiem; wysyłka w cenie próbnika)</h2>
+    <h2 class="samples">{{ samples_count }} dowolne zaproszenia z losowym nadrukiem</h2>
+
+    <h2 class="samples">Koszt: 15 PLN przy wysyłce w Polsce, 25 PLN przy wysyłce za granicę</h2>
 
     <p class="samples-remark">{% trans %}order.samples.bank_account_emailed{% endtrans %}</p>
 
