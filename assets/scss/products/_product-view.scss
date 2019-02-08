@@ -7,6 +7,11 @@
 .product-siblings {
   font-size: 110%;
 
+  a {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
   .prev::before {
     content: '« ';
   }
@@ -14,6 +19,12 @@
   .next::after {
     content: ' »';
   }
+}
+
+.product-siblings-below {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
 }
 
 #slider {

@@ -30,8 +30,8 @@
 
     <div class="product-actions">
         <div class="product-siblings" role="navigation">
-            {% if previousPath %}<p><a href="{{ previousPath }}" class="prev">Poprzedni produkt</a></p>{% endif %}
-            {% if nextPath %}<p><a href="{{ nextPath }}" class="next">Następny produkt</a></p>{% endif %}
+            {% if previousPath %}<a href="{{ previousPath }}" class="prev">Poprzedni produkt</a>{% endif %}
+            {% if nextPath %}<a href="{{ nextPath }}" class="next">Następny produkt</a>{% endif %}
         </div>
 
         <div class="add-product-to-cart">
@@ -68,4 +68,9 @@
     </div>
 
     <article class="full_description">{{ product.getDescription()|raw|nl2br }}</article>
+
+    <div class="product-siblings product-siblings-below" role="navigation">
+        {% if previousPath %}<a href="{{ previousPath }}" class="prev">Poprzedni produkt</a>{% endif %}
+        {% if nextPath %}<a href="{{ nextPath }}" class="next">Następny produkt</a>{% endif %}
+    </div>
 {% endblock %}
