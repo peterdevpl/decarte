@@ -257,6 +257,9 @@
     "psr/simple-cache": {
         "version": "1.0.0"
     },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
+    },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
     },
@@ -543,7 +546,7 @@
         }
     },
     "symfony/yaml": {
-        "version": "v4.1.0"
+        "version": "v4.2.4"
     },
     "theseer/tokenizer": {
         "version": "1.1.0"
