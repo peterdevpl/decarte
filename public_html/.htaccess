@@ -61,7 +61,7 @@ Expires 31536000
     #RewriteRule ^app\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
 
     # Redirects from old links
-    RewriteRule ^zaproszenia %{ENV:BASE}/sklep/zaproszenia-slubne [R=301,L]
+    RewriteRule ^zaproszenia[\._] %{ENV:BASE}/sklep/zaproszenia-slubne [R=301,L]
     RewriteRule ^winietki\.php %{ENV:BASE}/sklep/dodatki/winietki [R=301,L]
     RewriteRule ^stol\.php %{ENV:BASE}/sklep/dodatki [R=301,L]
     RewriteRule ^gadzety\.php %{ENV:BASE}/sklep/dodatki [R=301,L]

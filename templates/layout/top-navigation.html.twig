@@ -10,7 +10,15 @@
                             <span class="samples-count">{{ samples.getOrder().getItems().count() }}</span>
                         {% endif %}
                     </a></li>
-                    <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Pomocnik</a></li>
+                    <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Teksty i&nbsp;grafiki</a></li>
+                    <li>
+                        <div class="dropdown">
+                            <a href="{{ path('blog_post', {slugName: 'dodatki-slubne-wedlug-por-roku'}) }}">Poradnik</a>
+                            <div class="dropdown-content">
+                                <a href="{{ path('blog_post', {slugName: 'dodatki-slubne-wedlug-por-roku'}) }}">Dodatki ślubne wg pór roku</a>
+                            </div>
+                        </div>
+                    </li>
                     <li><a href="{{ path('static_page', {slugName: 'pytania-i-odpowiedzi'}) }}">Pytania i&nbsp;odpowiedzi</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'o-nas'}) }}">O nas</a></li>
                     <li><a href="{{ path('static_page', {slugName: 'kontakt'}) }}">Kontakt</a></li>
