@@ -1,3 +1,12 @@
+<p>Uwagi: {{ order.getNotes()|nl2br }}</p>
+
+<p>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a><br>
+{% trans %}form.phone{% endtrans %}: {{ order.getPhone() }}<br>
+Nazwisko: {{ order.getName() }}<br>
+Adres: {{ order.getAddress() }}<br>
+Kod pocztowy: {{ order.getPostalCode() }}<br>
+Miasto: {{ order.getCity() }}</p>
+
 {% for product in order.getItems() %}
     <p>
         <img
@@ -10,12 +19,3 @@
         {{ product.getName() }}
     </p>
 {% endfor %}
-
-<p>Uwagi: {{ order.getNotes()|nl2br }}</p>
-
-<p>E-mail: <a href="mailto:{{ order.getEmail() }}">{{ order.getEmail() }}</a><br>
-{% trans %}form.phone{% endtrans %}: {{ order.getPhone() }}<br>
-Nazwisko: {{ order.getName() }}<br>
-Adres: {{ order.getAddress() }}<br>
-Kod pocztowy: {{ order.getPostalCode() }}<br>
-Miasto: {{ order.getCity() }}</p>
