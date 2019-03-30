@@ -121,10 +121,13 @@
   padding: 0.5em 1em;
 }
 
-.grafiki {
-  background: #FFFFFF;
-  margin: 1em;
-  padding: 0.5em 0;
+.sample-graphics {
+  margin: 0;
+
+  li {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
 }
 
 .cytaty ol {
@@ -151,5 +154,16 @@
 @include media-breakpoint-up(lg) {
   .cytaty li, .wierszyki li {
     width: 45%;
+  }
+
+  .sample-graphics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    li {
+      min-height: 75px;
+      width: 50%;
+    }
   }
 }

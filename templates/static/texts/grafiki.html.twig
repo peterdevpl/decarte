@@ -12,15 +12,17 @@
 
     <h3 style="text-align: center">Ornamenty</h3>
 
-    <div class="grafiki">
-        <img src="/img/teksty/ornamenty1.png" width="860" height="575" alt="Ornamenty 1">
-        <img src="/img/teksty/ornamenty2.png" width="860" height="495" alt="Ornamenty 2">
-    </div>
+    <ol class="sample-graphics">
+        {% for n in 1..34 %}
+        <li><img src="/img/ornamenty/ornament{{ n }}.png" alt="Ornament nr {{ n }}"></li>
+        {% endfor %}
+    </ol>
 
     <h3 style="text-align: center">Grafiki</h3>
 
-    <div class="grafiki">
-        <img src="/img/teksty/grafiki1.png" width="860" height="576" alt="Grafiki 1">
-        <img src="/img/teksty/grafiki2.png" width="860" height="563" alt="Grafiki 2">
-    </div>
+    <ol class="sample-graphics">
+        {% for n in 1..12 %}
+        <li><img src="/img/grafiki/grafika{{ n }}.png" alt="Grafika nr {{ n }}"></li>
+        {% endfor %}
+    </ol>
 {% endblock %}
