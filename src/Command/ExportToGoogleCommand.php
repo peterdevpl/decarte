@@ -35,7 +35,7 @@ class ExportToGoogleCommand extends Command
     {
         $productId = $input->getArgument('id');
         if ($productId) {
-            $this->exportSingleProduct($output, $productId);
+            $this->exportSingleProduct($output, (int) $productId);
         } else {
             $this->exportAllProducts($output);
         }

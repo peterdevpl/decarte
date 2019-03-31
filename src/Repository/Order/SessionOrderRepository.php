@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Repository\Order;
 
+use Decarte\Shop\Entity\Order\DeliveryType;
 use Decarte\Shop\Entity\Order\Order;
+use Decarte\Shop\Entity\Order\RealizationType;
+use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -68,17 +71,20 @@ final class SessionOrderRepository
                 ->setTotalPrice($orderArray['price']);
 
             foreach ($orderArray['items'] as $itemArray) {
+                /** @var Product $product */
                 $product = $this->productRepository->find($itemArray['productId']);
                 $order->addItem($product, $itemArray['quantity'], $itemArray['unitPrice']);
             }
 
             if ($orderArray['realizationTypeId']) {
+                /** @var RealizationType $realizationType */
                 $realizationType = $this->realizationTypeRepository->find($orderArray['realizationTypeId']);
                 $realizationType->setPrice($orderArray['realizationPrice']);
                 $order->setRealizationType($realizationType);
             }
 
             if ($orderArray['deliveryTypeId']) {
+                /** @var DeliveryType $deliveryType */
                 $deliveryType = $this->deliveryTypeRepository->find($orderArray['deliveryTypeId']);
                 $deliveryType->setPrice($orderArray['deliveryPrice']);
                 $order->setDeliveryType($deliveryType);

@@ -47,6 +47,7 @@ final class AdminController extends AbstractController
         int $typeId,
         ProductTypeRepository $productTypeRepository
     ): Response {
+        /** @var ?ProductType $productType */
         $productType = $productTypeRepository->find($typeId);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono typu produktów');
@@ -145,6 +146,7 @@ final class AdminController extends AbstractController
         ProductTypeRepository $typeRepository,
         ProductTypeRepository $productTypeRepository
     ): Response {
+        /** @var ?ProductType $productType */
         $productType = $typeRepository->find($typeId);
         if (!$productType) {
             throw $this->createNotFoundException('Nie znaleziono typu produktu');
@@ -174,6 +176,7 @@ final class AdminController extends AbstractController
         ProductCollectionRepository $collectionRepository,
         ProductTypeRepository $productTypeRepository
     ): Response {
+        /** @var ?ProductCollection $productCollection */
         $productCollection = $collectionRepository->find($collectionId);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
@@ -269,6 +272,7 @@ final class AdminController extends AbstractController
         ProductCollectionRepository $collectionRepository,
         GoogleExport $googleExport
     ): Response {
+        /** @var ?ProductCollection $productCollection */
         $productCollection = $collectionRepository->find($collectionId);
         if (!$productCollection) {
             throw $this->createNotFoundException('Nie znaleziono kolekcji produktów');
@@ -294,6 +298,7 @@ final class AdminController extends AbstractController
         ProductRepository $productRepository,
         GoogleExport $googleExport
     ): Response {
+        /** @var ?Product $product */
         $product = $productRepository->find($productId);
         if (!$product) {
             throw $this->createNotFoundException('Nie znaleziono produktu');

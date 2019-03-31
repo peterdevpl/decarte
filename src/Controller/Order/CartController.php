@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Decarte\Shop\Controller\Order;
 
 use Decarte\Shop\Entity\Order\Order;
+use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Exception\QuantityTooSmallException;
 use Decarte\Shop\Form\Cart\CartType;
 use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
@@ -102,6 +103,7 @@ final class CartController extends AbstractController
         $productId = (int)$request->get('product_id');
         $quantity = (int)$request->get('quantity');
 
+        /** @var ?Product $product */
         $product = $productRepository->find($productId);
         if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
@@ -139,6 +141,7 @@ final class CartController extends AbstractController
         ProductRepository $productRepository,
         SessionOrderRepository $orderRepository
     ): Response {
+        /** @var ?Product $product */
         $product = $productRepository->find($productId);
         $order = $orderRepository->getOrder();
         $order->removeProduct($product);

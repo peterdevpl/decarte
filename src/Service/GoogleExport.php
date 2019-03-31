@@ -34,7 +34,7 @@ final class GoogleExport
         $client = new \Google_Client();
         $client->setApplicationName('decARTe');
         $client->setAuthConfig(\json_decode($googlePrivateKey, true));
-        $client->setScopes(\Google_Service_ShoppingContent::CONTENT);
+        $client->setScopes([\Google_Service_ShoppingContent::CONTENT]);
 
         $this->router = $router;
         $this->imageUrlGenerator = $imageUrlGenerator;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Decarte\Shop\Repository\Order;
 
 use Decarte\Shop\Entity\Order\Samples\Order;
+use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -60,6 +61,7 @@ final class SessionSamplesOrderRepository
                 ->setNotes($orderArray['notes']);
 
             foreach ($orderArray['items'] as $itemArray) {
+                /** @var Product $product */
                 $product = $this->productRepository->find($itemArray['productId']);
                 $order->addItem($product);
             }

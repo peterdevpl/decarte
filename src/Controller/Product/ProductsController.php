@@ -43,6 +43,7 @@ final class ProductsController extends AbstractController
         ProductUrl $productUrl
     ): Response {
         if ($request->query->has('z')) {
+            /** @var ?Product $product */
             $product = $productRepository->find($request->query->get('z'));
             if (!$product) {
                 throw $this->createNotFoundException('Nie znaleziono produktu');
@@ -138,6 +139,7 @@ final class ProductsController extends AbstractController
         SessionSamplesOrderRepository $samplesOrderRepository
     ): Response {
         if ($request->query->has('z')) {
+            /** @var ?Product $product */
             $product = $productRepository->find($request->query->get('z'));
             if (!$product) {
                 throw $this->createNotFoundException('Nie znaleziono produktu');

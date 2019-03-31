@@ -7,6 +7,7 @@ namespace Decarte\Shop\Controller\Order;
 use Decarte\Shop\Entity\Order\Samples\Order;
 use Decarte\Shop\Entity\Order\Samples\OrderItem;
 use Decarte\Shop\Entity\Product\Product;
+use Decarte\Shop\Entity\Product\ProductType;
 use Decarte\Shop\Form\Order\OrderSamplesType;
 use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
@@ -33,6 +34,7 @@ final class SamplesOrderController extends AbstractController
         \Swift_Mailer $mailer
     ): Response {
         $order = $samplesOrderRepository->getOrder();
+        /** @var ProductType $productType */
         $productType = $productTypeRepository->find(1);
         $products = $productRepository->findDemos($productType);
 
