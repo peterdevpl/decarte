@@ -15,6 +15,7 @@ use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Decarte\Shop\Service\GoogleExport;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,13 +63,16 @@ final class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if ($form->has('delete') && $form->get('delete')->isClicked()) {
-                $em->remove($productType);
-                $em->flush();
+            if ($form->has('delete')) {
+            	/** @var ClickableInterface $button */
+            	$button = $form->get('delete');
+            	if ($button->isClicked()) {
+					$em->remove($productType);
+					$em->flush();
+					$this->addFlash('notice', 'Dział został usunięty');
 
-                $this->addFlash('notice', 'Dział został usunięty');
-
-                return $this->redirectToRoute('admin_index');
+					return $this->redirectToRoute('admin_index');
+				}
             }
 
             $productType = $form->getData();
@@ -199,16 +203,19 @@ final class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if ($form->has('delete') && $form->get('delete')->isClicked()) {
-                $type = $productCollection->getProductType();
-                $em->remove($productCollection);
-                $em->flush();
+            if ($form->has('delete')) {
+            	/** @var ClickableInterface $button */
+            	$button = $form->get('delete');
+            	if ($button->isClicked()) {
+					$type = $productCollection->getProductType();
+					$em->remove($productCollection);
+					$em->flush();
+					$this->addFlash('notice', 'Kolekcja została usunięta');
 
-                $this->addFlash('notice', 'Kolekcja została usunięta');
-
-                return $this->redirectToRoute('admin_product_collections', [
-                    'type' => $type->getId(),
-                ]);
+					return $this->redirectToRoute('admin_product_collections', [
+						'type' => $type->getId(),
+					]);
+				}
             }
 
             $productCollection = $form->getData();
@@ -307,16 +314,19 @@ final class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if ($form->has('delete') && $form->get('delete')->isClicked()) {
-                $collection = $product->getProductCollection();
-                $em->remove($product);
-                $em->flush();
+            if ($form->has('delete')) {
+            	/** @var ClickableInterface $button */
+            	$button = $form->get('delete');
+            	if ($button->isClicked()) {
+					$collection = $product->getProductCollection();
+					$em->remove($product);
+					$em->flush();
+					$this->addFlash('notice', 'Produkt został usunięty');
 
-                $this->addFlash('notice', 'Produkt został usunięty');
-
-                return $this->redirectToRoute('admin_product_collection', [
-                    'collection' => $collection->getId(),
-                ]);
+					return $this->redirectToRoute('admin_product_collection', [
+						'collection' => $collection->getId(),
+					]);
+				}
             }
 
             $product = $form->getData();

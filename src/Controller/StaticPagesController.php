@@ -17,11 +17,10 @@ final class StaticPagesController extends AbstractController
      */
     public function showAction(string $slugName, PageRepository $pageRepository, PageUrl $pageUrl): Response
     {
-        $page = $pageRepository->findByName($slugName);
+        $page = $pageRepository->findOneByName($slugName);
         if (!$page) {
             throw $this->createNotFoundException('Nie znaleziono strony');
         }
-        $page = $page[0];
 
         return $this->render('static/page.html.twig', [
             'page' => $page,

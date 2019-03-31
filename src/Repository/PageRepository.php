@@ -23,4 +23,11 @@ class PageRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+	public function findOneByName(string $slugName): ?Page
+	{
+		return $this->findOneBy([
+			'name' => $slugName,
+		]);
+	}
 }

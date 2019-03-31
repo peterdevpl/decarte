@@ -72,12 +72,8 @@ trait SortableRepositoryTrait
 
     /**
      * Fetches next sorting number for an entity.
-     *
-     * @param $object
-     *
-     * @return int
      */
-    public function fetchSortNumber($object)
+    public function fetchSortNumber($object): int
     {
         $group = null;
         $groupField = $this->getSortGroupField();

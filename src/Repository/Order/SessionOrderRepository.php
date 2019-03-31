@@ -9,7 +9,7 @@ use Decarte\Shop\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class SessionOrderRepository
+final class SessionOrderRepository
 {
     /** @var SessionInterface */
     private $session;
@@ -51,7 +51,7 @@ class SessionOrderRepository
         return $this->order;
     }
 
-    protected function deserialize(string $serializedOrder)
+    private function deserialize(string $serializedOrder)
     {
         $orderArray = json_decode($serializedOrder, true);
         $order = new Order();
@@ -88,12 +88,12 @@ class SessionOrderRepository
         return $order;
     }
 
-    public function persist(Order $order)
+    public function persist(Order $order): void
     {
         $this->session->set('order', json_encode($order));
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->session->remove('order');
     }

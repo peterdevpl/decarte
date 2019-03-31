@@ -14,4 +14,11 @@ final class BlogPostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BlogPost::class);
     }
+
+    public function findOneByName(string $slugName): ?BlogPost
+	{
+		return $this->findOneBy([
+			'name' => $slugName,
+		]);
+	}
 }

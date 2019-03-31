@@ -12,6 +12,7 @@ use Decarte\Shop\Repository\Order\RealizationTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,8 +69,14 @@ final class CartController extends AbstractController
             $order = $form->getData();
             $repository->persist($order);
 
-            $route = $form->has('save_and_order') && $form->get('save_and_order')->isClicked() ?
-                'order_shipping_details' : 'cart_index';
+            $route = 'cart_index';
+            if ($form->has('save_and_order')) {
+            	/** @var ClickableInterface $button */
+            	$button = $form->get('save_and_order');
+            	if ($button->isClicked()) {
+					$route = 'order_shipping_details';
+				}
+			}
 
             return $this->redirectToRoute($route, [], 303);
         }

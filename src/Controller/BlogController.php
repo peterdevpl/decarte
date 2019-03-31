@@ -20,11 +20,10 @@ final class BlogController extends AbstractController
         BlogPostRepository $blogPostRepository,
         BlogPostUrl $blogPostUrl
     ): Response {
-        $post = $blogPostRepository->findByName($slugName);
+        $post = $blogPostRepository->findOneByName($slugName);
         if (!$post) {
             throw $this->createNotFoundException('Nie znaleziono strony');
         }
-        $post = $post[0];
 
         return $this->render('blog/post.html.twig', [
             'post' => $post,

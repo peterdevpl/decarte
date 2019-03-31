@@ -96,7 +96,7 @@ final class GoogleExport
         $exportedProduct->setTargetCountry('PL');
 
         $exportedProduct->setTitle($product->getProductCollection()->getName() . ' - ' . $product->getName());
-        $exportedProduct->setProductType(join(' > ', [
+        $exportedProduct->setProductTypes(join(' > ', [
             $product->getProductCollection()->getProductType()->getName(),
             $product->getProductCollection()->getName(),
         ]));

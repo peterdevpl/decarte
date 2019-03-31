@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class PayU
+final class PayU
 {
-    protected $continueUrl;
-    protected $notifyUrl;
+    private $continueUrl;
+    private $notifyUrl;
 
     public function __construct(
         string $environment,
