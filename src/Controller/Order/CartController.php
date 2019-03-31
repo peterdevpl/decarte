@@ -71,12 +71,12 @@ final class CartController extends AbstractController
 
             $route = 'cart_index';
             if ($form->has('save_and_order')) {
-            	/** @var ClickableInterface $button */
-            	$button = $form->get('save_and_order');
-            	if ($button->isClicked()) {
-					$route = 'order_shipping_details';
-				}
-			}
+                /** @var ClickableInterface $button */
+                $button = $form->get('save_and_order');
+                if ($button->isClicked()) {
+                    $route = 'order_shipping_details';
+                }
+            }
 
             return $this->redirectToRoute($route, [], 303);
         }
@@ -99,8 +99,8 @@ final class CartController extends AbstractController
         ProductRepository $productRepository,
         SessionOrderRepository $orderRepository
     ): Response {
-        $productId = (int) $request->get('product_id');
-        $quantity = (int) $request->get('quantity');
+        $productId = (int)$request->get('product_id');
+        $quantity = (int)$request->get('quantity');
 
         $product = $productRepository->find($productId);
         if (!$product || !$product->isVisible()) {

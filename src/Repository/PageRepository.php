@@ -24,13 +24,13 @@ class PageRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-	public function findOneByName(string $slugName): ?Page
-	{
-		/** @var Page $page */
-		$page = $this->findOneBy([
-			'name' => $slugName,
-		]);
+    public function findOneByName(string $slugName): ?Page
+    {
+        /** @var Page $page */
+        $page = $this->findOneBy([
+            'name' => $slugName,
+        ]);
 
-		return $page;
-	}
+        return $page;
+    }
 }
