@@ -17,8 +17,11 @@ final class BlogPostRepository extends ServiceEntityRepository
 
     public function findOneByName(string $slugName): ?BlogPost
 	{
-		return $this->findOneBy([
+		/** @var BlogPost $post */
+		$post = $this->findOneBy([
 			'name' => $slugName,
 		]);
+
+		return $post;
 	}
 }
