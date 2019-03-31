@@ -19,7 +19,7 @@ final class SessionSamplesOrderRepository
     /** @var EntityRepository */
     private $productRepository;
 
-    /** @var Order */
+    /** @var ?Order */
     private $order;
 
     public function __construct(

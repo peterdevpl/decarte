@@ -146,7 +146,7 @@ final class ProductsController extends AbstractController
             return $this->redirect($productUrl->generate($product), 301);
         }
 
-        /** @var Product $product */
+        /** @var ?Product $product */
         $product = $productRepository->find($id);
         if (!$product || !$product->isVisible()) {
             throw $this->createNotFoundException('Nie znaleziono produktu');
