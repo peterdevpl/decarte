@@ -1,0 +1,16 @@
+default:
+    suites:
+        default:
+            contexts:
+                - Decarte\Shop\Behat\Context\FeatureContext
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: features/bootstrap/bootstrap.php
+                class: Decarte\Shop\Kernel
+        Behat\MinkExtension:
+            base_url: "http://localhost/"
+            sessions:
+                default:
+                    symfony2: ~
