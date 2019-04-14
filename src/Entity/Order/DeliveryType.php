@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="\Decarte\Shop\Repository\Order\DeliveryTypeRepository")
  * @ORM\Table(name="decarte_delivery_types")
  */
-class DeliveryType
+final class DeliveryType
 {
     use VisibilityTrait;
 
@@ -77,11 +77,11 @@ class DeliveryType
         return $this->price;
     }
 
-    public function setPrice(int $price)
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 
-        return $this->price;
+        return $this;
     }
 
     public function isPersonal(): bool

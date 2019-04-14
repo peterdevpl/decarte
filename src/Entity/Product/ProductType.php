@@ -129,9 +129,11 @@ class ProductType
         return $this->sort;
     }
 
-    public function setSort(int $value)
+    public function setSort(int $value): self
     {
         $this->sort = $value;
+
+        return $this;
     }
 
     public function getProductCollections()
