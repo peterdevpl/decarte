@@ -24,7 +24,7 @@ abstract class AbstractOrderTest extends TestCase
      */
     protected $products;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->products = [];
 

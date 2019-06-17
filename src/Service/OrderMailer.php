@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Decarte\Shop\Service;
 
 use Decarte\Shop\Entity\Order\Order;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
-class OrderMailer
+final class OrderMailer
 {
-    protected $mailer;
-    protected $templating;
-    protected $adminMail;
-    protected $attachmentDir;
+    private $mailer;
+    private $templating;
+    private $adminMail;
+    private $attachmentDir;
 
     public function __construct(
         \Swift_Mailer $mailer,
-        EngineInterface $templating,
+        Environment $templating,
         string $adminMail,
         string $attachmentDir
     ) {

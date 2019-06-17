@@ -4,8 +4,6 @@ framework:
   csrf_protection: { enabled: true }
   default_locale: pl
   validation: { enable_annotations: true }
-  templating:
-    engines: ['twig']
   session:
     # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
     handler_id:  session.handler.native_file

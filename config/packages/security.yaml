@@ -3,7 +3,7 @@
 security:
     encoders:
         Decarte\Shop\Entity\User:
-            algorithm: bcrypt
+            algorithm: auto
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:

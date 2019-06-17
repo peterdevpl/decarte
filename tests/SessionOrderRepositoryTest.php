@@ -11,11 +11,11 @@ use Decarte\Shop\Repository\Product\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class SessionOrderRepositoryTest extends AbstractOrderTest
+final class SessionOrderRepositoryTest extends AbstractOrderTest
 {
     protected $orderRepository;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
         );
     }
 
-    protected function getProductRepository()
+    protected function getProductRepository(): ProductRepository
     {
         $productRepository = $this->createMock(ProductRepository::class);
         $productRepository->method('find')->will($this->returnValueMap([
@@ -43,7 +43,7 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
         return $productRepository;
     }
 
-    protected function getRealizationTypeRepository()
+    protected function getRealizationTypeRepository(): RealizationTypeRepository
     {
         $realizationTypeRepository = $this->createMock(RealizationTypeRepository::class);
         $realizationTypeRepository->method('find')->willReturn($this->getRealizationType());
@@ -51,7 +51,7 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
         return $realizationTypeRepository;
     }
 
-    protected function getDeliveryTypeRepository()
+    protected function getDeliveryTypeRepository(): DeliveryTypeRepository
     {
         $deliveryTypeRepository = $this->createMock(DeliveryTypeRepository::class);
         $deliveryTypeRepository->method('find')->willReturn($this->getDeliveryType());
@@ -59,7 +59,7 @@ class SessionOrderRepositoryTest extends AbstractOrderTest
         return $deliveryTypeRepository;
     }
 
-    public function testGetStoredOrder()
+    public function testGetStoredOrder(): void
     {
         $this->orderRepository->persist($this->order);
         $sessionOrder = $this->orderRepository->getOrder();
