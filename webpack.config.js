@@ -4,9 +4,7 @@ Encore
     .setOutputPath('public_html/build/')
     .setPublicPath('/build')
     .addEntry('app', './assets/js/app.js')
-    .createSharedEntry('vendor', [
-        './assets/scss/bootstrap.scss'
-    ])
+    .createSharedEntry('vendor', './assets/scss/bootstrap.scss')
     .enableSassLoader()
     .enableSourceMaps(!Encore.isProduction())
     .cleanupOutputBeforeBuild()
