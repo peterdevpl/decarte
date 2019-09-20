@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="\Decarte\Shop\Repository\Order\DeliveryTypeRepository")
  * @ORM\Table(name="decarte_delivery_types")
  */
-final class DeliveryType
+class DeliveryType
 {
     use VisibilityTrait;
 

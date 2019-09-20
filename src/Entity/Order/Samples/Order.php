@@ -7,7 +7,7 @@ namespace Decarte\Shop\Entity\Order\Samples;
 use Decarte\Shop\Entity\Product\Product;
 use Doctrine\Common\Collections\ArrayCollection;
 
-final class Order implements \JsonSerializable
+class Order implements \JsonSerializable
 {
     private $items;
 
