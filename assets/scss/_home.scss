@@ -89,7 +89,7 @@
   }
 }
 
-@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(xl) {
   .home {
     display: flex;
     flex-wrap: wrap;
@@ -114,18 +114,22 @@
   }
 
   #home-article-part1 {
+    max-width: 450px;
     order: 1;
   }
 
   #home-image-1 {
+    max-width: 650px;
     order: 2;
   }
 
   #home-image-2 {
+    max-width: 618px;
     order: 3;
   }
 
   #home-article-part2 {
+    max-width: 482px;
     order: 4;
   }
 
@@ -135,23 +139,5 @@
 
   #home-image-3 {
     order: 6;
-  }
-}
-
-@include media-breakpoint-up(xl) {
-  #home-image-1 {
-    max-width: 650px;
-  }
-
-  #home-article-part1 {
-    max-width: 450px;
-  }
-
-  #home-image-2 {
-    max-width: 618px;
-  }
-
-  #home-article-part2 {
-    max-width: 482px;
   }
 }
