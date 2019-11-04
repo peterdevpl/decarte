@@ -52,7 +52,9 @@
         "behat/mink": "^1.7",
         "behat/symfony2-extension": "^2.1",
         "behat/mink-browserkit-driver": "^1.3",
-        "behat/mink-extension": "^2.3"
+        "behat/mink-extension": "^2.3",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan-phpunit": "^0.11.2"
     },
     "extra": {
         "symfony-app-dir": "app",
