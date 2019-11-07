@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Form\Order;
 
-use Decarte\Shop\Entity\Order\Samples\Order;
+use Decarte\Shop\Entity\Order\DeliveryType;
+use Decarte\Shop\Entity\Order\Order;
 use Decarte\Shop\Entity\Product\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +23,7 @@ final class OrderSamplesType extends AbstractType
     {
         $resolver
             ->setDefaults(['data_class' => Order::class])
-            ->setRequired(['products']);
+            ->setRequired(['products', 'delivery_types']);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -43,9 +45,20 @@ final class OrderSamplesType extends AbstractType
             ->add('email', EmailType::class, ['label' => 'form.email'])
             ->add('phone', TextType::class, ['label' => 'form.phone'])
             ->add('name', TextType::class, ['label' => 'form.name'])
-            ->add('address', TextType::class, ['label' => 'form.address'])
+            ->add('street', TextType::class, ['label' => 'form.address'])
             ->add('postal_code', TextType::class, ['label' => 'form.zipcode'])
             ->add('city', TextType::class, ['label' => 'form.city'])
+            ->add('country', CountryType::class, [
+                'label' => 'form.country',
+                'preferred_choices' => ['PL', 'BE', 'HR', 'CZ', 'DK', 'FI', 'FR', 'GR', 'DE', 'IE', 'LT', 'LU', 'NL', 'NO', 'RO', 'SK', 'GB', 'IT' ],
+            ])
+            ->add('delivery_type', EntityType::class, [
+                'choices' => $options['delivery_types'],
+                'class' => DeliveryType::class,
+                'expanded' => true,
+                'label' => 'form.deliveryType',
+                'multiple' => false,
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'order.samples',
                 'attr' => ['class' => 'btn btn-primary'],

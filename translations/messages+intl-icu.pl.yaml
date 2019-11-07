@@ -1,0 +1,28 @@
+form.name: 'Imię i nazwisko'
+form.email: 'E-mail'
+form.phone: 'Numer telefonu'
+form.address: 'Ulica, nr domu i mieszkania'
+form.zipcode: 'Kod pocztowy'
+form.city: 'Miasto'
+form.country: 'Kraj'
+form.deliveryType: 'Sposób dostawy'
+form.paymentType: 'Sposób płatności'
+form.realizationType: 'Tryb realizacji'
+form.notes: 'Uwagi'
+
+cart.calculateAndSave: 'Przelicz i zapisz zmiany'
+cart.placeOrder: 'Złóż zamówienie'
+
+order.samples: 'Zamów próbki'
+order.samples.service: 'Serwis próbkowy'
+
+order.samples.maxCount: >-
+    {samples, plural,
+        =0    {Brak próbek}
+        one   {Jedno dowolne zaproszenie z losowym nadrukiem}
+        few   {# dowolne zaproszenia z losowym nadrukiem}
+        many  {# dowolnych zaproszeń z losowym nadrukiem}
+        other {# dowolnego zaproszenia z losowym nadrukiem}
+    }
+
+order.samples.price: 'Koszt: 15 PLN przy wysyłce w Polsce, 25 PLN przy wysyłce za granicę'

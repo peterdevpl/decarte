@@ -33,6 +33,9 @@ class DeliveryType
     /** @ORM\Column(type="boolean", name="is_personal") */
     protected $isPersonal = false;
 
+    /** @ORM\Column(type="boolean", name="is_visible_for_samples") */
+    private $isVisibleForSamples = false;
+
     /** @ORM\Column(type="integer") */
     protected $sort = 0;
 
@@ -96,8 +99,20 @@ class DeliveryType
         return $this;
     }
 
+    public function isVisibleForSamples(): bool
+    {
+        return $this->isVisibleForSamples;
+    }
+
+    public function setIsVisibleForSamples(bool $flag): self
+    {
+        $this->isVisibleForSamples = $flag;
+
+        return $this;
+    }
+
     public function __toString()
     {
-        return $this->getName() . ' (' . ($this->getPrice() / 100) . ' PLN)';
+        return $this->getName();
     }
 }

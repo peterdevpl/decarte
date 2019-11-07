@@ -6,8 +6,8 @@
                     <li><a href="{{ path('static_page', {slugName: 'zamowienia'}) }}">Jak zamówić</a></li>
                     <li><a href="{{ path('shop_order_samples') }}">
                         {% trans %}order.samples{% endtrans %}
-                        {% if samples.getOrder().getItems().count() %}
-                            <span class="samples-count">{{ samples.getOrder().getItems().count() }}</span>
+                        {% if cart.getOrder('samples').getItems().count() %}
+                            <span class="samples-count">{{ cart.getOrder('samples').getItems().count() }}</span>
                         {% endif %}
                     </a></li>
                     <li><a href="{{ path('texts_section', {section: 'teksty'}) }}">Teksty i&nbsp;grafiki</a></li>

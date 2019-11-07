@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class SessionOrderRepository
 {
+    const STANDARD = 'order';  // legacy key left as we don't want to break existing user sessions after deployment
+    const SAMPLES = 'samples';
+
     /** @var SessionInterface */
     private $session;
 
@@ -26,7 +29,8 @@ final class SessionOrderRepository
     /** @var EntityRepository */
     private $deliveryTypeRepository;
 
-    private $order;
+    /** @var Order[] */
+    private $orders = [];
 
     public function __construct(
         SessionInterface $session,
@@ -40,23 +44,23 @@ final class SessionOrderRepository
         $this->session = $session;
     }
 
-    public function getOrder(): Order
+    public function getOrder(string $key = self::STANDARD): Order
     {
-        if (!$this->order) {
-            $serializedOrder = $this->session->get('order');
+        if (!\array_key_exists($key, $this->orders)) {
+            $serializedOrder = $this->session->get($key);
             if ($serializedOrder) {
-                $this->order = $this->deserialize($serializedOrder);
+                $this->orders[$key] = $this->deserialize($serializedOrder);
             } else {
-                $this->order = new Order();
+                $this->orders[$key] = new Order();
             }
         }
 
-        return $this->order;
+        return $this->orders[$key];
     }
 
-    private function deserialize(string $serializedOrder)
+    private function deserialize(string $serializedOrder): Order
     {
-        $orderArray = json_decode($serializedOrder, true);
+        $orderArray = \json_decode($serializedOrder, true);
         $order = new Order();
 
         if ($orderArray) {
@@ -94,13 +98,16 @@ final class SessionOrderRepository
         return $order;
     }
 
-    public function persist(Order $order): void
+    public function persist(Order $order, string $key = self::STANDARD): void
     {
-        $this->session->set('order', json_encode($order));
+        $json = \json_encode($order);
+        $this->session->set($key, $json);
+        $this->orders[$key] = $json;
     }
 
-    public function clear(): void
+    public function clear(string $key = self::STANDARD): void
     {
-        $this->session->remove('order');
+        $this->session->remove($key);
+        unset($this->orders[$key]);
     }
 }

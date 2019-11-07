@@ -18,7 +18,7 @@ class DeliveryTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, DeliveryType::class);
     }
 
-    public function getDeliveryTypes($onlyVisible = true)
+    public function getDeliveryTypes(bool $onlyVisible = true)
     {
         $queryBuilder = $this->createQueryBuilder('dt');
         $queryBuilder
@@ -26,6 +26,21 @@ class DeliveryTypeRepository extends ServiceEntityRepository
 
         if ($onlyVisible) {
             $queryBuilder->where('dt.isVisible = :visible')->setParameter(':visible', true);
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function getDeliveryTypesForSamples(bool $onlyVisible = true): array
+    {
+        $queryBuilder = $this->createQueryBuilder('dt');
+        $queryBuilder
+            ->orderBy('dt.sort', 'ASC');
+
+        if ($onlyVisible) {
+            $queryBuilder->where('dt.isVisibleForSamples = :visible')->setParameter(':visible', true);
         }
 
         $query = $queryBuilder->getQuery();

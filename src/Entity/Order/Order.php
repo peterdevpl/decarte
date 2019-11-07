@@ -14,11 +14,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order implements \JsonSerializable
 {
+    const STANDARD = 'standard';
+    const SAMPLES = 'samples';
+
     /**
      * @ORM\Id @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
     private $id = 0;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $type = self::STANDARD;
 
     /**
      * @ORM\Column(type="string")
@@ -44,6 +52,11 @@ class Order implements \JsonSerializable
      * @ORM\Column(type="string", nullable=true)
      */
     private $city;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $country;
 
     /**
      * @ORM\Column(type="string")
@@ -92,6 +105,18 @@ class Order implements \JsonSerializable
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getType(): string
+    {
+        return $type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     public function getRealizationType()
@@ -223,6 +248,18 @@ class Order implements \JsonSerializable
     public function setCity(?string $city)
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

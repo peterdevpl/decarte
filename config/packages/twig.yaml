@@ -16,8 +16,6 @@ twig:
         samples_count: 2
 
         menu: '@Decarte\Shop\Service\View\Menu\Menu'
-
         cart: '@Decarte\Shop\Repository\Order\SessionOrderRepository'
-        samples: '@Decarte\Shop\Repository\Order\SessionSamplesOrderRepository'
 
         google_analytics: "%env(GOOGLE_ANALYTICS)%"

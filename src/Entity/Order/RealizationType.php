@@ -114,12 +114,6 @@ class RealizationType
 
     public function __toString()
     {
-        $description = $this->getName() . ' - ' . $this->deliveryDays .
-            ($this->deliveryDays > 4 ? ' dni roboczych' : ' dni robocze');
-        if ($this->getPrice() > 0) {
-            $description .= ' (+' . ($this->getPrice() / 100) . ' PLN)';
-        }
-
-        return $description;
+        return $this->getName();
     }
 }

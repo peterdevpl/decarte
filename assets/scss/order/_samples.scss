@@ -21,10 +21,14 @@ img.samples-header {
   max-width: 100%;
 }
 
-@include media-breakpoint-up(md) {
-  .samples-products {
+@include media-breakpoint-up(lg) {
+  .samples-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
     .form-group {
-      width: 50%;
+      width: 49%;
     }
   }
 }

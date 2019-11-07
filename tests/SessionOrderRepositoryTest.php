@@ -8,12 +8,13 @@ use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\RealizationTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 final class SessionOrderRepositoryTest extends AbstractOrderTest
 {
-    protected $orderRepository;
+    private $orderRepository;
 
     protected function setUp(): void
     {
@@ -32,7 +33,10 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
         );
     }
 
-    protected function getProductRepository(): ProductRepository
+    /**
+     * @return ProductRepository&MockObject
+     */
+    private function getProductRepository(): ProductRepository
     {
         $productRepository = $this->createMock(ProductRepository::class);
         $productRepository->method('find')->will($this->returnValueMap([
@@ -43,7 +47,7 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
         return $productRepository;
     }
 
-    protected function getRealizationTypeRepository(): RealizationTypeRepository
+    private function getRealizationTypeRepository(): RealizationTypeRepository
     {
         $realizationTypeRepository = $this->createMock(RealizationTypeRepository::class);
         $realizationTypeRepository->method('find')->willReturn($this->getRealizationType());
@@ -51,7 +55,7 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
         return $realizationTypeRepository;
     }
 
-    protected function getDeliveryTypeRepository(): DeliveryTypeRepository
+    private function getDeliveryTypeRepository(): DeliveryTypeRepository
     {
         $deliveryTypeRepository = $this->createMock(DeliveryTypeRepository::class);
         $deliveryTypeRepository->method('find')->willReturn($this->getDeliveryType());

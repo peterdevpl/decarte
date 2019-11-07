@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Decarte\Shop\Controller\Product;
 
 use Decarte\Shop\Entity\Product\Product;
-use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
+use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
@@ -136,7 +136,7 @@ final class ProductsController extends AbstractController
         ProductSchema $productSchema,
         ProductBreadcrumbs $breadcrumbsGenerator,
         BreadcrumbListSchema $breadcrumbsSchema,
-        SessionSamplesOrderRepository $samplesOrderRepository
+        SessionOrderRepository $samplesOrderRepository
     ): Response {
         if ($request->query->has('z')) {
             /** @var ?Product $product */
@@ -163,7 +163,7 @@ final class ProductsController extends AbstractController
         $nextPath = $nextProduct ? $productUrl->generate($nextProduct) : null;
         $breadcrumbs = $breadcrumbsGenerator->generate($product);
 
-        $samplesOrder = $samplesOrderRepository->getOrder();
+        $samplesOrder = $samplesOrderRepository->getOrder(SessionOrderRepository::SAMPLES);
         $hasDemo = $product->hasDemo() && ($samplesOrder->getItems()->count() < $this->getParameter('samples_count'));
 
         return $this->render('shop/view-product.html.twig', [

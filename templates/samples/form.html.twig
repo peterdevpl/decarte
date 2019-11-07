@@ -5,32 +5,34 @@
 {% block contents %}
     <img src="/img/samples-form.jpg" alt="{% trans %}order.samples.service{% endtrans %}" class="samples-header" />
 
-    <h2 class="samples">{{ samples_count }} dowolne zaproszenia z losowym nadrukiem</h2>
+    <h2 class="samples">{% trans with {'samples': samples_count} %}order.samples.maxCount{% endtrans %}</h2>
 
-    <h2 class="samples">Koszt: 15 PLN przy wysyłce w Polsce, 25 PLN przy wysyłce za granicę</h2>
-
-    <p class="samples-remark">{% trans %}order.samples.bank_account_emailed{% endtrans %}</p>
+    <h2 class="samples">{% trans %}order.samples.price{% endtrans %}</h2>
 
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {{ form_start(form) }}
+    <div class="samples-form">
 
-    <div class="samples-products"
-         id="samples-products"
-         data-max-items="{{ samples_count }}"
-         data-prototype="{{ form_row(form.items.vars.prototype)|e }}">
-        {% for item in form.items %}
-            {{ form_row(item, {'label': 'Zaproszenie nr '~loop.index}) }}
-        {% endfor %}
+        <div class="samples-products"
+             id="samples-products"
+             data-max-items="{{ samples_count }}"
+             data-prototype="{{ form_row(form.items.vars.prototype)|e }}">
+            {% for item in form.items %}
+                {{ form_row(item, {'label': 'Zaproszenie nr '~loop.index}) }}
+            {% endfor %}
+        </div>
+
+        {{ form_row(form.email) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.street) }}
+        {{ form_row(form.postal_code) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.delivery_type) }}
+        {{ form_row(form.notes) }}
     </div>
-
-    {{ form_row(form.email) }}
-    {{ form_row(form.phone) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.address) }}
-    {{ form_row(form.postal_code) }}
-    {{ form_row(form.city) }}
-    {{ form_row(form.notes) }}
     {{ form_end(form) }}
 
     <script>

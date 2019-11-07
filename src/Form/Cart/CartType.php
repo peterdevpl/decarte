@@ -30,21 +30,33 @@ class CartType extends AbstractType
                 'choices' => $options['delivery_types'],
                 'class' => DeliveryType::class,
                 'expanded' => true,
-                'label' => 'Sposób dostawy',
+                'label' => 'form.deliveryType',
+                'choice_label' => function (DeliveryType $item) {
+                    return $item->getName() . ' (' . ($item->getPrice() / 100) . ' PLN)';
+                },
                 'multiple' => false,
             ])
             ->add('realizationType', EntityType::class, [
                 'choices' => $options['realization_types'],
                 'class' => RealizationType::class,
                 'expanded' => true,
-                'label' => 'Tryb realizacji',
+                'label' => 'form.realizationType',
+                'choice_label' => function (RealizationType $item) {
+                    $description = $item->getName() . ' - ' . $item->getDeliveryDays() .
+                        ($item->getDeliveryDays() > 4 ? ' dni roboczych' : ' dni robocze');
+                    if ($item->getPrice() > 0) {
+                        $description .= ' (+' . ($item->getPrice() / 100) . ' PLN)';
+                    }
+
+                    return $description;
+                },
                 'multiple' => false,
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Przelicz i zapisz zmiany',
+                'label' => 'cart.calculateAndSave',
             ])
             ->add('save_and_order', SubmitType::class, [
-                'label' => 'Złóż zamówienie',
+                'label' => 'cart.placeOrder',
                 'attr' => ['class' => 'btn btn-primary'],
             ]);
     }

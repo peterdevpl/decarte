@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Controller\Order;
 
-use Decarte\Shop\Entity\Order\Samples\Order;
-use Decarte\Shop\Entity\Order\Samples\OrderItem;
+use Decarte\Shop\Entity\Order\Order;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Entity\Product\ProductType;
 use Decarte\Shop\Form\Order\OrderSamplesType;
-use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
+use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
+use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,25 +28,28 @@ final class SamplesOrderController extends AbstractController
      */
     public function orderSamplesAction(
         Request $request,
-        SessionSamplesOrderRepository $samplesOrderRepository,
+        SessionOrderRepository $orderRepository,
         ProductTypeRepository $productTypeRepository,
         ProductRepository $productRepository,
+        DeliveryTypeRepository $deliveryTypeRepository,
         \Swift_Mailer $mailer
     ): Response {
-        $order = $samplesOrderRepository->getOrder();
+        $order = $orderRepository->getOrder(SessionOrderRepository::SAMPLES);
         /** @var ProductType $productType */
         $productType = $productTypeRepository->find(1);
         $products = $productRepository->findDemos($productType);
+        $deliveryTypes = $deliveryTypeRepository->getDeliveryTypesForSamples();
 
         $form = $this->createForm(OrderSamplesType::class, $order, [
             'products' => $products,
+            'delivery_types' => $deliveryTypes,
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
             $this->sendSamplesOrderEmailToShop($order, $mailer);
             $this->sendSamplesOrderEmailToCustomer($order, $mailer);
-            $samplesOrderRepository->clear();
+            $orderRepository->clear(SessionOrderRepository::SAMPLES);
 
             return $this->redirectToRoute('shop_order_samples_confirmation');
         }
@@ -61,16 +64,16 @@ final class SamplesOrderController extends AbstractController
      */
     public function addSampleAction(
         Request $request,
-        SessionSamplesOrderRepository $samplesOrderRepository,
+        SessionOrderRepository $orderRepository,
         ProductRepository $productRepository
     ): Response {
         /** @var Product $product */
         $product = $productRepository->find($request->get('product_id'));
-        $order = $samplesOrderRepository->getOrder();
+        $order = $orderRepository->getOrder(SessionOrderRepository::SAMPLES);
 
         if ($order->getItems()->count() < $this->getParameter('samples_count')) {
-            $order->addItem($product);
-            $samplesOrderRepository->persist($order);
+            $order->addItem($product, 1, 0);
+            $orderRepository->persist($order, SessionOrderRepository::SAMPLES);
         }
 
         return $this->redirectToRoute('shop_order_samples');
