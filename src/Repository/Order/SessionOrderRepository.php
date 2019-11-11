@@ -102,7 +102,7 @@ final class SessionOrderRepository
     {
         $json = \json_encode($order);
         $this->session->set($key, $json);
-        $this->orders[$key] = $json;
+        $this->orders[$key] = $order;
     }
 
     public function clear(string $key = self::STANDARD): void

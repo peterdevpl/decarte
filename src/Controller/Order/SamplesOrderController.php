@@ -12,6 +12,7 @@ use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
+use Decarte\Shop\Service\Payment\PayU;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,8 @@ final class SamplesOrderController extends AbstractController
         ProductTypeRepository $productTypeRepository,
         ProductRepository $productRepository,
         DeliveryTypeRepository $deliveryTypeRepository,
-        \Swift_Mailer $mailer
+        \Swift_Mailer $mailer,
+        PayU $payu
     ): Response {
         $order = $orderRepository->getOrder(SessionOrderRepository::SAMPLES);
         /** @var ProductType $productType */
@@ -46,17 +48,37 @@ final class SamplesOrderController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $order = $form->getData();
-            $this->sendSamplesOrderEmailToShop($order, $mailer);
-            $this->sendSamplesOrderEmailToCustomer($order, $mailer);
-            $orderRepository->clear(SessionOrderRepository::SAMPLES);
-
-            return $this->redirectToRoute('shop_order_samples_confirmation');
+            return $this->saveOrder($form->getData(), $request, $orderRepository, $mailer, $payu);
         }
 
         return $this->render('samples/form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    private function saveOrder(
+        Order $order,
+        Request $request,
+        SessionOrderRepository $orderRepository,
+        \Swift_Mailer $mailer,
+        PayU $payu
+    ): Response {
+        $order->setType(Order::SAMPLES);
+        $order->setCreatedAt(new \DateTime());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($order);
+        $em->flush();
+
+        $this->sendSamplesOrderEmailToShop($order, $mailer);
+        $this->sendSamplesOrderEmailToCustomer($order, $mailer);
+        $orderRepository->clear(SessionOrderRepository::SAMPLES);
+
+        if ('PayU' === $order->getDeliveryType()->getShortName()) {
+            return $payu->createOrder($request, $order);
+        }
+
+        return $this->redirectToRoute('shop_order_samples_confirmation');
     }
 
     /**

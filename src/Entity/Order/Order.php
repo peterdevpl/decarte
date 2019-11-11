@@ -109,7 +109,7 @@ class Order implements \JsonSerializable
 
     public function getType(): string
     {
-        return $type;
+        return $this->type;
     }
 
     public function setType(string $type): self

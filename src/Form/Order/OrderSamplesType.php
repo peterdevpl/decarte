@@ -50,7 +50,10 @@ final class OrderSamplesType extends AbstractType
             ->add('city', TextType::class, ['label' => 'form.city'])
             ->add('country', CountryType::class, [
                 'label' => 'form.country',
-                'preferred_choices' => ['PL', 'BE', 'HR', 'CZ', 'DK', 'FI', 'FR', 'GR', 'DE', 'IE', 'LT', 'LU', 'NL', 'NO', 'RO', 'SK', 'GB', 'IT' ],
+                'preferred_choices' => [
+                    'PL', 'BE', 'HR', 'CZ', 'DK', 'FI', 'FR', 'GR', 'DE', 'IE', 'LT', 'LU', 'NL', 'NO', 'RO', 'SK',
+                    'GB', 'IT',
+                ],
             ])
             ->add('delivery_type', EntityType::class, [
                 'choices' => $options['delivery_types'],
@@ -60,7 +63,7 @@ final class OrderSamplesType extends AbstractType
                 'multiple' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'order.samples',
+                'label' => 'order.samples.submit',
                 'attr' => ['class' => 'btn btn-primary'],
             ]);
     }

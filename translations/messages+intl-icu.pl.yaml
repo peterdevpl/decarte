@@ -15,13 +15,14 @@ cart.placeOrder: 'Złóż zamówienie'
 
 order.samples: 'Zamów próbki'
 order.samples.service: 'Serwis próbkowy'
+order.samples.submit: 'Zamawiam próbki i płacę'
 
 order.samples.maxCount: >-
     {samples, plural,
         =0    {Brak próbek}
-        one   {Jedno dowolne zaproszenie z losowym nadrukiem}
-        few   {# dowolne zaproszenia z losowym nadrukiem}
-        many  {# dowolnych zaproszeń z losowym nadrukiem}
+        one   {Wybierzcie jedno dowolne zaproszenie z losowym nadrukiem}
+        few   {Wybierzcie # dowolne zaproszenia z losowym nadrukiem}
+        many  {Wybierzcie # dowolnych zaproszeń z losowym nadrukiem}
         other {# dowolnego zaproszenia z losowym nadrukiem}
     }
 
