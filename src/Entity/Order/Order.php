@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\Product\Product;
+use Decarte\Shop\Exception\QuantityTooSmallException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -115,6 +116,7 @@ class Order implements \JsonSerializable
     public function setType(string $type): self
     {
         $this->type = $type;
+        $this->calculateTotalPrice();
 
         return $this;
     }
@@ -169,14 +171,20 @@ class Order implements \JsonSerializable
 
     protected function calculateTotalPrice()
     {
-        $this->totalPrice = $this->getItemsPrice();
+        if (self::STANDARD === $this->type) {
+            $this->totalPrice = $this->getItemsPrice();
 
-        if ($this->getDeliveryType()) {
-            $this->totalPrice += $this->getDeliveryType()->getPrice();
-        }
+            if ($this->getDeliveryType()) {
+                $this->totalPrice += $this->getDeliveryType()->getPrice();
+            }
 
-        if ($this->getRealizationType()) {
-            $this->totalPrice += $this->getRealizationType()->getPrice();
+            if ($this->getRealizationType()) {
+                $this->totalPrice += $this->getRealizationType()->getPrice();
+            }
+        } elseif (self::SAMPLES === $this->type) {
+            $this->totalPrice = ('PL' === $this->country) ?
+                $this->getDeliveryType()->getPriceSamplesHome() :
+                $this->getDeliveryType()->getPriceSamplesAbroad();
         }
     }
 
@@ -260,6 +268,7 @@ class Order implements \JsonSerializable
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+        $this->calculateTotalPrice();
 
         return $this;
     }
@@ -303,10 +312,21 @@ class Order implements \JsonSerializable
 
     public function addItem(Product $product, int $quantity, int $unitPrice)
     {
+        if ($quantity < 1) {
+            throw new QuantityTooSmallException($product, $quantity);
+        }
+
         $item = $this->getItem($product);
-        $item
-            ->setQuantity($item->getQuantity() + $quantity)
-            ->setUnitPrice($unitPrice);
+        $newQuantity = $item->getQuantity() + $quantity;
+
+        if (self::SAMPLES !== $this->type) {
+            $minimumQuantity = $product->getMinimumQuantity();
+            if ($newQuantity < $minimumQuantity) {
+                throw new QuantityTooSmallException($product, $quantity);
+            }
+        }
+
+        $item->setQuantity($newQuantity)->setUnitPrice($unitPrice);
 
         if (!$this->items->contains($item)) {
             $this->items->add($item);

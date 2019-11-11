@@ -14,7 +14,9 @@ final class DeliveryTypeFixture
             ->setId(1)
             ->setName('Delivery after a bank transfer')
             ->setShortName('bank transfer')
-            ->setPrice(1000);
+            ->setPrice(1000)
+            ->setPriceSamplesHome(1500)
+            ->setPriceSamplesAbroad(2500);
     }
 
     public static function cashOnDelivery(): DeliveryType
@@ -42,6 +44,8 @@ final class DeliveryTypeFixture
             ->setId(4)
             ->setName('PayU transfer')
             ->setShortName('PayU')
-            ->setPrice(1400);
+            ->setPrice(1400)
+            ->setPriceSamplesHome(1500)
+            ->setPriceSamplesAbroad(2500);
     }
 }

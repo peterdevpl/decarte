@@ -69,13 +69,6 @@ class OrderItem implements \JsonSerializable
 
     public function setQuantity(int $quantity)
     {
-        $minimumQuantity = $this->product->getMinimumQuantity();
-        if ($quantity < $minimumQuantity) {
-            $e = new QuantityTooSmallException();
-            $e->setContext($this->product, $quantity);
-            throw $e;
-        }
-
         $this->quantity = $quantity;
 
         return $this;

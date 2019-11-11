@@ -11,8 +11,9 @@ class QuantityTooSmallException extends \InvalidArgumentException
     protected $product;
     protected $requestedQuantity;
 
-    public function setContext(Product $product, int $quantity)
+    public function __construct(Product $product, int $quantity)
     {
+        parent::__construct();
         $this->product = $product;
         $this->requestedQuantity = $quantity;
     }

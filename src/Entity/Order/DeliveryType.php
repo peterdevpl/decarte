@@ -30,6 +30,12 @@ class DeliveryType
     /** @ORM\Column(type="integer") */
     protected $price = 0;
 
+    /** @ORM\Column(type="integer", name="price_samples_abroad") */
+    private $priceSamplesAbroad = 0;
+
+    /** @ORM\Column(type="integer", name="price_samples_home") */
+    private $priceSamplesHome = 0;
+
     /** @ORM\Column(type="boolean", name="is_personal") */
     protected $isPersonal = false;
 
@@ -83,6 +89,30 @@ class DeliveryType
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getPriceSamplesAbroad(): int
+    {
+        return $this->priceSamplesAbroad;
+    }
+
+    public function setPriceSamplesAbroad(int $price): self
+    {
+        $this->priceSamplesAbroad = $price;
+
+        return $this;
+    }
+
+    public function getPriceSamplesHome(): int
+    {
+        return $this->priceSamplesHome;
+    }
+
+    public function setPriceSamplesHome(int $price): self
+    {
+        $this->priceSamplesHome = $price;
 
         return $this;
     }

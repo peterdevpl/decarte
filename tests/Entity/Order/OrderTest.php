@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Decarte\Shop\Tests\Entity\Order;
 
 use Decarte\Shop\DataFixtures\OrderFixture;
+use Decarte\Shop\DataFixtures\ProductCollectionFixture;
+use Decarte\Shop\DataFixtures\ProductFixture;
+use Decarte\Shop\Entity\Order\Order;
+use Decarte\Shop\Entity\Product\ProductType;
 use Decarte\Shop\Exception\QuantityTooSmallException;
 use PHPUnit\Framework\TestCase;
 
@@ -79,6 +83,42 @@ final class OrderTest extends TestCase
 
         // when
         $order->addItem($product, 1, 0);
+    }
+
+    public function testDomesticSamplesOrder(): void
+    {
+        // given
+        $order = OrderFixture::exampleOrderWithTwoItems();
+        $order->clearItems();
+        $order
+            ->setType(Order::SAMPLES)
+            ->addItem(
+                ProductFixture::sampleInvitation(ProductCollectionFixture::sampleInvitations(new ProductType())),
+                1,
+                0
+            )
+            ->setCountry('PL');
+
+        // then
+        $this->assertEquals(1500, $order->getTotalPrice());
+    }
+
+    public function testForeignSamplesOrder(): void
+    {
+        // given
+        $order = OrderFixture::exampleOrderWithTwoItems();
+        $order->clearItems();
+        $order
+            ->setType(Order::SAMPLES)
+            ->addItem(
+                ProductFixture::sampleInvitation(ProductCollectionFixture::sampleInvitations(new ProductType())),
+                1,
+                0
+            )
+            ->setCountry('GB');
+
+        // then
+        $this->assertEquals(2500, $order->getTotalPrice());
     }
 
     public function testJson(): void
