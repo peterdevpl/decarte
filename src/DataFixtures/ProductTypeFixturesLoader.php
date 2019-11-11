@@ -8,7 +8,7 @@ use Decarte\Shop\Entity\Product\ProductType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-final class ProductTypeFixtures extends Fixture
+final class ProductTypeFixturesLoader extends Fixture
 {
     public function load(ObjectManager $manager)
     {

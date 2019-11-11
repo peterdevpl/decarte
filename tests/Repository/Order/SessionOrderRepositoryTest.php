@@ -2,24 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Decarte\Shop\Tests;
+namespace Decarte\Shop\Tests\Repository\Order;
 
+use Decarte\Shop\DataFixtures\DeliveryTypeFixture;
+use Decarte\Shop\DataFixtures\OrderFixture;
+use Decarte\Shop\DataFixtures\ProductFixture;
+use Decarte\Shop\DataFixtures\RealizationTypeFixture;
+use Decarte\Shop\Entity\Product\ProductCollection;
 use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\RealizationTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-final class SessionOrderRepositoryTest extends AbstractOrderTest
+final class SessionOrderRepositoryTest extends TestCase
 {
     private $orderRepository;
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $session = new Session(new MockArraySessionStorage());
         $productRepository = $this->getProductRepository();
         $realizationTypeRepository = $this->getRealizationTypeRepository();
@@ -40,8 +44,8 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
     {
         $productRepository = $this->createMock(ProductRepository::class);
         $productRepository->method('find')->will($this->returnValueMap([
-            [1, null, null, $this->products[0]],
-            [2, null, null, $this->products[1]],
+            [1, null, null, ProductFixture::sampleInvitation(new ProductCollection())],
+            [2, null, null, ProductFixture::sampleAddon(new ProductCollection())],
         ]));
 
         return $productRepository;
@@ -50,7 +54,7 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
     private function getRealizationTypeRepository(): RealizationTypeRepository
     {
         $realizationTypeRepository = $this->createMock(RealizationTypeRepository::class);
-        $realizationTypeRepository->method('find')->willReturn($this->getRealizationType());
+        $realizationTypeRepository->method('find')->willReturn(RealizationTypeFixture::sampleRealizationType());
 
         return $realizationTypeRepository;
     }
@@ -58,15 +62,21 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
     private function getDeliveryTypeRepository(): DeliveryTypeRepository
     {
         $deliveryTypeRepository = $this->createMock(DeliveryTypeRepository::class);
-        $deliveryTypeRepository->method('find')->willReturn($this->getDeliveryType());
+        $deliveryTypeRepository->method('find')->willReturn(DeliveryTypeFixture::bankTransfer());
 
         return $deliveryTypeRepository;
     }
 
     public function testGetStoredOrder(): void
     {
-        $this->orderRepository->persist($this->order);
+        // given
+        $order = OrderFixture::exampleOrderWithTwoItems();
+
+        // when
+        $this->orderRepository->persist($order);
         $sessionOrder = $this->orderRepository->getOrder();
-        $this->assertEquals($this->order, $sessionOrder);
+
+        // then
+        $this->assertEquals($order, $sessionOrder);
     }
 }
