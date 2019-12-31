@@ -95,6 +95,8 @@ class Order implements \JsonSerializable
 
     /**
      * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order", cascade={"persist"})
+     *
+     * @var OrderItem[]
      */
     private $items;
 
@@ -181,7 +183,7 @@ class Order implements \JsonSerializable
             if ($this->getRealizationType()) {
                 $this->totalPrice += $this->getRealizationType()->getPrice();
             }
-        } elseif (self::SAMPLES === $this->type) {
+        } elseif (self::SAMPLES === $this->type && $this->getDeliveryType()) {
             $this->totalPrice = ('PL' === $this->country) ?
                 $this->getDeliveryType()->getPriceSamplesHome() :
                 $this->getDeliveryType()->getPriceSamplesAbroad();

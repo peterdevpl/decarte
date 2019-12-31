@@ -6,12 +6,12 @@ namespace Decarte\Shop\Form\Order;
 
 use Decarte\Shop\Entity\Order\DeliveryType;
 use Decarte\Shop\Entity\Order\Order;
-use Decarte\Shop\Entity\Product\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,16 +29,11 @@ final class OrderSamplesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type', HiddenType::class)
             ->add('items', CollectionType::class, [
                 'label' => false,
-                'entry_type' => EntityType::class,
-                'entry_options' => [
-                    'class' => Product::class,
-                    'choices' => $options['products'],
-                    'label' => 'Zaproszenie nr __number__',
-                    'placeholder' => '--',
-                    'required' => false,
-                ],
+                'entry_type' => OrderSamplesItemType::class,
+                'entry_options' => ['products' => $options['products'], 'label' => false],
                 'allow_add' => true,
             ])
             ->add('notes', TextType::class, ['label' => 'form.notes', 'required' => false])

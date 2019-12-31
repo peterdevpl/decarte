@@ -37,6 +37,7 @@ final class SamplesOrderController extends AbstractController
         PayU $payu
     ): Response {
         $order = $orderRepository->getOrder(SessionOrderRepository::SAMPLES);
+        $order->setType(Order::SAMPLES);
         /** @var ProductType $productType */
         $productType = $productTypeRepository->find(1);
         $products = $productRepository->findDemos($productType);
@@ -63,7 +64,6 @@ final class SamplesOrderController extends AbstractController
         \Swift_Mailer $mailer,
         PayU $payu
     ): Response {
-        $order->setType(Order::SAMPLES);
         $order->setCreatedAt(new \DateTime());
 
         $em = $this->getDoctrine()->getManager();
