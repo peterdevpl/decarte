@@ -1,13 +1,12 @@
 {% extends 'layout/base-with-sidebar.html.twig' %}
 
-{% block title %}Dane do wysyłki - decARTe{% endblock %}
+{% block title %}{% trans %}order.shipping_details{% endtrans %} - decARTe{% endblock %}
 
 {% block contents %}
-    <h1><span class="step">Krok 1 z 2:</span> Podaj swoje dane</h1>
+    <h1><span class="step">Krok 1 z 2:</span> {% trans %}order.enter_shipping_details{% endtrans %}</h1>
 
     <p class="alert alert-secondary" role="alert">
-        Po złożeniu zamówienia, w ciągu godziny otrzymają Państwo maila ze szczegółami dotyczącymi realizacji zamówienia
-        oraz rozbudowanym formularzem, w którym będzie można sprecyzować szczegóły zlecenia.
+        {% trans %}order.further_details{% endtrans %}
     </p>
 
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
@@ -21,7 +20,7 @@
     {{ form_row(form.email) }}
     {{ form_row(form.phone) }}
 
-    <h2>Uwagi lub pytania</h2>
+    <h2>{% trans %}form.notes_and_questions{% endtrans %}</h2>
 
     {{ form_row(form.notes) }}
 
