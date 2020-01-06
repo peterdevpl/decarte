@@ -42,6 +42,12 @@
                     <th>Numer telefonu:</th>
                     <td>{{ order.getPhone() }}</td>
                 </tr>
+                {% if order.getTaxId() %}
+                <tr>
+                    <th>{% trans %}order.tax_id{% endtrans %}:</th>
+                    <td>{{ order.getTaxId() }}</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
 

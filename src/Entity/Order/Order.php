@@ -72,6 +72,9 @@ class Order implements \JsonSerializable
     /** @ORM\Column(type="string") */
     private $notes = '';
 
+    /** @ORM\Column(type="string", name="tax_id") */
+    private $taxId;
+
     /**
      * @ORM\Column(type="datetime", name="created_at")
      *
@@ -163,6 +166,18 @@ class Order implements \JsonSerializable
     public function setNotes($notes)
     {
         $this->notes = (string) $notes;
+
+        return $this;
+    }
+
+    public function getTaxId(): ?string
+    {
+        return $this->taxId;
+    }
+
+    public function setTaxId(?string $taxId): self
+    {
+        $this->taxId = $taxId;
 
         return $this;
     }
@@ -364,6 +379,7 @@ class Order implements \JsonSerializable
             'id' => $this->getId(),
             'name' => $this->getName(),
             'notes' => $this->getNotes(),
+            'taxId' => $this->getTaxId(),
             'phone' => $this->getPhone(),
             'postalCode' => $this->getPostalCode(),
             'price' => $this->getTotalPrice(),

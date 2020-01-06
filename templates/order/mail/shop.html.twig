@@ -13,6 +13,10 @@ Tryb realizacji: {{ order.getRealizationType() }}</p>
 
 <p>Uwagi: {{ order.getNotes() }}</p>
 
+{% if order.getTaxId() %}
+<p><strong>{% trans %}order.tax_id{% endtrans %}: {{ order.getTaxId() }}</strong></p>
+{% endif %}
+
 {% for item in order.getItems() %}
     <p><img
             src="{{ absolute_url(asset(image_product_url~'/'~item.getProduct().getCoverImage().getImageName()) | imagine_filter('product_thumb')) }}"

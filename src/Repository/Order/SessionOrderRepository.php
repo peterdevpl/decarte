@@ -68,6 +68,7 @@ final class SessionOrderRepository
                 ->setPostalCode($orderArray['postalCode'])
                 ->setPhone($orderArray['phone'])
                 ->setNotes($orderArray['notes'])
+                ->setTaxId($orderArray['taxId'])
                 ->setTotalPrice($orderArray['price']);
 
             foreach ($orderArray['items'] as $itemArray) {
