@@ -42,6 +42,7 @@ abstract class AbstractOrderTest extends TestCase
             ->setEmail('a@b.pl')
             ->setName('Jan Kowalski')
             ->setNotes('Xxx')
+            ->setTaxId('12345')
             ->setPhone('111222333')
             ->setPostalCode('80-534')
             ->setStreet('Starowiejska')
