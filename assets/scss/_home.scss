@@ -31,7 +31,6 @@
   }
 
   .circle-title {
-    display: flex;
     height: 100%;
     position: absolute;
     top: 0;
@@ -42,6 +41,7 @@
       color: black;
       display: block;
       font-size: 150%;
+      margin-top: 70%;
       opacity: 0.75;
       padding: 1rem 0;
       text-align: center;
@@ -75,7 +75,7 @@
   }
 }
 
-.welcome-image {
+.welcome-images {
   margin-bottom: 1rem;
 
   img {
@@ -90,54 +90,8 @@
 }
 
 @include media-breakpoint-up(xl) {
-  .home {
+  .welcome-images {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-  }
-
-  .welcome-text {
-    font-size: 110%;
-    margin-bottom: 2rem;
-  }
-
-  .welcome-text, .welcome-image {
-    max-width: 540px;
-  }
-
-  .welcome-image {
-    margin-bottom: 2rem;
-
-    img {
-      padding: 8px;
-    }
-  }
-
-  #home-article-part1 {
-    max-width: 450px;
-    order: 1;
-  }
-
-  #home-image-1 {
-    max-width: 650px;
-    order: 2;
-  }
-
-  #home-image-2 {
-    max-width: 618px;
-    order: 3;
-  }
-
-  #home-article-part2 {
-    max-width: 482px;
-    order: 4;
-  }
-
-  #home-article-part3 {
-    order: 5;
-  }
-
-  #home-image-3 {
-    order: 6;
   }
 }
