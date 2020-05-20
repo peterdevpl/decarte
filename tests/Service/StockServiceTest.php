@@ -72,7 +72,6 @@ final class StockServiceTest extends TestCase
         $collection->setMinimumQuantity(1);
         $limitedProduct = new Product();
         $limitedProduct->setProductCollection($collection);
-        $limitedProduct->setStock(0);
         $order = new Order();
         $order->addItem($limitedProduct, 1, 150);
 
@@ -81,6 +80,7 @@ final class StockServiceTest extends TestCase
         $this->expectException(StockTooSmallException::class);
 
         // when
+        $limitedProduct->setStock(0);
         $this->stockService->checkAndUpdateProducts($order);
     }
 }

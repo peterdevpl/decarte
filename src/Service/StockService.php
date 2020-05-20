@@ -31,6 +31,7 @@ final class StockService
             if ($product->getStock() < $item->getQuantity()) {
                 $e = new StockTooSmallException();
                 $e->setContext($product, $item->getQuantity());
+                throw $e;
             }
 
             $product->setStock($product->getStock() - $item->getQuantity());
