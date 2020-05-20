@@ -10,10 +10,13 @@ form.tax_id: 'NIP'
 form.notes_and_questions: 'Uwagi lub pytania'
 form.next: 'Dalej'
 
+product.out_of_stock: 'Produkt wyprzedany'
+
 order.shipping_details: 'Dane do wysyłki'
 order.enter_shipping_details: 'Podaj dane do wysyłki'
 order.further_details: 'Po złożeniu zamówienia, w ciągu godziny otrzymają Państwo maila ze szczegółami dotyczącymi realizacji zamówienia oraz rozbudowanym formularzem, w którym będzie można sprecyzować szczegóły zlecenia.'
 order.tax_id: 'NIP do faktury'
+order.out_of_stock_error: 'Niestety jeden z produktów został przed chwilą sprzedany.'
 
 order.samples: 'Zamów próbki'
 order.samples.service: 'Serwis próbkowy'

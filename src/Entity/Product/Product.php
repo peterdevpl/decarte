@@ -49,6 +49,9 @@ class Product
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
 
+    /** @ORM\Column(type="integer") */
+    private $stock;
+
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime_immutable", name="created_at")
@@ -184,6 +187,28 @@ class Product
     public function setSort(int $value)
     {
         $this->sort = $value;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?int $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function isInStock(): bool
+    {
+        return (null === $this->stock) || ($this->stock >= $this->getMinimumQuantity());
+    }
+
+    public function hasStockSet(): bool
+    {
+        return null !== $this->stock;
     }
 
     /**

@@ -10,6 +10,7 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
+use Spatie\SchemaOrg\ItemAvailability;
 use Spatie\SchemaOrg\Schema;
 
 final class ProductSchema
@@ -25,6 +26,7 @@ final class ProductSchema
     {
         $money = new Money($product->getPrice(), new Currency('PLN'));
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
+        $availability = $product->isInStock() ? ItemAvailability::InStock : ItemAvailability::SoldOut;
 
         $schema = Schema::product()
             ->name($product->getProductCollection()->getName() . ' - ' . $product->getName())
@@ -35,7 +37,7 @@ final class ProductSchema
                 ->priceCurrency($money->getCurrency()->getCode())
                 ->price($formatter->format($money))
                 ->itemCondition(Schema::offerItemCondition()->url('http://schema.org/NewCondition'))
-                ->availability(Schema::itemAvailability()->url('http://schema.org/InStock')));
+                ->availability(Schema::itemAvailability()->url($availability)));
 
         return $schema->toScript();
     }

@@ -35,6 +35,7 @@
         </div>
 
         <div class="add-product-to-cart">
+            {% if product.isInStock() %}
             <form action="{{ path('cart_add_item') }}" method="post">
                 <p class="price">Cena: {{ (product.getPrice() / 100)|number_format(2, ',', ' ') }} zł</p>
                 <div>
@@ -43,6 +44,9 @@
                     <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
                 </div>
             </form>
+            {% else %}
+            <p><strong>{% trans %}product.out_of_stock{% endtrans %}</strong></p>
+            {% endif %}
 
             {% if hasDemo %}
             <form action="{{ path('shop_add_sample') }}" method="post" class="sample">

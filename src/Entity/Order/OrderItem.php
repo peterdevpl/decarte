@@ -6,6 +6,7 @@ namespace Decarte\Shop\Entity\Order;
 
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Exception\QuantityTooSmallException;
+use Decarte\Shop\Exception\StockTooSmallException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,11 +68,15 @@ class OrderItem implements \JsonSerializable
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity)
+    public function setQuantity(int $quantity): self
     {
         $minimumQuantity = $this->product->getMinimumQuantity();
         if ($quantity < $minimumQuantity) {
             $e = new QuantityTooSmallException();
+            $e->setContext($this->product, $quantity);
+            throw $e;
+        } elseif ($this->product->hasStockSet() && $quantity > $this->product->getStock()) {
+            $e = new StockTooSmallException();
             $e->setContext($this->product, $quantity);
             throw $e;
         }

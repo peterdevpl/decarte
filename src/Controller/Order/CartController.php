@@ -7,6 +7,7 @@ namespace Decarte\Shop\Controller\Order;
 use Decarte\Shop\Entity\Order\Order;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Exception\QuantityTooSmallException;
+use Decarte\Shop\Exception\StockTooSmallException;
 use Decarte\Shop\Form\Cart\CartType;
 use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\RealizationTypeRepository;
@@ -22,10 +23,6 @@ final class CartController extends AbstractController
 {
     /**
      * @Route("/koszyk", name="cart_index")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function indexAction(
         Request $request,
@@ -51,7 +48,7 @@ final class CartController extends AbstractController
         return $this->render($view, $parameters);
     }
 
-    protected function showCart(
+    private function showCart(
         SessionOrderRepository $repository,
         RealizationTypeRepository $realizationTypeRepository,
         DeliveryTypeRepository $deliveryTypeRepository,
@@ -90,10 +87,6 @@ final class CartController extends AbstractController
 
     /**
      * @Route("/koszyk/dodaj", name="cart_add_item")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function addItemAction(
         Request $request,
@@ -122,6 +115,15 @@ final class CartController extends AbstractController
                 'slugName' => $product->getProductCollection()->getSlugName(),
                 'id' => $product->getId(),
             ]);
+        } catch (StockTooSmallException $e) {
+            $this->addFlash('error', 'Liczba dostępnych sztuk tego produktu to ' .
+                $e->getStock());
+
+            return $this->redirectToRoute('shop_view_product', [
+                'type' => $product->getProductCollection()->getProductType()->getSlugName(),
+                'slugName' => $product->getProductCollection()->getSlugName(),
+                'id' => $product->getId(),
+            ]);
         }
 
         $orderRepository->persist($order);
@@ -131,10 +133,6 @@ final class CartController extends AbstractController
 
     /**
      * @Route("/koszyk/usun/{productId}", name="cart_delete_item", requirements={"productId": "\d+"})
-     *
-     * @param int $productId
-     *
-     * @return Response
      */
     public function deleteItemAction(
         int $productId,

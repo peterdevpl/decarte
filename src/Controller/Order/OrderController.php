@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Controller\Order;
 
+use Decarte\Shop\Exception\StockTooSmallException;
 use Decarte\Shop\Form\Order\ShippingDetailsType;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Service\OrderMailer;
 use Decarte\Shop\Service\Payment\PayU;
+use Decarte\Shop\Service\StockService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class OrderController extends AbstractController
 {
@@ -54,20 +57,24 @@ final class OrderController extends AbstractController
 
     /**
      * @Route("/zapisz-zamowienie", name="order_save")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function saveAction(
         Request $request,
         SessionOrderRepository $orderRepository,
         OrderMailer $orderMailer,
-        PayU $payu
+        PayU $payu,
+        StockService $stock,
+        TranslatorInterface $translator
     ): Response {
         $order = $orderRepository->getOrder();
-        $order->setCreatedAt(new \DateTime());
+        try {
+            $stock->checkAndUpdateProducts($order);
+        } catch (StockTooSmallException $e) {
+            $this->addFlash('error', $translator->trans('order.out_of_stock_error'));
+            return $this->redirectToRoute('cart_index', [], 303);
+        }
 
+        $order->setCreatedAt(new \DateTime());
         $em = $this->getDoctrine()->getManager();
         $em->persist($order);
         $em->flush();

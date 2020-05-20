@@ -22,14 +22,17 @@ class CartItemType extends AbstractType
             /** @var OrderItem $orderItem */
             $orderItem = $event->getData();
             $form = $event->getForm();
+
             $minimumQuantity = $orderItem->getProduct()->getMinimumQuantity();
+            $attributes = ['min' => $minimumQuantity];
+            if ($orderItem->getProduct()->hasStockSet()) {
+                $attributes['max'] = $orderItem->getProduct()->getStock();
+            }
 
             $form
                 ->add('quantity', IntegerType::class, [
                     'label' => 'Liczba sztuk' . ($minimumQuantity > 1 ? ' (minimum ' . $minimumQuantity . ')' : ''),
-                    'attr' => [
-                        'min' => $minimumQuantity,
-                    ],
+                    'attr' => $attributes,
                 ]);
         });
     }
