@@ -76,11 +76,12 @@
 }
 
 .welcome-images {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 
   img {
     border: solid $lightGray 1px;
     height: auto;
+    margin-bottom: 0.5rem;
     max-width: 100%;
   }
 
