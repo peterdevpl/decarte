@@ -49,7 +49,7 @@ class Product
     /** @ORM\Column(type="boolean", name="has_demo") */
     protected $hasDemo = false;
 
-    /** @ORM\Column(type="integer") */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $stock;
 
     /**

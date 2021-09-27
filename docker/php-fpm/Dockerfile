@@ -13,6 +13,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath gd intl pdo_mysql sodium
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
 COPY php-fpm.conf /etc/php-fpm.conf
+
+RUN useradd -ms /bin/bash docker
+USER docker
+
+ENTRYPOINT ["/bin/bash", "/var/www/docker/php-fpm/entrypoint.sh"]

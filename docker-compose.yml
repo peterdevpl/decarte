@@ -1,25 +1,44 @@
-version: '3'
+version: '3.8'
 
 services:
   php:
     build: docker/php-fpm
+    container_name: decarte-php
     volumes:
-      - .:/var/www
+      - .:/var/www:rw
     depends_on:
       - mailcatcher
       - mysql
+    environment:
+      - ADMIN_MAIL=test@example.org
+      - APP_ENV=dev
+      - APP_SECRET=1234
+      - CANONICAL_DOMAIN=http://localhost:8080
+      - DATABASE_URL=mysql://decarte:12345@mysql:3306/decarte
+      - GOOGLE_ANALYTICS=null
+      - GOOGLE_MERCHANT_ID=null
+      - GOOGLE_PRIVATE_KEY=null
+      - MAILER_URL=smtp://mailcatcher:1025
+      - PAYU_ENVIRONMENT=sandbox
+      - PAYU_POS_ID=0
+      - PAYU_SIGNATURE_KEY=0
+      - PAYU_OAUTH_CLIENT_ID=0
+      - PAYU_OAUTH_CLIENT_SECRET=0
+      - SENTRY_DSN=null
 
   nginx:
     build: docker/nginx
+    container_name: decarte-nginx
     ports:
       - "8080:80"
     depends_on:
       - php
     volumes:
-      - .:/var/www
+      - .:/var/www:rw
 
   mysql:
     image: mysql:5.7
+    container_name: decarte-mysql
     environment:
       - MYSQL_DATABASE=decarte
       - MYSQL_ROOT_PASSWORD=12345
@@ -31,17 +50,17 @@ services:
 
   node:
     image: node:10
+    container_name: decarte-node
     user: node
     environment:
       - NODE_ENV=production
     volumes:
-      - .:/var/www
+      - .:/var/www:rw
     working_dir: /var/www
+    entrypoint: /var/www/docker/node/entrypoint.sh
 
   mailcatcher:
     image: schickling/mailcatcher
+    container_name: decarte-mailcatcher
     ports:
       - "1080:1080"
-
-volumes:
-  .:
