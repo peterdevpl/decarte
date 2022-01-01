@@ -39,6 +39,7 @@ class CartType extends AbstractType
                 'expanded' => true,
                 'label' => 'Tryb realizacji',
                 'multiple' => false,
+                'empty_data' => '1',
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Przelicz i zapisz zmiany',
