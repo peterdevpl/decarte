@@ -49,15 +49,15 @@ services:
       - "3306:3306"
 
   node:
-    image: node:10
-    container_name: decarte-node
-    user: node
-    environment:
-      - NODE_ENV=production
+    image: node:14.10-alpine
     volumes:
-      - .:/var/www:rw
+      - .:/var/www:consistent
     working_dir: /var/www
-    entrypoint: /var/www/docker/node/entrypoint.sh
+    command: >
+      sh -c "yarn install &&
+             yarn encore dev-server --hot --port 9999 --host 0.0.0.0"
+    ports:
+      - "9999:9999"
 
   mailcatcher:
     image: schickling/mailcatcher

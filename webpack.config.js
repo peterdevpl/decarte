@@ -10,7 +10,7 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
-    .enableVersioning()
+    .enableVersioning(Encore.isProduction())
 ;
 
 // export the final configuration

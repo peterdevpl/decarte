@@ -29,3 +29,8 @@
 ###> behat/symfony2-extension ###
 behat.yml
 ###< behat/symfony2-extension ###
+
+###> symfony/webpack-encore-bundle ###
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
