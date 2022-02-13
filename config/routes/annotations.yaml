@@ -1,11 +1,3 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
-
-order:
-    resource: "../src/Controller/Order/"
-    type:     annotation
-
-product:
-    resource: "../src/Controller/Product/"
-    type:     annotation
