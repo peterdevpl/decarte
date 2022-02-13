@@ -6,7 +6,7 @@ namespace Decarte\Shop\Service;
 
 use Decarte\Shop\Entity\Order\Order;
 use Decarte\Shop\Exception\StockTooSmallException;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 final class StockService
 {

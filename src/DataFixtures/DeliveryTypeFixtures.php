@@ -6,7 +6,7 @@ namespace Decarte\Shop\DataFixtures;
 
 use Decarte\Shop\Entity\Order\DeliveryType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 final class DeliveryTypeFixtures extends Fixture
 {

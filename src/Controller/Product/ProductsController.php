@@ -26,10 +26,6 @@ final class ProductsController extends AbstractController
 {
     /**
      * @Route("/sklep/{type}", name="shop_list_collections", requirements={"type": "[0-9a-z\-]+"})
-     *
-     * @param string $type
-     *
-     * @return Response
      */
     public function listCollectionsAction(
         Request $request,
@@ -80,11 +76,6 @@ final class ProductsController extends AbstractController
      *     name="shop_view_collection",
      *     requirements={"type": "[0-9a-z\-]+", "slugName": "[a-z0-9\-]+"}
      * )
-     *
-     * @param string $type
-     * @param string $slugName
-     *
-     * @return Response
      */
     public function viewCollectionAction(
         string $type,
@@ -122,9 +113,6 @@ final class ProductsController extends AbstractController
      *
      * @param string $type     used only for SEO
      * @param string $slugName used only for SEO
-     * @param int    $id
-     *
-     * @return Response
      */
     public function viewProductAction(
         Request $request,
@@ -156,7 +144,6 @@ final class ProductsController extends AbstractController
 
         $previousProduct = $productRepository->findPrevious($product);
         $nextProduct = $productRepository->findNext($product);
-        $nextPath = null;
 
         $currentPath = $productUrl->generate($product);
         $previousPath = $previousProduct ? $productUrl->generate($previousProduct) : null;
@@ -164,7 +151,7 @@ final class ProductsController extends AbstractController
         $breadcrumbs = $breadcrumbsGenerator->generate($product);
 
         $samplesOrder = $samplesOrderRepository->getOrder();
-        $hasDemo = $product->hasDemo() && ($samplesOrder->getItems()->count() < $this->getParameter('samples_count'));
+        $hasDemo = $product->hasDemo() && ($samplesOrder->getItems()->count() < (int) $this->getParameter('samples_count'));
 
         return $this->render('shop/view-product.html.twig', [
             'product' => $product,

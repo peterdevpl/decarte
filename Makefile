@@ -6,3 +6,6 @@ shell:
 
 stop:
 	docker-compose stop
+
+phpstan:
+	vendor/bin/phpstan analyse -c phpstan.neon

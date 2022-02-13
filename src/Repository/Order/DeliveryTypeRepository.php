@@ -7,13 +7,13 @@ namespace Decarte\Shop\Repository\Order;
 use Decarte\Shop\Entity\Order\DeliveryType;
 use Decarte\Shop\Repository\SortableRepositoryTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class DeliveryTypeRepository extends ServiceEntityRepository
 {
     use SortableRepositoryTrait;
 
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, DeliveryType::class);
     }

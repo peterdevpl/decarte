@@ -9,8 +9,8 @@ use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Entity\Product\ProductCollection;
 use Decarte\Shop\Exception\StockTooSmallException;
 use Decarte\Shop\Service\StockService;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

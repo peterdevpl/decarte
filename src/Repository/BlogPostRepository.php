@@ -6,7 +6,7 @@ namespace Decarte\Shop\Repository;
 
 use Decarte\Shop\Entity\BlogPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 final class BlogPostRepository extends ServiceEntityRepository
 {

@@ -4,23 +4,18 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Migrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Migrations\Version;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20180203164613 extends AbstractMigration
 {
-    public function __construct(Version $version)
+    public function up(Schema $schema): void
     {
-        parent::__construct($version);
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
         );
-    }
 
-    public function up(Schema $schema)
-    {
         $this->addSql('
 ALTER TABLE decarte_pages
 ADD created_at DATETIME NOT NULL,
@@ -36,8 +31,13 @@ DROP last_changed_at');
         $this->addSql('UPDATE decarte_products SET created_at = NOW()');
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
+
         $this->addSql('ALTER TABLE decarte_pages DROP created_at, DROP updated_at');
 
         $this->addSql('

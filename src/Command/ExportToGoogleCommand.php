@@ -23,7 +23,7 @@ class ExportToGoogleCommand extends Command
         $this->productRepository = $productRepository;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('product:export-to-google')
@@ -31,7 +31,7 @@ class ExportToGoogleCommand extends Command
             ->addArgument('id', InputArgument::OPTIONAL, 'Product ID');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $productId = $input->getArgument('id');
         if ($productId) {
@@ -39,9 +39,11 @@ class ExportToGoogleCommand extends Command
         } else {
             $this->exportAllProducts($output);
         }
+
+        return 0;
     }
 
-    protected function exportSingleProduct(OutputInterface $output, int $productId)
+    protected function exportSingleProduct(OutputInterface $output, int $productId): void
     {
         $output->writeln('Exporting product ID=' . $productId);
 
@@ -51,7 +53,7 @@ class ExportToGoogleCommand extends Command
         var_dump($response);
     }
 
-    protected function exportAllProducts(OutputInterface $output)
+    protected function exportAllProducts(OutputInterface $output): void
     {
         $products = $this->productRepository->findAllVisibleProducts();
         $output->writeln(sprintf('Exporting %d products', count($products)));

@@ -105,11 +105,11 @@ class RealizationType
         return $this->price;
     }
 
-    public function setPrice(int $price)
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 
-        return $this->price;
+        return $this;
     }
 
     public function __toString()

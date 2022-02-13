@@ -8,7 +8,7 @@ use Decarte\Shop\Entity\Product\ProductCollection;
 use Decarte\Shop\Entity\Product\ProductType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 final class ProductCollectionFixtures extends Fixture implements DependentFixtureInterface
 {

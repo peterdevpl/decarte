@@ -21,10 +21,6 @@ final class SamplesOrderController extends AbstractController
 {
     /**
      * @Route("/zamow-probki", name="shop_order_samples")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function orderSamplesAction(
         Request $request,
@@ -68,7 +64,7 @@ final class SamplesOrderController extends AbstractController
         $product = $productRepository->find($request->get('product_id'));
         $order = $samplesOrderRepository->getOrder();
 
-        if ($order->getItems()->count() < $this->getParameter('samples_count')) {
+        if ($order->getItems()->count() < (int) $this->getParameter('samples_count')) {
             $order->addItem($product);
             $samplesOrderRepository->persist($order);
         }

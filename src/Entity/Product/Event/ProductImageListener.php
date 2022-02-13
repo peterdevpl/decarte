@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Decarte\Shop\Entity\Product\Event;
 
 use Decarte\Shop\Entity\Product\ProductImage;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 class ProductImageListener
 {

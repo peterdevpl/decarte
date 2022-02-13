@@ -7,13 +7,13 @@ namespace Decarte\Shop\Repository\Product;
 use Decarte\Shop\Entity\Product\ProductType;
 use Decarte\Shop\Repository\SortableRepositoryTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class ProductTypeRepository extends ServiceEntityRepository
 {
     use SortableRepositoryTrait;
 
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ProductType::class);
     }
