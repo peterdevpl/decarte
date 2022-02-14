@@ -4,11 +4,13 @@ WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
         git \
+        htop \
         libicu-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
         libsodium-dev \
+        vim \
         zip \
     && docker-php-ext-install -j$(nproc) bcmath gd intl pdo_mysql sodium
 

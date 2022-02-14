@@ -43,7 +43,7 @@ class CartItemType extends AbstractType
             ->setDefaults(['data_class' => OrderItem::class]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'cart_item';
     }

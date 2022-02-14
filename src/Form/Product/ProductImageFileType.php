@@ -24,7 +24,7 @@ class ProductImageFileType extends ImageFileType
         $builder->add('sort', HiddenType::class);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'image_file';
     }

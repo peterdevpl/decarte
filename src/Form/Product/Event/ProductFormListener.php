@@ -18,7 +18,7 @@ class ProductFormListener implements EventSubscriberInterface
         $this->imageDirectory = $imageDirectory;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormEvents::PRE_SUBMIT => [

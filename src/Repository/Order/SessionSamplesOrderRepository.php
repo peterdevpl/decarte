@@ -8,14 +8,14 @@ use Decarte\Shop\Entity\Order\Samples\Order;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 final class SessionSamplesOrderRepository
 {
     private const SESSION_KEY = 'samplesOrder';
 
-    /** @var SessionInterface */
-    private $session;
+    /** @var RequestStack */
+    private $requestStack;
 
     /** @var EntityRepository */
     private $productRepository;
@@ -24,17 +24,18 @@ final class SessionSamplesOrderRepository
     private $order;
 
     public function __construct(
-        SessionInterface $session,
+        RequestStack $requestStack,
         ProductRepository $productRepository
     ) {
         $this->productRepository = $productRepository;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public function getOrder(): Order
     {
         if (!$this->order) {
-            $serializedOrder = $this->session->get(self::SESSION_KEY);
+            $session = $this->requestStack->getSession();
+            $serializedOrder = $session->get(self::SESSION_KEY);
             if ($serializedOrder) {
                 $this->order = $this->deserialize($serializedOrder);
             } else {
@@ -72,11 +73,13 @@ final class SessionSamplesOrderRepository
 
     public function persist(Order $order): void
     {
-        $this->session->set(self::SESSION_KEY, \json_encode($order));
+        $session = $this->requestStack->getSession();
+        $session->set(self::SESSION_KEY, \json_encode($order));
     }
 
     public function clear(): void
     {
-        $this->session->remove(self::SESSION_KEY);
+        $session = $this->requestStack->getSession();
+        $session->remove(self::SESSION_KEY);
     }
 }

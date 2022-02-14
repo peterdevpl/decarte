@@ -10,12 +10,12 @@ use Decarte\Shop\Entity\Order\RealizationType;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 final class SessionOrderRepository
 {
-    /** @var SessionInterface */
-    private $session;
+    /** @var RequestStack */
+    private $requestStack;
 
     /** @var EntityRepository */
     private $productRepository;
@@ -29,7 +29,7 @@ final class SessionOrderRepository
     private $order;
 
     public function __construct(
-        SessionInterface $session,
+        RequestStack $requestStack,
         ProductRepository $productRepository,
         RealizationTypeRepository $realizationTypeRepository,
         DeliveryTypeRepository $deliveryTypeRepository
@@ -37,13 +37,14 @@ final class SessionOrderRepository
         $this->realizationTypeRepository = $realizationTypeRepository;
         $this->deliveryTypeRepository = $deliveryTypeRepository;
         $this->productRepository = $productRepository;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public function getOrder(): Order
     {
         if (!$this->order) {
-            $serializedOrder = $this->session->get('order');
+            $session = $this->requestStack->getSession();
+            $serializedOrder = $session->get('order');
             if ($serializedOrder) {
                 $this->order = $this->deserialize($serializedOrder);
             } else {
@@ -56,7 +57,7 @@ final class SessionOrderRepository
 
     private function deserialize(string $serializedOrder)
     {
-        $orderArray = json_decode($serializedOrder, true);
+        $orderArray = \json_decode($serializedOrder, true);
         $order = new Order();
 
         if ($orderArray) {
@@ -97,11 +98,13 @@ final class SessionOrderRepository
 
     public function persist(Order $order): void
     {
-        $this->session->set('order', json_encode($order));
+        $session = $this->requestStack->getSession();
+        $session->set('order', \json_encode($order));
     }
 
     public function clear(): void
     {
-        $this->session->remove('order');
+        $session = $this->requestStack->getSession();
+        $session->remove('order');
     }
 }

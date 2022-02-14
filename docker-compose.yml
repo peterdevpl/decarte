@@ -15,7 +15,7 @@ services:
       - APP_SECRET=1234
       - CANONICAL_DOMAIN=http://localhost:8080
       - DATABASE_URL=mysql://decarte:12345@mysql:3306/decarte
-      - GOOGLE_ANALYTICS=null
+      - GOOGLE_ANALYTICS=
       - GOOGLE_MERCHANT_ID=null
       - GOOGLE_PRIVATE_KEY=null
       - MAILER_URL=smtp://mailcatcher:1025

@@ -14,7 +14,7 @@ class StringImageFileType extends ImageFileType
         $builder->addModelTransformer(new StringImageTransformer());
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'image_file';
     }
