@@ -26,7 +26,7 @@ class Kernel extends BaseKernel
         return dirname(__DIR__) . '/var/log';
     }
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         $contents = require dirname(__DIR__) . '/config/bundles.php';
         foreach ($contents as $class => $envs) {

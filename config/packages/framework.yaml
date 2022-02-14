@@ -5,7 +5,7 @@ framework:
   default_locale: pl
   validation: { enable_annotations: true }
   session:
-    # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+    storage_factory_id: session.storage.factory.native
     handler_id:  session.handler.native_file
     save_path: "%kernel.project_dir%/var/sessions/%kernel.environment%"
   assets:

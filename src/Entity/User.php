@@ -5,67 +5,83 @@ declare(strict_types=1);
 namespace Decarte\Shop\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="\Decarte\Shop\Repository\UserRepository")
  * @ORM\Table(name="decarte_users")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=30, unique=true)
      */
-    protected $username;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    protected $password;
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
      */
-    protected $email;
+    private $email;
 
     /**
      * @ORM\Column(type="boolean", name="is_active")
      */
-    protected $isActive;
+    private $isActive = true;
 
-    public function __construct()
-    {
-        $this->isActive = true;
-    }
-
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function getSalt()
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
+
+    public function getSalt(): ?string
     {
         return null;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function getEmail()
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function getRoles()
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getRoles(): array
     {
         return ['ROLE_USER'];
     }
@@ -73,25 +89,5 @@ class User implements UserInterface, \Serializable
     public function eraseCredentials()
     {
         /* empty */
-    }
-
-    public function serialize()
-    {
-        return serialize([
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->email,
-        ]);
-    }
-
-    public function unserialize($serialized)
-    {
-        list(
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->email
-        ) = unserialize($serialized);
     }
 }

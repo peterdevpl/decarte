@@ -1,9 +1,10 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
-    encoders:
-        Decarte\Shop\Entity\User:
-            algorithm: auto
+    enable_authenticator_manager: true
+
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -20,8 +21,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        default:
-            anonymous: ~
+        main:
             http_basic: ~
             provider: decarte_db_provider
 

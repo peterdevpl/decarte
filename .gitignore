@@ -19,6 +19,7 @@
 /.idea
 /node_modules/
 .phpunit
+.phpunit.result.cache
 .env
 
 ###> friendsofphp/php-cs-fixer ###
