@@ -1,12 +1,12 @@
 parameters:
     image.collection.url: "zaproszenia/kolekcje"
-    image.collection.directory: "%kernel.root_dir%/../public_html/%image.collection.url%"
+    image.collection.directory: "%kernel.project_dir%/public_html/%image.collection.url%"
     image.collection.width: 408
     image.collection.height: 306
     image.collection.quality: 80
 
     image.product.url: "zaproszenia/produkty"
-    image.product.directory: "%kernel.root_dir%/../public_html/%image.product.url%"
+    image.product.directory: "%kernel.project_dir%/public_html/%image.product.url%"
 
     image.product.big.width: 830
     image.product.big.height: 622
@@ -20,12 +20,12 @@ liip_imagine:
     loaders:
         default:
             filesystem:
-                data_root: "%kernel.root_dir%/../public_html/"
+                data_root: "%kernel.project_dir%/public_html/"
 
     resolvers:
         default:
             web_path:
-                web_root: "%kernel.root_dir%/../public_html/"
+                web_root: "%kernel.project_dir%/public_html/"
 
     filter_sets:
         cache: ~
