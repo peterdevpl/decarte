@@ -16,8 +16,8 @@ services:
       - CANONICAL_DOMAIN=http://localhost:8080
       - DATABASE_URL=mysql://decarte:12345@mysql:3306/decarte
       - GOOGLE_ANALYTICS=
-      - GOOGLE_MERCHANT_ID=null
-      - GOOGLE_PRIVATE_KEY=null
+      - GOOGLE_MERCHANT_ID=
+      - GOOGLE_PRIVATE_KEY=
       - MAILER_URL=smtp://mailcatcher:1025
       - PAYU_ENVIRONMENT=sandbox
       - PAYU_POS_ID=0
