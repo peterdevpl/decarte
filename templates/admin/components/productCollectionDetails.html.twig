@@ -1,25 +1,23 @@
 {% extends 'admin/components/productCollection.html.twig' %}
 
 {% block collection_details %}
-    {% spaceless %}
-        <ul class="products">
-        {% for product in productCollection.getProducts() %}
-            <li>
-            <a href="{{ path('admin_edit_product', {'productId': product.getId()}) }}">
-                {% if product.getCoverImage() %}
-                    <img
-                        src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
-                        width="{{ image_product_small_width }}"
-                        height="{{ image_product_small_height }}">
-                {% else %}
-                    {{ product.getName() }} - brak zdjęcia
-                {% endif %}
-            </a><br>
-                pozycja: <input type="number" value="{{ product.getSort() }}"
-                                data-action="{{ path('admin_set_product_position') }}"
-                                data-product-id="{{ product.getId() }}">
-            </li>
-        {% endfor %}
-        </ul>
-    {% endspaceless %}
+    <ul class="products">
+    {% for product in productCollection.getProducts() %}
+        <li>
+        <a href="{{ path('admin_edit_product', {'productId': product.getId()}) }}">
+            {% if product.getCoverImage() %}
+                <img
+                    src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
+                    width="{{ image_product_small_width }}"
+                    height="{{ image_product_small_height }}">
+            {% else %}
+                {{ product.getName() }} - brak zdjęcia
+            {% endif %}
+        </a><br>
+            pozycja: <input type="number" value="{{ product.getSort() }}"
+                            data-action="{{ path('admin_set_product_position') }}"
+                            data-product-id="{{ product.getId() }}">
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}

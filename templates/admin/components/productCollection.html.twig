@@ -11,13 +11,11 @@
         </div>
         <div class="panel-body">
             <p>
-                {% spaceless %}
-                    {% if productCollection.getImageName() %}
-                        <a href="{{ path('admin_product_collection', {'collection': productCollection.getId()}) }}">
-                            <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}" width="{{ image_collection_width }}" height="{{ image_collection_height }}">
-                        </a>
-                    {% endif %}
-                {% endspaceless %}
+                {% if productCollection.getImageName() %}
+                    <a href="{{ path('admin_product_collection', {'collection': productCollection.getId()}) }}">
+                        <img src="{{ asset(image_collection_url~'/'~productCollection.getImageName()) | imagine_filter('product_collection_thumb') }}" width="{{ image_collection_width }}" height="{{ image_collection_height }}">
+                    </a>
+                {% endif %}
 
                 <a class="btn btn-default" role="button" href="{{ path('admin_edit_product_collection', {'collectionId': productCollection.getId()}) }}">Edytuj kolekcję</a>
                 <a class="btn btn-default" role="button" href="{{ path('admin_add_product', {'collectionId': productCollection.getId()}) }}">Dodaj nowy produkt</a>
