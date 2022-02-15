@@ -14,6 +14,7 @@ final class DeliveryTypeFixtures extends Fixture
     {
         $bankTransfer = new DeliveryType();
         $bankTransfer
+            ->setId(1)
             ->setName('Delivery after a bank transfer')
             ->setShortName('bank transfer')
             ->setPrice(1400);
@@ -21,6 +22,7 @@ final class DeliveryTypeFixtures extends Fixture
 
         $cashOnDelivery = new DeliveryType();
         $cashOnDelivery
+            ->setId(2)
             ->setName('Cash On Delivery')
             ->setShortName('COD')
             ->setPrice(1800);
@@ -28,6 +30,7 @@ final class DeliveryTypeFixtures extends Fixture
 
         $personal = new DeliveryType();
         $personal
+            ->setId(3)
             ->setName('Personal collection')
             ->setShortName('personal')
             ->setPrice(0)
@@ -36,6 +39,7 @@ final class DeliveryTypeFixtures extends Fixture
 
         $payU = new DeliveryType();
         $payU
+            ->setId(4)
             ->setName('PayU transfer')
             ->setShortName('PayU')
             ->setPrice(1400);

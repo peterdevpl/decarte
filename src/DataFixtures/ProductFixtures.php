@@ -18,6 +18,7 @@ final class ProductFixtures extends Fixture implements DependentFixtureInterface
         $mysticCollection = $this->getReference('mystic-moments');
         $invitation = new Product();
         $invitation
+            ->setId(1)
             ->setName('MM01')
             ->setPrice(720)
             ->setDescription('Very nice model')
@@ -31,6 +32,7 @@ final class ProductFixtures extends Fixture implements DependentFixtureInterface
         $labels = $this->getReference('labels');
         $label = new Product();
         $label
+            ->setId(2)
             ->setName('MM01')
             ->setPrice(360)
             ->setDescription('Very nice label for the Mystic Moments collection')

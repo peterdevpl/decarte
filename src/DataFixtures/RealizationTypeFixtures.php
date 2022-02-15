@@ -14,6 +14,7 @@ final class RealizationTypeFixtures extends Fixture
     {
         $standard = new RealizationType();
         $standard
+            ->setId(1)
             ->setName('Standard')
             ->setDTPDays(7)
             ->setDeliveryDays(14)
@@ -23,6 +24,7 @@ final class RealizationTypeFixtures extends Fixture
 
         $express = new RealizationType();
         $express
+            ->setId(2)
             ->setName('Express')
             ->setDTPDays(7)
             ->setDeliveryDays(7)
