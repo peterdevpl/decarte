@@ -362,7 +362,7 @@ class Order implements \JsonSerializable
         return $types;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $items = [];
         foreach ($this->items as $item) {

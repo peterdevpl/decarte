@@ -133,7 +133,7 @@ class Order implements \JsonSerializable
         return $this->phone;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $items = \array_map(function (Product $item) {
             return [
