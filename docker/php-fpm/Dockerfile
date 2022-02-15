@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         libsodium-dev \
         vim \
         zip \
+    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath gd intl pdo_mysql sodium
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

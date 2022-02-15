@@ -27,6 +27,9 @@ liip_imagine:
             web_path:
                 web_root: "%kernel.project_dir%/public_html/"
 
+    twig:
+        mode: lazy
+
     filter_sets:
         cache: ~
 
