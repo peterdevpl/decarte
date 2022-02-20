@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Decarte\Shop\Service;
 
 use Decarte\Shop\Entity\Order\Order;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
 final class OrderMailer
@@ -15,7 +18,7 @@ final class OrderMailer
     private $attachmentDir;
 
     public function __construct(
-        \Swift_Mailer $mailer,
+        MailerInterface $mailer,
         Environment $templating,
         string $adminMail,
         string $attachmentDir
@@ -26,43 +29,41 @@ final class OrderMailer
         $this->attachmentDir = $attachmentDir;
     }
 
-    public function sendEmailToShop(Order $order)
+    public function sendEmailToShop(Order $order): void
     {
-        $message = (new \Swift_Message())
-            ->setSubject('ZAMÓWIENIE WWW' . $order->getRealizationType()->getShopEmailSuffix())
-            ->setTo($this->adminMail)
-            ->setFrom([$this->adminMail => $order->getName()])
-            ->setReplyTo($order->getEmail())
-            ->setBody(
+        $message = (new Email())
+            ->subject('ZAMÓWIENIE WWW' . $order->getRealizationType()->getShopEmailSuffix())
+            ->to($this->adminMail)
+            ->from(new Address($this->adminMail, $order->getName()))
+            ->replyTo($order->getEmail())
+            ->html(
                 $this->templating->render('order/mail/shop.html.twig', [
                     'order' => $order,
-                ]),
-                'text/html'
+                ])
             );
 
         $this->mailer->send($message);
     }
 
-    public function sendEmailToCustomer(Order $order)
+    public function sendEmailToCustomer(Order $order): void
     {
         $productTypes = $order->getProductTypes();
 
-        $message = (new \Swift_Message())
-            ->setSubject($order->getRealizationType()->getCustomerEmailPrefix() . 'Potwierdzenie przyjęcia zamówienia')
-            ->setTo($order->getEmail())
-            ->setFrom([$this->adminMail => 'Sklep ślubny decARTe.com.pl'])
-            ->setReplyTo($this->adminMail)
-            ->setBody(
+        $message = (new Email())
+            ->subject($order->getRealizationType()->getCustomerEmailPrefix() . 'Potwierdzenie przyjęcia zamówienia')
+            ->to($order->getEmail())
+            ->from(new Address($this->adminMail, 'Sklep ślubny decARTe.com.pl'))
+            ->replyTo($this->adminMail)
+            ->html(
                 $this->templating->render('order/mail/customer.html.twig', [
                     'order' => $order,
-                    'formsCount' => count($productTypes),
-                ]),
-                'text/html'
+                    'formsCount' => \count($productTypes),
+                ])
             );
 
         foreach ($productTypes as $type) {
             $path = $this->attachmentDir . '/formularz-' . $type->getSlugName() . '.doc';
-            $message->attach(\Swift_Attachment::fromPath($path));
+            $message->attachFromPath($path);
         }
 
         $this->mailer->send($message);

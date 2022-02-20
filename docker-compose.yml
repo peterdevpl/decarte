@@ -18,7 +18,7 @@ services:
       - GOOGLE_ANALYTICS=
       - GOOGLE_MERCHANT_ID=
       - GOOGLE_PRIVATE_KEY=
-      - MAILER_URL=smtp://mailcatcher:1025
+      - MAILER_DSN=smtp://mailcatcher:1025
       - PAYU_ENVIRONMENT=sandbox
       - PAYU_POS_ID=0
       - PAYU_SIGNATURE_KEY=0
