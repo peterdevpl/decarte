@@ -7,5 +7,10 @@ shell:
 stop:
 	docker-compose stop
 
+test: test-unit
+
+test-unit:
+	vendor/bin/phpunit
+
 phpstan:
 	vendor/bin/phpstan analyse -c phpstan.neon

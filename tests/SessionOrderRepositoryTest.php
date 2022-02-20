@@ -8,6 +8,8 @@ use Decarte\Shop\Repository\Order\DeliveryTypeRepository;
 use Decarte\Shop\Repository\Order\RealizationTypeRepository;
 use Decarte\Shop\Repository\Order\SessionOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -20,12 +22,16 @@ final class SessionOrderRepositoryTest extends AbstractOrderTest
         parent::setUp();
 
         $session = new Session(new MockArraySessionStorage());
+        $request = new Request();
+        $request->setSession($session);
+        $requestStack = new RequestStack();
+        $requestStack->push($request);
         $productRepository = $this->getProductRepository();
         $realizationTypeRepository = $this->getRealizationTypeRepository();
         $deliveryTypeRepository = $this->getDeliveryTypeRepository();
 
         $this->orderRepository = new SessionOrderRepository(
-            $session,
+            $requestStack,
             $productRepository,
             $realizationTypeRepository,
             $deliveryTypeRepository
