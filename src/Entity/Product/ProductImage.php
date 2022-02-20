@@ -31,6 +31,13 @@ class ProductImage
      */
     protected $imageName;
 
+    public function __construct(Product $product, int $sort, string $imageName)
+    {
+        $this->product = $product;
+        $this->sort = $sort;
+        $this->imageName = $imageName;
+    }
+
     public function getProduct(): ?Product
     {
         return $this->product;

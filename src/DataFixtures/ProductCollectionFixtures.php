@@ -12,7 +12,7 @@ use Doctrine\Persistence\ObjectManager;
 
 final class ProductCollectionFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var ProductType $invitations */
         $invitations = $this->getReference('zaproszenia-slubne');
@@ -25,6 +25,7 @@ final class ProductCollectionFixtures extends Fixture implements DependentFixtur
             ->setDescription('Example description of a products collection')
             ->setShortDescription('Very nice invitations')
             ->setProductType($invitations)
+            ->setImageName('placeholder.jpg')
             ->setIsVisible(true);
         $this->addReference('mystic-moments', $invitationsCollection);
         $manager->persist($invitationsCollection);
@@ -40,6 +41,7 @@ final class ProductCollectionFixtures extends Fixture implements DependentFixtur
             ->setDescription('Example description of a labels collection')
             ->setShortDescription('Very nice labels')
             ->setProductType($addons)
+            ->setImageName('placeholder.jpg')
             ->setIsVisible(true);
         $this->addReference('labels', $addonsCollection);
         $manager->persist($addonsCollection);
@@ -47,7 +49,7 @@ final class ProductCollectionFixtures extends Fixture implements DependentFixtur
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             ProductTypeFixtures::class,

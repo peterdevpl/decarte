@@ -6,13 +6,14 @@ namespace Decarte\Shop\DataFixtures;
 
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Entity\Product\ProductCollection;
+use Decarte\Shop\Entity\Product\ProductImage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 final class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var ProductCollection $mysticCollection */
         $mysticCollection = $this->getReference('mystic-moments');
@@ -25,7 +26,8 @@ final class ProductFixtures extends Fixture implements DependentFixtureInterface
             ->setDescriptionSEO('You should check this out')
             ->setIsVisible(true)
             ->setHasDemo(true)
-            ->setProductCollection($mysticCollection);
+            ->setProductCollection($mysticCollection)
+            ->addImage(new ProductImage($invitation, 0, 'placeholder.jpg'));
         $manager->persist($invitation);
 
         /** @var ProductCollection $labels */
@@ -38,13 +40,14 @@ final class ProductFixtures extends Fixture implements DependentFixtureInterface
             ->setDescription('Very nice label for the Mystic Moments collection')
             ->setDescriptionSEO('You should check this out, too')
             ->setIsVisible(true)
-            ->setProductCollection($labels);
+            ->setProductCollection($labels)
+            ->addImage(new ProductImage($label, 0, 'placeholder.jpg'));
         $manager->persist($label);
 
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             ProductCollectionFixtures::class,
