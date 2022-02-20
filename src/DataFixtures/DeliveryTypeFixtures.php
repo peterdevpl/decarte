@@ -10,14 +10,15 @@ use Doctrine\Persistence\ObjectManager;
 
 final class DeliveryTypeFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $bankTransfer = new DeliveryType();
         $bankTransfer
             ->setId(1)
             ->setName('Delivery after a bank transfer')
             ->setShortName('bank transfer')
-            ->setPrice(1400);
+            ->setPrice(1400)
+            ->setIsVisible(true);
         $manager->persist($bankTransfer);
 
         $cashOnDelivery = new DeliveryType();
@@ -34,7 +35,8 @@ final class DeliveryTypeFixtures extends Fixture
             ->setName('Personal collection')
             ->setShortName('personal')
             ->setPrice(0)
-            ->setIsPersonal(true);
+            ->setIsPersonal(true)
+            ->setIsVisible(true);
         $manager->persist($personal);
 
         $payU = new DeliveryType();
@@ -42,7 +44,8 @@ final class DeliveryTypeFixtures extends Fixture
             ->setId(4)
             ->setName('PayU transfer')
             ->setShortName('PayU')
-            ->setPrice(1400);
+            ->setPrice(1400)
+            ->setIsVisible(true);
         $manager->persist($payU);
 
         $manager->flush();
