@@ -13,4 +13,4 @@ test-unit:
 	vendor/bin/phpunit
 
 phpstan:
-	vendor/bin/phpstan analyse -c phpstan.neon
+	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon
