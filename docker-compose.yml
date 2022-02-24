@@ -24,7 +24,10 @@ services:
       - PAYU_SIGNATURE_KEY=0
       - PAYU_OAUTH_CLIENT_ID=0
       - PAYU_OAUTH_CLIENT_SECRET=0
+      - PHP_IDE_CONFIG=serverName=localhost
       - SENTRY_DSN=null
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   nginx:
     build: docker/nginx
