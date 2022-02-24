@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Controller\Order;
 
-use Decarte\Shop\Entity\Order\Samples\Order;
-use Decarte\Shop\Entity\Order\Samples\OrderItem;
 use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Entity\Product\ProductType;
 use Decarte\Shop\Form\Order\OrderSamplesType;
 use Decarte\Shop\Repository\Order\SessionSamplesOrderRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
+use Decarte\Shop\Service\SamplesOrderMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +26,7 @@ final class SamplesOrderController extends AbstractController
         SessionSamplesOrderRepository $samplesOrderRepository,
         ProductTypeRepository $productTypeRepository,
         ProductRepository $productRepository,
-        \Swift_Mailer $mailer
+        SamplesOrderMailer $mailer
     ): Response {
         $order = $samplesOrderRepository->getOrder();
         /** @var ProductType $productType */
@@ -40,8 +39,8 @@ final class SamplesOrderController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
-            $this->sendSamplesOrderEmailToShop($order, $mailer);
-            $this->sendSamplesOrderEmailToCustomer($order, $mailer);
+            $mailer->sendSamplesOrderEmailToShop($order);
+            $mailer->sendSamplesOrderEmailToCustomer($order);
             $samplesOrderRepository->clear();
 
             return $this->redirectToRoute('shop_order_samples_confirmation');
@@ -74,45 +73,9 @@ final class SamplesOrderController extends AbstractController
 
     /**
      * @Route("/zamow-probki/potwierdzenie", name="shop_order_samples_confirmation")
-     *
-     * @return Response
      */
     public function orderSamplesConfirmationAction(): Response
     {
         return $this->render('samples/confirmation.html.twig');
-    }
-
-    private function sendSamplesOrderEmailToShop(Order $order, \Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message())
-            ->setSubject('ZAMÓWIENIE WWW - PRÓBKI')
-            ->setTo($this->getParameter('admin_mail'))
-            ->setFrom([$this->getParameter('admin_mail') => $order->getName()])
-            ->setReplyTo($order->getEmail())
-            ->setBody(
-                $this->renderView('samples/mail/shop.html.twig', [
-                    'order' => $order,
-                ]),
-                'text/html'
-            );
-
-        $mailer->send($message);
-    }
-
-    private function sendSamplesOrderEmailToCustomer(Order $order, \Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message())
-            ->setSubject('Zamówienie decarte.com.pl - próbki')
-            ->setTo($order->getEmail())
-            ->setFrom([$this->getParameter('admin_mail') => 'Sklep ślubny decARTe.com.pl'])
-            ->setReplyTo($this->getParameter('admin_mail'))
-            ->setBody(
-                $this->renderView('samples/mail/customer.html.twig', [
-                    'order' => $order,
-                ]),
-                'text/html'
-            );
-
-        $mailer->send($message);
     }
 }
