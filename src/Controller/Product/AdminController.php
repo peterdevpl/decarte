@@ -14,6 +14,7 @@ use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
 use Decarte\Shop\Service\GoogleExport;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,10 +24,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class AdminController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/admin/addProductType", name="admin_add_product_type")
-     *
-     * @param Request $request
      */
     public function addProductTypeAction(Request $request): Response
     {
@@ -38,9 +44,6 @@ final class AdminController extends AbstractController
 
     /**
      * @Route("/admin/editProductType/{typeId}", name="admin_edit_product_type", requirements={"typeId": "\d+"})
-     *
-     * @param Request $request
-     * @param int $typeId
      */
     public function editProductTypeAction(
         Request $request,
@@ -62,7 +65,7 @@ final class AdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             if ($form->has('delete')) {
                 /** @var ClickableInterface $button */
@@ -204,7 +207,7 @@ final class AdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             if ($form->has('delete')) {
                 /** @var ClickableInterface $button */
@@ -246,8 +249,6 @@ final class AdminController extends AbstractController
      *     name="admin_move_collection",
      *     requirements={"id": "\d+", "direction": "up|down"}
      * )
-     *
-     * @return RedirectResponse
      */
     public function moveCollectionAction(
         Request $request,
@@ -317,7 +318,7 @@ final class AdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             if ($form->has('delete')) {
                 /** @var ClickableInterface $button */
@@ -361,10 +362,6 @@ final class AdminController extends AbstractController
 
     /**
      * @Route("/admin/setProductPosition", name="admin_set_product_position")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function setProductPositionAction(Request $request, ProductRepository $productRepository): Response
     {
@@ -375,7 +372,7 @@ final class AdminController extends AbstractController
 
         $product->setSort($request->request->getInt('position'));
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $em->persist($product);
         $em->flush();
 

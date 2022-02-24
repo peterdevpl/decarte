@@ -7,6 +7,7 @@ namespace Decarte\Shop\Controller;
 use Decarte\Shop\Form\PageForm;
 use Decarte\Shop\Repository\PageRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class AdminController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route("/admin", name="admin_index")
      */
@@ -43,7 +51,7 @@ final class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $page = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($page);
             $em->flush();
 
