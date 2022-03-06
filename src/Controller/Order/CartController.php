@@ -93,8 +93,8 @@ final class CartController extends AbstractController
         ProductRepository $productRepository,
         SessionOrderRepository $orderRepository
     ): Response {
-        $productId = (int)$request->get('product_id');
-        $quantity = (int)$request->get('quantity');
+        $productId = (int) $request->get('product_id');
+        $quantity = (int) $request->get('quantity');
 
         /** @var ?Product $product */
         $product = $productRepository->find($productId);

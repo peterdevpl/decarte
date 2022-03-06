@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Form\Product\Event;
 
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProductFormListener implements EventSubscriberInterface

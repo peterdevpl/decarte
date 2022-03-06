@@ -6,16 +6,16 @@ namespace Decarte\Shop\Form\Product;
 
 use Decarte\Shop\Entity\Product\ProductCollection;
 use Decarte\Shop\Entity\Product\ProductType;
-use Decarte\Shop\Form\Type\StringImageFileType;
 use Decarte\Shop\Form\Product\Event\ProductCollectionFormListener;
+use Decarte\Shop\Form\Type\StringImageFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductCollectionForm extends AbstractType

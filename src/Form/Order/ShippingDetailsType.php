@@ -42,7 +42,7 @@ final class ShippingDetailsType extends AbstractType
             ])
             ->add('hasInvoice', CheckboxType::class, [
                 'label' => 'form.invoice',
-                'data' => (boolean) \trim((string) $order->getTaxId()),
+                'data' => (bool) \trim((string) $order->getTaxId()),
                 'mapped' => false,
                 'required' => false,
             ])

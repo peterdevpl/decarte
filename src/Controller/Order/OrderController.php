@@ -20,10 +20,6 @@ final class OrderController extends AbstractController
 {
     /**
      * @Route("/zloz-zamowienie/dane-wysylki", name="order_shipping_details")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function shippingDetailsAction(Request $request, SessionOrderRepository $orderRepository): Response
     {
@@ -45,8 +41,6 @@ final class OrderController extends AbstractController
 
     /**
      * @Route("/podsumowanie-zamowienia", name="order_summary")
-     *
-     * @return Response
      */
     public function summaryAction(SessionOrderRepository $orderRepository): Response
     {
@@ -71,6 +65,7 @@ final class OrderController extends AbstractController
             $stock->checkAndUpdateProducts($order);
         } catch (StockTooSmallException $e) {
             $this->addFlash('error', $translator->trans('order.out_of_stock_error'));
+
             return $this->redirectToRoute('cart_index', [], 303);
         }
 
@@ -93,8 +88,6 @@ final class OrderController extends AbstractController
 
     /**
      * @Route("/potwierdzenie-zamowienia", name="order_confirmation")
-     *
-     * @return Response
      */
     public function confirmationAction(): Response
     {
@@ -103,10 +96,6 @@ final class OrderController extends AbstractController
 
     /**
      * @Route("/payu", name="payu_notification")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function payuNotificationAction(Request $request, PayU $payu): Response
     {

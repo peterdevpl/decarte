@@ -42,7 +42,7 @@ final class ProductSchema
         return $schema->toScript();
     }
 
-    protected function getImages(Product $product): array
+    private function getImages(Product $product): array
     {
         $images = [];
         foreach ($product->getImages() as $image) {

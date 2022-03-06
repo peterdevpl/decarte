@@ -22,8 +22,6 @@ final class SitemapController extends AbstractController
 {
     /**
      * @Route("/sitemap.xml", name="sitemap")
-     *
-     * @return Response
      */
     public function indexAction(
         PageRepository $pageRepository,

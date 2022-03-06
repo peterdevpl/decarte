@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Form\Product;
 
-use Decarte\Shop\Form\Type\ImageFileType;
 use Decarte\Shop\Entity\Product\ProductImage;
+use Decarte\Shop\Form\Type\ImageFileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

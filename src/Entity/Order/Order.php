@@ -308,11 +308,6 @@ class Order implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param Product $product
-     *
-     * @return OrderItem
-     */
     public function getItem(Product $product): OrderItem
     {
         foreach ($this->items as $item) {
@@ -324,11 +319,6 @@ class Order implements \JsonSerializable
         return new OrderItem($this, $product);
     }
 
-    /**
-     * @param int $productId
-     *
-     * @return OrderItem
-     */
     public function getItemById(int $productId): OrderItem
     {
         foreach ($this->items as $item) {

@@ -82,12 +82,12 @@ final class GoogleExport
         return $this->shoppingService->products->delete($this->merchantId, $this->buildProductId($product->getId()));
     }
 
-    protected function buildProductId(int $id): string
+    private function buildProductId(int $id): string
     {
         return sprintf('%s:%s:%s:%s', 'online', 'pl', 'PL', $id);
     }
 
-    protected function transformProduct(Product $product): \Google_Service_ShoppingContent_Product
+    private function transformProduct(Product $product): \Google_Service_ShoppingContent_Product
     {
         $exportedProduct = new \Google_Service_ShoppingContent_Product();
         $exportedProduct->setOfferId($product->getId());
@@ -120,7 +120,7 @@ final class GoogleExport
         return $exportedProduct;
     }
 
-    protected function getPrice(Product $product): \Google_Service_ShoppingContent_Price
+    private function getPrice(Product $product): \Google_Service_ShoppingContent_Price
     {
         $money = new Money($product->getPrice(), new Currency('PLN'));
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
@@ -130,7 +130,7 @@ final class GoogleExport
         ]);
     }
 
-    protected function getCanonicalImageUrl(Product $product): string
+    private function getCanonicalImageUrl(Product $product): string
     {
         if ($product->getCoverImage()) {
             return $this->imageUrlGenerator->getCanonicalUrl($product->getCoverImage());

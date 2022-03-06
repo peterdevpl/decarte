@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Decarte\Shop\Entity\Product;
 
 use Decarte\Shop\Entity\VisibilityTrait;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**

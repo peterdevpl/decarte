@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Decarte\Shop\Controller\Product;
 
+use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Entity\Product\ProductCollection;
 use Decarte\Shop\Entity\Product\ProductType;
-use Decarte\Shop\Entity\Product\Product;
 use Decarte\Shop\Form\Product\ProductCollectionForm;
-use Decarte\Shop\Form\Product\ProductTypeForm;
 use Decarte\Shop\Form\Product\ProductForm;
+use Decarte\Shop\Form\Product\ProductTypeForm;
 use Decarte\Shop\Repository\Product\ProductCollectionRepository;
 use Decarte\Shop\Repository\Product\ProductRepository;
 use Decarte\Shop\Repository\Product\ProductTypeRepository;

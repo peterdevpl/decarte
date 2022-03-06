@@ -24,7 +24,7 @@ final class SamplesOrderMailer
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->adminMail = $adminMail;
-   }
+    }
 
     public function sendSamplesOrderEmailToShop(Order $order): void
     {
