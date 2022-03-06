@@ -28,7 +28,7 @@ class ProductType
      * @ORM\Column(type="string", name="slug_name")
      * @Gedmo\Slug(fields={"name"})
      */
-    protected $slugName = '';
+    private $slugName;
 
     /** @ORM\Column(type="string", name="title_seo") */
     protected $titleSEO = '';
@@ -43,7 +43,7 @@ class ProductType
      * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
-    protected $sort = 0;
+    private $sort;
 
     /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
     protected $deletedAt;

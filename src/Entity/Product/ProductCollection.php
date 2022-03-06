@@ -28,7 +28,7 @@ class ProductCollection
      * @ORM\Column(type="string", name="slug_name")
      * @Gedmo\Slug(fields={"name"})
      */
-    protected $slugName = '';
+    private $slugName;
 
     /** @ORM\Column(type="string", name="title_seo") */
     protected $titleSEO = '';
@@ -52,7 +52,7 @@ class ProductCollection
      * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
-    protected $sort = 0;
+    private $sort;
 
     /**
      * @Gedmo\SortableGroup
