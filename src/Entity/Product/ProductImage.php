@@ -31,19 +31,12 @@ class ProductImage
      */
     protected $imageName;
 
-    public function __construct(Product $product, int $sort, string $imageName)
-    {
-        $this->product = $product;
-        $this->sort = $sort;
-        $this->imageName = $imageName;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(?Product $product)
+    public function setProduct(?Product $product): self
     {
         $this->product = $product;
 
@@ -55,7 +48,7 @@ class ProductImage
         return $this->sort;
     }
 
-    public function setSort(int $sort)
+    public function setSort(int $sort): self
     {
         $this->sort = $sort;
 
@@ -67,7 +60,7 @@ class ProductImage
         return $this->imageName;
     }
 
-    public function setImageName($name)
+    public function setImageName($name): self
     {
         $this->imageName = $name;
 

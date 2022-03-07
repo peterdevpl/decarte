@@ -26,8 +26,11 @@ final class ProductFixtures extends Fixture implements DependentFixtureInterface
             ->setDescriptionSEO('You should check this out')
             ->setIsVisible(true)
             ->setHasDemo(true)
-            ->setProductCollection($mysticCollection)
-            ->addImage(new ProductImage($invitation, 0, 'placeholder.jpg'));
+            ->setProductCollection($mysticCollection);
+        $image = new ProductImage();
+        $image->setProduct($invitation);
+        $image->setImageName('placeholder.jpg');
+        $invitation->addImage($image);
         $manager->persist($invitation);
 
         /** @var ProductCollection $labels */
@@ -40,8 +43,11 @@ final class ProductFixtures extends Fixture implements DependentFixtureInterface
             ->setDescription('Very nice label for the Mystic Moments collection')
             ->setDescriptionSEO('You should check this out, too')
             ->setIsVisible(true)
-            ->setProductCollection($labels)
-            ->addImage(new ProductImage($label, 0, 'placeholder.jpg'));
+            ->setProductCollection($labels);
+        $image = new ProductImage();
+        $image->setProduct($label);
+        $image->setImageName('placeholder.jpg');
+        $label->addImage($image);
         $manager->persist($label);
 
         $manager->flush();
