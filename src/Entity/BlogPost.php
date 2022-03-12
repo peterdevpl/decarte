@@ -12,10 +12,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class BlogPost
 {
-    /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
+    /**
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     * @phpstan-ignore-next-line
+     */
     private $id;
 
-    /** @ORM\Column(type="string") */
+    /**
+     * @ORM\Column(type="string")
+     * @phpstan-ignore-next-line
+     */
     private $name;
 
     /** @ORM\Column(type="string") */
@@ -27,12 +34,14 @@ class BlogPost
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime_immutable", name="created_at")
+     * @phpstan-ignore-next-line
      */
     private $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime_immutable", name="updated_at", nullable=true)
+     * @phpstan-ignore-next-line
      */
     private $updatedAt;
 

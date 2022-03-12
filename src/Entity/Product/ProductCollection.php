@@ -53,10 +53,14 @@ class ProductCollection
     /**
      * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      * @Gedmo\Timestampable(on="update")
+     * @phpstan-ignore-next-line
      */
     private $updatedAt;
 
-    /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
+    /**
+     * @ORM\Column(type="datetime", name="deleted_at", nullable=true)
+     * @phpstan-ignore-next-line
+     */
     private $deletedAt;
 
     /**

@@ -18,6 +18,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
+     * @phpstan-ignore-next-line
      */
     private $id;
 
@@ -40,6 +41,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean", name="is_active")
      */
     private $isActive = true;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function getUsername(): string
     {
@@ -89,5 +95,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         /* empty */
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
     }
 }
