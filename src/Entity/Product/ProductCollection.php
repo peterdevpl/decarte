@@ -8,21 +8,23 @@ use Decarte\Shop\Entity\VisibilityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="\Decarte\Shop\Repository\Product\ProductCollectionRepository")
  * @ORM\Table(name="decarte_product_collections")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Vich\Uploadable
  */
 class ProductCollection
 {
     use VisibilityTrait;
 
     /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue */
-    protected $id = 0;
+    private $id = 0;
 
     /** @ORM\Column(type="string") */
-    protected $name = '';
+    private $name = '';
 
     /**
      * @ORM\Column(type="string", name="slug_name")
@@ -31,22 +33,31 @@ class ProductCollection
     private $slugName;
 
     /** @ORM\Column(type="string", name="title_seo") */
-    protected $titleSEO = '';
+    private $titleSEO = '';
 
     /** @ORM\Column(type="integer", name="minimum_quantity") */
-    protected $minimumQuantity = 1;
+    private $minimumQuantity = 1;
 
     /** @ORM\Column(type="text", name="short_description") */
-    protected $shortDescription = '';
+    private $shortDescription = '';
 
     /** @ORM\Column(type="text") */
-    protected $description = '';
+    private $description = '';
+
+    /** @Vich\UploadableField(mapping="product_collection", fileNameProperty="imageName") */
+    private $imageFile;
 
     /** @ORM\Column(type="string", name="image_name", nullable=true) */
-    protected $imageName = '';
+    private $imageName;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     /** @ORM\Column(type="datetime", name="deleted_at", nullable=true) */
-    protected $deletedAt;
+    private $deletedAt;
 
     /**
      * @Gedmo\SortablePosition
@@ -59,13 +70,13 @@ class ProductCollection
      * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="productCollections")
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id")
      */
-    protected $productType = null;
+    private $productType = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="productCollection", cascade={"remove"})
      * @ORM\OrderBy({"sort": "ASC"})
      */
-    protected $products = null;
+    private $products = null;
 
     public function __construct()
     {
@@ -164,6 +175,20 @@ class ProductCollection
         $this->shortDescription = (string) $description;
 
         return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile($imageFile): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getImageName()

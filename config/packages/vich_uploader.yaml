@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        product_collection:
+            uri_prefix: /zaproszenia/kolekcje
+            upload_destination: '%kernel.project_dir%/public_html/zaproszenia/kolekcje'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

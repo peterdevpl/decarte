@@ -31,17 +31,9 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener }
 
-    Decarte\Shop\Form\Product\Event\ProductCollectionFormListener:
-        arguments:
-            - '%image.collection.directory%'
-
     Decarte\Shop\Form\Product\Event\ProductFormListener:
         arguments:
             - '%image.product.directory%'
-
-    Decarte\Shop\Form\Product\ProductCollectionForm:
-        arguments:
-            $imageUrl: '%image.collection.url%'
 
     Decarte\Shop\Form\Product\ProductForm:
         arguments:
