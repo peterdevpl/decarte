@@ -11,6 +11,7 @@ use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Spatie\SchemaOrg\ItemAvailability;
+use Spatie\SchemaOrg\OfferItemCondition;
 use Spatie\SchemaOrg\Schema;
 
 final class ProductSchema
@@ -36,8 +37,8 @@ final class ProductSchema
             ->offers(Schema::offer()
                 ->priceCurrency($money->getCurrency()->getCode())
                 ->price($formatter->format($money))
-                ->itemCondition(Schema::offerItemCondition()->url('http://schema.org/NewCondition'))
-                ->availability(Schema::itemAvailability()->url($availability)));
+                ->itemCondition(OfferItemCondition::NewCondition)
+                ->availability($availability));
 
         return $schema->toScript();
     }

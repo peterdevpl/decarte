@@ -101,7 +101,7 @@ final class GoogleExport
             $product->getProductCollection()->getName(),
         ]));
         $exportedProduct->setPrice($this->getPrice($product));
-        $exportedProduct->setAvailability('preorder');
+        $exportedProduct->setAvailability('in_stock');
         $exportedProduct->setDescription(strip_tags($product->getDescriptionSEO()));
         $exportedProduct->setBrand('decARTe');
         $exportedProduct->setCondition('new');
