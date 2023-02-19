@@ -32,9 +32,14 @@
             {% if product.isVisible() %}
             <li>
                 {% if product.getCoverImage() %}
+                {% set desktopImage = asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') %}
+                {% set mobileImage = asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_full') %}
                 <a href="{{ path('shop_view_product', {'type': productType.getSlugName(), 'slugName': productCollection.getSlugName(), 'id': product.getId()}) }}">
                     <img
-                        src="{{ asset(image_product_url~'/'~product.getCoverImage().getImageName()) | imagine_filter('product_thumb') }}"
+                        src="{{ desktopImage }}"
+                        srcset="{{ mobileImage }} {{ image_product_big_width~'w' }}, {{ desktopImage }} {{ image_product_small_width~'w' }}"
+                        sizes="(max-width: 576px) {{ image_product_big_width}}px, {{ image_product_small_width }}px"
+                        loading="lazy"
                         width="{{ image_product_small_width }}"
                         height="{{ image_product_small_height }}"
                         alt="Model {{ product.getName() }}">

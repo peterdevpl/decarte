@@ -6,6 +6,8 @@ twig:
         image_collection_url: "%image.collection.url%"
         image_collection_width: "%image.collection.width%"
         image_collection_height: "%image.collection.height%"
+        image_collection_mobile_width: "%image.collection.mobile.width%"
+        image_collection_mobile_height: "%image.collection.mobile.height%"
 
         image_product_url: "%image.product.url%"
         image_product_big_width: "%image.product.big.width%"

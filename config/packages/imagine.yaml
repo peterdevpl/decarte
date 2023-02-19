@@ -1,9 +1,14 @@
 parameters:
     image.collection.url: "zaproszenia/kolekcje"
     image.collection.directory: "%kernel.project_dir%/public_html/%image.collection.url%"
+
     image.collection.width: 408
     image.collection.height: 306
-    image.collection.quality: 80
+    image.collection.quality: 90
+
+    image.collection.mobile.width: 990
+    image.collection.mobile.height: 742
+    image.collection.mobile.quality: 80
 
     image.product.url: "zaproszenia/produkty"
     image.product.directory: "%kernel.project_dir%/public_html/%image.product.url%"
@@ -14,7 +19,7 @@ parameters:
 
     image.product.small.width: 267
     image.product.small.height: 200
-    image.product.small.quality: 80
+    image.product.small.quality: 85
 
 liip_imagine:
     loaders:
@@ -37,6 +42,11 @@ liip_imagine:
             quality: "%image.collection.quality%"
             filters:
                 thumbnail: { size: ["%image.collection.width%", "%image.collection.height%"], mode: outbound }
+
+        product_collection_mobile:
+            quality: "%image.collection.mobile.quality%"
+            filters:
+                thumbnail: { size: ["%image.collection.mobile.width%", "%image.collection.mobile.height%"], mode: outbound }
 
         product_thumb:
             quality: "%image.product.small.quality%"
