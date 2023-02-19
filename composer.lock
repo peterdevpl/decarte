@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63b5f8afcc35c70afff50c29589272c0",
+    "content-hash": "a1d6d65939216d4d306b58a69d222030",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -4308,30 +4308,30 @@
         },
         {
             "name": "spatie/schema-org",
-            "version": "1.7.0",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/schema-org.git",
-                "reference": "eea1e13b9f91e3554047ef943d9e18cb086e7673"
+                "reference": "7f07f79475388ebc62c0aac7f29bc3de7427a906"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/schema-org/zipball/eea1e13b9f91e3554047ef943d9e18cb086e7673",
-                "reference": "eea1e13b9f91e3554047ef943d9e18cb086e7673",
+                "url": "https://api.github.com/repos/spatie/schema-org/zipball/7f07f79475388ebc62c0aac7f29bc3de7427a906",
+                "reference": "7f07f79475388ebc62c0aac7f29bc3de7427a906",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "graham-campbell/analyzer": "^1.1",
-                "larapack/dd": "^1.1",
-                "league/flysystem": "^1.0",
-                "phpunit/phpunit": "^6.0",
-                "symfony/console": "^3.2",
-                "symfony/css-selector": "^3.2",
-                "symfony/dom-crawler": "^3.2",
-                "twig/twig": "^1.28"
+                "friendsofphp/php-cs-fixer": "^3.6",
+                "graham-campbell/analyzer": "^3.0.5",
+                "illuminate/collections": "^8.62.0",
+                "league/flysystem": "^2.3.0 || ^3.0",
+                "phpunit/phpunit": "^9.4.3",
+                "symfony/console": "^5.3.7 || 6.0",
+                "twig/twig": "^3.3.3"
             },
             "type": "library",
             "autoload": {
@@ -4349,6 +4349,12 @@
                     "email": "sebastian@spatie.be",
                     "homepage": "https://spatie.be",
                     "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
                 }
             ],
             "description": "A fluent builder Schema.org types and ld+json generator",
@@ -4359,9 +4365,19 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/schema-org/issues",
-                "source": "https://github.com/spatie/schema-org/tree/master"
+                "source": "https://github.com/spatie/schema-org/tree/3.9.0"
             },
-            "time": "2018-06-08T09:55:00+00:00"
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-10T12:36:47+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",

@@ -24,7 +24,7 @@
         "openpayu/openpayu": "^2.2",
         "sensio/framework-extra-bundle": "^6.2",
         "sentry/sentry-symfony": "^4.2",
-        "spatie/schema-org": "^1.4",
+        "spatie/schema-org": "^3.9",
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "5.4.*",
         "symfony/dotenv": "5.4.*",
