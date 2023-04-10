@@ -7,7 +7,7 @@ You can use this repository as a starting point for your own PHP/Symfony applica
 
 ## Main features
 
-* PHP 7.3
+* PHP 8.1
 * Symfony 5.4
 * Docker
 * Doctrine Migrations and Extensions

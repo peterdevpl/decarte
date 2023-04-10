@@ -103,7 +103,7 @@ class OrderItem implements \JsonSerializable
         return $this->quantity * $this->unitPrice;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'productId' => $this->product->getId(),
