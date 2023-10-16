@@ -52,7 +52,7 @@ final class OrderMailer
         $message = (new Email())
             ->subject($order->getRealizationType()->getCustomerEmailPrefix() . 'Potwierdzenie przyjęcia zamówienia')
             ->to($order->getEmail())
-            ->from(new Address($this->adminMail, 'Sklep ślubny decARTe.com.pl'))
+            ->from(new Address($this->adminMail, 'Sklep ślubny decarte-zaproszenia.pl'))
             ->replyTo($this->adminMail)
             ->html(
                 $this->templating->render('order/mail/customer.html.twig', [

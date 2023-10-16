@@ -45,9 +45,9 @@ final class SamplesOrderMailer
     public function sendSamplesOrderEmailToCustomer(Order $order): void
     {
         $message = (new Email())
-            ->subject('Zamówienie decarte.com.pl - próbki')
+            ->subject('Zamówienie decarte-zaproszenia.pl - próbki')
             ->to($order->getEmail())
-            ->from(new Address($this->adminMail, 'Sklep ślubny decARTe.com.pl'))
+            ->from(new Address($this->adminMail, 'Sklep ślubny decarte-zaproszenia.pl'))
             ->replyTo($this->adminMail)
             ->html(
                 $this->templating->render('samples/mail/customer.html.twig', [
