@@ -71,3 +71,9 @@ services:
         arguments:
             $canonicalDomain: '%env(CANONICAL_DOMAIN)%'
             $imagesDirectory: '%image.product.url%'
+
+    Sentry\Integration\IgnoreErrorsIntegration:
+        arguments:
+            $options:
+                ignore_exceptions:
+                    - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
